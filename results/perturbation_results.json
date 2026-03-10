@@ -1,0 +1,1052 @@
+[
+  {
+    "channel_noise": 0.01,
+    "env_latent_dim": 1,
+    "embedding_dim": 1,
+    "final_success": 0.04482421875,
+    "channel_capacity": 26.57571039858096,
+    "mi": {
+      "I(S;X)": 0.6933652427239307,
+      "I(S;Y)": 0.6933652427239307,
+      "I(S;Z)": 0.3843795823716336,
+      "I(S;E)": 0.27430111128402057
+    },
+    "env_final_loss": 0.2831937074661255
+  },
+  {
+    "channel_noise": 0.01,
+    "env_latent_dim": 1,
+    "embedding_dim": 2,
+    "final_success": 0.0486328125,
+    "channel_capacity": 26.57571039858096,
+    "mi": {
+      "I(S;X)": 0.6932352343378092,
+      "I(S;Y)": 0.6932352343378092,
+      "I(S;Z)": 0.40147985474184456,
+      "I(S;E)": 0.4013262262974626
+    },
+    "env_final_loss": 0.28132614493370056
+  },
+  {
+    "channel_noise": 0.01,
+    "env_latent_dim": 1,
+    "embedding_dim": 4,
+    "final_success": 0.04619140625,
+    "channel_capacity": 26.57571039858096,
+    "mi": {
+      "I(S;X)": 0.6925149837160545,
+      "I(S;Y)": 0.6925149837160545,
+      "I(S;Z)": 0.61757453806496,
+      "I(S;E)": 0.6176311957895217
+    },
+    "env_final_loss": 0.17600411176681519
+  },
+  {
+    "channel_noise": 0.01,
+    "env_latent_dim": 1,
+    "embedding_dim": 8,
+    "final_success": 0.046875,
+    "channel_capacity": 26.57571039858096,
+    "mi": {
+      "I(S;X)": 0.6931767268870921,
+      "I(S;Y)": 0.6931767268870921,
+      "I(S;Z)": 0.6078461861940916,
+      "I(S;E)": 0.6075345273512447
+    },
+    "env_final_loss": 0.18180355429649353
+  },
+  {
+    "channel_noise": 0.01,
+    "env_latent_dim": 1,
+    "embedding_dim": 16,
+    "final_success": 0.04423828125,
+    "channel_capacity": 26.57571039858096,
+    "mi": {
+      "I(S;X)": 0.6933727428639314,
+      "I(S;Y)": 0.6933727428639314,
+      "I(S;Z)": 0.42877968534258937,
+      "I(S;E)": 0.428823973318873
+    },
+    "env_final_loss": 0.270352840423584
+  },
+  {
+    "channel_noise": 0.01,
+    "env_latent_dim": 2,
+    "embedding_dim": 1,
+    "final_success": 0.768359375,
+    "channel_capacity": 26.57571039858096,
+    "mi": {
+      "I(S;X)": 0.6923844012331886,
+      "I(S;Y)": 0.6923844012331886,
+      "I(S;Z)": 0.6423774067217911,
+      "I(S;E)": 0.6339724215892595
+    },
+    "env_final_loss": 0.12293370068073273
+  },
+  {
+    "channel_noise": 0.01,
+    "env_latent_dim": 2,
+    "embedding_dim": 2,
+    "final_success": 0.84892578125,
+    "channel_capacity": 26.57571039858096,
+    "mi": {
+      "I(S;X)": 0.6718170594620974,
+      "I(S;Y)": 0.6718170594620974,
+      "I(S;Z)": 0.6370161854027652,
+      "I(S;E)": 0.6314761653471841
+    },
+    "env_final_loss": 0.12195354700088501
+  },
+  {
+    "channel_noise": 0.01,
+    "env_latent_dim": 2,
+    "embedding_dim": 4,
+    "final_success": 0.85380859375,
+    "channel_capacity": 26.57571039858096,
+    "mi": {
+      "I(S;X)": 0.6924724581033033,
+      "I(S;Y)": 0.6924724581033033,
+      "I(S;Z)": 0.6710971159647947,
+      "I(S;E)": 0.667864882692899
+    },
+    "env_final_loss": 0.12199097126722336
+  },
+  {
+    "channel_noise": 0.01,
+    "env_latent_dim": 2,
+    "embedding_dim": 8,
+    "final_success": 0.76845703125,
+    "channel_capacity": 26.57571039858096,
+    "mi": {
+      "I(S;X)": 0.6530907293282189,
+      "I(S;Y)": 0.6530907293282189,
+      "I(S;Z)": 0.6258538843133756,
+      "I(S;E)": 0.624445539190047
+    },
+    "env_final_loss": 0.12204406410455704
+  },
+  {
+    "channel_noise": 0.01,
+    "env_latent_dim": 2,
+    "embedding_dim": 16,
+    "final_success": 0.88291015625,
+    "channel_capacity": 26.57571039858096,
+    "mi": {
+      "I(S;X)": 0.6925149837160545,
+      "I(S;Y)": 0.6925149837160545,
+      "I(S;Z)": 0.6537315656630129,
+      "I(S;E)": 0.6490629163108759
+    },
+    "env_final_loss": 0.12482719123363495
+  },
+  {
+    "channel_noise": 0.01,
+    "env_latent_dim": 4,
+    "embedding_dim": 1,
+    "final_success": 0.76611328125,
+    "channel_capacity": 26.57571039858096,
+    "mi": {
+      "I(S;X)": 0.6930051918879192,
+      "I(S;Y)": 0.6930051918879192,
+      "I(S;Z)": 0.6647377003987431,
+      "I(S;E)": 0.6881369198821474
+    },
+    "env_final_loss": 0.0895444005727768
+  },
+  {
+    "channel_noise": 0.01,
+    "env_latent_dim": 4,
+    "embedding_dim": 2,
+    "final_success": 0.85966796875,
+    "channel_capacity": 26.57571039858096,
+    "mi": {
+      "I(S;X)": 0.6928526442809639,
+      "I(S;Y)": 0.6928526442809639,
+      "I(S;Z)": 0.6623218274796114,
+      "I(S;E)": 0.6766055526195229
+    },
+    "env_final_loss": 0.09168727695941925
+  },
+  {
+    "channel_noise": 0.01,
+    "env_latent_dim": 4,
+    "embedding_dim": 4,
+    "final_success": 0.79951171875,
+    "channel_capacity": 26.57571039858096,
+    "mi": {
+      "I(S;X)": 0.6932527361231378,
+      "I(S;Y)": 0.6932527361231378,
+      "I(S;Z)": 0.6626767272711289,
+      "I(S;E)": 0.6801365185662824
+    },
+    "env_final_loss": 0.08941564708948135
+  },
+  {
+    "channel_noise": 0.01,
+    "env_latent_dim": 4,
+    "embedding_dim": 8,
+    "final_success": 0.87470703125,
+    "channel_capacity": 26.57571039858096,
+    "mi": {
+      "I(S;X)": 0.6774705108801191,
+      "I(S;Y)": 0.6774705108801191,
+      "I(S;Z)": 0.6395616439853118,
+      "I(S;E)": 0.6643691297089873
+    },
+    "env_final_loss": 0.09004287421703339
+  },
+  {
+    "channel_noise": 0.01,
+    "env_latent_dim": 4,
+    "embedding_dim": 16,
+    "final_success": 0.86806640625,
+    "channel_capacity": 26.57571039858096,
+    "mi": {
+      "I(S;X)": 0.6674067869602647,
+      "I(S;Y)": 0.6674067869602647,
+      "I(S;Z)": 0.6347524599589986,
+      "I(S;E)": 0.6555632375319593
+    },
+    "env_final_loss": 0.09038219600915909
+  },
+  {
+    "channel_noise": 0.1,
+    "env_latent_dim": 1,
+    "embedding_dim": 1,
+    "final_success": 0.05107421875,
+    "channel_capacity": 13.31642293693537,
+    "mi": {
+      "I(S;X)": 0.6933652427239307,
+      "I(S;Y)": 0.6933652427239307,
+      "I(S;Z)": 0.6184593283306867,
+      "I(S;E)": 0.6181143621520482
+    },
+    "env_final_loss": 0.19826123118400574
+  },
+  {
+    "channel_noise": 0.1,
+    "env_latent_dim": 1,
+    "embedding_dim": 2,
+    "final_success": 0.0515625,
+    "channel_capacity": 13.31642293693537,
+    "mi": {
+      "I(S;X)": 0.6932352343378092,
+      "I(S;Y)": 0.6932352343378092,
+      "I(S;Z)": 0.40410559292288095,
+      "I(S;E)": 0.4037989944066789
+    },
+    "env_final_loss": 0.28083324432373047
+  },
+  {
+    "channel_noise": 0.1,
+    "env_latent_dim": 1,
+    "embedding_dim": 4,
+    "final_success": 0.048046875,
+    "channel_capacity": 13.31642293693537,
+    "mi": {
+      "I(S;X)": 0.6925149837160545,
+      "I(S;Y)": 0.6925149837160545,
+      "I(S;Z)": 0.6223328488996929,
+      "I(S;E)": 0.6221686130573838
+    },
+    "env_final_loss": 0.1871248483657837
+  },
+  {
+    "channel_noise": 0.1,
+    "env_latent_dim": 1,
+    "embedding_dim": 8,
+    "final_success": 0.04541015625,
+    "channel_capacity": 13.31642293693537,
+    "mi": {
+      "I(S;X)": 0.6931767268870921,
+      "I(S;Y)": 0.6931767268870921,
+      "I(S;Z)": 0.6067201976035115,
+      "I(S;E)": 0.6065098976982215
+    },
+    "env_final_loss": 0.19123172760009766
+  },
+  {
+    "channel_noise": 0.1,
+    "env_latent_dim": 1,
+    "embedding_dim": 16,
+    "final_success": 0.04287109375,
+    "channel_capacity": 13.31642293693537,
+    "mi": {
+      "I(S;X)": 0.6933727428639314,
+      "I(S;Y)": 0.6933727428639314,
+      "I(S;Z)": 0.39270615409145737,
+      "I(S;E)": 0.3929860374481917
+    },
+    "env_final_loss": 0.2752689719200134
+  },
+  {
+    "channel_noise": 0.1,
+    "env_latent_dim": 2,
+    "embedding_dim": 1,
+    "final_success": 0.76884765625,
+    "channel_capacity": 13.31642293693537,
+    "mi": {
+      "I(S;X)": 0.6923844012331886,
+      "I(S;Y)": 0.6923844012331886,
+      "I(S;Z)": 0.6404354766885234,
+      "I(S;E)": 0.6433215611799925
+    },
+    "env_final_loss": 0.13090863823890686
+  },
+  {
+    "channel_noise": 0.1,
+    "env_latent_dim": 2,
+    "embedding_dim": 2,
+    "final_success": 0.84560546875,
+    "channel_capacity": 13.31642293693537,
+    "mi": {
+      "I(S;X)": 0.6798883044103627,
+      "I(S;Y)": 0.6798883044103627,
+      "I(S;Z)": 0.6457682459353915,
+      "I(S;E)": 0.6427781334443239
+    },
+    "env_final_loss": 0.1286996603012085
+  },
+  {
+    "channel_noise": 0.1,
+    "env_latent_dim": 2,
+    "embedding_dim": 4,
+    "final_success": 0.861328125,
+    "channel_capacity": 13.31642293693537,
+    "mi": {
+      "I(S;X)": 0.6676372840361351,
+      "I(S;Y)": 0.6676372840361351,
+      "I(S;Z)": 0.6509465069397216,
+      "I(S;E)": 0.6445061568356003
+    },
+    "env_final_loss": 0.12855304777622223
+  },
+  {
+    "channel_noise": 0.1,
+    "env_latent_dim": 2,
+    "embedding_dim": 8,
+    "final_success": 0.77626953125,
+    "channel_capacity": 13.31642293693537,
+    "mi": {
+      "I(S;X)": 0.6671752355558986,
+      "I(S;Y)": 0.6671752355558986,
+      "I(S;Z)": 0.6293391748755992,
+      "I(S;E)": 0.6247009787772742
+    },
+    "env_final_loss": 0.12975266575813293
+  },
+  {
+    "channel_noise": 0.1,
+    "env_latent_dim": 2,
+    "embedding_dim": 16,
+    "final_success": 0.88076171875,
+    "channel_capacity": 13.31642293693537,
+    "mi": {
+      "I(S;X)": 0.6920961789231397,
+      "I(S;Y)": 0.6920961789231397,
+      "I(S;Z)": 0.6448028638908898,
+      "I(S;E)": 0.648118884742459
+    },
+    "env_final_loss": 0.1364474594593048
+  },
+  {
+    "channel_noise": 0.1,
+    "env_latent_dim": 4,
+    "embedding_dim": 1,
+    "final_success": 0.7763671875,
+    "channel_capacity": 13.31642293693537,
+    "mi": {
+      "I(S;X)": 0.6930051918879192,
+      "I(S;Y)": 0.6930051918879192,
+      "I(S;Z)": 0.6601505307832731,
+      "I(S;E)": 0.6848481691011941
+    },
+    "env_final_loss": 0.09631186723709106
+  },
+  {
+    "channel_noise": 0.1,
+    "env_latent_dim": 4,
+    "embedding_dim": 2,
+    "final_success": 0.86171875,
+    "channel_capacity": 13.31642293693537,
+    "mi": {
+      "I(S;X)": 0.6933367418498788,
+      "I(S;Y)": 0.6933367418498788,
+      "I(S;Z)": 0.6625666780228556,
+      "I(S;E)": 0.6765965489326415
+    },
+    "env_final_loss": 0.0991000086069107
+  },
+  {
+    "channel_noise": 0.1,
+    "env_latent_dim": 4,
+    "embedding_dim": 4,
+    "final_success": 0.79853515625,
+    "channel_capacity": 13.31642293693537,
+    "mi": {
+      "I(S;X)": 0.6932527361231378,
+      "I(S;Y)": 0.6932527361231378,
+      "I(S;Z)": 0.664164908203805,
+      "I(S;E)": 0.682326477995562
+    },
+    "env_final_loss": 0.10053267329931259
+  },
+  {
+    "channel_noise": 0.1,
+    "env_latent_dim": 4,
+    "embedding_dim": 8,
+    "final_success": 0.88193359375,
+    "channel_capacity": 13.31642293693537,
+    "mi": {
+      "I(S;X)": 0.6897803809937892,
+      "I(S;Y)": 0.6897803809937892,
+      "I(S;Z)": 0.6531611587968085,
+      "I(S;E)": 0.6754594035233268
+    },
+    "env_final_loss": 0.09920705854892731
+  },
+  {
+    "channel_noise": 0.1,
+    "env_latent_dim": 4,
+    "embedding_dim": 16,
+    "final_success": 0.86513671875,
+    "channel_capacity": 13.31642293693537,
+    "mi": {
+      "I(S;X)": 0.6680951172129745,
+      "I(S;Y)": 0.6680951172129745,
+      "I(S;Z)": 0.6319270348732884,
+      "I(S;E)": 0.6537420914970209
+    },
+    "env_final_loss": 0.09719745069742203
+  },
+  {
+    "channel_noise": 0.5,
+    "env_latent_dim": 1,
+    "embedding_dim": 1,
+    "final_success": 0.04541015625,
+    "channel_capacity": 4.6438561888514,
+    "mi": {
+      "I(S;X)": 0.6933652427239307,
+      "I(S;Y)": 0.6237045131020249,
+      "I(S;Z)": 0.4855911222833109,
+      "I(S;E)": 0.4831223284501389
+    },
+    "env_final_loss": 0.37973037362098694
+  },
+  {
+    "channel_noise": 0.5,
+    "env_latent_dim": 1,
+    "embedding_dim": 2,
+    "final_success": 0.05009765625,
+    "channel_capacity": 4.6438561888514,
+    "mi": {
+      "I(S;X)": 0.6932352343378092,
+      "I(S;Y)": 0.623878566559072,
+      "I(S;Z)": 0.46467194343640816,
+      "I(S;E)": 0.46478107173554495
+    },
+    "env_final_loss": 0.40867602825164795
+  },
+  {
+    "channel_noise": 0.5,
+    "env_latent_dim": 1,
+    "embedding_dim": 4,
+    "final_success": 0.049609375,
+    "channel_capacity": 4.6438561888514,
+    "mi": {
+      "I(S;X)": 0.6925149837160545,
+      "I(S;Y)": 0.6338938259146003,
+      "I(S;Z)": 0.32006445908615877,
+      "I(S;E)": 0.31874312558450146
+    },
+    "env_final_loss": 0.5235487222671509
+  },
+  {
+    "channel_noise": 0.5,
+    "env_latent_dim": 1,
+    "embedding_dim": 8,
+    "final_success": 0.04482421875,
+    "channel_capacity": 4.6438561888514,
+    "mi": {
+      "I(S;X)": 0.6931767268870921,
+      "I(S;Y)": 0.6258750578260175,
+      "I(S;Z)": 0.49826016431226616,
+      "I(S;E)": 0.4982064094475218
+    },
+    "env_final_loss": 0.40590372681617737
+  },
+  {
+    "channel_noise": 0.5,
+    "env_latent_dim": 1,
+    "embedding_dim": 16,
+    "final_success": 0.045703125,
+    "channel_capacity": 4.6438561888514,
+    "mi": {
+      "I(S;X)": 0.6933727428639314,
+      "I(S;Y)": 0.6290342391148798,
+      "I(S;Z)": 0.4905503385334642,
+      "I(S;E)": 0.4903528953943459
+    },
+    "env_final_loss": 0.3985300064086914
+  },
+  {
+    "channel_noise": 0.5,
+    "env_latent_dim": 2,
+    "embedding_dim": 1,
+    "final_success": 0.75712890625,
+    "channel_capacity": 4.6438561888514,
+    "mi": {
+      "I(S;X)": 0.6923844012331886,
+      "I(S;Y)": 0.6278935106915338,
+      "I(S;Z)": 0.5652958492133067,
+      "I(S;E)": 0.5551711403410167
+    },
+    "env_final_loss": 0.29033172130584717
+  },
+  {
+    "channel_noise": 0.5,
+    "env_latent_dim": 2,
+    "embedding_dim": 2,
+    "final_success": 0.82578125,
+    "channel_capacity": 4.6438561888514,
+    "mi": {
+      "I(S;X)": 0.6860587756157042,
+      "I(S;Y)": 0.6282632067764338,
+      "I(S;Z)": 0.5546560689523474,
+      "I(S;E)": 0.5493800905940898
+    },
+    "env_final_loss": 0.2901669442653656
+  },
+  {
+    "channel_noise": 0.5,
+    "env_latent_dim": 2,
+    "embedding_dim": 4,
+    "final_success": 0.8443359375,
+    "channel_capacity": 4.6438561888514,
+    "mi": {
+      "I(S;X)": 0.6602616089948361,
+      "I(S;Y)": 0.6028100286730043,
+      "I(S;Z)": 0.5376139117680676,
+      "I(S;E)": 0.5322716244263752
+    },
+    "env_final_loss": 0.2761441767215729
+  },
+  {
+    "channel_noise": 0.5,
+    "env_latent_dim": 2,
+    "embedding_dim": 8,
+    "final_success": 0.7482421875,
+    "channel_capacity": 4.6438561888514,
+    "mi": {
+      "I(S;X)": 0.6573166799639418,
+      "I(S;Y)": 0.5973528674442798,
+      "I(S;Z)": 0.5517444383522365,
+      "I(S;E)": 0.5457192472113972
+    },
+    "env_final_loss": 0.28353673219680786
+  },
+  {
+    "channel_noise": 0.5,
+    "env_latent_dim": 2,
+    "embedding_dim": 16,
+    "final_success": 0.86484375,
+    "channel_capacity": 4.6438561888514,
+    "mi": {
+      "I(S;X)": 0.684392181567107,
+      "I(S;Y)": 0.6294128902526506,
+      "I(S;Z)": 0.570757257446008,
+      "I(S;E)": 0.5664634819769407
+    },
+    "env_final_loss": 0.30002498626708984
+  },
+  {
+    "channel_noise": 0.5,
+    "env_latent_dim": 4,
+    "embedding_dim": 1,
+    "final_success": 0.75771484375,
+    "channel_capacity": 4.6438561888514,
+    "mi": {
+      "I(S;X)": 0.6930051918879192,
+      "I(S;Y)": 0.6220090606070174,
+      "I(S;Z)": 0.56630925570109,
+      "I(S;E)": 0.5818428146040562
+    },
+    "env_final_loss": 0.18032380938529968
+  },
+  {
+    "channel_noise": 0.5,
+    "env_latent_dim": 4,
+    "embedding_dim": 2,
+    "final_success": 0.8404296875,
+    "channel_capacity": 4.6438561888514,
+    "mi": {
+      "I(S;X)": 0.6854381059270516,
+      "I(S;Y)": 0.610808926513501,
+      "I(S;Z)": 0.5541524069593802,
+      "I(S;E)": 0.5707416170301371
+    },
+    "env_final_loss": 0.2079063355922699
+  },
+  {
+    "channel_noise": 0.5,
+    "env_latent_dim": 4,
+    "embedding_dim": 4,
+    "final_success": 0.7888671875,
+    "channel_capacity": 4.6438561888514,
+    "mi": {
+      "I(S;X)": 0.6932527361231378,
+      "I(S;Y)": 0.6257389453121673,
+      "I(S;Z)": 0.5773519505807663,
+      "I(S;E)": 0.5862370218880386
+    },
+    "env_final_loss": 0.19727884232997894
+  },
+  {
+    "channel_noise": 0.5,
+    "env_latent_dim": 4,
+    "embedding_dim": 8,
+    "final_success": 0.82734375,
+    "channel_capacity": 4.6438561888514,
+    "mi": {
+      "I(S;X)": 0.6640688894395073,
+      "I(S;Y)": 0.6076745853986623,
+      "I(S;Z)": 0.5488398294420742,
+      "I(S;E)": 0.5722704289630984
+    },
+    "env_final_loss": 0.18758372962474823
+  },
+  {
+    "channel_noise": 0.5,
+    "env_latent_dim": 4,
+    "embedding_dim": 16,
+    "final_success": 0.820703125,
+    "channel_capacity": 4.6438561888514,
+    "mi": {
+      "I(S;X)": 0.6754288646026261,
+      "I(S;Y)": 0.6050167382312255,
+      "I(S;Z)": 0.5544261922872487,
+      "I(S;E)": 0.5627346230975547
+    },
+    "env_final_loss": 0.19105854630470276
+  },
+  {
+    "channel_noise": 1.0,
+    "env_latent_dim": 1,
+    "embedding_dim": 1,
+    "final_success": 0.04619140625,
+    "channel_capacity": 1.9999999998557305,
+    "mi": {
+      "I(S;X)": 0.6933652427239307,
+      "I(S;Y)": 0.3194445610220127,
+      "I(S;Z)": 0.29269981905995746,
+      "I(S;E)": 0.2925470565644046
+    },
+    "env_final_loss": 0.9345375895500183
+  },
+  {
+    "channel_noise": 1.0,
+    "env_latent_dim": 1,
+    "embedding_dim": 2,
+    "final_success": 0.051171875,
+    "channel_capacity": 1.9999999998557305,
+    "mi": {
+      "I(S;X)": 0.6932352343378092,
+      "I(S;Y)": 0.29052962579287556,
+      "I(S;Z)": 0.272909849441322,
+      "I(S;E)": 0.2738043569932467
+    },
+    "env_final_loss": 0.9474946856498718
+  },
+  {
+    "channel_noise": 1.0,
+    "env_latent_dim": 1,
+    "embedding_dim": 4,
+    "final_success": 0.04755859375,
+    "channel_capacity": 1.9999999998557305,
+    "mi": {
+      "I(S;X)": 0.6925149837160545,
+      "I(S;Y)": 0.33001323408062344,
+      "I(S;Z)": 0.31110832386412124,
+      "I(S;E)": 0.31122586061261703
+    },
+    "env_final_loss": 0.9872453212738037
+  },
+  {
+    "channel_noise": 1.0,
+    "env_latent_dim": 1,
+    "embedding_dim": 8,
+    "final_success": 0.04541015625,
+    "channel_capacity": 1.9999999998557305,
+    "mi": {
+      "I(S;X)": 0.6931767268870921,
+      "I(S;Y)": 0.31262176859386326,
+      "I(S;Z)": 0.30952560761925074,
+      "I(S;E)": 0.30942832947535326
+    },
+    "env_final_loss": 1.0290429592132568
+  },
+  {
+    "channel_noise": 1.0,
+    "env_latent_dim": 1,
+    "embedding_dim": 16,
+    "final_success": 0.0451171875,
+    "channel_capacity": 1.9999999998557305,
+    "mi": {
+      "I(S;X)": 0.6933727428639314,
+      "I(S;Y)": 0.3280942616559104,
+      "I(S;Z)": 0.2832270757494504,
+      "I(S;E)": 0.2828823647430978
+    },
+    "env_final_loss": 1.0055866241455078
+  },
+  {
+    "channel_noise": 1.0,
+    "env_latent_dim": 2,
+    "embedding_dim": 1,
+    "final_success": 0.64091796875,
+    "channel_capacity": 1.9999999998557305,
+    "mi": {
+      "I(S;X)": 0.6923844012331886,
+      "I(S;Y)": 0.31371507927725073,
+      "I(S;Z)": 0.3343834674140522,
+      "I(S;E)": 0.3406631644969105
+    },
+    "env_final_loss": 0.6872566938400269
+  },
+  {
+    "channel_noise": 1.0,
+    "env_latent_dim": 2,
+    "embedding_dim": 2,
+    "final_success": 0.744140625,
+    "channel_capacity": 1.9999999998557305,
+    "mi": {
+      "I(S;X)": 0.6849232812933552,
+      "I(S;Y)": 0.3143161723217025,
+      "I(S;Z)": 0.3203558266845805,
+      "I(S;E)": 0.32233389939041235
+    },
+    "env_final_loss": 0.6893361806869507
+  },
+  {
+    "channel_noise": 1.0,
+    "env_latent_dim": 2,
+    "embedding_dim": 4,
+    "final_success": 0.77470703125,
+    "channel_capacity": 1.9999999998557305,
+    "mi": {
+      "I(S;X)": 0.6720265721158718,
+      "I(S;Y)": 0.2875545476187513,
+      "I(S;Z)": 0.32133138320322896,
+      "I(S;E)": 0.31790834856816286
+    },
+    "env_final_loss": 0.6465025544166565
+  },
+  {
+    "channel_noise": 1.0,
+    "env_latent_dim": 2,
+    "embedding_dim": 8,
+    "final_success": 0.6890625,
+    "channel_capacity": 1.9999999998557305,
+    "mi": {
+      "I(S;X)": 0.672442464921601,
+      "I(S;Y)": 0.31784921624719775,
+      "I(S;Z)": 0.3364856195071271,
+      "I(S;E)": 0.3357071741902091
+    },
+    "env_final_loss": 0.6418493986129761
+  },
+  {
+    "channel_noise": 1.0,
+    "env_latent_dim": 2,
+    "embedding_dim": 16,
+    "final_success": 0.7970703125,
+    "channel_capacity": 1.9999999998557305,
+    "mi": {
+      "I(S;X)": 0.6694433646504576,
+      "I(S;Y)": 0.27419573342121506,
+      "I(S;Z)": 0.33200487986249794,
+      "I(S;E)": 0.32458211694153416
+    },
+    "env_final_loss": 0.6836609244346619
+  },
+  {
+    "channel_noise": 1.0,
+    "env_latent_dim": 4,
+    "embedding_dim": 1,
+    "final_success": 0.69111328125,
+    "channel_capacity": 1.9999999998557305,
+    "mi": {
+      "I(S;X)": 0.6930051918879192,
+      "I(S;Y)": 0.2834969616591172,
+      "I(S;Z)": 0.29417748962395773,
+      "I(S;E)": 0.34349673279834914
+    },
+    "env_final_loss": 0.2349502444267273
+  },
+  {
+    "channel_noise": 1.0,
+    "env_latent_dim": 4,
+    "embedding_dim": 2,
+    "final_success": 0.78798828125,
+    "channel_capacity": 1.9999999998557305,
+    "mi": {
+      "I(S;X)": 0.6707538155823212,
+      "I(S;Y)": 0.28890260068540474,
+      "I(S;Z)": 0.30399132072807955,
+      "I(S;E)": 0.3299524614167746
+    },
+    "env_final_loss": 0.23173931241035461
+  },
+  {
+    "channel_noise": 1.0,
+    "env_latent_dim": 4,
+    "embedding_dim": 4,
+    "final_success": 0.71318359375,
+    "channel_capacity": 1.9999999998557305,
+    "mi": {
+      "I(S;X)": 0.6932527361231378,
+      "I(S;Y)": 0.2993249305485497,
+      "I(S;Z)": 0.3219951904330367,
+      "I(S;E)": 0.3422103452778602
+    },
+    "env_final_loss": 0.2341945767402649
+  },
+  {
+    "channel_noise": 1.0,
+    "env_latent_dim": 4,
+    "embedding_dim": 8,
+    "final_success": 0.80732421875,
+    "channel_capacity": 1.9999999998557305,
+    "mi": {
+      "I(S;X)": 0.6698843761271123,
+      "I(S;Y)": 0.31109522821985625,
+      "I(S;Z)": 0.3275677348435009,
+      "I(S;E)": 0.3411417961369194
+    },
+    "env_final_loss": 0.23015432059764862
+  },
+  {
+    "channel_noise": 1.0,
+    "env_latent_dim": 4,
+    "embedding_dim": 16,
+    "final_success": 0.771875,
+    "channel_capacity": 1.9999999998557305,
+    "mi": {
+      "I(S;X)": 0.6774705108801191,
+      "I(S;Y)": 0.274790985526022,
+      "I(S;Z)": 0.29798767836033146,
+      "I(S;E)": 0.3206301249702941
+    },
+    "env_final_loss": 0.2339973747730255
+  },
+  {
+    "channel_noise": 2.0,
+    "env_latent_dim": 1,
+    "embedding_dim": 1,
+    "final_success": 0.04580078125,
+    "channel_capacity": 0.6438561897602975,
+    "mi": {
+      "I(S;X)": 0.6933652427239307,
+      "I(S;Y)": 0.0,
+      "I(S;Z)": 0.09465745041630935,
+      "I(S;E)": 0.08603431251702087
+    },
+    "env_final_loss": 2.935943365097046
+  },
+  {
+    "channel_noise": 2.0,
+    "env_latent_dim": 1,
+    "embedding_dim": 2,
+    "final_success": 0.04892578125,
+    "channel_capacity": 0.6438561897602975,
+    "mi": {
+      "I(S;X)": 0.6932352343378092,
+      "I(S;Y)": 0.0,
+      "I(S;Z)": 0.09407947937749217,
+      "I(S;E)": 0.09379906764779822
+    },
+    "env_final_loss": 3.0317676067352295
+  },
+  {
+    "channel_noise": 2.0,
+    "env_latent_dim": 1,
+    "embedding_dim": 4,
+    "final_success": 0.0478515625,
+    "channel_capacity": 0.6438561897602975,
+    "mi": {
+      "I(S;X)": 0.6925149837160545,
+      "I(S;Y)": 0.0,
+      "I(S;Z)": 0.09183494739662112,
+      "I(S;E)": 0.09023555132519245
+    },
+    "env_final_loss": 2.984884023666382
+  },
+  {
+    "channel_noise": 2.0,
+    "env_latent_dim": 1,
+    "embedding_dim": 8,
+    "final_success": 0.0455078125,
+    "channel_capacity": 0.6438561897602975,
+    "mi": {
+      "I(S;X)": 0.6931767268870921,
+      "I(S;Y)": 0.0,
+      "I(S;Z)": 0.09856485754396527,
+      "I(S;E)": 0.09850125972092005
+    },
+    "env_final_loss": 3.110990524291992
+  },
+  {
+    "channel_noise": 2.0,
+    "env_latent_dim": 1,
+    "embedding_dim": 16,
+    "final_success": 0.046875,
+    "channel_capacity": 0.6438561897602975,
+    "mi": {
+      "I(S;X)": 0.6933727428639314,
+      "I(S;Y)": 0.0,
+      "I(S;Z)": 0.09505131588958715,
+      "I(S;E)": 0.09531236597594361
+    },
+    "env_final_loss": 3.0801515579223633
+  },
+  {
+    "channel_noise": 2.0,
+    "env_latent_dim": 2,
+    "embedding_dim": 1,
+    "final_success": 0.54833984375,
+    "channel_capacity": 0.6438561897602975,
+    "mi": {
+      "I(S;X)": 0.6923844012331886,
+      "I(S;Y)": 0.0,
+      "I(S;Z)": 0.10117510641027838,
+      "I(S;E)": 0.11955115683722273
+    },
+    "env_final_loss": 2.144336700439453
+  },
+  {
+    "channel_noise": 2.0,
+    "env_latent_dim": 2,
+    "embedding_dim": 2,
+    "final_success": 0.57333984375,
+    "channel_capacity": 0.6438561897602975,
+    "mi": {
+      "I(S;X)": 0.6933367418498806,
+      "I(S;Y)": 0.0,
+      "I(S;Z)": 0.1324236964862182,
+      "I(S;E)": 0.1317941486935128
+    },
+    "env_final_loss": 2.156606674194336
+  },
+  {
+    "channel_noise": 2.0,
+    "env_latent_dim": 2,
+    "embedding_dim": 4,
+    "final_success": 0.60517578125,
+    "channel_capacity": 0.6438561897602975,
+    "mi": {
+      "I(S;X)": 0.6931552235751779,
+      "I(S;Y)": 0.0,
+      "I(S;Z)": 0.12830473542797893,
+      "I(S;E)": 0.12213203877034307
+    },
+    "env_final_loss": 1.904210090637207
+  },
+  {
+    "channel_noise": 2.0,
+    "env_latent_dim": 2,
+    "embedding_dim": 8,
+    "final_success": 0.558984375,
+    "channel_capacity": 0.6438561897602975,
+    "mi": {
+      "I(S;X)": 0.6926750693186694,
+      "I(S;Y)": 0.0,
+      "I(S;Z)": 0.10345230470362932,
+      "I(S;E)": 0.10300464273323318
+    },
+    "env_final_loss": 1.8847001791000366
+  },
+  {
+    "channel_noise": 2.0,
+    "env_latent_dim": 2,
+    "embedding_dim": 16,
+    "final_success": 0.6296875,
+    "channel_capacity": 0.6438561897602975,
+    "mi": {
+      "I(S;X)": 0.6928526442809639,
+      "I(S;Y)": 0.0,
+      "I(S;Z)": 0.1067260479708958,
+      "I(S;E)": 0.10986585524504822
+    },
+    "env_final_loss": 1.9890484809875488
+  },
+  {
+    "channel_noise": 2.0,
+    "env_latent_dim": 4,
+    "embedding_dim": 1,
+    "final_success": 0.5822265625,
+    "channel_capacity": 0.6438561897602975,
+    "mi": {
+      "I(S;X)": 0.6930051918879192,
+      "I(S;Y)": 0.0,
+      "I(S;Z)": 0.006999912078909709,
+      "I(S;E)": 0.11650089641935768
+    },
+    "env_final_loss": 0.33901315927505493
+  },
+  {
+    "channel_noise": 2.0,
+    "env_latent_dim": 4,
+    "embedding_dim": 2,
+    "final_success": 0.65791015625,
+    "channel_capacity": 0.6438561897602975,
+    "mi": {
+      "I(S;X)": 0.6738652449806635,
+      "I(S;Y)": 0.0,
+      "I(S;Z)": 0.020509840434889348,
+      "I(S;E)": 0.13266749429079372
+    },
+    "env_final_loss": 0.3416317105293274
+  },
+  {
+    "channel_noise": 2.0,
+    "env_latent_dim": 4,
+    "embedding_dim": 4,
+    "final_success": 0.61337890625,
+    "channel_capacity": 0.6438561897602975,
+    "mi": {
+      "I(S;X)": 0.6932352343378101,
+      "I(S;Y)": 0.0,
+      "I(S;Z)": 0.01745830410045368,
+      "I(S;E)": 0.134046500617635
+    },
+    "env_final_loss": 0.3318188488483429
+  },
+  {
+    "channel_noise": 2.0,
+    "env_latent_dim": 4,
+    "embedding_dim": 8,
+    "final_success": 0.651953125,
+    "channel_capacity": 0.6438561897602975,
+    "mi": {
+      "I(S;X)": 0.6928526442809639,
+      "I(S;Y)": 0.0,
+      "I(S;Z)": 0.011531121101611141,
+      "I(S;E)": 0.13603994427864574
+    },
+    "env_final_loss": 0.3345598578453064
+  },
+  {
+    "channel_noise": 2.0,
+    "env_latent_dim": 4,
+    "embedding_dim": 16,
+    "final_success": 0.648828125,
+    "channel_capacity": 0.6438561897602975,
+    "mi": {
+      "I(S;X)": 0.6855642710991994,
+      "I(S;Y)": 0.0,
+      "I(S;Z)": 0.02576517207925111,
+      "I(S;E)": 0.12396948652833384
+    },
+    "env_final_loss": 0.33258309960365295
+  }
+]

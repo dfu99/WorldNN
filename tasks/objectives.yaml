@@ -1,31 +1,62 @@
 # Objectives Log — Structured scientific progress tracking
-# Each completed task should be logged here as an objective.
-# The morning report reads this file to generate PI briefing slides.
-#
-# Rules:
-#   - statement: ≤20 words, clear and direct
-#   - Every objective MUST have at least one figure before completion
-#   - metrics: extract all numbers (accuracy, loss, counts, timings)
-#   - conclusions: 1-2 sentences explaining what the result means
 
-objectives: []
+objectives:
+  - id: obj-001
+    status: completed
+    statement: "Scaffold WorldNN framework and demonstrate 1-bit state flip via paramecium chemotaxis"
+    methodology: >
+      Built complete perception-action loop: Matter (binary Mealy machine) →
+      Channel (noisy linear) → Environment (VAE) → Organism (sensory filter +
+      embedding bottleneck + policy MLP). Two-phase training: VAE pre-training
+      (500 steps), then REINFORCE with Gaussian policy (500 episodes, batch 512).
+      Paramecium chemotaxis scenario with chemical diffusion noise σ=0.3.
+    metrics:
+      vae_final_loss: 0.17
+      final_success_rate: 0.856
+      random_baseline: 0.50
+      training_episodes: 500
+      unit_tests: 14
+      test_status: all_passing
+    figures:
+      - results/demo_training.png
+      - results/demo_episode.png
+      - results/architecture.png
+    conclusions: >
+      The organism learns to perceive matter state through the lossy chain and
+      reliably flip it to the target state (85.6% vs 50% baseline). The framework
+      is operational and ready for systematic perturbation analysis.
+    connects_to: obj-002
+    completed_date: "2026-03-10"
 
-# Example entry (uncomment and fill):
-#  - id: obj-001
-#    status: completed        # completed | in-progress | planned
-#    statement: "Measure structural backprop accuracy vs frozen baseline at width 64"
-#    methodology: >
-#      Trained CorticalNN with structural gradient routing vs frozen bio layers
-#      on MNIST for 10 epochs at width=64, depth=3.
-#    metrics:
-#      structural_accuracy: 93.6
-#      frozen_accuracy: 93.0
-#      improvement: 0.6
-#    figures:
-#      - results/structural_vs_frozen_w64.png
-#    conclusions: >
-#      Structural weights provide a modest +0.6% improvement at width 64.
-#      The gap widens with network width, suggesting structural routing
-#      matters more in larger networks.
-#    connects_to: obj-002
-#    completed_date: "2026-03-09"
+  - id: obj-002
+    status: completed
+    statement: "Perturbation study: min organism capacity vs information loss across 75 configurations"
+    methodology: >
+      Swept channel_noise=[0.01,0.1,0.5,1.0,2.0] × env_latent_dim=[1,2,4] ×
+      embedding_dim=[1,2,4,8,16] = 75 configs. Each: 500 VAE pre-train steps +
+      400 REINFORCE episodes (batch 512). Measured success rate, MI at each chain
+      stage (KSG estimator), training convergence.
+    metrics:
+      total_configs: 75
+      env_lat1_max_success: 0.052
+      env_lat2_low_noise_best: 0.883
+      env_lat4_low_noise_best: 0.882
+      noise_2_env_lat2_best: 0.630
+      noise_2_env_lat4_best: 0.658
+      min_embed_for_60pct_at_noise2_lat2: 4
+      min_embed_for_60pct_at_noise2_lat4: 2
+    figures:
+      - results/success_heatmap.png
+      - results/mi_chain.png
+      - results/min_capacity_vs_noise.png
+      - results/training_curves.png
+    conclusions: >
+      Three key findings: (1) Environment compression is the dominant bottleneck —
+      env_latent_dim=1 kills all learning (~5% success) regardless of organism
+      capacity. (2) Channel noise degrades gracefully: success drops from ~88% at
+      σ=0.01 to ~63% at σ=2.0 for env_lat≥2. (3) Organism embedding dim has a
+      nonlinear threshold: at high noise (σ=2), env_lat=2 requires embed≥4 for
+      >60% success, while env_lat=4 only needs embed≥2 — more environmental
+      bandwidth compensates for less brain capacity.
+    connects_to: obj-003
+    completed_date: "2026-03-10"
