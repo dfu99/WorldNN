@@ -8,11 +8,11 @@ and refining the experiment.
 
 ### Active
 
-1. **Fix RL learning from 1D latent** — obj-003 showed env_lat=1 has
-   97% separable latent space but 5% task success. The organism's
-   REINFORCE policy can't learn from 1D input. Try: (a) supervised
-   pre-training of sensory layers, (b) PPO instead of REINFORCE,
-   (c) larger organism hidden dim, (d) action-value baseline.
+1. **Re-run perturbation study with PPO** — obj-004 showed PPO fixes
+   the 1D learning failure (4.6% → 87.3%). The original 75-config sweep
+   used REINFORCE, so env_lat=1 results reflect optimizer limits, not
+   information bounds. Need to re-sweep with PPO to get true capacity
+   curves. (Requires GPU for full 75-config sweep.)
 
 ### Next Steps
 
@@ -34,8 +34,8 @@ and refining the experiment.
 
 ## Open Questions
 
-- Why can't REINFORCE learn from well-separated 1D latent? Is it
-  gradient variance, policy parameterization, or optimization landscape?
+- ANSWERED: REINFORCE fails on 1D due to gradient variance. PPO fixes it.
+  Open: does the fix hold across all noise levels and embedding dims?
 - How does the number of perception-action cycles affect success?
   (Currently fixed at 10 steps per episode.)
 - Should the organism also do unsupervised world-model learning
@@ -54,3 +54,4 @@ and refining the experiment.
 - [2026-03-10] Perturbation study launched (75 configurations)
 - [2026-03-10] README with overview, architecture, results, future directions
 - [2026-03-10] Latent failure analysis: H3 confirmed — env_lat=1 is RL bottleneck, not info bottleneck
+- [2026-03-10] PPO fix: 4.6% → 87.3% success on env_lat=1 (19x improvement)

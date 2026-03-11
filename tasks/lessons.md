@@ -14,6 +14,12 @@
   has no policy gradient interpretation. Fix: sample from Normal(mean, std),
   compute log_prob, use standard REINFORCE: `-log_prob * advantage`.
 
+- **REINFORCE fails with low-dimensional inputs; use PPO.** With env_lat=1
+  (scalar z input), REINFORCE cannot learn (~5% success) despite the
+  latent being 97% separable. PPO's clipped objective solves it (87%).
+  The gradient variance of vanilla REINFORCE is too high when the input
+  manifold is 1D. Always use PPO for low-dimensional perception spaces.
+
 - **Reward shaping matters.** Pure binary reward (±1 for target state)
   was too sparse. Adding a small bonus for flip probability when in
   wrong state (`0.1 * flip_prob * (1 - state)`) significantly helped

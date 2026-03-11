@@ -92,3 +92,32 @@ objectives:
       the learnability of the representation, not just its information content.
     connects_to: obj-004
     completed_date: "2026-03-10"
+
+  - id: obj-004
+    status: completed
+    statement: "Fix env_lat=1 RL failure by replacing REINFORCE with PPO"
+    methodology: >
+      Tested 6 fixes for the 1D latent RL failure: (A) supervised sensory
+      pre-training, (B) PPO, (C) remove sensory gate, (D) combined pretrain+
+      PPO+no-gate, (E) pretrain+PPO, vs baseline REINFORCE. All with env_lat=1,
+      noise=0.1, embed=4, 500 episodes, batch 512 on CPU.
+    metrics:
+      baseline_reinforce: 0.046
+      fix_a_pretrain: 0.044
+      fix_b_ppo: 0.873
+      fix_c_no_gate: 0.043
+      fix_d_combined: 0.719
+      fix_e_pretrain_ppo: 0.866
+      improvement_factor: 19x
+    figures:
+      - results/fix_1d_rl.png
+    conclusions: >
+      PPO alone fully solves the 1D latent learning problem (4.6% → 87.3%),
+      matching env_lat=2 REINFORCE performance. The root cause was REINFORCE's
+      high gradient variance with 1D input, not information loss. Sensory
+      pre-training and gate removal have no effect — the bottleneck was purely
+      the RL optimizer. This means the original "min capacity" findings from
+      obj-002 partially reflect optimizer limitations, not fundamental
+      information-theoretic bounds.
+    connects_to: obj-005
+    completed_date: "2026-03-10"
