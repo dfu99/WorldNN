@@ -8,18 +8,15 @@ and refining the experiment.
 
 ### Active
 
-1. **Analyze perturbation study results** — 75 configs sweeping
-   (noise, env_latent, embedding). Early results show env_latent_dim=1
-   is a hard bottleneck (~5% success). Need full heatmaps, MI chains,
-   and min-capacity curves.
-
-2. **Investigate env_lat=1 failure mode** — Is the VAE under-trained,
-   or is 1 latent dim fundamentally insufficient for binary state
-   discrimination through the channel?
+1. **Fix RL learning from 1D latent** — obj-003 showed env_lat=1 has
+   97% separable latent space but 5% task success. The organism's
+   REINFORCE policy can't learn from 1D input. Try: (a) supervised
+   pre-training of sensory layers, (b) PPO instead of REINFORCE,
+   (c) larger organism hidden dim, (d) action-value baseline.
 
 ### Next Steps
 
-3. **Add predictive processing** — Organism predicts next observation
+2. **Add predictive processing** — Organism predicts next observation
    and uses prediction error as additional learning signal.
 
 4. **Continuous state spaces** — Extend matter beyond binary to
@@ -37,12 +34,14 @@ and refining the experiment.
 
 ## Open Questions
 
-- Why does env_latent_dim=1 fail completely? Is it the VAE training
-  or fundamental information theory?
+- Why can't REINFORCE learn from well-separated 1D latent? Is it
+  gradient variance, policy parameterization, or optimization landscape?
 - How does the number of perception-action cycles affect success?
   (Currently fixed at 10 steps per episode.)
 - Should the organism also do unsupervised world-model learning
   alongside RL?
+- Does the learnability gap (separable but unlearnable) appear at
+  other dimensionalities, or is 1D uniquely problematic?
 
 ## Recently Completed
 
@@ -54,3 +53,4 @@ and refining the experiment.
 - [2026-03-10] 14 unit tests passing
 - [2026-03-10] Perturbation study launched (75 configurations)
 - [2026-03-10] README with overview, architecture, results, future directions
+- [2026-03-10] Latent failure analysis: H3 confirmed — env_lat=1 is RL bottleneck, not info bottleneck

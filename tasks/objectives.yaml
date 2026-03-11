@@ -60,3 +60,35 @@ objectives:
       bandwidth compensates for less brain capacity.
     connects_to: obj-003
     completed_date: "2026-03-10"
+
+  - id: obj-003
+    status: completed
+    statement: "Diagnose env_latent_dim=1 failure: information vs RL bottleneck"
+    methodology: >
+      Re-trained 5 key configs (env_lat=1,2,4 × noise=0.01,0.1) with embedding=4.
+      Collected VAE latent distributions conditioned on state. Computed threshold
+      accuracy, Cohen's d, distribution overlap, and KDE-based overlap coefficient.
+      Compared separability metrics against task success to distinguish H1 (MI
+      overestimated), H2 (info present but inseparable), H3 (info present, RL fails).
+    metrics:
+      env_lat1_threshold_accuracy: 0.973
+      env_lat2_threshold_accuracy: 0.989
+      env_lat1_cohens_d: 3.825
+      env_lat2_cohens_d: 4.026
+      env_lat1_overlap: 0.058
+      env_lat2_overlap: 0.026
+      env_lat1_success: 0.048
+      env_lat2_success: 0.861
+      hypothesis_supported: "H3 — RL training bottleneck"
+    figures:
+      - results/latent_failure_analysis.png
+      - results/latent_scatter_2d.png
+      - results/mi_chain_annotated.png
+    conclusions: >
+      H3 confirmed: env_lat=1 preserves state information (97.3% separable, d=3.83)
+      but REINFORCE cannot learn from 1D latent input. The failure is in RL
+      optimization, not information compression. This reframes the central finding:
+      organism capacity requirements depend on both information availability AND
+      the learnability of the representation, not just its information content.
+    connects_to: obj-004
+    completed_date: "2026-03-10"

@@ -21,11 +21,16 @@
 
 ## Architecture
 
-- **Environment VAE latent_dim=1 is a hard bottleneck.** With only 1
-  latent dimension compressing 4 channel dims, the VAE cannot preserve
-  enough state-discriminative information. The organism fails (~5%)
-  regardless of its embedding capacity. latent_dim≥2 is necessary for
-  the binary state task.
+- **Environment VAE latent_dim=1 is NOT an information bottleneck — it's
+  an RL learning bottleneck.** Deep analysis (obj-003) showed env_lat=1
+  latent space is well-separated: 97.3% threshold accuracy, Cohen's d=3.83,
+  overlap=0.06. The VAE *does* encode state into 1D. But the organism's
+  REINFORCE policy fails to learn from a 1D input (~5% success). With
+  env_lat≥2, the same policy architecture succeeds (~86%). The bottleneck
+  is the RL optimization landscape, not information loss. Possible causes:
+  gradient signal too noisy in 1D, policy network needs multi-dimensional
+  input for stable learning, or the Gaussian policy parameterization is
+  poorly suited to 1D latent inputs.
 
 - **Organism embedding dim has diminishing returns past ~4.** For the
   binary state task with sufficient environmental information (lat≥2),
