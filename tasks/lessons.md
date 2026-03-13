@@ -47,3 +47,7 @@
 
 - **Use `CUDA_VISIBLE_DEVICES=''` for CPU-only runs.** Avoids CUDA
   initialization overhead and errors when no GPU is available.
+
+- **PACE RTX 6000 nodes enforce max 6 CPUs per GPU.** Requesting
+  `--cpus-per-task=8` with 1 RTX 6000 fails with "Maximum CPU:GPU
+  ratio of 6:1". Use `--cpus-per-task=6` or fewer.

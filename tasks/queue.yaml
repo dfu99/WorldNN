@@ -1,0 +1,13 @@
+queue:
+- objective: 'DO NOT use the local GPU (RTX 3060) for training or inference. It crashes
+    the system. Instead, submit GPU jobs to the Georgia Tech PACE cluster. Use the
+    pace-slurm-ops skill or run: mc sync <project> && mc submit <script.sbatch>. VPN
+    is available via globalprotect CLI. Only use local GPU for tiny tests (<100MB
+    VRAM). For anything larger, write a SLURM script and submit to PACE.'
+  priority: 3
+  status: in_progress
+  added: 2026-03-13 14:19
+  source: manual
+  context: 'Local GPU causes system crashes. PACE account: gts-yke8, user: dfu71.
+    VPN: globalprotect connect --portal vpn.gatech.edu. See PACE.md for SLURM rules.'
+  started: 2026-03-13 14:50

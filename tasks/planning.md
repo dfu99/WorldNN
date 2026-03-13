@@ -8,11 +8,10 @@ and refining the experiment.
 
 ### Active
 
-1. **Re-run perturbation study with PPO** — obj-004 showed PPO fixes
-   the 1D learning failure (4.6% → 87.3%). The original 75-config sweep
-   used REINFORCE, so env_lat=1 results reflect optimizer limits, not
-   information bounds. Need to re-sweep with PPO to get true capacity
-   curves. (Requires GPU for full 75-config sweep.)
+1. **PPO perturbation sweep (75 configs) — SUBMITTED to PACE**
+   Job ID 4925875 on RTX 6000, 2h time limit. Submitted 2026-03-13.
+   Script: `experiments/perturbation_study_ppo.py`, SBATCH: `experiments/run_ppo_sweep.sbatch`.
+   **Next**: fetch results when job completes, analyze, and log as obj-005.
 
 ### Next Steps
 
@@ -55,3 +54,4 @@ and refining the experiment.
 - [2026-03-10] README with overview, architecture, results, future directions
 - [2026-03-10] Latent failure analysis: H3 confirmed — env_lat=1 is RL bottleneck, not info bottleneck
 - [2026-03-10] PPO fix: 4.6% → 87.3% success on env_lat=1 (19x improvement)
+- [2026-03-10] PPO trainer refactored into train.py; PPO sweep script ready
