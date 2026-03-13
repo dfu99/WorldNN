@@ -126,7 +126,8 @@ def run_perturbation_study_ppo(results_dir: str = "results"):
         itertools.product(channel_noises, env_latent_dims, embedding_dims)
     )
 
-    print(f"Running {len(configs)} configurations with PPO...")
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print(f"Running {len(configs)} configurations with PPO on {device}...")
     all_results = []
 
     for i, (noise, lat, emb) in enumerate(configs):
@@ -135,7 +136,7 @@ def run_perturbation_study_ppo(results_dir: str = "results"):
             end="",
             flush=True,
         )
-        result = run_single_config(noise, lat, emb, seed=42)
+        result = run_single_config(noise, lat, emb, seed=42, device=device)
         all_results.append(result)
         print(f"  -> success={result['final_success']:.3f}")
 
@@ -338,5 +339,14 @@ def plot_comparison(ppo_results: list[dict], results_dir: str):
 
 
 if __name__ == "__main__":
-    os.environ["CUDA_VISIBLE_DEVICES"] = ""
-    run_perturbation_study_ppo("results")
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--cpu", action="store_true", help="Force CPU even if GPU available")
+    parser.add_argument("--results-dir", default="results", help="Output directory")
+    args = parser.parse_args()
+
+    if args.cpu:
+        os.environ["CUDA_VISIBLE_DEVICES"] = ""
+
+    run_perturbation_study_ppo(args.results_dir)
