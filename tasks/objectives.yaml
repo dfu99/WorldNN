@@ -121,3 +121,40 @@ objectives:
       information-theoretic bounds.
     connects_to: obj-005
     completed_date: "2026-03-10"
+
+  - id: obj-005
+    status: completed
+    statement: "PPO perturbation sweep: confirm PPO fixes env_lat=1 across all noise/embedding configs"
+    methodology: >
+      Ran 70/75 PPO sweep configs on PACE RTX 6000 (5 configs at noise=2.0,
+      env_lat=4 timed out). Same grid as obj-002: channel_noise=[0.01,0.1,0.5,1.0,2.0]
+      × env_latent_dim=[1,2,4] × embedding_dim=[1,2,4,8,16]. Each config: 500 VAE
+      pre-train steps + 400 PPO episodes (batch 512). Compared against REINFORCE
+      baseline from obj-002.
+    metrics:
+      configs_completed: 70
+      configs_total: 75
+      env_lat1_noise001_mean_success: 0.72
+      env_lat1_noise05_mean_success: 0.86
+      env_lat1_noise2_mean_success: 0.58
+      env_lat2_noise001_mean_success: 0.88
+      env_lat2_noise2_mean_success: 0.63
+      max_ppo_improvement_over_reinforce: 0.81
+      ppo_improvement_env_lat1_range: "0.46 to 0.81"
+      ppo_improvement_env_lat2_range: "0.00 to 0.16"
+      embedding_dim_effect_with_ppo: "minimal"
+    figures:
+      - results/success_heatmap_ppo.png
+      - results/ppo_vs_reinforce.png
+      - results/noise_vs_success_ppo.png
+      - results/nonmonotonic_noise_ppo.png
+    conclusions: >
+      PPO fully resolves the env_lat=1 failure across all noise levels (5% → 58-86%).
+      Three key findings: (1) PPO's biggest impact is at env_lat=1 (+46-81pp), with
+      diminishing returns at higher latent dims. (2) Surprising stochastic resonance:
+      at env_lat=1, noise=0.5 outperforms noise=0.01 (86% vs 72%) — moderate channel
+      noise appears to regularize PPO learning in low-dimensional spaces. (3) With PPO,
+      organism embedding dim has almost no effect — the optimizer, not brain capacity,
+      was the limiting factor in the original REINFORCE results.
+    connects_to: obj-006
+    completed_date: "2026-03-13"

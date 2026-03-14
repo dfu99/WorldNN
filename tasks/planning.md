@@ -1,17 +1,18 @@
 # Planning
 
-## Current Priority: Perturbation Study Analysis
+## Current Priority: Investigate Stochastic Resonance & Advance Framework
 
-First milestone is complete — the framework is built, the demo works,
-and the perturbation study is running. Next focus is analyzing results
-and refining the experiment.
+PPO sweep is complete. Two milestones done: (1) framework built and demo
+working, (2) perturbation study analyzed with PPO. The surprising stochastic
+resonance finding at env_lat=1 opens a new research direction.
 
 ### Active
 
-1. **PPO perturbation sweep (75 configs) — SUBMITTED to PACE**
-   Job ID 4925875 on RTX 6000, 2h time limit. Submitted 2026-03-13.
-   Script: `experiments/perturbation_study_ppo.py`, SBATCH: `experiments/run_ppo_sweep.sbatch`.
-   **Next**: fetch results when job completes, analyze, and log as obj-005.
+1. **Investigate stochastic resonance at env_lat=1** (obj-006)
+   Noise=0.5 outperforms noise=0.01 at env_lat=1 with PPO. Run targeted
+   experiments: finer noise grid around the peak, multiple seeds for
+   confidence intervals, check if this appears with other RL algorithms.
+   Also: rerun the 5 timed-out configs (noise=2.0, env_lat=4).
 
 ### Next Steps
 
@@ -55,3 +56,4 @@ and refining the experiment.
 - [2026-03-10] Latent failure analysis: H3 confirmed — env_lat=1 is RL bottleneck, not info bottleneck
 - [2026-03-10] PPO fix: 4.6% → 87.3% success on env_lat=1 (19x improvement)
 - [2026-03-10] PPO trainer refactored into train.py; PPO sweep script ready
+- [2026-03-13] PPO perturbation sweep (obj-005): 70/75 configs, stochastic resonance discovered at env_lat=1

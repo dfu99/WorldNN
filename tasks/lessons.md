@@ -25,6 +25,17 @@
   wrong state (`0.1 * flip_prob * (1 - state)`) significantly helped
   early training.
 
+- **Stochastic resonance in low-dimensional latent spaces.** At env_lat=1,
+  moderate channel noise (σ=0.5) *improves* PPO success (86%) compared to
+  near-zero noise (σ=0.01, 72%). The noise likely acts as implicit
+  regularization or exploration aid when the latent representation is
+  1-dimensional. This effect vanishes at env_lat≥2 where low noise is best.
+
+- **PPO makes organism embedding dim almost irrelevant for binary tasks.**
+  With REINFORCE, embedding_dim mattered (especially at high noise). With PPO,
+  embed=1 and embed=16 perform nearly identically. The "min capacity" results
+  from obj-002 were largely optimizer artifacts, not information-theoretic.
+
 ## Architecture
 
 - **Environment VAE latent_dim=1 is NOT an information bottleneck — it's
