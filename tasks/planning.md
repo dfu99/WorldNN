@@ -9,27 +9,27 @@ resonance finding at env_lat=1 opens a new research direction.
 ### Active
 
 1. **Investigate stochastic resonance at env_lat=1** (obj-006)
-   Noise=0.5 outperforms noise=0.01 at env_lat=1 with PPO. Submitted
-   PACE job 4930637 (8hr, RTX 6000): 265 configs total —
-   13-point noise grid × 2 env_lats × PPO+REINFORCE × 5 seeds,
-   plus 5 timeout reruns. Awaiting results.
+   PACE job 4930637 (8hr, RTX 6000): 265 configs, ~3h in / 8h.
+   Analysis pipeline ready (`experiments/analyze_stochastic_resonance.py`).
+
+2. **Predictive processing experiment** (obj-007)
+   PredictiveOrganism implemented: predicts next z, uses prediction
+   error as auxiliary loss alongside PPO. 96 configs: noise × env_lat ×
+   pred_coef × 3 seeds. PACE job 4932201 submitted (6hr, RTX 6000).
 
 ### Next Steps
 
-2. **Add predictive processing** — Organism predicts next observation
-   and uses prediction error as additional learning signal.
-
-4. **Continuous state spaces** — Extend matter beyond binary to
+3. **Continuous state spaces** — Extend matter beyond binary to
    continuous state (e.g., rock position), requiring finer control.
 
-5. **Rock-pushing scenario** — Organism infers rock position via light,
+4. **Rock-pushing scenario** — Organism infers rock position via light,
    applies force, senses gravitational/friction feedback. Tests
    multi-channel perception + force-based action.
 
-6. **NN-based matter** — Replace explicit physics with learned Mealy
+5. **NN-based matter** — Replace explicit physics with learned Mealy
    machine for more complex matter dynamics.
 
-7. **Theoretical bounds** — Derive analytical min embedding dim as
+6. **Theoretical bounds** — Derive analytical min embedding dim as
    function of channel capacity and environment compression.
 
 ## Open Questions
@@ -57,3 +57,5 @@ resonance finding at env_lat=1 opens a new research direction.
 - [2026-03-10] PPO fix: 4.6% → 87.3% success on env_lat=1 (19x improvement)
 - [2026-03-10] PPO trainer refactored into train.py; PPO sweep script ready
 - [2026-03-13] PPO perturbation sweep (obj-005): 70/75 configs, stochastic resonance discovered at env_lat=1
+- [2026-03-14] Analysis pipeline for stochastic resonance (obj-006): 5-figure suite with statistical tests
+- [2026-03-14] Predictive processing implementation: PredictiveOrganism + PPO+Prediction trainer + PACE job 4932201

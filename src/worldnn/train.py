@@ -13,6 +13,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import math
 from worldnn.world import World
+from worldnn.organism import PredictiveOrganism
 
 
 def train_environment(
@@ -288,5 +289,137 @@ def train_organism_ppo(
         metrics["rewards"].append(avg_reward)
         metrics["success_rates"].append(success)
         metrics["policy_losses"].append(total_loss_val / (T * ppo_epochs))
+
+    return metrics
+
+
+def train_organism_ppo_predictive(
+    world: World,
+    n_episodes: int = 500,
+    steps_per_episode: int = 10,
+    batch_size: int = 512,
+    lr: float = 3e-4,
+    gamma: float = 0.99,
+    entropy_coef: float = 0.01,
+    pred_coef: float = 0.1,
+    action_std_init: float = 0.8,
+    action_std_final: float = 0.2,
+    clip_eps: float = 0.2,
+    ppo_epochs: int = 4,
+    device: torch.device | None = None,
+) -> dict[str, list[float]]:
+    """Train organism with PPO + predictive processing auxiliary loss.
+
+    The organism predicts the next observation z and receives an auxiliary
+    loss proportional to the prediction error. This encourages the organism
+    to build a world model alongside its policy.
+
+    Requires world.organism to be a PredictiveOrganism.
+    """
+    if device is None:
+        device = next(world.parameters()).device
+
+    assert isinstance(world.organism, PredictiveOrganism), \
+        "world.organism must be a PredictiveOrganism for predictive training"
+
+    log_std = nn.Parameter(
+        torch.full((world.action_dim,), math.log(action_std_init), device=device)
+    )
+    optimizer = torch.optim.Adam(
+        list(world.organism.parameters()) + [log_std], lr=lr
+    )
+
+    metrics = {"rewards": [], "success_rates": [], "policy_losses": [], "pred_losses": []}
+
+    for ep in range(n_episodes):
+        world.organism.train()
+
+        # ── Collect rollout ──
+        state = world.matter.reset_state(batch_size, device)
+        action = None
+
+        all_z, all_actions, all_log_probs = [], [], []
+        all_rewards, all_values = [], []
+
+        for t in range(steps_per_episode):
+            result = world.step(state, action)
+            z = result["z"].detach()
+
+            action_mean, embedding, value = world.organism(z)
+            std = log_std.exp().unsqueeze(0).expand_as(action_mean)
+            dist = torch.distributions.Normal(action_mean, std)
+            action_sample = dist.sample()
+            lp = dist.log_prob(action_sample).sum(dim=-1)
+
+            propagated = world.environment.propagate_action(action_sample)
+            next_state, _, flip_prob = world.matter(state, result["seed"], propagated)
+
+            reward = (next_state == 1.0).float()
+            shaped = reward + 0.1 * flip_prob * (1.0 - state)
+
+            all_z.append(z)
+            all_actions.append(action_sample.detach())
+            all_log_probs.append(lp.detach())
+            all_rewards.append(shaped.detach())
+            all_values.append(value.detach())
+
+            state = next_state.detach()
+            action = propagated.detach()
+
+        # ── Compute returns & advantages ──
+        T = len(all_rewards)
+        returns = []
+        G = torch.zeros(batch_size, device=device)
+        for t in reversed(range(T)):
+            G = all_rewards[t] + gamma * G
+            returns.insert(0, G)
+        returns = torch.stack(returns)
+        values = torch.stack(all_values)
+        advantages = returns - values
+        advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
+
+        # ── PPO + Prediction update ──
+        z_batch = torch.stack(all_z)
+        act_batch = torch.stack(all_actions)
+        old_lp = torch.stack(all_log_probs)
+
+        total_loss_val = 0.0
+        total_pred_loss = 0.0
+        for _ in range(ppo_epochs):
+            for t in range(T):
+                action_mean, embedding, value, pred_z = \
+                    world.organism.forward_with_prediction(z_batch[t])
+                std = log_std.exp().unsqueeze(0).expand_as(action_mean)
+                dist = torch.distributions.Normal(action_mean, std)
+                new_lp = dist.log_prob(act_batch[t]).sum(dim=-1)
+
+                ratio = (new_lp - old_lp[t]).exp()
+                clipped = torch.clamp(ratio, 1 - clip_eps, 1 + clip_eps)
+                policy_loss = -torch.min(ratio * advantages[t], clipped * advantages[t]).mean()
+                value_loss = F.mse_loss(value, returns[t])
+                entropy = dist.entropy().sum(dim=-1).mean()
+
+                # Prediction loss: predict next z from current embedding + action
+                if t < T - 1:
+                    pred_loss = F.mse_loss(pred_z, z_batch[t + 1])
+                else:
+                    pred_loss = torch.tensor(0.0, device=device)
+
+                loss = policy_loss + 0.5 * value_loss - entropy_coef * entropy \
+                    + pred_coef * pred_loss
+                optimizer.zero_grad()
+                loss.backward()
+                nn.utils.clip_grad_norm_(list(world.organism.parameters()) + [log_std], 1.0)
+                optimizer.step()
+                total_loss_val += loss.item()
+                total_pred_loss += pred_loss.item()
+
+        with torch.no_grad():
+            success = (state == 1.0).float().mean().item()
+        avg_reward = sum(r.mean().item() for r in all_rewards) / T
+        metrics["rewards"].append(avg_reward)
+        metrics["success_rates"].append(success)
+        metrics["policy_losses"].append(total_loss_val / (T * ppo_epochs))
+        metrics["pred_losses"].append(total_pred_loss / (T * ppo_epochs))
 
     return metrics

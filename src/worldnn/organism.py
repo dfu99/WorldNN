@@ -120,3 +120,66 @@ class Organism(nn.Module):
             action = action_mean
 
         return action, value
+
+
+class PredictiveOrganism(Organism):
+    """Organism with predictive processing: predicts next observation.
+
+    Extends the base Organism with a prediction head that forecasts the
+    next z given current embedding + action. The prediction error serves
+    as an auxiliary learning signal (self-supervised), complementing the
+    RL reward. This implements a simplified version of predictive coding /
+    active inference.
+
+    Architecture addition:
+        embedding + action ──► Predictor MLP ──► predicted_next_z
+        prediction_error = ||predicted_next_z - actual_next_z||²
+    """
+
+    def __init__(
+        self,
+        sensory_dim: int = 2,
+        embedding_dim: int = 4,
+        action_dim: int = 2,
+        hidden_size: int = 32,
+    ):
+        super().__init__(
+            sensory_dim=sensory_dim,
+            embedding_dim=embedding_dim,
+            action_dim=action_dim,
+            hidden_size=hidden_size,
+        )
+
+        # Prediction head: given embedding + action, predict next z
+        self.predictor = nn.Sequential(
+            nn.Linear(embedding_dim + action_dim, hidden_size),
+            nn.ReLU(),
+            nn.Linear(hidden_size, sensory_dim),
+        )
+
+    def predict_next(
+        self, embedding: torch.Tensor, action: torch.Tensor
+    ) -> torch.Tensor:
+        """Predict next observation z given current embedding and action.
+
+        Args:
+            embedding: [batch, embedding_dim] current internal representation
+            action: [batch, action_dim] action being taken
+
+        Returns:
+            predicted_z: [batch, sensory_dim] predicted next observation
+        """
+        combined = torch.cat([embedding, action], dim=-1)
+        return self.predictor(combined)
+
+    def forward_with_prediction(
+        self, z: torch.Tensor
+    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+        """Full forward pass including next-observation prediction.
+
+        Returns:
+            action, embedding, value, predicted_next_z
+        """
+        action, embedding, value = self.forward(z)
+        predicted_next_z = self.predict_next(embedding, action)
+        return action, embedding, value, predicted_next_z
