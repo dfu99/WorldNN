@@ -9,10 +9,10 @@ resonance finding at env_lat=1 opens a new research direction.
 ### Active
 
 1. **Investigate stochastic resonance at env_lat=1** (obj-006)
-   Noise=0.5 outperforms noise=0.01 at env_lat=1 with PPO. Run targeted
-   experiments: finer noise grid around the peak, multiple seeds for
-   confidence intervals, check if this appears with other RL algorithms.
-   Also: rerun the 5 timed-out configs (noise=2.0, env_lat=4).
+   Noise=0.5 outperforms noise=0.01 at env_lat=1 with PPO. Submitted
+   PACE job 4930637 (8hr, RTX 6000): 265 configs total —
+   13-point noise grid × 2 env_lats × PPO+REINFORCE × 5 seeds,
+   plus 5 timeout reruns. Awaiting results.
 
 ### Next Steps
 
