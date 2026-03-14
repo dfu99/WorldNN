@@ -208,3 +208,30 @@ objectives:
       finer-grained internal models are needed. Awaiting PACE submission.
     connects_to: obj-008
     completed_date: "2026-03-14"
+
+  - id: obj-007-learn
+    status: completed
+    statement: "Develop learnability-aware bounds explaining stochastic resonance and REINFORCE failure"
+    methodology: >
+      Built phenomenological model based on gradient signal-to-noise ratio (GSNR).
+      REINFORCE GSNR scales as 1/d^1.5 (catastrophe at d=1). PPO GSNR scales as
+      1/d^0.3 (much weaker dim dependence). Added noise exploration bonus to explain
+      stochastic resonance: channel noise diversifies z samples, preventing premature
+      convergence at low latent dims. Fit against empirical data from obj-002/005.
+    metrics:
+      ppo_rmse: 0.173
+      reinforce_rmse: 0.254
+      predicted_resonance_peak: 0.438
+      empirical_resonance_peak: 0.5
+    figures:
+      - results/learnability_bounds.png
+    conclusions: >
+      The GSNR model explains three empirical phenomena: (1) REINFORCE catastrophe
+      at lat=1 is a phase transition in gradient quality (dim_penalty=0.02 vs 0.5
+      at lat=2). (2) Stochastic resonance at lat=1 arises from noise acting as
+      implicit exploration (predicted peak σ=0.44, empirical σ≈0.5). (3) Embedding
+      dim irrelevance with PPO follows from GSNR depending on input dim, not internal
+      capacity. Model overshoots PPO success at low noise (predicts 0.98 vs empirical
+      0.72), suggesting additional unexplained variance at low noise.
+    connects_to: obj-006
+    completed_date: "2026-03-14"

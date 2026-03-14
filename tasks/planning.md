@@ -31,9 +31,9 @@ resonance finding at env_lat=1 opens a new research direction.
 5. **NN-based matter** — Replace explicit physics with learned Mealy
    machine for more complex matter dynamics.
 
-6. **Refine theoretical bounds** — Current Fano bounds are loose (predict
-   dim_min=1 everywhere). Need tighter bounds that account for optimizer
-   learnability, not just information availability.
+6. **Refine learnability model** — Current GSNR model (RMSE 0.17 PPO,
+   0.25 REINFORCE) overshoots at low noise. Needs: (a) data from obj-006
+   to validate resonance peak prediction, (b) continuous task extension.
 
 ## Open Questions
 
@@ -64,3 +64,4 @@ resonance finding at env_lat=1 opens a new research direction.
 - [2026-03-14] Predictive processing implementation: PredictiveOrganism + PPO+Prediction trainer + PACE job 4932201
 - [2026-03-14] Theoretical bounds (obj-007-theory): Fano/channel capacity analysis, 6-panel figure, key insight: bottleneck is learnability not information
 - [2026-03-14] Continuous state spaces (obj-008): ContinuousMatter, ContinuousWorld, PPO trainer, 180-config experiment + SLURM script
+- [2026-03-14] Learnability bounds (obj-007-learn): GSNR model explains resonance (peak σ=0.44), REINFORCE failure, and dim irrelevance
