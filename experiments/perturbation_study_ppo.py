@@ -114,6 +114,20 @@ def run_single_config(
     }
 
 
+def _save_checkpoint(results: list[dict], path: str):
+    """Save incremental checkpoint of completed configs."""
+    serializable = []
+    for r in results:
+        sr = {k: v for k, v in r.items() if k not in ("reward_curve", "success_curve")}
+        sr["mi"] = {k: float(v) for k, v in r["mi"].items()}
+        sr["final_success"] = float(r["final_success"])
+        sr["channel_capacity"] = float(r["channel_capacity"])
+        sr["env_final_loss"] = float(r["env_final_loss"])
+        serializable.append(sr)
+    with open(path, "w") as f:
+        json.dump({"results": serializable}, f, indent=2)
+
+
 def run_perturbation_study_ppo(results_dir: str = "results"):
     """Run the full perturbation study sweep with PPO."""
     os.makedirs(results_dir, exist_ok=True)
@@ -128,9 +142,21 @@ def run_perturbation_study_ppo(results_dir: str = "results"):
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Running {len(configs)} configurations with PPO on {device}...")
+
+    # Resume from checkpoint if available
+    checkpoint_path = f"{results_dir}/perturbation_ppo_checkpoint.json"
     all_results = []
+    start_idx = 0
+    if os.path.exists(checkpoint_path):
+        with open(checkpoint_path) as f:
+            checkpoint = json.load(f)
+        all_results = checkpoint["results"]
+        start_idx = len(all_results)
+        print(f"  Resuming from checkpoint: {start_idx}/{len(configs)} done")
 
     for i, (noise, lat, emb) in enumerate(configs):
+        if i < start_idx:
+            continue
         print(
             f"  [{i+1}/{len(configs)}] noise={noise}, env_lat={lat}, embed={emb}",
             end="",
@@ -139,6 +165,9 @@ def run_perturbation_study_ppo(results_dir: str = "results"):
         result = run_single_config(noise, lat, emb, seed=42, device=device)
         all_results.append(result)
         print(f"  -> success={result['final_success']:.3f}")
+
+        # Save checkpoint after each config
+        _save_checkpoint(all_results, checkpoint_path)
 
     # Save raw results
     serializable = []
