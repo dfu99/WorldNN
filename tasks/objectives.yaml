@@ -185,3 +185,26 @@ objectives:
       representation?"
     connects_to: obj-006
     completed_date: "2026-03-14"
+
+  - id: obj-008-impl
+    status: completed
+    statement: "Implement continuous state spaces: ContinuousMatter, ContinuousWorld, PPO trainer"
+    methodology: >
+      Built ContinuousMatter (1D position in [0,1], force-based actions, smooth
+      emissions) and ContinuousWorld (full perception-action loop with distance
+      reward). Added train_organism_ppo_continuous with shaped reward. 180-config
+      sweep script and SLURM submission ready. 7 new tests (21 total passing).
+    metrics:
+      new_tests: 7
+      total_tests: 21
+      configs_planned: 180
+      smoke_test_10ep_distance: 0.586
+    figures:
+      - results/continuous_architecture.png
+    conclusions: >
+      Framework now supports both binary and continuous state tasks. The
+      continuous task requires proportional control (vs binary switching),
+      which should reveal whether embedding dimension matters more when
+      finer-grained internal models are needed. Awaiting PACE submission.
+    connects_to: obj-008
+    completed_date: "2026-03-14"
