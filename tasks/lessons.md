@@ -71,3 +71,9 @@
   predictive processing, create a normal World then swap:
   `world.organism = PredictiveOrganism(sensory_dim=env_lat, ...)`. The
   forward pass is compatible but adds `forward_with_prediction()` method.
+
+- **Fano's inequality gives trivially loose bounds for binary state tasks.**
+  With H(S)=1 bit, even noisy channels preserve enough MI for the task.
+  The real bottleneck is optimizer learnability (PPO vs REINFORCE), not
+  information availability. Future theoretical work should model
+  representation learnability, not just information content.

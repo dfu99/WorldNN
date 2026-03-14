@@ -29,8 +29,9 @@ resonance finding at env_lat=1 opens a new research direction.
 5. **NN-based matter** — Replace explicit physics with learned Mealy
    machine for more complex matter dynamics.
 
-6. **Theoretical bounds** — Derive analytical min embedding dim as
-   function of channel capacity and environment compression.
+6. **Refine theoretical bounds** — Current Fano bounds are loose (predict
+   dim_min=1 everywhere). Need tighter bounds that account for optimizer
+   learnability, not just information availability.
 
 ## Open Questions
 
@@ -59,3 +60,4 @@ resonance finding at env_lat=1 opens a new research direction.
 - [2026-03-13] PPO perturbation sweep (obj-005): 70/75 configs, stochastic resonance discovered at env_lat=1
 - [2026-03-14] Analysis pipeline for stochastic resonance (obj-006): 5-figure suite with statistical tests
 - [2026-03-14] Predictive processing implementation: PredictiveOrganism + PPO+Prediction trainer + PACE job 4932201
+- [2026-03-14] Theoretical bounds (obj-007-theory): Fano/channel capacity analysis, 6-panel figure, key insight: bottleneck is learnability not information

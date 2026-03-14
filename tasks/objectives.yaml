@@ -158,3 +158,30 @@ objectives:
       was the limiting factor in the original REINFORCE results.
     connects_to: obj-006
     completed_date: "2026-03-13"
+
+  - id: obj-007-theory
+    status: completed
+    statement: "Derive information-theoretic bounds on minimum embedding dim for binary state flipping"
+    methodology: >
+      Computed AWGN channel capacity, VAE rate bounds, and Fano's inequality
+      for the perception-action chain. Built 6-panel visualization comparing
+      theoretical MI limits against empirical PPO results from obj-005.
+    metrics:
+      channel_capacity_at_noise2: 0.644 bits
+      min_mi_for_90pct_success: 0.531 bits
+      min_mi_for_99pct_success: 0.919 bits
+      theoretical_min_embed_dim: 1
+      theory_vs_empirical_gap: "lat=1 stochastic resonance not predicted by theory"
+    figures:
+      - results/theoretical_bounds.png
+    conclusions: >
+      Information-theoretic bounds predict dim_min=1 for all tested conditions
+      because H(S)=1 bit is inherently low — even noisy channels preserve
+      enough MI. The empirical success variations (72-88%) and stochastic
+      resonance at lat=1 are NOT information-theoretic phenomena but optimizer
+      effects (PPO vs REINFORCE). The real bottleneck in this system is
+      learnability, not information availability. This reframes the central
+      question from "how much capacity?" to "how learnable is the
+      representation?"
+    connects_to: obj-006
+    completed_date: "2026-03-14"
