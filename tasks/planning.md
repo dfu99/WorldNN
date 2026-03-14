@@ -19,8 +19,8 @@ resonance finding at env_lat=1 opens a new research direction.
 
 3. **Continuous state experiment** (obj-008)
    ContinuousMatter + ContinuousWorld implemented and tested (21 tests).
-   180 configs: noise × env_lat × embed_dim × 3 seeds. Ready to submit
-   to PACE (run_continuous.sbatch). Will submit when current jobs finish.
+   180 configs: noise × env_lat × embed_dim × 3 seeds. PACE job 4932660
+   submitted (6hr, RTX 6000). Analysis pipeline TBD after results.
 
 ### Next Steps
 
