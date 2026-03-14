@@ -7,11 +7,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from worldnn.matter import Matter
+from worldnn.matter import Matter, ContinuousMatter
 from worldnn.channels import Channel
 from worldnn.environment import EnvironmentVAE
-from worldnn.organism import Organism
-from worldnn.world import World
+from worldnn.organism import Organism, PredictiveOrganism
+from worldnn.world import World, ContinuousWorld
 
 
 @pytest.fixture
@@ -138,3 +138,66 @@ class TestWorld:
             w = World(env_latent_dim=2, embedding_dim=emb_dim).to(device)
             traj = w.run_episode(4, 3, device=device)
             assert traj["embeddings"][0].shape == (4, emb_dim)
+
+
+class TestContinuousMatter:
+    def test_shapes(self, device):
+        m = ContinuousMatter().to(device)
+        state = torch.rand(8, device=device)
+        seed = torch.randn(8, 4, device=device)
+        action = torch.randn(8, 2, device=device)
+        ns, emission, force = m(state, seed, action)
+        assert ns.shape == (8,)
+        assert emission.shape == (8, 4)
+        assert force.shape == (8,)
+
+    def test_state_bounded(self, device):
+        m = ContinuousMatter(force_scale=10.0).to(device)
+        state = torch.rand(100, device=device)
+        seed = torch.randn(100, 4, device=device)
+        action = torch.randn(100, 2, device=device) * 5  # large actions
+        ns, _, _ = m(state, seed, action)
+        assert (ns >= 0.0).all() and (ns <= 1.0).all()
+
+    def test_reset(self, device):
+        m = ContinuousMatter().to(device)
+        state = m.reset_state(50, device)
+        assert state.shape == (50,)
+        assert (state >= 0.0).all() and (state <= 1.0).all()
+
+
+class TestPredictiveOrganism:
+    def test_shapes(self, device):
+        o = PredictiveOrganism(sensory_dim=2, embedding_dim=4, action_dim=2).to(device)
+        z = torch.randn(8, 2, device=device)
+        action, emb, value, pred_z = o.forward_with_prediction(z)
+        assert action.shape == (8, 2)
+        assert emb.shape == (8, 4)
+        assert value.shape == (8,)
+        assert pred_z.shape == (8, 2)
+
+    def test_backward_compatible(self, device):
+        o = PredictiveOrganism(sensory_dim=3, embedding_dim=2, action_dim=2).to(device)
+        z = torch.randn(4, 3, device=device)
+        action, emb, value = o(z)
+        assert action.shape == (4, 2)
+        assert emb.shape == (4, 2)
+
+
+class TestContinuousWorld:
+    def test_step(self, device):
+        w = ContinuousWorld(env_latent_dim=2, embedding_dim=4).to(device)
+        state = w.matter.reset_state(8, device)
+        result = w.step(state)
+        assert result["next_state"].shape == (8,)
+        assert result["force"].shape == (8,)
+
+    def test_training_smoke(self, device):
+        """Smoke test: continuous world trains without errors."""
+        from worldnn.train import train_environment_continuous, train_organism_ppo_continuous
+        w = ContinuousWorld(env_latent_dim=2, embedding_dim=4).to(device)
+        train_environment_continuous(w, n_steps=5, batch_size=16, device=device)
+        m = train_organism_ppo_continuous(w, n_episodes=3, steps_per_episode=3,
+                                          batch_size=16, device=device)
+        assert len(m["mean_distance"]) == 3
+        assert all(0 <= d <= 1 for d in m["mean_distance"])

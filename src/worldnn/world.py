@@ -18,7 +18,7 @@ Each step:
 import torch
 import torch.nn as nn
 
-from worldnn.matter import Matter
+from worldnn.matter import Matter, ContinuousMatter
 from worldnn.channels import Channel
 from worldnn.environment import EnvironmentVAE
 from worldnn.organism import Organism
@@ -191,3 +191,98 @@ class World(nn.Module):
             action = result["action"]
 
         return trajectory
+
+
+class ContinuousWorld(nn.Module):
+    """World with continuous 1D matter state (position targeting).
+
+    The organism must push matter to a target position (default: 0.8).
+    Reward is proportional to proximity to target. This requires
+    proportional control, unlike the binary flip task.
+    """
+
+    def __init__(
+        self,
+        emission_dim: int = 4,
+        channel_dim: int = 4,
+        env_latent_dim: int = 2,
+        embedding_dim: int = 4,
+        action_dim: int = 2,
+        seed_dim: int = 4,
+        channel_noise: float = 0.1,
+        channel_bandwidth: float = 1.0,
+        force_scale: float = 0.1,
+        target_position: float = 0.8,
+        env_hidden: int = 32,
+        organism_hidden: int = 32,
+    ):
+        super().__init__()
+
+        self.seed_dim = seed_dim
+        self.action_dim = action_dim
+        self.target_position = target_position
+
+        self.matter = ContinuousMatter(
+            emission_dim=emission_dim,
+            action_dim=action_dim,
+            seed_dim=seed_dim,
+            force_scale=force_scale,
+        )
+
+        self.channel = Channel(
+            input_dim=emission_dim,
+            output_dim=channel_dim,
+            noise_std=channel_noise,
+            bandwidth=channel_bandwidth,
+        )
+
+        self.environment = EnvironmentVAE(
+            channel_dim=channel_dim,
+            latent_dim=env_latent_dim,
+            hidden_size=env_hidden,
+            action_dim=action_dim,
+        )
+
+        self.organism = Organism(
+            sensory_dim=env_latent_dim,
+            embedding_dim=embedding_dim,
+            action_dim=action_dim,
+            hidden_size=organism_hidden,
+        )
+
+    def step(
+        self,
+        state: torch.Tensor,
+        prev_action: torch.Tensor | None = None,
+    ) -> dict[str, torch.Tensor]:
+        """One perception-action cycle for continuous matter."""
+        batch_size = state.shape[0]
+        device = state.device
+
+        seed = torch.randn(batch_size, self.seed_dim, device=device)
+
+        if prev_action is None:
+            prev_action = torch.zeros(batch_size, self.action_dim, device=device)
+
+        next_state, emission, force = self.matter(state, seed, prev_action)
+        channel_out = self.channel(emission)
+        z, y_hat, mu, logvar = self.environment(channel_out)
+        action, embedding, value = self.organism(z)
+        propagated_action = self.environment.propagate_action(action)
+
+        return {
+            "state": state,
+            "next_state": next_state,
+            "seed": seed,
+            "emission": emission,
+            "channel_out": channel_out,
+            "z": z,
+            "y_hat": y_hat,
+            "mu": mu,
+            "logvar": logvar,
+            "embedding": embedding,
+            "action": propagated_action,
+            "raw_action": action,
+            "value": value,
+            "force": force,
+        }

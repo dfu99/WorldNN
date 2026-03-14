@@ -113,3 +113,84 @@ class Matter(nn.Module):
     def reset_state(self, batch_size: int, device: torch.device) -> torch.Tensor:
         """Initialize random binary states."""
         return torch.randint(0, 2, (batch_size,), device=device).float()
+
+
+class ContinuousMatter(nn.Module):
+    """Matter with continuous 1D state (position on [0, 1]).
+
+    The organism must push the state toward a target position.
+    Emissions encode position with noise; actions apply force.
+
+    Physics:
+        position' = clamp(position + force * action_strength, 0, 1)
+        emission = position_signal + seed_noise
+        reward = -|position - target|  (closer is better)
+
+    This requires finer control than binary flip — the organism must
+    learn proportional control, not just binary switching.
+    """
+
+    def __init__(
+        self,
+        emission_dim: int = 4,
+        action_dim: int = 2,
+        seed_dim: int = 4,
+        force_scale: float = 0.1,
+    ):
+        super().__init__()
+        self.emission_dim = emission_dim
+        self.action_dim = action_dim
+        self.seed_dim = seed_dim
+        self.force_scale = force_scale
+
+        # Emission: position is encoded as a learned linear projection
+        # (different from binary — here position maps smoothly to emission)
+        self.register_buffer(
+            "emission_weight", torch.randn(1, emission_dim) * 0.5
+        )
+        self.register_buffer(
+            "emission_bias", torch.randn(emission_dim) * 0.3
+        )
+
+        # Seed-to-noise projection
+        self.register_buffer(
+            "seed_proj", torch.randn(seed_dim, emission_dim) * 0.2
+        )
+
+        # Action-to-force projection: maps action_dim → scalar force
+        self.register_buffer(
+            "force_proj", torch.randn(action_dim) * 0.5
+        )
+
+    def forward(
+        self, state: torch.Tensor, seed: torch.Tensor, action: torch.Tensor
+    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        """One step of continuous matter.
+
+        Args:
+            state: [batch] current position in [0, 1]
+            seed: [batch, seed_dim] random seed
+            action: [batch, action_dim] action from organism
+
+        Returns:
+            next_state: [batch] new position in [0, 1]
+            emission: [batch, emission_dim] observable output
+            force_applied: [batch] scalar force that was applied
+        """
+        # ── Emission: smooth function of position + noise ──
+        pos = state.unsqueeze(-1)  # [batch, 1]
+        base_emission = pos * self.emission_weight + self.emission_bias
+        noise = seed @ self.seed_proj
+        emission = base_emission + noise
+
+        # ── State transition: action → force → position change ──
+        force = (action * self.force_proj).sum(dim=-1)  # [batch]
+        force = torch.tanh(force) * self.force_scale  # bounded force
+
+        next_state = torch.clamp(state + force, 0.0, 1.0)
+
+        return next_state, emission, force
+
+    def reset_state(self, batch_size: int, device: torch.device) -> torch.Tensor:
+        """Initialize random positions in [0, 1]."""
+        return torch.rand(batch_size, device=device)

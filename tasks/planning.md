@@ -17,10 +17,12 @@ resonance finding at env_lat=1 opens a new research direction.
    error as auxiliary loss alongside PPO. 96 configs: noise × env_lat ×
    pred_coef × 3 seeds. PACE job 4932201 submitted (6hr, RTX 6000).
 
-### Next Steps
+3. **Continuous state experiment** (obj-008)
+   ContinuousMatter + ContinuousWorld implemented and tested (21 tests).
+   180 configs: noise × env_lat × embed_dim × 3 seeds. Ready to submit
+   to PACE (run_continuous.sbatch). Will submit when current jobs finish.
 
-3. **Continuous state spaces** — Extend matter beyond binary to
-   continuous state (e.g., rock position), requiring finer control.
+### Next Steps
 
 4. **Rock-pushing scenario** — Organism infers rock position via light,
    applies force, senses gravitational/friction feedback. Tests
@@ -61,3 +63,4 @@ resonance finding at env_lat=1 opens a new research direction.
 - [2026-03-14] Analysis pipeline for stochastic resonance (obj-006): 5-figure suite with statistical tests
 - [2026-03-14] Predictive processing implementation: PredictiveOrganism + PPO+Prediction trainer + PACE job 4932201
 - [2026-03-14] Theoretical bounds (obj-007-theory): Fano/channel capacity analysis, 6-panel figure, key insight: bottleneck is learnability not information
+- [2026-03-14] Continuous state spaces (obj-008): ContinuousMatter, ContinuousWorld, PPO trainer, 180-config experiment + SLURM script
