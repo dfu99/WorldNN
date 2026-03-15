@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -A gts-yke8
 #SBATCH --job-name=wnn_rock
-#SBATCH --time=08:00:00
+#SBATCH --time=12:00:00
 #SBATCH --mem=16G
 #SBATCH --cpus-per-task=6
 #SBATCH --gres=gpu:RTX_6000:1
@@ -28,7 +28,7 @@ echo "Host: $(hostname)"
 echo "GPU: $(nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null || echo 'none')"
 echo ""
 
-python experiments/rock_push.py --results-dir results --n-episodes 500
+python experiments/rock_push.py --results-dir results --n-episodes 1000
 
 echo ""
 echo "=== Done: $(date) ==="

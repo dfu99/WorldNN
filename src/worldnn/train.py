@@ -665,8 +665,9 @@ def train_organism_ppo_rockpush(
             action_sample = dist.sample()
             lp = dist.log_prob(action_sample).sum(dim=-1)
 
-            propagated = world.environment.propagate_action(action_sample)
-            next_state, _, contact = world.matter(state, result["seed"], propagated)
+            # For rock-push, pass action directly to matter (no environment
+            # transform) — directional control requires action semantics
+            next_state, _, contact = world.matter(state, result["seed"], action_sample)
 
             # Multi-component reward
             rock_pos = next_state[:, :2]
@@ -690,7 +691,7 @@ def train_organism_ppo_rockpush(
             contact_sum += contact.mean().item()
 
             state = next_state.detach()
-            action = propagated.detach()
+            action = action_sample.detach()
 
         # ── Compute returns & advantages ──
         T = len(all_rewards)

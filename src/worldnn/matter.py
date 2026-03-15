@@ -220,9 +220,9 @@ class RockPushMatter(nn.Module):
         emission_dim: int = 8,
         action_dim: int = 2,
         seed_dim: int = 4,
-        move_speed: float = 0.1,
-        push_radius: float = 0.15,
-        push_strength: float = 0.08,
+        move_speed: float = 0.15,
+        push_radius: float = 0.2,
+        push_strength: float = 0.12,
     ):
         super().__init__()
         self.emission_dim = emission_dim
@@ -233,24 +233,15 @@ class RockPushMatter(nn.Module):
         self.push_strength = push_strength
         self.state_dim = 4  # [rock_x, rock_y, org_x, org_y]
 
-        # Split emission into light and vibration channels
-        self.light_dim = emission_dim // 2
-        self.vib_dim = emission_dim - self.light_dim
-
-        # Light projection: relative position → light emission
+        # Emission encodes 4 state variables + contact through a fixed
+        # projection. We use a full state→emission matrix to ensure all
+        # state information is present in the signal.
+        # state_vec = [rock_x, rock_y, org_x, org_y, contact]
         self.register_buffer(
-            "light_proj", torch.randn(2, self.light_dim) * 0.5
+            "state_proj", torch.randn(5, emission_dim) * 0.5
         )
         self.register_buffer(
-            "light_bias", torch.randn(self.light_dim) * 0.2
-        )
-
-        # Vibration projection: contact strength → vibration emission
-        self.register_buffer(
-            "vib_proj", torch.randn(1, self.vib_dim) * 0.5
-        )
-        self.register_buffer(
-            "vib_bias", torch.randn(self.vib_dim) * 0.1
+            "emission_bias", torch.randn(emission_dim) * 0.2
         )
 
         # Seed-to-noise projection
@@ -258,10 +249,8 @@ class RockPushMatter(nn.Module):
             "seed_proj", torch.randn(seed_dim, emission_dim) * 0.15
         )
 
-        # Action-to-movement: maps action_dim → 2D movement direction
-        self.register_buffer(
-            "move_proj", torch.randn(action_dim, 2) * 0.5
-        )
+        # Action-to-movement: first 2 dims of action are (dx, dy) directly
+        assert action_dim >= 2, "action_dim must be >= 2 for 2D movement"
 
     def forward(
         self, state: torch.Tensor, seed: torch.Tensor, action: torch.Tensor
@@ -281,8 +270,8 @@ class RockPushMatter(nn.Module):
         rock_pos = state[:, :2]   # [batch, 2]
         org_pos = state[:, 2:4]   # [batch, 2]
 
-        # ── Organism movement ──
-        movement = torch.tanh(action @ self.move_proj) * self.move_speed
+        # ── Organism movement ── (first 2 action dims = dx, dy directly)
+        movement = torch.tanh(action[:, :2]) * self.move_speed
         new_org = torch.clamp(org_pos + movement, 0.0, 1.0)
 
         # ── Contact detection ──
@@ -296,16 +285,13 @@ class RockPushMatter(nn.Module):
         push_force = contact.unsqueeze(-1) * push_dir * self.push_strength
         new_rock = torch.clamp(rock_pos + push_force, 0.0, 1.0)
 
-        # ── Multi-channel emission ──
-        # Light: encodes rock-organism relative position, dimmer with distance
-        light_intensity = 1.0 / (1.0 + distance.unsqueeze(-1))  # [batch, 1]
-        light_signal = rel_pos @ self.light_proj * light_intensity + self.light_bias
-
-        # Vibration: strong contact signal, zero when far
-        vib_signal = contact.unsqueeze(-1) @ self.vib_proj + self.vib_bias
-
-        # Combine channels + seed noise
-        emission = torch.cat([light_signal, vib_signal], dim=-1)
+        # ── Emission: all state information projected through fixed matrix ──
+        state_vec = torch.stack([
+            new_rock[:, 0], new_rock[:, 1],
+            new_org[:, 0], new_org[:, 1],
+            contact,
+        ], dim=-1)  # [batch, 5]
+        emission = state_vec @ self.state_proj + self.emission_bias
         noise = seed @ self.seed_proj
         emission = emission + noise
 

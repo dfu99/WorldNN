@@ -6,10 +6,11 @@ starts to matter.
 
 Grid:
   channel_noise: [0.01, 0.1, 0.5, 1.0]
-  env_latent_dim: [2, 4, 8]
+  env_latent_dim: [4, 8]
   embedding_dim: [2, 4, 8, 16, 32]
   seeds: 3
-  = 4 × 3 × 5 × 3 = 180 configs
+  = 4 × 2 × 5 × 3 = 120 configs
+  1000 episodes each (up from 500) for sufficient learning
 """
 
 import sys
@@ -30,8 +31,8 @@ def run_config(
     env_latent_dim: int,
     embedding_dim: int,
     seed: int,
-    n_vae_steps: int = 1000,
-    n_episodes: int = 500,
+    n_vae_steps: int = 1500,
+    n_episodes: int = 1000,
     steps_per_episode: int = 20,
     batch_size: int = 512,
     device: str = "cpu",
@@ -95,7 +96,7 @@ def main():
 
     # Define sweep grid
     noises = [0.01, 0.1, 0.5, 1.0]
-    latent_dims = [2, 4, 8]
+    latent_dims = [4, 8]
     embed_dims = [2, 4, 8, 16, 32]
     seeds = [42, 123, 456]
 

@@ -371,8 +371,9 @@ class RockPushWorld(nn.Module):
         channel_out = self.channel(emission)
         z, y_hat, mu, logvar = self.environment(channel_out)
         action, embedding, value = self.organism(z)
-        propagated_action = self.environment.propagate_action(action)
 
+        # For rock-push, actions go directly to matter (no environment
+        # transform) — directional control requires preserving action semantics
         return {
             "state": state,
             "next_state": next_state,
@@ -384,7 +385,7 @@ class RockPushWorld(nn.Module):
             "mu": mu,
             "logvar": logvar,
             "embedding": embedding,
-            "action": propagated_action,
+            "action": action,
             "raw_action": action,
             "value": value,
             "contact": contact,
