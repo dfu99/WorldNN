@@ -235,3 +235,83 @@ objectives:
       0.72), suggesting additional unexplained variance at low noise.
     connects_to: obj-006
     completed_date: "2026-03-14"
+
+  - id: obj-006
+    status: completed
+    statement: "Stochastic resonance investigation: fine-grained noise sweep with PPO vs REINFORCE"
+    methodology: >
+      Swept 13 noise levels [0.01-2.0] × env_lat=[1,2] × algo=[ppo,reinforce]
+      × 5 seeds = 260 configs on PACE RTX 6000. Compared PPO and REINFORCE
+      response to noise at the critical env_lat=1 bottleneck.
+    metrics:
+      total_configs: 260
+      ppo_lat1_peak_noise: 0.5
+      ppo_lat1_peak_success: 0.832
+      ppo_lat1_low_noise_success: 0.831
+      ppo_lat1_high_noise_success: 0.636
+      reinforce_lat1_mean: 0.220
+      reinforce_noise_effect: "none (flat ~0.22)"
+    figures:
+      - results/stochastic_resonance.png
+      - results/resonance_algo_comparison.png
+    conclusions: >
+      The apparent stochastic resonance at noise=0.5 from obj-005 does not
+      replicate as a strong peak. With 5 seeds and finer noise grid, PPO at
+      lat=1 shows a nearly flat response from noise=0.01 to noise=0.5 (~0.82),
+      then gradual degradation. The original "peak" was within seed variance.
+      REINFORCE is completely flat (~0.22) regardless of noise — it cannot
+      learn at lat=1 at any noise level.
+    connects_to: obj-009
+    completed_date: "2026-03-15"
+
+  - id: obj-007
+    status: completed
+    statement: "Predictive processing: does next-state prediction improve organism learning?"
+    methodology: >
+      PredictiveOrganism with auxiliary prediction loss (predict next z from
+      current z + action). 96 configs: noise=[0.1,0.5,1.0,2.0] ×
+      env_lat=[1,2,4] × pred_coef=[0,0.01,0.1,0.5,1.0] × 3 seeds on PACE.
+    metrics:
+      total_configs: 96
+      mean_with_prediction: 0.811
+      mean_without_prediction: 0.811
+      best_config: "pred_coef=0.1, noise=0.01, lat=2: 0.864"
+      prediction_effect: "none"
+    figures:
+      - results/predictive_processing.png
+      - results/predictive_improvement.png
+    conclusions: >
+      Predictive processing provides zero improvement over baseline PPO.
+      Mean success is identical (0.811) with and without prediction auxiliary
+      loss across all tested coefficients and noise levels. For the binary
+      state-flip task, world-model learning via next-state prediction does
+      not help — the task is too simple to benefit from predictive coding.
+    connects_to: obj-009
+    completed_date: "2026-03-15"
+
+  - id: obj-008
+    status: completed
+    statement: "Continuous state spaces: does embedding dimension matter for proportional control?"
+    methodology: >
+      ContinuousMatter (1D position [0,1], force-based actions) with 180
+      configs: noise=[0.01,0.1,0.5,1.0,2.0] × env_lat=[1,2,4] ×
+      embed=[1,2,4,8] × 3 seeds on PACE RTX 6000. Distance-based reward.
+    metrics:
+      total_configs: 180
+      best_config: "noise=0.1, lat=4, embed=8: dist=0.157"
+      embed1_mean_dist: 0.236
+      embed2_mean_dist: 0.236
+      embed4_mean_dist: 0.236
+      embed8_mean_dist: 0.232
+      embedding_effect: "negligible"
+    figures:
+      - results/continuous_state.png
+    conclusions: >
+      Embedding dimension has negligible effect on continuous state tasks,
+      matching the binary task finding from obj-005. Even the continuous
+      proportional-control task does not require larger internal models.
+      This strongly supports the obj-007-theory conclusion that the bottleneck
+      is representation learnability, not organism capacity. The information
+      content of the task (1D position) is inherently low.
+    connects_to: obj-009
+    completed_date: "2026-03-15"

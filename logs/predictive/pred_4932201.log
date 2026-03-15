@@ -1,0 +1,129 @@
+---------------------------------------
+Begin Slurm Prolog: Mar-14-2026 00:35:16
+Job ID:    4932201
+User ID:   dfu71
+Account:   gts-yke8
+Job name:  wnn_pred
+Partition: gpu-rtx6000
+QOS:       inferno
+---------------------------------------
+=== Predictive Processing Experiment (obj-007) ===
+Date: Sat Mar 14 12:35:17 AM EDT 2026
+Host: atl1-1-02-005-35-0.pace.gatech.edu
+GPU: Quadro RTX 6000
+Python: Python 3.10.13
+
+Device: cuda
+Total configs: 96
+  [1/96] noise=0.01, lat=1, baseline, seed=42  -> 0.731
+  [2/96] noise=0.01, lat=1, baseline, seed=123  -> 0.803
+  [3/96] noise=0.01, lat=1, baseline, seed=456  -> 0.869
+  [4/96] noise=0.01, lat=1, pred=0.05, seed=42  -> 0.722
+  [5/96] noise=0.01, lat=1, pred=0.05, seed=123  -> 0.797
+  [6/96] noise=0.01, lat=1, pred=0.05, seed=456  -> 0.873
+  [7/96] noise=0.01, lat=1, pred=0.1, seed=42  -> 0.722
+  [8/96] noise=0.01, lat=1, pred=0.1, seed=123  -> 0.795
+  [9/96] noise=0.01, lat=1, pred=0.1, seed=456  -> 0.870
+  [10/96] noise=0.01, lat=1, pred=0.5, seed=42  -> 0.728
+  [11/96] noise=0.01, lat=1, pred=0.5, seed=123  -> 0.800
+  [12/96] noise=0.01, lat=1, pred=0.5, seed=456  -> 0.870
+  [13/96] noise=0.01, lat=2, baseline, seed=42  -> 0.880
+  [14/96] noise=0.01, lat=2, baseline, seed=123  -> 0.821
+  [15/96] noise=0.01, lat=2, baseline, seed=456  -> 0.880
+  [16/96] noise=0.01, lat=2, pred=0.05, seed=42  -> 0.881
+  [17/96] noise=0.01, lat=2, pred=0.05, seed=123  -> 0.831
+  [18/96] noise=0.01, lat=2, pred=0.05, seed=456  -> 0.871
+  [19/96] noise=0.01, lat=2, pred=0.1, seed=42  -> 0.885
+  [20/96] noise=0.01, lat=2, pred=0.1, seed=123  -> 0.825
+  [21/96] noise=0.01, lat=2, pred=0.1, seed=456  -> 0.882
+  [22/96] noise=0.01, lat=2, pred=0.5, seed=42  -> 0.876
+  [23/96] noise=0.01, lat=2, pred=0.5, seed=123  -> 0.829
+  [24/96] noise=0.01, lat=2, pred=0.5, seed=456  -> 0.862
+  [25/96] noise=0.1, lat=1, baseline, seed=42  -> 0.710
+  [26/96] noise=0.1, lat=1, baseline, seed=123  -> 0.796
+  [27/96] noise=0.1, lat=1, baseline, seed=456  -> 0.871
+  [28/96] noise=0.1, lat=1, pred=0.05, seed=42  -> 0.713
+  [29/96] noise=0.1, lat=1, pred=0.05, seed=123  -> 0.796
+  [30/96] noise=0.1, lat=1, pred=0.05, seed=456  -> 0.870
+  [31/96] noise=0.1, lat=1, pred=0.1, seed=42  -> 0.715
+  [32/96] noise=0.1, lat=1, pred=0.1, seed=123  -> 0.805
+  [33/96] noise=0.1, lat=1, pred=0.1, seed=456  -> 0.863
+  [34/96] noise=0.1, lat=1, pred=0.5, seed=42  -> 0.723
+  [35/96] noise=0.1, lat=1, pred=0.5, seed=123  -> 0.794
+  [36/96] noise=0.1, lat=1, pred=0.5, seed=456  -> 0.871
+  [37/96] noise=0.1, lat=2, baseline, seed=42  -> 0.881
+  [38/96] noise=0.1, lat=2, baseline, seed=123  -> 0.821
+  [39/96] noise=0.1, lat=2, baseline, seed=456  -> 0.880
+  [40/96] noise=0.1, lat=2, pred=0.05, seed=42  -> 0.874
+  [41/96] noise=0.1, lat=2, pred=0.05, seed=123  -> 0.823
+  [42/96] noise=0.1, lat=2, pred=0.05, seed=456  -> 0.880
+  [43/96] noise=0.1, lat=2, pred=0.1, seed=42  -> 0.881
+  [44/96] noise=0.1, lat=2, pred=0.1, seed=123  -> 0.827
+  [45/96] noise=0.1, lat=2, pred=0.1, seed=456  -> 0.870
+  [46/96] noise=0.1, lat=2, pred=0.5, seed=42  -> 0.877
+  [47/96] noise=0.1, lat=2, pred=0.5, seed=123  -> 0.832
+  [48/96] noise=0.1, lat=2, pred=0.5, seed=456  -> 0.876
+  [49/96] noise=0.5, lat=1, baseline, seed=42  -> 0.846
+  [50/96] noise=0.5, lat=1, baseline, seed=123  -> 0.739
+  [51/96] noise=0.5, lat=1, baseline, seed=456  -> 0.862
+  [52/96] noise=0.5, lat=1, pred=0.05, seed=42  -> 0.853
+  [53/96] noise=0.5, lat=1, pred=0.05, seed=123  -> 0.743
+  [54/96] noise=0.5, lat=1, pred=0.05, seed=456  -> 0.866
+  [55/96] noise=0.5, lat=1, pred=0.1, seed=42  -> 0.856
+  [56/96] noise=0.5, lat=1, pred=0.1, seed=123  -> 0.735
+  [57/96] noise=0.5, lat=1, pred=0.1, seed=456  -> 0.865
+  [58/96] noise=0.5, lat=1, pred=0.5, seed=42  -> 0.848
+  [59/96] noise=0.5, lat=1, pred=0.5, seed=123  -> 0.738
+  [60/96] noise=0.5, lat=1, pred=0.5, seed=456  -> 0.865
+  [61/96] noise=0.5, lat=2, baseline, seed=42  -> 0.875
+  [62/96] noise=0.5, lat=2, baseline, seed=123  -> 0.790
+  [63/96] noise=0.5, lat=2, baseline, seed=456  -> 0.868
+  [64/96] noise=0.5, lat=2, pred=0.05, seed=42  -> 0.868
+  [65/96] noise=0.5, lat=2, pred=0.05, seed=123  -> 0.780
+  [66/96] noise=0.5, lat=2, pred=0.05, seed=456  -> 0.868
+  [67/96] noise=0.5, lat=2, pred=0.1, seed=42  -> 0.866
+  [68/96] noise=0.5, lat=2, pred=0.1, seed=123  -> 0.795
+  [69/96] noise=0.5, lat=2, pred=0.1, seed=456  -> 0.869
+  [70/96] noise=0.5, lat=2, pred=0.5, seed=42  -> 0.873
+  [71/96] noise=0.5, lat=2, pred=0.5, seed=123  -> 0.795
+  [72/96] noise=0.5, lat=2, pred=0.5, seed=456  -> 0.873
+  [73/96] noise=1.0, lat=1, baseline, seed=42  -> 0.746
+  [74/96] noise=1.0, lat=1, baseline, seed=123  -> 0.621
+  [75/96] noise=1.0, lat=1, baseline, seed=456  -> 0.831
+  [76/96] noise=1.0, lat=1, pred=0.05, seed=42  -> 0.743
+  [77/96] noise=1.0, lat=1, pred=0.05, seed=123  -> 0.619
+  [78/96] noise=1.0, lat=1, pred=0.05, seed=456  -> 0.832
+  [79/96] noise=1.0, lat=1, pred=0.1, seed=42  -> 0.749
+  [80/96] noise=1.0, lat=1, pred=0.1, seed=123  -> 0.623
+  [81/96] noise=1.0, lat=1, pred=0.1, seed=456  -> 0.830
+  [82/96] noise=1.0, lat=1, pred=0.5, seed=42  -> 0.734
+  [83/96] noise=1.0, lat=1, pred=0.5, seed=123  -> 0.621
+  [84/96] noise=1.0, lat=1, pred=0.5, seed=456  -> 0.829
+  [85/96] noise=1.0, lat=2, baseline, seed=42  -> 0.793
+  [86/96] noise=1.0, lat=2, baseline, seed=123  -> 0.718
+  [87/96] noise=1.0, lat=2, baseline, seed=456  -> 0.838
+  [88/96] noise=1.0, lat=2, pred=0.05, seed=42  -> 0.798
+  [89/96] noise=1.0, lat=2, pred=0.05, seed=123  -> 0.721
+  [90/96] noise=1.0, lat=2, pred=0.05, seed=456  -> 0.827
+  [91/96] noise=1.0, lat=2, pred=0.1, seed=42  -> 0.799
+  [92/96] noise=1.0, lat=2, pred=0.1, seed=123  -> 0.723
+  [93/96] noise=1.0, lat=2, pred=0.1, seed=456  -> 0.826
+  [94/96] noise=1.0, lat=2, pred=0.5, seed=42  -> 0.796
+  [95/96] noise=1.0, lat=2, pred=0.5, seed=123  -> 0.717
+  [96/96] noise=1.0, lat=2, pred=0.5, seed=456  -> 0.835
+Saved results/predictive_processing.png
+Saved results/predictive_improvement.png
+
+=== Done: Sat Mar 14 03:37:54 AM EDT 2026 ===
+---------------------------------------
+Begin Slurm Epilog: Mar-14-2026 03:37:54
+Job ID:        4932201
+User ID:       dfu71
+Account:       gts-yke8
+Job name:      wnn_pred
+Resources:     cpu=6,gres/gpu:rtx_6000=1,mem=16G,node=1
+Rsrc Used:     cput=18:15:54,vmem=0,walltime=03:02:39,mem=1632468K,energy_used=0
+Partition:     gpu-rtx6000
+QOS:           inferno
+Nodes:         atl1-1-02-005-35-0
+---------------------------------------

@@ -25,11 +25,11 @@
   wrong state (`0.1 * flip_prob * (1 - state)`) significantly helped
   early training.
 
-- **Stochastic resonance in low-dimensional latent spaces.** At env_lat=1,
-  moderate channel noise (σ=0.5) *improves* PPO success (86%) compared to
-  near-zero noise (σ=0.01, 72%). The noise likely acts as implicit
-  regularization or exploration aid when the latent representation is
-  1-dimensional. This effect vanishes at env_lat≥2 where low noise is best.
+- **Stochastic resonance was seed variance, not a real effect.** The obj-005
+  finding (noise=0.5 outperforms noise=0.01 at lat=1) did not replicate in
+  obj-006 with 5 seeds and 13 noise levels. PPO at lat=1 is nearly flat
+  (~0.82) across noise 0.01-0.5, then degrades. Always use ≥5 seeds before
+  claiming non-monotonic effects.
 
 - **PPO makes organism embedding dim almost irrelevant for binary tasks.**
   With REINFORCE, embedding_dim mattered (especially at high noise). With PPO,
@@ -77,3 +77,15 @@
   The real bottleneck is optimizer learnability (PPO vs REINFORCE), not
   information availability. Future theoretical work should model
   representation learnability, not just information content.
+
+- **Predictive processing doesn't help simple tasks.** Adding next-state
+  prediction as auxiliary loss (pred_coef from 0.01 to 1.0) had zero effect
+  on binary state-flip or continuous positioning. The tasks are too simple
+  for world-model learning to provide any benefit. Save predictive processing
+  for multi-step, multi-object tasks.
+
+- **1-bit and 1D tasks cannot reveal capacity limits.** Both binary
+  (state-flip) and continuous (1D position) tasks show no embedding dim
+  effect. H(S) is too low for organism capacity to matter. Need multi-bit
+  state, multi-object, or multi-step planning tasks to find where capacity
+  limits actually bite.

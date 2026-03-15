@@ -1,67 +1,58 @@
 # Planning
 
-## Current Priority: Investigate Stochastic Resonance & Advance Framework
+## Current Priority: Synthesize findings and design higher-complexity tasks
 
-PPO sweep is complete. Two milestones done: (1) framework built and demo
-working, (2) perturbation study analyzed with PPO. The surprising stochastic
-resonance finding at env_lat=1 opens a new research direction.
+Three PACE experiments completed (obj-006, obj-007, obj-008). Key takeaway:
+for 1-bit/1D tasks, neither organism capacity nor predictive processing
+matter — the bottleneck is purely optimizer quality (PPO vs REINFORCE).
+The framework needs higher-complexity tasks to find where capacity limits
+actually bite.
 
 ### Active
 
-1. **Investigate stochastic resonance at env_lat=1** (obj-006)
-   PACE job 4930637 (8hr, RTX 6000): 265 configs, ~3h in / 8h.
-   Analysis pipeline ready (`experiments/analyze_stochastic_resonance.py`).
+1. **Rock-pushing scenario** — Multi-channel perception (light for position,
+   sound/vibration for contact) + force-based action. Tests whether
+   multi-dimensional state inference requires larger embeddings.
 
-2. **Predictive processing experiment** (obj-007)
-   PredictiveOrganism implemented: predicts next z, uses prediction
-   error as auxiliary loss alongside PPO. 96 configs: noise × env_lat ×
-   pred_coef × 3 seeds. PACE job 4932201 submitted (6hr, RTX 6000).
+2. **NN-based matter** — Replace explicit physics with learned Mealy machine
+   for more complex matter dynamics. Could create tasks where embedding dim
+   genuinely matters.
 
-3. **Continuous state experiment** (obj-008)
-   ContinuousMatter + ContinuousWorld implemented and tested (21 tests).
-   180 configs: noise × env_lat × embed_dim × 3 seeds. PACE job 4932660
-   submitted (6hr, RTX 6000). Analysis pipeline TBD after results.
+3. **Increase task complexity** — The current 1-bit / 1D tasks are too
+   simple to stress organism capacity. Need multi-bit state, multi-step
+   planning, or multi-object coordination to find the capacity boundary.
 
 ### Next Steps
 
-4. **Rock-pushing scenario** — Organism infers rock position via light,
-   applies force, senses gravitational/friction feedback. Tests
-   multi-channel perception + force-based action.
+4. **Refine learnability model** — GSNR model predicted resonance peak at
+   σ=0.44; actual data shows flat response (no real resonance). Model needs
+   recalibration with obj-006 data.
 
-5. **NN-based matter** — Replace explicit physics with learned Mealy
-   machine for more complex matter dynamics.
-
-6. **Refine learnability model** — Current GSNR model (RMSE 0.17 PPO,
-   0.25 REINFORCE) overshoots at low noise. Needs: (a) data from obj-006
-   to validate resonance peak prediction, (b) continuous task extension.
+5. **Multi-step planning** — Vary episode length (currently 10 steps).
+   Longer horizons may reveal capacity requirements.
 
 ## Open Questions
 
-- ANSWERED: REINFORCE fails on 1D due to gradient variance. PPO fixes it.
-  Open: does the fix hold across all noise levels and embedding dims?
-- How does the number of perception-action cycles affect success?
-  (Currently fixed at 10 steps per episode.)
-- Should the organism also do unsupervised world-model learning
-  alongside RL?
-- Does the learnability gap (separable but unlearnable) appear at
-  other dimensionalities, or is 1D uniquely problematic?
+- ANSWERED: Stochastic resonance at env_lat=1 was seed variance, not a
+  real effect. PPO response to noise is nearly flat until σ>0.5.
+- ANSWERED: Predictive processing (next-state prediction) does not help
+  for simple tasks. Binary state-flip is too easy for world models.
+- ANSWERED: Embedding dim doesn't matter for continuous tasks either.
+  1D position tracking is still too low-dimensional.
+- How complex must the task be before embedding dimension matters?
+- Would multi-object or multi-bit state spaces create a real capacity
+  bottleneck?
+- Does episode length (perception-action cycles) interact with capacity?
 
 ## Recently Completed
 
-- [2026-03-10] Project scaffolding: pyproject.toml, src/, tests/, experiments/
-- [2026-03-10] Core framework: Matter, Channel, EnvironmentVAE, Organism, World
-- [2026-03-10] Two-phase training: VAE pre-training + REINFORCE with Gaussian policy
-- [2026-03-10] Paramecium chemotaxis demo — 85.6% success rate
-- [2026-03-10] Architecture diagram with ML block details
-- [2026-03-10] 14 unit tests passing
-- [2026-03-10] Perturbation study launched (75 configurations)
-- [2026-03-10] README with overview, architecture, results, future directions
-- [2026-03-10] Latent failure analysis: H3 confirmed — env_lat=1 is RL bottleneck, not info bottleneck
-- [2026-03-10] PPO fix: 4.6% → 87.3% success on env_lat=1 (19x improvement)
-- [2026-03-10] PPO trainer refactored into train.py; PPO sweep script ready
-- [2026-03-13] PPO perturbation sweep (obj-005): 70/75 configs, stochastic resonance discovered at env_lat=1
+- [2026-03-15] obj-006: Stochastic resonance debunked — PPO flat ~0.82 across noise 0.01-0.5, no real peak
+- [2026-03-15] obj-007: Predictive processing has zero effect (0.811 with vs 0.811 without)
+- [2026-03-15] obj-008: Embedding dim negligible for continuous tasks (0.232-0.236 mean distance)
 - [2026-03-14] Analysis pipeline for stochastic resonance (obj-006): 5-figure suite with statistical tests
-- [2026-03-14] Predictive processing implementation: PredictiveOrganism + PPO+Prediction trainer + PACE job 4932201
-- [2026-03-14] Theoretical bounds (obj-007-theory): Fano/channel capacity analysis, 6-panel figure, key insight: bottleneck is learnability not information
-- [2026-03-14] Continuous state spaces (obj-008): ContinuousMatter, ContinuousWorld, PPO trainer, 180-config experiment + SLURM script
-- [2026-03-14] Learnability bounds (obj-007-learn): GSNR model explains resonance (peak σ=0.44), REINFORCE failure, and dim irrelevance
+- [2026-03-14] Predictive processing implementation: PredictiveOrganism + PPO+Prediction trainer
+- [2026-03-14] Theoretical bounds (obj-007-theory): Fano/channel capacity analysis, bottleneck is learnability not information
+- [2026-03-14] Continuous state spaces (obj-008-impl): ContinuousMatter, ContinuousWorld, PPO trainer
+- [2026-03-14] Learnability bounds (obj-007-learn): GSNR model explains REINFORCE failure and dim irrelevance
+- [2026-03-13] PPO perturbation sweep (obj-005): 70/75 configs
+- [2026-03-10] Core framework, demos, perturbation study, latent failure analysis, PPO fix

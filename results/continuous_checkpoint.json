@@ -1,0 +1,1624 @@
+{
+  "results": [
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 1,
+      "embedding_dim": 1,
+      "seed": 42,
+      "final_distance": 0.17780479416251183,
+      "early_distance": 0.24744967073202134,
+      "final_reward": 0.7989185059070586
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 1,
+      "embedding_dim": 1,
+      "seed": 123,
+      "final_distance": 0.16095029190182686,
+      "early_distance": 0.34430674016475676,
+      "final_reward": 0.7862450373172759
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 1,
+      "embedding_dim": 1,
+      "seed": 456,
+      "final_distance": 0.18061152324080468,
+      "early_distance": 0.17636888846755028,
+      "final_reward": 0.800992797613144
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 1,
+      "embedding_dim": 2,
+      "seed": 42,
+      "final_distance": 0.17793931886553765,
+      "early_distance": 0.22069352194666864,
+      "final_reward": 0.7989362162351609
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 1,
+      "embedding_dim": 2,
+      "seed": 123,
+      "final_distance": 0.1621284678578377,
+      "early_distance": 0.3460687533020973,
+      "final_reward": 0.7825315606594085
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 1,
+      "embedding_dim": 2,
+      "seed": 456,
+      "final_distance": 0.18057524114847184,
+      "early_distance": 0.18543381243944168,
+      "final_reward": 0.8011222559213639
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 1,
+      "embedding_dim": 4,
+      "seed": 42,
+      "final_distance": 0.1797185003757477,
+      "early_distance": 0.21265460401773453,
+      "final_reward": 0.799683695435524
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 1,
+      "embedding_dim": 4,
+      "seed": 123,
+      "final_distance": 0.16377011612057685,
+      "early_distance": 0.3477563410997391,
+      "final_reward": 0.7795537588000298
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 1,
+      "embedding_dim": 4,
+      "seed": 456,
+      "final_distance": 0.17886981517076492,
+      "early_distance": 0.18736062943935394,
+      "final_reward": 0.8008775022625922
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 1,
+      "embedding_dim": 8,
+      "seed": 42,
+      "final_distance": 0.17943280711770057,
+      "early_distance": 0.19942437782883643,
+      "final_reward": 0.7996538203954697
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 1,
+      "embedding_dim": 8,
+      "seed": 123,
+      "final_distance": 0.16589150875806807,
+      "early_distance": 0.34595871716737747,
+      "final_reward": 0.7764996182918549
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 1,
+      "embedding_dim": 8,
+      "seed": 456,
+      "final_distance": 0.17987640127539634,
+      "early_distance": 0.1745537757873535,
+      "final_reward": 0.8016354945302011
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 2,
+      "embedding_dim": 1,
+      "seed": 42,
+      "final_distance": 0.5290392279624939,
+      "early_distance": 0.5249632239341736,
+      "final_reward": 0.5601654075086115
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 2,
+      "embedding_dim": 1,
+      "seed": 123,
+      "final_distance": 0.36057378351688385,
+      "early_distance": 0.4008461579680443,
+      "final_reward": 0.6490229043364525
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 2,
+      "embedding_dim": 1,
+      "seed": 456,
+      "final_distance": 0.17281293049454688,
+      "early_distance": 0.2888501644134521,
+      "final_reward": 0.798263731300831
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 2,
+      "embedding_dim": 2,
+      "seed": 42,
+      "final_distance": 0.529563057422638,
+      "early_distance": 0.5406179636716842,
+      "final_reward": 0.5598622889816761
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 2,
+      "embedding_dim": 2,
+      "seed": 123,
+      "final_distance": 0.36107849329710007,
+      "early_distance": 0.3965657830238342,
+      "final_reward": 0.6487557110190391
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 2,
+      "embedding_dim": 2,
+      "seed": 456,
+      "final_distance": 0.17129263207316398,
+      "early_distance": 0.2927506476640701,
+      "final_reward": 0.8010282635688781
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 2,
+      "embedding_dim": 4,
+      "seed": 42,
+      "final_distance": 0.5280473828315735,
+      "early_distance": 0.539074620604515,
+      "final_reward": 0.5607090131938458
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 2,
+      "embedding_dim": 4,
+      "seed": 123,
+      "final_distance": 0.36132400333881376,
+      "early_distance": 0.3932814717292786,
+      "final_reward": 0.648619356751442
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 2,
+      "embedding_dim": 4,
+      "seed": 456,
+      "final_distance": 0.1609174244105816,
+      "early_distance": 0.28659930229187014,
+      "final_reward": 0.8049848237633703
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 2,
+      "embedding_dim": 8,
+      "seed": 42,
+      "final_distance": 0.5228627935051918,
+      "early_distance": 0.5288284838199615,
+      "final_reward": 0.5635948531329632
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 2,
+      "embedding_dim": 8,
+      "seed": 123,
+      "final_distance": 0.35864854902029036,
+      "early_distance": 0.39529514908790586,
+      "final_reward": 0.6500619134306908
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 2,
+      "embedding_dim": 8,
+      "seed": 456,
+      "final_distance": 0.16682221442461015,
+      "early_distance": 0.2884295776486397,
+      "final_reward": 0.8023381513357164
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 4,
+      "embedding_dim": 1,
+      "seed": 42,
+      "final_distance": 0.18463607430458068,
+      "early_distance": 0.1651322402060032,
+      "final_reward": 0.7997408127784729
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 4,
+      "embedding_dim": 1,
+      "seed": 123,
+      "final_distance": 0.1765802152454853,
+      "early_distance": 0.3102406859397888,
+      "final_reward": 0.7993241515755654
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 4,
+      "embedding_dim": 1,
+      "seed": 456,
+      "final_distance": 0.17634426802396774,
+      "early_distance": 0.2237558148801327,
+      "final_reward": 0.8017200228571891
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 4,
+      "embedding_dim": 2,
+      "seed": 42,
+      "final_distance": 0.18610992655158043,
+      "early_distance": 0.16362026929855347,
+      "final_reward": 0.8000775119662284
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 4,
+      "embedding_dim": 2,
+      "seed": 123,
+      "final_distance": 0.17570920586585997,
+      "early_distance": 0.27314071729779243,
+      "final_reward": 0.799298283159733
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 4,
+      "embedding_dim": 2,
+      "seed": 456,
+      "final_distance": 0.17519871816039084,
+      "early_distance": 0.2811099633574486,
+      "final_reward": 0.8016186314821244
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 4,
+      "embedding_dim": 4,
+      "seed": 42,
+      "final_distance": 0.18747759982943535,
+      "early_distance": 0.16372125148773192,
+      "final_reward": 0.8003642117977142
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 4,
+      "embedding_dim": 4,
+      "seed": 123,
+      "final_distance": 0.17622649297118187,
+      "early_distance": 0.24531682059168816,
+      "final_reward": 0.7994061285257339
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 4,
+      "embedding_dim": 4,
+      "seed": 456,
+      "final_distance": 0.17339085415005684,
+      "early_distance": 0.23429452180862426,
+      "final_reward": 0.8021788349747659
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 4,
+      "embedding_dim": 8,
+      "seed": 42,
+      "final_distance": 0.1873079515993595,
+      "early_distance": 0.16379728764295579,
+      "final_reward": 0.8004547888040541
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 4,
+      "embedding_dim": 8,
+      "seed": 123,
+      "final_distance": 0.17344754189252853,
+      "early_distance": 0.2849191382527351,
+      "final_reward": 0.7988817474246025
+    },
+    {
+      "channel_noise": 0.01,
+      "env_latent_dim": 4,
+      "embedding_dim": 8,
+      "seed": 456,
+      "final_distance": 0.11139293275773525,
+      "early_distance": 0.21662901043891908,
+      "final_reward": 0.8257120615243911
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 1,
+      "embedding_dim": 1,
+      "seed": 42,
+      "final_distance": 0.17778898701071738,
+      "early_distance": 0.2475196287035942,
+      "final_reward": 0.7989145776629447
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 1,
+      "embedding_dim": 1,
+      "seed": 123,
+      "final_distance": 0.16094953566789627,
+      "early_distance": 0.3443541869521141,
+      "final_reward": 0.7862484914064407
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 1,
+      "embedding_dim": 1,
+      "seed": 456,
+      "final_distance": 0.18051785230636597,
+      "early_distance": 0.17631817981600761,
+      "final_reward": 0.800993583202362
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 1,
+      "embedding_dim": 2,
+      "seed": 42,
+      "final_distance": 0.17792633101344107,
+      "early_distance": 0.22087955251336097,
+      "final_reward": 0.7989345639944075
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 1,
+      "embedding_dim": 2,
+      "seed": 123,
+      "final_distance": 0.16212273389101028,
+      "early_distance": 0.34613354951143266,
+      "final_reward": 0.7825448963046074
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 1,
+      "embedding_dim": 2,
+      "seed": 456,
+      "final_distance": 0.18043097034096717,
+      "early_distance": 0.18523338213562965,
+      "final_reward": 0.8011130493879317
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 1,
+      "embedding_dim": 4,
+      "seed": 42,
+      "final_distance": 0.17963922396302223,
+      "early_distance": 0.21357399821281434,
+      "final_reward": 0.799627648293972
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 1,
+      "embedding_dim": 4,
+      "seed": 123,
+      "final_distance": 0.1637859545648098,
+      "early_distance": 0.34772443771362305,
+      "final_reward": 0.7795270916819572
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 1,
+      "embedding_dim": 4,
+      "seed": 456,
+      "final_distance": 0.1786324292421341,
+      "early_distance": 0.1878902904689312,
+      "final_reward": 0.8008429864048956
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 1,
+      "embedding_dim": 8,
+      "seed": 42,
+      "final_distance": 0.1795247860252857,
+      "early_distance": 0.19949862509965896,
+      "final_reward": 0.7996697878837586
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 1,
+      "embedding_dim": 8,
+      "seed": 123,
+      "final_distance": 0.16590169072151184,
+      "early_distance": 0.3460696265101433,
+      "final_reward": 0.7764865958690644
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 1,
+      "embedding_dim": 8,
+      "seed": 456,
+      "final_distance": 0.1796192228794098,
+      "early_distance": 0.17473118528723716,
+      "final_reward": 0.8016069510579109
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 2,
+      "embedding_dim": 1,
+      "seed": 42,
+      "final_distance": 0.5290133833885193,
+      "early_distance": 0.5249326676130295,
+      "final_reward": 0.5601812241971492
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 2,
+      "embedding_dim": 1,
+      "seed": 123,
+      "final_distance": 0.3605987086892128,
+      "early_distance": 0.4008844166994095,
+      "final_reward": 0.649008773267269
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 2,
+      "embedding_dim": 1,
+      "seed": 456,
+      "final_distance": 0.17276696041226386,
+      "early_distance": 0.2889571309089661,
+      "final_reward": 0.7982548394799232
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 2,
+      "embedding_dim": 2,
+      "seed": 42,
+      "final_distance": 0.5294796973466873,
+      "early_distance": 0.5406102806329727,
+      "final_reward": 0.5599099938571453
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 2,
+      "embedding_dim": 2,
+      "seed": 123,
+      "final_distance": 0.36105776727199557,
+      "early_distance": 0.3966569140553474,
+      "final_reward": 0.6487668442726136
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 2,
+      "embedding_dim": 2,
+      "seed": 456,
+      "final_distance": 0.17144156843423844,
+      "early_distance": 0.29293867498636245,
+      "final_reward": 0.8010306096076965
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 2,
+      "embedding_dim": 4,
+      "seed": 42,
+      "final_distance": 0.5281594127416611,
+      "early_distance": 0.5390852242708206,
+      "final_reward": 0.5606480969488621
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 2,
+      "embedding_dim": 4,
+      "seed": 123,
+      "final_distance": 0.3616621524095535,
+      "early_distance": 0.3933119624853134,
+      "final_reward": 0.6484364300966262
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 2,
+      "embedding_dim": 4,
+      "seed": 456,
+      "final_distance": 0.16894992366433143,
+      "early_distance": 0.28659567683935167,
+      "final_reward": 0.8016548562049867
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 2,
+      "embedding_dim": 8,
+      "seed": 42,
+      "final_distance": 0.5228790670633316,
+      "early_distance": 0.5289114058017731,
+      "final_reward": 0.5635860003530979
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 2,
+      "embedding_dim": 8,
+      "seed": 123,
+      "final_distance": 0.35874118059873583,
+      "early_distance": 0.3953118234872818,
+      "final_reward": 0.6500109726190567
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 2,
+      "embedding_dim": 8,
+      "seed": 456,
+      "final_distance": 0.16562479063868524,
+      "early_distance": 0.28847854137420653,
+      "final_reward": 0.8026809987425804
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 4,
+      "embedding_dim": 1,
+      "seed": 42,
+      "final_distance": 0.18460185080766678,
+      "early_distance": 0.16506781280040742,
+      "final_reward": 0.799734873175621
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 4,
+      "embedding_dim": 1,
+      "seed": 123,
+      "final_distance": 0.17660699933767318,
+      "early_distance": 0.3099675804376602,
+      "final_reward": 0.7993310087919234
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 4,
+      "embedding_dim": 1,
+      "seed": 456,
+      "final_distance": 0.17645256370306014,
+      "early_distance": 0.22265277728438376,
+      "final_reward": 0.8016986274719237
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 4,
+      "embedding_dim": 2,
+      "seed": 42,
+      "final_distance": 0.1860339231789112,
+      "early_distance": 0.16362696662545204,
+      "final_reward": 0.800064416527748
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 4,
+      "embedding_dim": 2,
+      "seed": 123,
+      "final_distance": 0.1757284179329872,
+      "early_distance": 0.27276348918676374,
+      "final_reward": 0.7993035814166067
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 4,
+      "embedding_dim": 2,
+      "seed": 456,
+      "final_distance": 0.1755767986178398,
+      "early_distance": 0.2828659750521183,
+      "final_reward": 0.8015127545595169
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 4,
+      "embedding_dim": 4,
+      "seed": 42,
+      "final_distance": 0.18740770742297172,
+      "early_distance": 0.16370864883065223,
+      "final_reward": 0.8003485777974128
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 4,
+      "embedding_dim": 4,
+      "seed": 123,
+      "final_distance": 0.17608514055609703,
+      "early_distance": 0.24432313144207002,
+      "final_reward": 0.7993773409724235
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 4,
+      "embedding_dim": 4,
+      "seed": 456,
+      "final_distance": 0.17360641434788704,
+      "early_distance": 0.23412124440073967,
+      "final_reward": 0.8020684465765953
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 4,
+      "embedding_dim": 8,
+      "seed": 42,
+      "final_distance": 0.1873180978000164,
+      "early_distance": 0.1637786515057087,
+      "final_reward": 0.8004602792859078
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 4,
+      "embedding_dim": 8,
+      "seed": 123,
+      "final_distance": 0.17328844740986823,
+      "early_distance": 0.2826850101351738,
+      "final_reward": 0.7988341540098189
+    },
+    {
+      "channel_noise": 0.1,
+      "env_latent_dim": 4,
+      "embedding_dim": 8,
+      "seed": 456,
+      "final_distance": 0.11006434895098209,
+      "early_distance": 0.2165835291147232,
+      "final_reward": 0.8261982834339143
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 1,
+      "embedding_dim": 1,
+      "seed": 42,
+      "final_distance": 0.177743286639452,
+      "early_distance": 0.24828793630003929,
+      "final_reward": 0.7988998115062713
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 1,
+      "embedding_dim": 1,
+      "seed": 123,
+      "final_distance": 0.16095138788223268,
+      "early_distance": 0.34433603733778,
+      "final_reward": 0.7862306568026542
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 1,
+      "embedding_dim": 1,
+      "seed": 456,
+      "final_distance": 0.18099614530801772,
+      "early_distance": 0.17550953477621078,
+      "final_reward": 0.8008232820034028
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 1,
+      "embedding_dim": 2,
+      "seed": 42,
+      "final_distance": 0.17804732993245126,
+      "early_distance": 0.22099778279662133,
+      "final_reward": 0.7989643320441246
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 1,
+      "embedding_dim": 2,
+      "seed": 123,
+      "final_distance": 0.16219690144062043,
+      "early_distance": 0.3458417966961861,
+      "final_reward": 0.7823807251453401
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 1,
+      "embedding_dim": 2,
+      "seed": 456,
+      "final_distance": 0.18120306953787804,
+      "early_distance": 0.18592081889510154,
+      "final_reward": 0.8009255445003511
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 1,
+      "embedding_dim": 4,
+      "seed": 42,
+      "final_distance": 0.17993511036038398,
+      "early_distance": 0.2154610350728035,
+      "final_reward": 0.7997013077139855
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 1,
+      "embedding_dim": 4,
+      "seed": 123,
+      "final_distance": 0.16395876929163933,
+      "early_distance": 0.34752634465694426,
+      "final_reward": 0.7792592531442643
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 1,
+      "embedding_dim": 4,
+      "seed": 456,
+      "final_distance": 0.17945423275232314,
+      "early_distance": 0.1953444756567478,
+      "final_reward": 0.8004600754380226
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 1,
+      "embedding_dim": 8,
+      "seed": 42,
+      "final_distance": 0.1800352431833744,
+      "early_distance": 0.19993992820382117,
+      "final_reward": 0.7997681573033333
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 1,
+      "embedding_dim": 8,
+      "seed": 123,
+      "final_distance": 0.16609886959195136,
+      "early_distance": 0.3461094006896019,
+      "final_reward": 0.7762296205759048
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 1,
+      "embedding_dim": 8,
+      "seed": 456,
+      "final_distance": 0.18069834336638452,
+      "early_distance": 0.17242758125066757,
+      "final_reward": 0.8015666034817694
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 2,
+      "embedding_dim": 1,
+      "seed": 42,
+      "final_distance": 0.5288727223873139,
+      "early_distance": 0.5245149374008179,
+      "final_reward": 0.5602609480917453
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 2,
+      "embedding_dim": 1,
+      "seed": 123,
+      "final_distance": 0.36030505746603014,
+      "early_distance": 0.4014583081007004,
+      "final_reward": 0.6491665375232696
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 2,
+      "embedding_dim": 1,
+      "seed": 456,
+      "final_distance": 0.17265072390437125,
+      "early_distance": 0.28836305141448976,
+      "final_reward": 0.7990178087353706
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 2,
+      "embedding_dim": 2,
+      "seed": 42,
+      "final_distance": 0.52940334379673,
+      "early_distance": 0.5404794901609421,
+      "final_reward": 0.5599551570415497
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 2,
+      "embedding_dim": 2,
+      "seed": 123,
+      "final_distance": 0.3606149435043335,
+      "early_distance": 0.39653571993112563,
+      "final_reward": 0.649005237519741
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 2,
+      "embedding_dim": 2,
+      "seed": 456,
+      "final_distance": 0.17157905399799347,
+      "early_distance": 0.2932433277368546,
+      "final_reward": 0.7999280515313149
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 2,
+      "embedding_dim": 4,
+      "seed": 42,
+      "final_distance": 0.5283639192581177,
+      "early_distance": 0.5378810107707978,
+      "final_reward": 0.5605385327339173
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 2,
+      "embedding_dim": 4,
+      "seed": 123,
+      "final_distance": 0.3604940891265869,
+      "early_distance": 0.39328998476266863,
+      "final_reward": 0.6490645107626914
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 2,
+      "embedding_dim": 4,
+      "seed": 456,
+      "final_distance": 0.1708678849041462,
+      "early_distance": 0.28409880548715594,
+      "final_reward": 0.799813406765461
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 2,
+      "embedding_dim": 8,
+      "seed": 42,
+      "final_distance": 0.5226801425218582,
+      "early_distance": 0.5288092732429505,
+      "final_reward": 0.5637024539709091
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 2,
+      "embedding_dim": 8,
+      "seed": 123,
+      "final_distance": 0.3579267591238022,
+      "early_distance": 0.3953752726316452,
+      "final_reward": 0.6504496851563454
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 2,
+      "embedding_dim": 8,
+      "seed": 456,
+      "final_distance": 0.16960131824016572,
+      "early_distance": 0.2873271882534027,
+      "final_reward": 0.7995455372333528
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 4,
+      "embedding_dim": 1,
+      "seed": 42,
+      "final_distance": 0.18463279008865358,
+      "early_distance": 0.16528511121869088,
+      "final_reward": 0.799734589457512
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 4,
+      "embedding_dim": 1,
+      "seed": 123,
+      "final_distance": 0.17651847004890442,
+      "early_distance": 0.30755508989095687,
+      "final_reward": 0.7993079194426537
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 4,
+      "embedding_dim": 1,
+      "seed": 456,
+      "final_distance": 0.17921461388468743,
+      "early_distance": 0.21877902895212173,
+      "final_reward": 0.8014708814024927
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 4,
+      "embedding_dim": 2,
+      "seed": 42,
+      "final_distance": 0.1859909027814865,
+      "early_distance": 0.16374176889657974,
+      "final_reward": 0.8000483992695809
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 4,
+      "embedding_dim": 2,
+      "seed": 123,
+      "final_distance": 0.17583828344941138,
+      "early_distance": 0.27420725077390673,
+      "final_reward": 0.7993027636408806
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 4,
+      "embedding_dim": 2,
+      "seed": 456,
+      "final_distance": 0.17943075597286223,
+      "early_distance": 0.26890559419989585,
+      "final_reward": 0.8014128461480141
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 4,
+      "embedding_dim": 4,
+      "seed": 42,
+      "final_distance": 0.18733296990394593,
+      "early_distance": 0.16392054930329322,
+      "final_reward": 0.8003364098072053
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 4,
+      "embedding_dim": 4,
+      "seed": 123,
+      "final_distance": 0.175646547973156,
+      "early_distance": 0.24068180620670318,
+      "final_reward": 0.7992682909965516
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 4,
+      "embedding_dim": 4,
+      "seed": 456,
+      "final_distance": 0.17945398315787314,
+      "early_distance": 0.22804605662822724,
+      "final_reward": 0.8016828343272209
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 4,
+      "embedding_dim": 8,
+      "seed": 42,
+      "final_distance": 0.1869032070040703,
+      "early_distance": 0.16397407948970794,
+      "final_reward": 0.8004360964894295
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 4,
+      "embedding_dim": 8,
+      "seed": 123,
+      "final_distance": 0.1730851136147976,
+      "early_distance": 0.27100213021039965,
+      "final_reward": 0.7987849655747413
+    },
+    {
+      "channel_noise": 0.5,
+      "env_latent_dim": 4,
+      "embedding_dim": 8,
+      "seed": 456,
+      "final_distance": 0.17089954912662506,
+      "early_distance": 0.21413939744234084,
+      "final_reward": 0.8033697220683098
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 1,
+      "seed": 42,
+      "final_distance": 0.17782549038529397,
+      "early_distance": 0.24882108867168426,
+      "final_reward": 0.7989195746183395
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 1,
+      "seed": 123,
+      "final_distance": 0.16101204976439476,
+      "early_distance": 0.34544647783041,
+      "final_reward": 0.7859161934256556
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 1,
+      "seed": 456,
+      "final_distance": 0.18236685022711754,
+      "early_distance": 0.17522253319621087,
+      "final_reward": 0.8005810636281968
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 2,
+      "seed": 42,
+      "final_distance": 0.1781337358057499,
+      "early_distance": 0.22110112607479096,
+      "final_reward": 0.7989795330166817
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 2,
+      "seed": 123,
+      "final_distance": 0.16246969997882843,
+      "early_distance": 0.34695505201816557,
+      "final_reward": 0.7818318390846252
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 2,
+      "seed": 456,
+      "final_distance": 0.1828326590359211,
+      "early_distance": 0.18617665767669678,
+      "final_reward": 0.800699605345726
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 4,
+      "seed": 42,
+      "final_distance": 0.17979055568575858,
+      "early_distance": 0.21627268940210342,
+      "final_reward": 0.7996539175510406
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 4,
+      "seed": 123,
+      "final_distance": 0.1641863353550434,
+      "early_distance": 0.3476944610476494,
+      "final_reward": 0.7789081168174744
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 4,
+      "seed": 456,
+      "final_distance": 0.18132750764489175,
+      "early_distance": 0.19525582641363143,
+      "final_reward": 0.8004089340567588
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 8,
+      "seed": 42,
+      "final_distance": 0.17963079884648323,
+      "early_distance": 0.20011023059487343,
+      "final_reward": 0.7996974286437035
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 8,
+      "seed": 123,
+      "final_distance": 0.1652268223464489,
+      "early_distance": 0.3464159622788429,
+      "final_reward": 0.7774040207266807
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 8,
+      "seed": 456,
+      "final_distance": 0.1830625616014004,
+      "early_distance": 0.1746566951274872,
+      "final_reward": 0.8010524204373362
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 1,
+      "seed": 42,
+      "final_distance": 0.5285993218421936,
+      "early_distance": 0.5242383748292923,
+      "final_reward": 0.5604113644361496
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 1,
+      "seed": 123,
+      "final_distance": 0.3603895127773285,
+      "early_distance": 0.4014971390366554,
+      "final_reward": 0.6491251820325851
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 1,
+      "seed": 456,
+      "final_distance": 0.17214377373456954,
+      "early_distance": 0.2849349871277809,
+      "final_reward": 0.7985135099291801
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 2,
+      "seed": 42,
+      "final_distance": 0.5295235365629196,
+      "early_distance": 0.5401769638061523,
+      "final_reward": 0.5598911949992179
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 2,
+      "seed": 123,
+      "final_distance": 0.3602058976888657,
+      "early_distance": 0.3964161142706871,
+      "final_reward": 0.6492269814014435
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 2,
+      "seed": 456,
+      "final_distance": 0.17159392163157464,
+      "early_distance": 0.289862260222435,
+      "final_reward": 0.798812245130539
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 4,
+      "seed": 42,
+      "final_distance": 0.5283199161291122,
+      "early_distance": 0.5368762671947479,
+      "final_reward": 0.560563922971487
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 4,
+      "seed": 123,
+      "final_distance": 0.3601126566529274,
+      "early_distance": 0.39503898918628694,
+      "final_reward": 0.6492713361978532
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 4,
+      "seed": 456,
+      "final_distance": 0.17108093798160554,
+      "early_distance": 0.2756899207830429,
+      "final_reward": 0.7987061423063279
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 8,
+      "seed": 42,
+      "final_distance": 0.523298305273056,
+      "early_distance": 0.5298509329557419,
+      "final_reward": 0.5633608879148959
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 8,
+      "seed": 123,
+      "final_distance": 0.35794673711061475,
+      "early_distance": 0.39518554210662843,
+      "final_reward": 0.6504382029175758
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 8,
+      "seed": 456,
+      "final_distance": 0.16942615658044816,
+      "early_distance": 0.27947398126125333,
+      "final_reward": 0.7984510123729707
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 1,
+      "seed": 42,
+      "final_distance": 0.18478009924292566,
+      "early_distance": 0.1655858613550663,
+      "final_reward": 0.7997552293539048
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 1,
+      "seed": 123,
+      "final_distance": 0.17671774849295616,
+      "early_distance": 0.30855517983436587,
+      "final_reward": 0.7993524867296219
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 1,
+      "seed": 456,
+      "final_distance": 0.18126814290881157,
+      "early_distance": 0.21386963427066802,
+      "final_reward": 0.800734980404377
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 2,
+      "seed": 42,
+      "final_distance": 0.18630187287926675,
+      "early_distance": 0.1637274980545044,
+      "final_reward": 0.8000929984450341
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 2,
+      "seed": 123,
+      "final_distance": 0.17591650560498237,
+      "early_distance": 0.27245687395334245,
+      "final_reward": 0.7993329820036887
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 2,
+      "seed": 456,
+      "final_distance": 0.18217517510056497,
+      "early_distance": 0.258874524384737,
+      "final_reward": 0.800764109492302
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 4,
+      "seed": 42,
+      "final_distance": 0.18743063434958457,
+      "early_distance": 0.1638530485332012,
+      "final_reward": 0.8003304535150528
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 4,
+      "seed": 123,
+      "final_distance": 0.17614370957016945,
+      "early_distance": 0.23733212575316429,
+      "final_reward": 0.7993596491217614
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 4,
+      "seed": 456,
+      "final_distance": 0.18288609012961388,
+      "early_distance": 0.22459921166300773,
+      "final_reward": 0.8010101175308227
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 8,
+      "seed": 42,
+      "final_distance": 0.18737757429480553,
+      "early_distance": 0.1640918731689453,
+      "final_reward": 0.8004166010022162
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 8,
+      "seed": 123,
+      "final_distance": 0.17321398630738258,
+      "early_distance": 0.27191133201122286,
+      "final_reward": 0.7988117492198945
+    },
+    {
+      "channel_noise": 1.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 8,
+      "seed": 456,
+      "final_distance": 0.17906640246510505,
+      "early_distance": 0.2105509139597416,
+      "final_reward": 0.8010490867495538
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 1,
+      "seed": 42,
+      "final_distance": 0.177940521389246,
+      "early_distance": 0.24813375771045684,
+      "final_reward": 0.7989504915475846
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 1,
+      "seed": 123,
+      "final_distance": 0.16095608919858934,
+      "early_distance": 0.3443864926695824,
+      "final_reward": 0.78619551807642
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 1,
+      "seed": 456,
+      "final_distance": 0.1829865150153637,
+      "early_distance": 0.1750806100666523,
+      "final_reward": 0.8003375190496443
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 2,
+      "seed": 42,
+      "final_distance": 0.17828012332320214,
+      "early_distance": 0.22201821580529213,
+      "final_reward": 0.799014036655426
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 2,
+      "seed": 123,
+      "final_distance": 0.16246773600578307,
+      "early_distance": 0.3464111253619194,
+      "final_reward": 0.781837440431118
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 2,
+      "seed": 456,
+      "final_distance": 0.18326330184936523,
+      "early_distance": 0.18711873814463614,
+      "final_reward": 0.8004106292128561
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 4,
+      "seed": 42,
+      "final_distance": 0.17926020398736,
+      "early_distance": 0.2175760678946972,
+      "final_reward": 0.7995479640364647
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 4,
+      "seed": 123,
+      "final_distance": 0.16414763703942298,
+      "early_distance": 0.3474991053342819,
+      "final_reward": 0.7789640033245087
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 4,
+      "seed": 456,
+      "final_distance": 0.18234511464834213,
+      "early_distance": 0.1945241868495941,
+      "final_reward": 0.8002278009057046
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 8,
+      "seed": 42,
+      "final_distance": 0.179399523884058,
+      "early_distance": 0.20154363214969634,
+      "final_reward": 0.7996338480710983
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 8,
+      "seed": 123,
+      "final_distance": 0.16595786809921265,
+      "early_distance": 0.34562356024980545,
+      "final_reward": 0.7764156067371368
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 1,
+      "embedding_dim": 8,
+      "seed": 456,
+      "final_distance": 0.183661150932312,
+      "early_distance": 0.17542935386300088,
+      "final_reward": 0.8005923396348955
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 1,
+      "seed": 42,
+      "final_distance": 0.5284214943647385,
+      "early_distance": 0.5243249535560608,
+      "final_reward": 0.5605066449940205
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 1,
+      "seed": 123,
+      "final_distance": 0.3601649165153503,
+      "early_distance": 0.40121231973171234,
+      "final_reward": 0.6492490231990814
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 1,
+      "seed": 456,
+      "final_distance": 0.17231555208563804,
+      "early_distance": 0.28245738297700884,
+      "final_reward": 0.7981843328475952
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 2,
+      "seed": 42,
+      "final_distance": 0.5294152587652207,
+      "early_distance": 0.5399846583604813,
+      "final_reward": 0.5599502165615559
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 2,
+      "seed": 123,
+      "final_distance": 0.3602222681045532,
+      "early_distance": 0.3964139997959137,
+      "final_reward": 0.6492186632752418
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 2,
+      "seed": 456,
+      "final_distance": 0.1719176024198532,
+      "early_distance": 0.2868441089987755,
+      "final_reward": 0.7981016284227371
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 4,
+      "seed": 42,
+      "final_distance": 0.5281597435474396,
+      "early_distance": 0.5376196920871734,
+      "final_reward": 0.5606481346487999
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 4,
+      "seed": 123,
+      "final_distance": 0.3608206257224083,
+      "early_distance": 0.3946810498833656,
+      "final_reward": 0.6488938248157502
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 4,
+      "seed": 456,
+      "final_distance": 0.17119746580719947,
+      "early_distance": 0.261313384026289,
+      "final_reward": 0.7980590781569481
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 8,
+      "seed": 42,
+      "final_distance": 0.523820412158966,
+      "early_distance": 0.5312609732151031,
+      "final_reward": 0.5630667454004287
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 8,
+      "seed": 123,
+      "final_distance": 0.35801814645528796,
+      "early_distance": 0.3951204776763916,
+      "final_reward": 0.6504043498635292
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 2,
+      "embedding_dim": 8,
+      "seed": 456,
+      "final_distance": 0.1708119221031666,
+      "early_distance": 0.259967115521431,
+      "final_reward": 0.798137226998806
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 1,
+      "seed": 42,
+      "final_distance": 0.18474369272589683,
+      "early_distance": 0.1658249281346798,
+      "final_reward": 0.7997408279776573
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 1,
+      "seed": 123,
+      "final_distance": 0.17673190757632257,
+      "early_distance": 0.30930776298046114,
+      "final_reward": 0.7993546500802039
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 1,
+      "seed": 456,
+      "final_distance": 0.18283405601978303,
+      "early_distance": 0.21236830204725266,
+      "final_reward": 0.8004122167825699
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 2,
+      "seed": 42,
+      "final_distance": 0.18624341487884521,
+      "early_distance": 0.1637217529118061,
+      "final_reward": 0.8000702068209649
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 2,
+      "seed": 123,
+      "final_distance": 0.17603105306625366,
+      "early_distance": 0.27084465846419337,
+      "final_reward": 0.7993595507740975
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 2,
+      "seed": 456,
+      "final_distance": 0.183304613083601,
+      "early_distance": 0.25141670033335684,
+      "final_reward": 0.8004664605855941
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 4,
+      "seed": 42,
+      "final_distance": 0.18742472901940346,
+      "early_distance": 0.16387832015752793,
+      "final_reward": 0.8003215396404265
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 4,
+      "seed": 123,
+      "final_distance": 0.17620011121034623,
+      "early_distance": 0.23972315713763237,
+      "final_reward": 0.7993791022896767
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 4,
+      "seed": 456,
+      "final_distance": 0.1839015394449234,
+      "early_distance": 0.22243064343929292,
+      "final_reward": 0.8006430390477182
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 8,
+      "seed": 42,
+      "final_distance": 0.18768528401851653,
+      "early_distance": 0.16414735540747644,
+      "final_reward": 0.8004412981867789
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 8,
+      "seed": 123,
+      "final_distance": 0.1733224354684353,
+      "early_distance": 0.2719182327389717,
+      "final_reward": 0.798817278444767
+    },
+    {
+      "channel_noise": 2.0,
+      "env_latent_dim": 4,
+      "embedding_dim": 8,
+      "seed": 456,
+      "final_distance": 0.18082161620259285,
+      "early_distance": 0.2094986207783222,
+      "final_reward": 0.8006494599580766
+    }
+  ]
+}
