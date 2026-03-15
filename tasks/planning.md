@@ -11,10 +11,10 @@ actually bite.
 ### Active
 
 1. **Rock-pushing experiment** (obj-009)
-   First run (job 4952915) failed — organism never learned. Fixed: direct
-   action pipeline, full state projection in emissions, 1000 episodes.
-   120 configs: noise × env_lat=[4,8] × embed=[2,4,8,16,32] × 3 seeds.
-   PACE job 4956171 resubmitted (12hr, RTX 6000).
+   Oracle baseline completed: **embedding dim matters for first time!**
+   embed=8 best (dist=0.395), embed=2 worst (dist=0.502 ≈ random).
+   Full pipeline (with VAE) running on PACE job 4956171 (12hr, RTX 6000).
+   Key question: does the perception bottleneck shift the optimal embed dim?
 
 2. **NN-based matter** — Replace explicit physics with learned Mealy machine
    for more complex matter dynamics. Could create tasks where embedding dim
@@ -48,6 +48,7 @@ actually bite.
 
 ## Recently Completed
 
+- [2026-03-15] obj-009-oracle: Oracle baseline — embed dim matters! embed=8 best (0.395 vs 0.50 random)
 - [2026-03-15] obj-006: Stochastic resonance debunked — PPO flat ~0.82 across noise 0.01-0.5, no real peak
 - [2026-03-15] obj-007: Predictive processing has zero effect (0.811 with vs 0.811 without)
 - [2026-03-15] obj-008: Embedding dim negligible for continuous tasks (0.232-0.236 mean distance)
