@@ -42,9 +42,33 @@
     "contact": 0.159
   },
   {
+    "embed": 8,
+    "seed": 123,
+    "dist": 0.279,
+    "contact": 0.424
+  },
+  {
+    "embed": 8,
+    "seed": 456,
+    "dist": 0.314,
+    "contact": 0.198
+  },
+  {
     "embed": 16,
     "seed": 42,
     "dist": 0.499,
     "contact": 0.086
+  },
+  {
+    "embed": 16,
+    "seed": 123,
+    "dist": 0.335,
+    "contact": 0.19
+  },
+  {
+    "embed": 16,
+    "seed": 456,
+    "dist": 0.398,
+    "contact": 0.102
   }
 ]
