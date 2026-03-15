@@ -34,7 +34,7 @@ def main():
             torch.manual_seed(seed)
             np.random.seed(seed)
 
-            matter = RockPushMatter()
+            matter = RockPushMatter().to(device)
             t0 = time.time()
             metrics = train_oracle_ppo_rockpush(
                 matter,
