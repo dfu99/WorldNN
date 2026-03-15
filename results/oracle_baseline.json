@@ -1,0 +1,50 @@
+[
+  {
+    "embed": 2,
+    "seed": 42,
+    "dist": 0.514,
+    "contact": 0.102
+  },
+  {
+    "embed": 2,
+    "seed": 123,
+    "dist": 0.516,
+    "contact": 0.096
+  },
+  {
+    "embed": 2,
+    "seed": 456,
+    "dist": 0.476,
+    "contact": 0.089
+  },
+  {
+    "embed": 4,
+    "seed": 42,
+    "dist": 0.464,
+    "contact": 0.095
+  },
+  {
+    "embed": 4,
+    "seed": 123,
+    "dist": 0.451,
+    "contact": 0.093
+  },
+  {
+    "embed": 4,
+    "seed": 456,
+    "dist": 0.316,
+    "contact": 0.181
+  },
+  {
+    "embed": 8,
+    "seed": 42,
+    "dist": 0.395,
+    "contact": 0.159
+  },
+  {
+    "embed": 16,
+    "seed": 42,
+    "dist": 0.499,
+    "contact": 0.086
+  }
+]

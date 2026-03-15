@@ -741,3 +741,148 @@ def train_organism_ppo_rockpush(
         metrics["contact_rate"].append(contact_sum / T)
 
     return metrics
+
+
+def train_oracle_ppo_rockpush(
+    matter,
+    embedding_dim: int = 8,
+    n_episodes: int = 1000,
+    steps_per_episode: int = 20,
+    batch_size: int = 512,
+    lr: float = 3e-4,
+    gamma: float = 0.99,
+    entropy_coef: float = 0.01,
+    action_std_init: float = 0.8,
+    action_std_final: float = 0.2,
+    clip_eps: float = 0.2,
+    ppo_epochs: int = 4,
+    target_x: float = 0.8,
+    target_y: float = 0.8,
+    device: torch.device | None = None,
+) -> dict[str, list[float]]:
+    """Oracle baseline: organism directly observes 4D state (no VAE/channel).
+
+    This isolates whether the rock-push task is learnable at all, independent
+    of the perception pipeline. If the oracle succeeds but the full pipeline
+    fails, the bottleneck is perception. If both fail, the task/reward design
+    needs work.
+
+    Uses a standalone Organism with sensory_dim=4 (raw state input).
+    """
+    from worldnn.organism import Organism
+    from worldnn.matter import RockPushMatter
+
+    if device is None:
+        device = torch.device("cpu")
+
+    org = Organism(
+        sensory_dim=4,  # directly observes [rock_x, rock_y, org_x, org_y]
+        embedding_dim=embedding_dim,
+        action_dim=matter.action_dim,
+        hidden_size=64,
+    ).to(device)
+
+    target = torch.tensor([target_x, target_y], device=device)
+
+    log_std = nn.Parameter(
+        torch.full((matter.action_dim,), math.log(action_std_init), device=device)
+    )
+    optimizer = torch.optim.Adam(
+        list(org.parameters()) + [log_std], lr=lr
+    )
+
+    metrics = {
+        "rewards": [], "rock_distance": [], "policy_losses": [],
+        "contact_rate": [],
+    }
+
+    for ep in range(n_episodes):
+        org.train()
+
+        state = matter.reset_state(batch_size, device)
+        action = torch.zeros(batch_size, matter.action_dim, device=device)
+
+        all_obs, all_actions, all_log_probs = [], [], []
+        all_rewards, all_values = [], []
+        contact_sum = 0.0
+
+        for t in range(steps_per_episode):
+            seed = torch.randn(batch_size, matter.seed_dim, device=device)
+
+            # Oracle: organism sees raw state
+            obs = state.detach()
+            action_mean, embedding, value = org(obs)
+            std = log_std.exp().unsqueeze(0).expand_as(action_mean)
+            dist = torch.distributions.Normal(action_mean, std)
+            action_sample = dist.sample()
+            lp = dist.log_prob(action_sample).sum(dim=-1)
+
+            next_state, _, contact = matter(state, seed, action_sample)
+
+            rock_pos = next_state[:, :2]
+            org_pos = next_state[:, 2:4]
+            rock_dist = torch.norm(rock_pos - target, dim=-1)
+            org_rock_dist = torch.norm(rock_pos - org_pos, dim=-1)
+
+            rock_reward = 1.0 - rock_dist
+            approach = 0.2 * (1.0 - org_rock_dist)
+            contact_bonus = 0.1 * contact
+            reward = rock_reward + approach + contact_bonus
+
+            all_obs.append(obs)
+            all_actions.append(action_sample.detach())
+            all_log_probs.append(lp.detach())
+            all_rewards.append(reward.detach())
+            all_values.append(value.detach())
+            contact_sum += contact.mean().item()
+
+            state = next_state.detach()
+
+        # ── Compute returns & advantages ──
+        T = len(all_rewards)
+        returns = []
+        G = torch.zeros(batch_size, device=device)
+        for t in reversed(range(T)):
+            G = all_rewards[t] + gamma * G
+            returns.insert(0, G)
+        returns = torch.stack(returns)
+        values = torch.stack(all_values)
+        advantages = returns - values
+        advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
+
+        # ── PPO update ──
+        obs_batch = torch.stack(all_obs)
+        act_batch = torch.stack(all_actions)
+        old_lp = torch.stack(all_log_probs)
+
+        total_loss_val = 0.0
+        for _ in range(ppo_epochs):
+            for t in range(T):
+                action_mean, _, value = org(obs_batch[t])
+                std = log_std.exp().unsqueeze(0).expand_as(action_mean)
+                dist = torch.distributions.Normal(action_mean, std)
+                new_lp = dist.log_prob(act_batch[t]).sum(dim=-1)
+
+                ratio = (new_lp - old_lp[t]).exp()
+                clipped = torch.clamp(ratio, 1 - clip_eps, 1 + clip_eps)
+                policy_loss = -torch.min(ratio * advantages[t], clipped * advantages[t]).mean()
+                value_loss = F.mse_loss(value, returns[t])
+                entropy = dist.entropy().sum(dim=-1).mean()
+
+                loss = policy_loss + 0.5 * value_loss - entropy_coef * entropy
+                optimizer.zero_grad()
+                loss.backward()
+                nn.utils.clip_grad_norm_(list(org.parameters()) + [log_std], 1.0)
+                optimizer.step()
+                total_loss_val += loss.item()
+
+        with torch.no_grad():
+            rock_pos = state[:, :2]
+            final_dist = torch.norm(rock_pos - target, dim=-1).mean().item()
+        avg_reward = sum(r.mean().item() for r in all_rewards) / T
+        metrics["rewards"].append(avg_reward)
+        metrics["rock_distance"].append(final_dist)
+        metrics["policy_losses"].append(total_loss_val / (T * ppo_epochs))
+        metrics["contact_rate"].append(contact_sum / T)
+
+    return metrics
