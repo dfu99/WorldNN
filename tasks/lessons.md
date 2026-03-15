@@ -84,6 +84,18 @@
   for world-model learning to provide any benefit. Save predictive processing
   for multi-step, multi-object tasks.
 
+- **Random action_transform kills directional control.** The environment's
+  `propagate_action()` MLP (randomly initialized, never trained for action
+  semantics) destroys directional information. For tasks requiring spatial
+  control (like rock-push), pass actions directly to matter. The action
+  transform only works for pattern-matching tasks (binary flip) where the
+  organism finds an arbitrary target pattern.
+
+- **Emission design determines VAE learnability.** If emissions only encode
+  relative position, the VAE can't separate individual object positions.
+  Emissions need to contain all state variables the organism needs. Use a
+  fixed full-state projection rather than ad-hoc channel-specific encodings.
+
 - **1-bit and 1D tasks cannot reveal capacity limits.** Both binary
   (state-flip) and continuous (1D position) tasks show no embedding dim
   effect. H(S) is too low for organism capacity to matter. Need multi-bit

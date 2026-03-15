@@ -11,9 +11,10 @@ actually bite.
 ### Active
 
 1. **Rock-pushing experiment** (obj-009)
-   RockPushMatter + RockPushWorld implemented (4D state, multi-channel
-   emissions, contact physics). 180 configs: noise × env_lat × embed_dim
-   × 3 seeds. PACE job 4952915 submitted (8hr, RTX 6000). 29 tests passing.
+   First run (job 4952915) failed — organism never learned. Fixed: direct
+   action pipeline, full state projection in emissions, 1000 episodes.
+   120 configs: noise × env_lat=[4,8] × embed=[2,4,8,16,32] × 3 seeds.
+   PACE job 4956171 resubmitted (12hr, RTX 6000).
 
 2. **NN-based matter** — Replace explicit physics with learned Mealy machine
    for more complex matter dynamics. Could create tasks where embedding dim
