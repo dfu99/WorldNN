@@ -101,3 +101,11 @@
   effect. H(S) is too low for organism capacity to matter. Need multi-bit
   state, multi-object, or multi-step planning tasks to find where capacity
   limits actually bite.
+
+- **Perception quality gates whether organism capacity matters at all.**
+  Rock-push oracle baseline (direct state) shows clear embed dim effect
+  (embed=8: 0.395 vs embed=2: 0.50). But with VAE in the loop, early data
+  shows ~0.49 across all embed dims — the VAE destroys spatial info before
+  the organism can use it. Implication: before studying capacity, ensure
+  the perception pipeline preserves enough information for the task. Test
+  with oracle first, then add perception layers incrementally.

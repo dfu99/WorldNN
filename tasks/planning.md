@@ -14,7 +14,10 @@ actually bite.
    Oracle baseline completed: **embedding dim matters for first time!**
    embed=8 best (dist=0.395), embed=2 worst (dist=0.502 ≈ random).
    Full pipeline (with VAE) running on PACE job 4956171 (12hr, RTX 6000).
-   Key question: does the perception bottleneck shift the optimal embed dim?
+   **Early results (42/120 configs): VAE pipeline ~0.49 everywhere (random).**
+   The VAE appears to destroy spatial information completely — even embed=32
+   with lat=8 only reaches 0.461. Compare oracle embed=8 at 0.395.
+   Key emerging finding: perception quality gates whether capacity matters.
 
 2. **NN-based matter** — Replace explicit physics with learned Mealy machine
    for more complex matter dynamics. Could create tasks where embedding dim
