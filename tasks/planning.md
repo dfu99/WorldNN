@@ -11,11 +11,13 @@ actually bite.
 ### Active
 
 1. **Rock-pushing experiment** (obj-009)
-   Oracle baseline expanded: embed=2 (0.501, n=5), embed=4 (0.448, n=5),
-   embed=8 (0.329, n=3), embed=16 (0.411, n=3). **embed=8 optimal.**
-   PACE job 4959216: GPU oracle for embed=8,16,32 × 5 seeds (fill gaps).
-   PACE job 4956171: Full VAE pipeline (early data: ~0.49 everywhere).
-   Key finding: perception quality gates whether capacity matters.
+   **Oracle baseline COMPLETE (5 seeds × 5 embed dims):**
+   embed=2: 0.501 (0/5 success) | embed=4: 0.448 (1/5) | embed=8: 0.356 (3/5)
+   embed=16: 0.422 (4/5) | **embed=32: 0.306 (5/5 success, best)**
+   Capacity monotonically improves reliability. embed=32 achieves genuine
+   spatial control (best seed: dist=0.200, 63.5% contact).
+   PACE job 4956171: Full VAE pipeline still running (~0.49 everywhere).
+   **Next: compare oracle vs VAE to quantify perception bottleneck.**
 
 2. **NN-based matter** — Replace explicit physics with learned Mealy machine
    for more complex matter dynamics. Could create tasks where embedding dim
@@ -42,8 +44,9 @@ actually bite.
   for simple tasks. Binary state-flip is too easy for world models.
 - ANSWERED: Embedding dim doesn't matter for continuous tasks either.
   1D position tracking is still too low-dimensional.
-- ANSWERED: Rock-push (4D state) shows embedding dim effect with oracle
-  perception. embed=8 optimal (0.329), embed=2 random (0.501).
+- ANSWERED: Rock-push (4D state) shows clear capacity effect with oracle
+  perception. embed=32 optimal (0.306, 100% success), embed=2 random (0.501).
+  Reliability increases monotonically with capacity.
 - How does VAE quality modulate the capacity effect? (VAE pipeline shows
   no learning at all — too lossy for spatial tasks)
 - How complex must the task be before embedding dimension matters?

@@ -102,6 +102,11 @@
   state, multi-object, or multi-step planning tasks to find where capacity
   limits actually bite.
 
+- **3 seeds is insufficient for rock-push — use 5 minimum.** Initial oracle
+  with 3 seeds suggested embed=8 optimal and embed=16 regressing. With 5 seeds,
+  embed=32 is actually optimal (0.306, 5/5 success) and reliability increases
+  monotonically. The high seed variance at embed=4-16 made small samples misleading.
+
 - **Perception quality gates whether organism capacity matters at all.**
   Rock-push oracle baseline (direct state) shows clear embed dim effect
   (embed=8: 0.395 vs embed=2: 0.50). But with VAE in the loop, early data

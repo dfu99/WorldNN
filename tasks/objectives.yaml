@@ -340,27 +340,40 @@ objectives:
 
   - id: obj-009-oracle
     status: completed
-    statement: "Oracle baseline proves rock-push task requires embedding dim >= 4"
+    statement: "Oracle baseline: embed=32 optimal, capacity monotonically improves reliability"
     methodology: >
       Bypassed channel+VAE pipeline, fed raw 4D state [rock_xy, org_xy] directly
-      to organism. Tested embed_dim=[2,4,8,16] with 500 episodes PPO, 20 steps.
-      3 seeds for embed=2,4; 1 seed for embed=8,16 (CPU run).
+      to organism. Tested embed_dim=[2,4,8,16,32] with 500 episodes PPO, 20 steps,
+      5 seeds each. embed=2,4 on CPU; embed=8,16,32 on PACE RTX 6000 (job 4959258).
     metrics:
-      embed2_mean_dist: 0.502
-      embed4_mean_dist: 0.410
-      embed8_dist: 0.395
-      embed16_dist: 0.499
-      embed8_contact: 0.159
-      embed2_contact: 0.096
+      embed2_mean_dist: 0.501
+      embed2_std: 0.013
+      embed2_success_rate: "0/5"
+      embed4_mean_dist: 0.448
+      embed4_std: 0.066
+      embed4_success_rate: "1/5"
+      embed8_mean_dist: 0.356
+      embed8_std: 0.119
+      embed8_success_rate: "3/5"
+      embed16_mean_dist: 0.422
+      embed16_std: 0.045
+      embed16_success_rate: "4/5"
+      embed32_mean_dist: 0.306
+      embed32_std: 0.086
+      embed32_success_rate: "5/5"
+      embed32_best_contact: 0.635
       random_baseline_dist: 0.50
     figures:
-      - results/oracle_baseline.png
+      - results/oracle_final.png
+      - results/oracle_expanded_plot.png
     conclusions: >
-      First evidence in the project that embedding dimension affects performance.
-      The 4D rock-push task requires embed>=4 (dist 0.41 vs 0.50 random baseline).
-      embed=8 is optimal (dist=0.395, contact=16%). embed=16 regresses, possibly
-      due to overfitting with 500 episodes. This confirms the hypothesis: tasks
-      with higher state dimensionality create genuine organism capacity requirements.
-      The perception pipeline (channel+VAE) adds an additional bottleneck on top.
+      Definitive capacity curve for rock-push oracle. Key findings: (1) embed=32
+      is optimal (dist=0.306, contact=30%), not embed=8 as initial 3-seed data
+      suggested. (2) Learning reliability increases monotonically: 0%→20%→60%→
+      80%→100% from embed=2 to 32. (3) High seed variance at embed=4-8 means
+      small-sample estimates are unreliable. (4) embed=2 is completely unable to
+      represent the 4D task (0/5 success). (5) embed=32 seed=1337 achieves 0.200
+      distance with 63.5% contact rate — genuine spatial control. The 4D rock-push
+      task creates a real organism capacity requirement.
     connects_to: obj-010
     completed_date: "2026-03-15"
