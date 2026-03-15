@@ -315,3 +315,24 @@ objectives:
       content of the task (1D position) is inherently low.
     connects_to: obj-009
     completed_date: "2026-03-15"
+
+  - id: obj-009-impl
+    status: completed
+    statement: "Implement rock-push: multi-object 2D task with dual-channel perception"
+    methodology: >
+      Built RockPushMatter (4D state: rock_xy + org_xy), dual-channel emissions
+      (light + vibration), contact-based push physics. RockPushWorld + PPO trainer
+      with shaped reward. 180-config sweep + SLURM script. 8 new tests (29 total).
+    metrics:
+      state_dim: 4
+      emission_channels: 2
+      new_tests: 8
+      total_tests: 29
+      configs_planned: 180
+      pace_job: 4952915
+    figures: []
+    conclusions: >
+      Framework supports multi-object 2D tasks. 4D state + multi-channel
+      perception should stress organism capacity. Awaiting PACE results.
+    connects_to: obj-009
+    completed_date: "2026-03-15"
