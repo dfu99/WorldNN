@@ -7,11 +7,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from worldnn.matter import Matter, ContinuousMatter
+from worldnn.matter import Matter, ContinuousMatter, RockPushMatter
 from worldnn.channels import Channel
 from worldnn.environment import EnvironmentVAE
 from worldnn.organism import Organism, PredictiveOrganism
-from worldnn.world import World, ContinuousWorld
+from worldnn.world import World, ContinuousWorld, RockPushWorld
 
 
 @pytest.fixture
@@ -201,3 +201,82 @@ class TestContinuousWorld:
                                           batch_size=16, device=device)
         assert len(m["mean_distance"]) == 3
         assert all(0 <= d <= 1 for d in m["mean_distance"])
+
+
+class TestRockPushMatter:
+    def test_shapes(self, device):
+        m = RockPushMatter(emission_dim=8, action_dim=2).to(device)
+        state = m.reset_state(8, device)
+        seed = torch.randn(8, 4, device=device)
+        action = torch.randn(8, 2, device=device)
+        ns, emission, contact = m(state, seed, action)
+        assert ns.shape == (8, 4)
+        assert emission.shape == (8, 8)
+        assert contact.shape == (8,)
+
+    def test_state_bounded(self, device):
+        m = RockPushMatter(move_speed=1.0, push_strength=1.0).to(device)
+        state = m.reset_state(100, device)
+        seed = torch.randn(100, 4, device=device)
+        action = torch.randn(100, 2, device=device) * 5
+        ns, _, _ = m(state, seed, action)
+        assert (ns >= 0.0).all() and (ns <= 1.0).all()
+
+    def test_contact_when_close(self, device):
+        m = RockPushMatter(push_radius=0.15).to(device)
+        # Place rock and organism at same position
+        state = torch.tensor([[0.5, 0.5, 0.5, 0.5]] * 8, device=device)
+        seed = torch.randn(8, 4, device=device)
+        action = torch.zeros(8, 2, device=device)
+        _, _, contact = m(state, seed, action)
+        # Contact should be high when overlapping
+        assert (contact > 0.9).all()
+
+    def test_no_contact_when_far(self, device):
+        m = RockPushMatter(push_radius=0.15).to(device)
+        # Rock at (0.1, 0.1), organism at (0.9, 0.9)
+        state = torch.tensor([[0.1, 0.1, 0.9, 0.9]] * 8, device=device)
+        seed = torch.randn(8, 4, device=device)
+        action = torch.zeros(8, 2, device=device)
+        _, _, contact = m(state, seed, action)
+        assert (contact < 0.01).all()
+
+    def test_push_moves_rock(self, device):
+        m = RockPushMatter(push_radius=0.15, push_strength=0.1).to(device)
+        # Organism right next to rock, pushing right
+        state = torch.tensor([[0.5, 0.5, 0.48, 0.5]] * 32, device=device)
+        seed = torch.zeros(32, 4, device=device)
+        # Action that maps to rightward movement
+        action = torch.randn(32, 2, device=device)
+        ns, _, contact = m(state, seed, action)
+        rock_moved = (ns[:, :2] - state[:, :2]).abs().sum(dim=-1)
+        # Rock should move when organism is close
+        assert (contact > 0.5).all()
+        assert (rock_moved > 0).any()
+
+    def test_reset(self, device):
+        m = RockPushMatter().to(device)
+        state = m.reset_state(50, device)
+        assert state.shape == (50, 4)
+        assert (state >= 0.1).all() and (state <= 0.9).all()
+
+
+class TestRockPushWorld:
+    def test_step(self, device):
+        w = RockPushWorld(env_latent_dim=4, embedding_dim=8).to(device)
+        state = w.matter.reset_state(8, device)
+        result = w.step(state)
+        assert result["next_state"].shape == (8, 4)
+        assert result["contact"].shape == (8,)
+        assert result["z"].shape == (8, 4)
+        assert result["embedding"].shape == (8, 8)
+
+    def test_training_smoke(self, device):
+        """Smoke test: rock-push world trains without errors."""
+        from worldnn.train import train_environment_rockpush, train_organism_ppo_rockpush
+        w = RockPushWorld(env_latent_dim=4, embedding_dim=8).to(device)
+        train_environment_rockpush(w, n_steps=5, batch_size=16, device=device)
+        m = train_organism_ppo_rockpush(w, n_episodes=3, steps_per_episode=5,
+                                         batch_size=16, device=device)
+        assert len(m["rock_distance"]) == 3
+        assert all(d >= 0 for d in m["rock_distance"])

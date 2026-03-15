@@ -194,3 +194,126 @@ class ContinuousMatter(nn.Module):
     def reset_state(self, batch_size: int, device: torch.device) -> torch.Tensor:
         """Initialize random positions in [0, 1]."""
         return torch.rand(batch_size, device=device)
+
+
+class RockPushMatter(nn.Module):
+    """Multi-object matter: organism pushes a rock to a target in 2D.
+
+    State: [rock_x, rock_y, org_x, org_y] — 4D continuous state.
+    The organism moves in 2D; when close to the rock, its movement
+    pushes the rock. Goal: get rock to target position.
+
+    Multi-channel emissions:
+      - Light channel (emission_dim // 2): encodes rock position relative
+        to organism, intensity falls off with distance
+      - Vibration channel (emission_dim // 2): contact signal, strong when
+        organism touches rock, zero otherwise
+
+    This creates genuine capacity requirements because:
+      1. 4D state requires richer internal models than 1D
+      2. Two information channels must be integrated
+      3. Sequential strategy: approach → contact → push direction
+    """
+
+    def __init__(
+        self,
+        emission_dim: int = 8,
+        action_dim: int = 2,
+        seed_dim: int = 4,
+        move_speed: float = 0.1,
+        push_radius: float = 0.15,
+        push_strength: float = 0.08,
+    ):
+        super().__init__()
+        self.emission_dim = emission_dim
+        self.action_dim = action_dim
+        self.seed_dim = seed_dim
+        self.move_speed = move_speed
+        self.push_radius = push_radius
+        self.push_strength = push_strength
+        self.state_dim = 4  # [rock_x, rock_y, org_x, org_y]
+
+        # Split emission into light and vibration channels
+        self.light_dim = emission_dim // 2
+        self.vib_dim = emission_dim - self.light_dim
+
+        # Light projection: relative position → light emission
+        self.register_buffer(
+            "light_proj", torch.randn(2, self.light_dim) * 0.5
+        )
+        self.register_buffer(
+            "light_bias", torch.randn(self.light_dim) * 0.2
+        )
+
+        # Vibration projection: contact strength → vibration emission
+        self.register_buffer(
+            "vib_proj", torch.randn(1, self.vib_dim) * 0.5
+        )
+        self.register_buffer(
+            "vib_bias", torch.randn(self.vib_dim) * 0.1
+        )
+
+        # Seed-to-noise projection
+        self.register_buffer(
+            "seed_proj", torch.randn(seed_dim, emission_dim) * 0.15
+        )
+
+        # Action-to-movement: maps action_dim → 2D movement direction
+        self.register_buffer(
+            "move_proj", torch.randn(action_dim, 2) * 0.5
+        )
+
+    def forward(
+        self, state: torch.Tensor, seed: torch.Tensor, action: torch.Tensor
+    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        """One step of rock-push physics.
+
+        Args:
+            state: [batch, 4] = [rock_x, rock_y, org_x, org_y]
+            seed: [batch, seed_dim] random seed
+            action: [batch, action_dim] organism's action
+
+        Returns:
+            next_state: [batch, 4] updated positions
+            emission: [batch, emission_dim] multi-channel emission
+            contact: [batch] contact strength (0-1)
+        """
+        rock_pos = state[:, :2]   # [batch, 2]
+        org_pos = state[:, 2:4]   # [batch, 2]
+
+        # ── Organism movement ──
+        movement = torch.tanh(action @ self.move_proj) * self.move_speed
+        new_org = torch.clamp(org_pos + movement, 0.0, 1.0)
+
+        # ── Contact detection ──
+        rel_pos = rock_pos - new_org  # [batch, 2]
+        distance = torch.norm(rel_pos, dim=-1, keepdim=False)  # [batch]
+        contact = torch.exp(-((distance / self.push_radius) ** 2))  # smooth contact
+
+        # ── Rock physics: pushed when organism is close ──
+        # Push direction = from organism toward rock
+        push_dir = rel_pos / (distance.unsqueeze(-1) + 1e-6)  # [batch, 2]
+        push_force = contact.unsqueeze(-1) * push_dir * self.push_strength
+        new_rock = torch.clamp(rock_pos + push_force, 0.0, 1.0)
+
+        # ── Multi-channel emission ──
+        # Light: encodes rock-organism relative position, dimmer with distance
+        light_intensity = 1.0 / (1.0 + distance.unsqueeze(-1))  # [batch, 1]
+        light_signal = rel_pos @ self.light_proj * light_intensity + self.light_bias
+
+        # Vibration: strong contact signal, zero when far
+        vib_signal = contact.unsqueeze(-1) @ self.vib_proj + self.vib_bias
+
+        # Combine channels + seed noise
+        emission = torch.cat([light_signal, vib_signal], dim=-1)
+        noise = seed @ self.seed_proj
+        emission = emission + noise
+
+        # ── Assemble next state ──
+        next_state = torch.cat([new_rock, new_org], dim=-1)
+
+        return next_state, emission, contact
+
+    def reset_state(self, batch_size: int, device: torch.device) -> torch.Tensor:
+        """Initialize random positions: rock and organism in [0.1, 0.9]."""
+        return torch.rand(batch_size, self.state_dim, device=device) * 0.8 + 0.1
