@@ -10,9 +10,10 @@ actually bite.
 
 ### Active
 
-1. **Rock-pushing scenario** — Multi-channel perception (light for position,
-   sound/vibration for contact) + force-based action. Tests whether
-   multi-dimensional state inference requires larger embeddings.
+1. **Rock-pushing experiment** (obj-009)
+   RockPushMatter + RockPushWorld implemented (4D state, multi-channel
+   emissions, contact physics). 180 configs: noise × env_lat × embed_dim
+   × 3 seeds. PACE job 4952915 submitted (8hr, RTX 6000). 29 tests passing.
 
 2. **NN-based matter** — Replace explicit physics with learned Mealy machine
    for more complex matter dynamics. Could create tasks where embedding dim
