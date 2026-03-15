@@ -11,13 +11,11 @@ actually bite.
 ### Active
 
 1. **Rock-pushing experiment** (obj-009)
-   Oracle baseline completed: **embedding dim matters for first time!**
-   embed=8 best (dist=0.395), embed=2 worst (dist=0.502 ≈ random).
-   Full pipeline (with VAE) running on PACE job 4956171 (12hr, RTX 6000).
-   **Early results (42/120 configs): VAE pipeline ~0.49 everywhere (random).**
-   The VAE appears to destroy spatial information completely — even embed=32
-   with lat=8 only reaches 0.461. Compare oracle embed=8 at 0.395.
-   Key emerging finding: perception quality gates whether capacity matters.
+   Oracle baseline expanded: embed=2 (0.501, n=5), embed=4 (0.448, n=5),
+   embed=8 (0.329, n=3), embed=16 (0.411, n=3). **embed=8 optimal.**
+   PACE job 4959216: GPU oracle for embed=8,16,32 × 5 seeds (fill gaps).
+   PACE job 4956171: Full VAE pipeline (early data: ~0.49 everywhere).
+   Key finding: perception quality gates whether capacity matters.
 
 2. **NN-based matter** — Replace explicit physics with learned Mealy machine
    for more complex matter dynamics. Could create tasks where embedding dim
@@ -44,6 +42,10 @@ actually bite.
   for simple tasks. Binary state-flip is too easy for world models.
 - ANSWERED: Embedding dim doesn't matter for continuous tasks either.
   1D position tracking is still too low-dimensional.
+- ANSWERED: Rock-push (4D state) shows embedding dim effect with oracle
+  perception. embed=8 optimal (0.329), embed=2 random (0.501).
+- How does VAE quality modulate the capacity effect? (VAE pipeline shows
+  no learning at all — too lossy for spatial tasks)
 - How complex must the task be before embedding dimension matters?
 - Would multi-object or multi-bit state spaces create a real capacity
   bottleneck?
