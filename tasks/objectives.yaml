@@ -330,7 +330,8 @@ objectives:
       total_tests: 29
       configs_planned: 180
       pace_job: 4952915
-    figures: []
+    figures:
+      - results/rockpush_architecture.png
     conclusions: >
       Framework supports multi-object 2D tasks. 4D state + multi-channel
       perception should stress organism capacity. Awaiting PACE results.
