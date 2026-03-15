@@ -5,9 +5,19 @@ queue:
     is available via globalprotect CLI. Only use local GPU for tiny tests (<100MB
     VRAM). For anything larger, write a SLURM script and submit to PACE.'
   priority: 3
-  status: in_progress
+  status: completed
   added: 2026-03-13 14:19
   source: manual
   context: 'Local GPU causes system crashes. PACE account: gts-yke8, user: dfu71.
     VPN: globalprotect connect --portal vpn.gatech.edu. See PACE.md for SLURM rules.'
   started: 2026-03-13 14:50
+  completed: 2026-03-15 15:11
+  commits: 19
+- objective: Yes, trying an oracle baseline where the organism directly observes state
+    (no VAE) is a good suggestion.
+  priority: 3
+  status: in_progress
+  added: 2026-03-15 14:30
+  source: slack
+  channel_id: C0AKT5LAF1Q
+  started: 2026-03-15 15:11
