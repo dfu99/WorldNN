@@ -1,0 +1,164 @@
+[
+  {
+    "level": "L0_oracle",
+    "embedding_dim": 8,
+    "seed": 42,
+    "avg_dist_last100": 0.5044566425681114,
+    "avg_contact_last100": 0.10063215795345604,
+    "final_dist": 0.48584672808647156,
+    "elapsed_s": 65.17663931846619
+  },
+  {
+    "level": "L0_oracle",
+    "embedding_dim": 8,
+    "seed": 123,
+    "avg_dist_last100": 0.49783575475215913,
+    "avg_contact_last100": 0.14765518485009674,
+    "final_dist": 0.49424320459365845,
+    "elapsed_s": 64.71097111701965
+  },
+  {
+    "level": "L0_oracle",
+    "embedding_dim": 8,
+    "seed": 456,
+    "avg_dist_last100": 0.45359018445014954,
+    "avg_contact_last100": 0.1404181126356125,
+    "final_dist": 0.4713780879974365,
+    "elapsed_s": 63.9487042427063
+  },
+  {
+    "level": "L0_oracle",
+    "embedding_dim": 32,
+    "seed": 42,
+    "avg_dist_last100": 0.4925707817077637,
+    "avg_contact_last100": 0.09566086146049205,
+    "final_dist": 0.4629930853843689,
+    "elapsed_s": 64.73905563354492
+  },
+  {
+    "level": "L0_oracle",
+    "embedding_dim": 32,
+    "seed": 123,
+    "avg_dist_last100": 0.289099802672863,
+    "avg_contact_last100": 0.445790053423494,
+    "final_dist": 0.2643560469150543,
+    "elapsed_s": 64.05190181732178
+  },
+  {
+    "level": "L0_oracle",
+    "embedding_dim": 32,
+    "seed": 456,
+    "avg_dist_last100": 0.3792319259047508,
+    "avg_contact_last100": 0.18721621116995812,
+    "final_dist": 0.3811649680137634,
+    "elapsed_s": 64.15969061851501
+  },
+  {
+    "level": "L1_oracle_noise0.1",
+    "embedding_dim": 8,
+    "seed": 42,
+    "avg_dist_last100": 0.5247933197021485,
+    "avg_contact_last100": 0.09875694004446268,
+    "final_dist": 0.5111307501792908,
+    "elapsed_s": 65.41699886322021
+  },
+  {
+    "level": "L1_oracle_noise0.1",
+    "embedding_dim": 8,
+    "seed": 123,
+    "avg_dist_last100": 0.5011669993400574,
+    "avg_contact_last100": 0.1472134222052991,
+    "final_dist": 0.49519163370132446,
+    "elapsed_s": 64.41047501564026
+  },
+  {
+    "level": "L1_oracle_noise0.1",
+    "embedding_dim": 8,
+    "seed": 456,
+    "avg_dist_last100": 0.4918781036138535,
+    "avg_contact_last100": 0.14995117079466574,
+    "final_dist": 0.47585195302963257,
+    "elapsed_s": 64.92004370689392
+  },
+  {
+    "level": "L1_oracle_noise0.1",
+    "embedding_dim": 32,
+    "seed": 42,
+    "avg_dist_last100": 0.5020906019210816,
+    "avg_contact_last100": 0.09029084672592586,
+    "final_dist": 0.5018073320388794,
+    "elapsed_s": 64.76865005493164
+  },
+  {
+    "level": "L1_oracle_noise0.1",
+    "embedding_dim": 32,
+    "seed": 123,
+    "avg_dist_last100": 0.3621380430459976,
+    "avg_contact_last100": 0.23503108173608783,
+    "final_dist": 0.3386511206626892,
+    "elapsed_s": 65.02488160133362
+  },
+  {
+    "level": "L1_oracle_noise0.1",
+    "embedding_dim": 32,
+    "seed": 456,
+    "avg_dist_last100": 0.40375650584697725,
+    "avg_contact_last100": 0.1717917075231671,
+    "final_dist": 0.37729325890541077,
+    "elapsed_s": 62.85418176651001
+  },
+  {
+    "level": "L1_oracle_noise0.5",
+    "embedding_dim": 8,
+    "seed": 42,
+    "avg_dist_last100": 0.5216211554408073,
+    "avg_contact_last100": 0.06931366276741033,
+    "final_dist": 0.5198734998703003,
+    "elapsed_s": 64.2808849811554
+  },
+  {
+    "level": "L1_oracle_noise0.5",
+    "embedding_dim": 8,
+    "seed": 123,
+    "avg_dist_last100": 0.5284247899055481,
+    "avg_contact_last100": 0.0745520896660164,
+    "final_dist": 0.5260611176490784,
+    "elapsed_s": 63.10509943962097
+  },
+  {
+    "level": "L1_oracle_noise0.5",
+    "embedding_dim": 8,
+    "seed": 456,
+    "avg_dist_last100": 0.524414881169796,
+    "avg_contact_last100": 0.08424236686527728,
+    "final_dist": 0.531234622001648,
+    "elapsed_s": 64.45470547676086
+  },
+  {
+    "level": "L1_oracle_noise0.5",
+    "embedding_dim": 32,
+    "seed": 42,
+    "avg_dist_last100": 0.5283737063407898,
+    "avg_contact_last100": 0.10025104562565679,
+    "final_dist": 0.5276284217834473,
+    "elapsed_s": 65.93320775032043
+  },
+  {
+    "level": "L1_oracle_noise0.5",
+    "embedding_dim": 32,
+    "seed": 123,
+    "avg_dist_last100": 0.5326580184698105,
+    "avg_contact_last100": 0.08407950238045306,
+    "final_dist": 0.5323107242584229,
+    "elapsed_s": 66.85742855072021
+  },
+  {
+    "level": "L1_oracle_noise0.5",
+    "embedding_dim": 32,
+    "seed": 456,
+    "avg_dist_last100": 0.5293181109428405,
+    "avg_contact_last100": 0.1045059663113207,
+    "final_dist": 0.5345852971076965,
+    "elapsed_s": 66.42299151420593
+  }
+]
