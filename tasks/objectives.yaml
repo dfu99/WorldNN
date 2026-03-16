@@ -457,3 +457,43 @@ objectives:
       to increase VAE latent dim to ≥16 or let the organism observe emissions directly.
     connects_to: obj-012
     completed_date: "2026-03-16"
+
+  - id: obj-012
+    status: completed
+    statement: "Oracle vs VAE lat=16 full capacity sweep — standard pipeline VAE broken"
+    methodology: >
+      Ran 75 configs: oracle (direct 4D state) × 5 embed_dims × 5 seeds = 25,
+      plus VAE lat=16 × 2 noise levels × 5 embed_dims × 5 seeds = 50. Oracle
+      uses custom PPO loop with direct state observation. VAE uses standard
+      train_organism_ppo_rockpush with world.step() (stochastic z). 500 episodes
+      each, 20 steps/episode, batch=256, RTX 3060 local GPU.
+    metrics:
+      total_configs: 75
+      oracle_emb2: 0.511
+      oracle_emb4: 0.503
+      oracle_emb8: 0.479
+      oracle_emb16: 0.456
+      oracle_emb32: 0.396
+      oracle_capacity_gap: "+0.115"
+      vae_n001_emb2: 0.502
+      vae_n001_emb32: 0.500
+      vae_n001_capacity_gap: "+0.001"
+      vae_n01_emb2: 0.501
+      vae_n01_emb32: 0.497
+      vae_n01_capacity_gap: "+0.004"
+      runtime_minutes: 110
+    figures:
+      - results/obj012_oracle_vs_vae_lat16.png
+    conclusions: >
+      The oracle baseline confirms a clear monotonic capacity effect: more
+      embedding capacity = better task performance (gap +0.115). But the
+      standard VAE pipeline (using stochastic z from world.step()) produces
+      zero learning across ALL conditions — flat at 0.500 (random). This
+      contradicts obj-011's perception ladder which showed VAE lat=16 at
+      0.460 using deterministic mu. The critical difference: obj-011 used
+      mu (deterministic encoder mean), the standard pipeline uses z (sampled).
+      VAE sampling noise destroys the spatial signal needed for directional
+      control. The standard pipeline needs to be fixed to use mu, or the
+      architecture needs rethinking.
+    connects_to: obj-013
+    completed_date: "2026-03-16"

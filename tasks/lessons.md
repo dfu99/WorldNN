@@ -116,6 +116,14 @@
   latent quality (linear R²) before running organism training. If R²<0.5
   for any critical state variable, increase latent dim.
 
+- **Standard pipeline uses stochastic z — kills learning for spatial tasks.**
+  The world.step() → organism loop feeds z (sampled from VAE posterior) to the
+  organism. For rock-push, z's sampling noise destroys the spatial signal.
+  obj-012 showed VAE lat=16 at 0.500 (random) through standard pipeline, but
+  obj-011's perception ladder got 0.460 using deterministic mu. Always use mu
+  (encoder mean) for tasks requiring precise spatial information. Stochastic z
+  may only work for coarse classification tasks (like binary state-flip).
+
 - **VAE env_latent_dim must be ≥ state dimensionality for spatial tasks.**
   For 4D state projected through 8D emissions, lat=4 is catastrophically
   too small. lat=8 is marginal (R²=0.453). lat=16 is adequate (R²=0.817).

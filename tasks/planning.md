@@ -15,11 +15,11 @@ state variance (rock_y R²=0.044). Raw emission works fine (0.438).
 
 ### Active
 
-1. **Full pipeline with VAE lat=16** (obj-012)
-   Re-run the embed_dim sweep [2,4,8,16,32] × 5 seeds with env_latent_dim=16.
-   This should show the capacity gradient through the full perception chain.
-   Also test with noise=[0.01, 0.1, 0.5] to see how channel noise interacts
-   with the capacity effect when perception is adequate.
+1. **Fix VAE pipeline: use deterministic mu instead of stochastic z** (obj-013)
+   obj-012 proved the standard pipeline is broken — VAE z destroys spatial
+   signal. The perception ladder (obj-011) worked because it used mu. Fix
+   world.step() or train_organism_ppo_rockpush to use mu, then re-run the
+   embed_dim sweep to see if the capacity curve replicates through the VAE.
 
 2. **Characterize the perception-capacity interaction** — The ladder shows
    capacity gap shrinks as perception degrades: oracle (+0.098), emission
@@ -60,6 +60,7 @@ state variance (rock_y R²=0.044). Raw emission works fine (0.438).
 
 ## Recently Completed
 
+- [2026-03-16] obj-012: Oracle vs VAE lat=16 sweep — oracle capacity gap +0.115, standard VAE pipeline zero learning (z vs mu)
 - [2026-03-16] obj-011: Perception ladder — VAE lat=4 root cause (R²=0.229), raw emission works (0.438), lat=16 enables learning (0.460)
 - [2026-03-16] obj-010: VAE vs oracle comparison — VAE kills all capacity effects (0.502 everywhere vs oracle 0.306)
 - [2026-03-15] obj-009-oracle: Oracle baseline — embed dim matters! embed=8 best (0.395 vs 0.50 random)
