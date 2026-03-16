@@ -1,31 +1,34 @@
 # Planning
 
-## Current Priority: Synthesize findings and design higher-complexity tasks
+## Current Priority: Fix the perception pipeline or redesign experiment
 
-Three PACE experiments completed (obj-006, obj-007, obj-008). Key takeaway:
-for 1-bit/1D tasks, neither organism capacity nor predictive processing
-matter — the bottleneck is purely optimizer quality (PPO vs REINFORCE).
-The framework needs higher-complexity tasks to find where capacity limits
-actually bite.
+The oracle vs VAE comparison (obj-010) is the most important finding yet:
+the VAE **completely destroys** the capacity effect. Oracle shows embed=32
+achieves 0.306, but VAE shows 0.502 (random) at ALL embed dims, even with
+minimal channel noise (0.01). The VAE latent doesn't preserve spatial info.
+
+**Key insight:** Before studying organism capacity limits, we must ensure
+the perception pipeline preserves enough task-relevant information.
 
 ### Active
 
-1. **Rock-pushing experiment** (obj-009)
-   **Oracle baseline COMPLETE (5 seeds × 5 embed dims):**
-   embed=2: 0.501 (0/5 success) | embed=4: 0.448 (1/5) | embed=8: 0.356 (3/5)
-   embed=16: 0.422 (4/5) | **embed=32: 0.306 (5/5 success, best)**
-   Capacity monotonically improves reliability. embed=32 achieves genuine
-   spatial control (best seed: dist=0.200, 63.5% contact).
-   PACE job 4956171: Full VAE pipeline still running (~0.49 everywhere).
-   **Next: compare oracle vs VAE to quantify perception bottleneck.**
+1. **Diagnose WHY the VAE fails for spatial tasks** (obj-011)
+   The VAE final loss is ~0.11, which seems reasonable, but the organism
+   can't use the latent for directional control. Possible causes:
+   - VAE latent doesn't encode positional info (only energy/magnitude)
+   - Emission design doesn't contain enough state info
+   - VAE pre-training on random rollouts doesn't learn task-relevant features
+   - env_latent_dim=4 is too small for 8D emissions with 4D state
+   **Next steps:** Analyze VAE latent quality (probe for state recovery),
+   try higher env_latent_dim, or redesign emissions to be more informative.
 
-2. **NN-based matter** — Replace explicit physics with learned Mealy machine
-   for more complex matter dynamics. Could create tasks where embedding dim
-   genuinely matters.
+2. **Design perception-quality ladder** — Create a series of perception
+   conditions between oracle (direct state) and full VAE: e.g., oracle +
+   noise, oracle + linear compression, VAE with larger latent, etc.
+   Find the threshold where capacity effects emerge/disappear.
 
-3. **Increase task complexity** — The current 1-bit / 1D tasks are too
-   simple to stress organism capacity. Need multi-bit state, multi-step
-   planning, or multi-object coordination to find the capacity boundary.
+3. **NN-based matter** — Replace explicit physics with learned Mealy machine
+   for more complex matter dynamics.
 
 ### Next Steps
 
@@ -56,6 +59,7 @@ actually bite.
 
 ## Recently Completed
 
+- [2026-03-16] obj-010: VAE vs oracle comparison — VAE kills all capacity effects (0.502 everywhere vs oracle 0.306)
 - [2026-03-15] obj-009-oracle: Oracle baseline — embed dim matters! embed=8 best (0.395 vs 0.50 random)
 - [2026-03-15] obj-006: Stochastic resonance debunked — PPO flat ~0.82 across noise 0.01-0.5, no real peak
 - [2026-03-15] obj-007: Predictive processing has zero effect (0.811 with vs 0.811 without)
