@@ -413,3 +413,47 @@ objectives:
       the perception pipeline must first be adequate for the task.
     connects_to: obj-011
     completed_date: "2026-03-16"
+
+  - id: obj-011
+    status: completed
+    statement: "Perception ladder: map where learning breaks between oracle and VAE"
+    methodology: >
+      Built 11-level perception ladder from oracle to full VAE pipeline. Tested
+      embed_dim=[8,32] × 3 seeds = 6 configs per level, 66 total. Levels: oracle,
+      oracle+noise(0.1/0.5/1.0), linear projection, raw 8D emission, emission+channel,
+      VAE with lat={8,16,32,4}. Also probed VAE latent quality with linear regression
+      (z → state, R² per variable). All on local RTX 3060 (65 min).
+    metrics:
+      total_configs: 66
+      oracle_emb32: 0.387
+      oracle_noise01_emb32: 0.423
+      oracle_noise05_emb32: 0.530
+      linear_proj_emb32: 0.427
+      raw_emission_emb32: 0.438
+      emission_channel_emb32: 0.445
+      vae_lat32_emb32: 0.474
+      vae_lat16_emb32: 0.460
+      vae_lat8_emb32: 0.484
+      vae_lat4_emb32: 0.498
+      vae_lat4_probe_r2: 0.229
+      vae_lat4_rock_y_r2: 0.044
+      vae_lat16_probe_r2: 0.817
+      vae_lat32_probe_r2: 0.862
+      capacity_gap_oracle: "+0.098"
+      capacity_gap_raw_emission: "+0.015"
+      capacity_gap_vae_lat16: "+0.033"
+      capacity_gap_vae_lat4: "+0.007"
+    figures:
+      - results/perception_ladder.png
+    conclusions: >
+      Three key findings: (1) The organism CAN learn from raw 8D emissions (0.438)
+      — the emission design is fine. (2) VAE lat=4 only preserves 23% of state
+      variance (rock_y R²=0.044 — nearly blind). This is the root cause of the
+      obj-010 failure. (3) VAE lat=16+ preserves 82%+ and enables learning (0.460),
+      but still worse than raw emissions. The capacity effect (emb=8 vs 32 gap) is
+      strongest at oracle (+0.098), present through raw emission (+0.015) and VAE
+      lat=16 (+0.033), and gone at VAE lat=4 (+0.007). Noise sensitivity is sharp:
+      oracle+noise(0.5) completely kills learning. The fix for the full pipeline is
+      to increase VAE latent dim to ≥16 or let the organism observe emissions directly.
+    connects_to: obj-012
+    completed_date: "2026-03-16"

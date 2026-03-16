@@ -108,9 +108,15 @@
   monotonically. The high seed variance at embed=4-16 made small samples misleading.
 
 - **Perception quality gates whether organism capacity matters at all.**
-  Rock-push oracle baseline (direct state) shows clear embed dim effect
-  (embed=8: 0.395 vs embed=2: 0.50). But with VAE in the loop, early data
-  shows ~0.49 across all embed dims — the VAE destroys spatial info before
-  the organism can use it. Implication: before studying capacity, ensure
-  the perception pipeline preserves enough information for the task. Test
-  with oracle first, then add perception layers incrementally.
+  Perception ladder (obj-011) quantified this precisely. Oracle shows clear
+  capacity effect (emb=8→32 gap: +0.098). Raw 8D emission still shows it
+  (+0.015). VAE lat=16 preserves it (+0.033). But VAE lat=4 kills it
+  (+0.007, essentially zero). Root cause: VAE lat=4 only preserves 23% of
+  state variance (rock_y R²=0.044). lat=16 preserves 82%. Always probe VAE
+  latent quality (linear R²) before running organism training. If R²<0.5
+  for any critical state variable, increase latent dim.
+
+- **VAE env_latent_dim must be ≥ state dimensionality for spatial tasks.**
+  For 4D state projected through 8D emissions, lat=4 is catastrophically
+  too small. lat=8 is marginal (R²=0.453). lat=16 is adequate (R²=0.817).
+  Rule of thumb: lat ≥ 2× effective state dim for the task.

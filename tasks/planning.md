@@ -1,31 +1,30 @@
 # Planning
 
-## Current Priority: Fix the perception pipeline or redesign experiment
+## Current Priority: Run full pipeline with adequate perception
 
-The oracle vs VAE comparison (obj-010) is the most important finding yet:
-the VAE **completely destroys** the capacity effect. Oracle shows embed=32
-achieves 0.306, but VAE shows 0.502 (random) at ALL embed dims, even with
-minimal channel noise (0.01). The VAE latent doesn't preserve spatial info.
+The perception ladder (obj-011) diagnosed the VAE failure and mapped the
+full transition. Root cause: VAE lat=4 compresses 8D→4D, losing 77% of
+state variance (rock_y R²=0.044). Raw emission works fine (0.438).
 
-**Key insight:** Before studying organism capacity limits, we must ensure
-the perception pipeline preserves enough task-relevant information.
+**Key findings from the ladder:**
+- Oracle: 0.387 (emb=32) — best possible, strong capacity effect
+- Raw emission (8D): 0.438 — organism CAN learn from emissions
+- VAE lat=16: 0.460 (emb=32) — adequate perception, capacity effect present
+- VAE lat=4: 0.498 — broken (R²=0.229)
+- Noise sensitivity sharp: oracle+noise(0.5) kills all learning
 
 ### Active
 
-1. **Diagnose WHY the VAE fails for spatial tasks** (obj-011)
-   The VAE final loss is ~0.11, which seems reasonable, but the organism
-   can't use the latent for directional control. Possible causes:
-   - VAE latent doesn't encode positional info (only energy/magnitude)
-   - Emission design doesn't contain enough state info
-   - VAE pre-training on random rollouts doesn't learn task-relevant features
-   - env_latent_dim=4 is too small for 8D emissions with 4D state
-   **Next steps:** Analyze VAE latent quality (probe for state recovery),
-   try higher env_latent_dim, or redesign emissions to be more informative.
+1. **Full pipeline with VAE lat=16** (obj-012)
+   Re-run the embed_dim sweep [2,4,8,16,32] × 5 seeds with env_latent_dim=16.
+   This should show the capacity gradient through the full perception chain.
+   Also test with noise=[0.01, 0.1, 0.5] to see how channel noise interacts
+   with the capacity effect when perception is adequate.
 
-2. **Design perception-quality ladder** — Create a series of perception
-   conditions between oracle (direct state) and full VAE: e.g., oracle +
-   noise, oracle + linear compression, VAE with larger latent, etc.
-   Find the threshold where capacity effects emerge/disappear.
+2. **Characterize the perception-capacity interaction** — The ladder shows
+   capacity gap shrinks as perception degrades: oracle (+0.098), emission
+   (+0.015), VAE lat=16 (+0.033). Is there a quantitative relationship
+   between probe R² and the capacity gap?
 
 3. **NN-based matter** — Replace explicit physics with learned Mealy machine
    for more complex matter dynamics.
@@ -50,8 +49,10 @@ the perception pipeline preserves enough task-relevant information.
 - ANSWERED: Rock-push (4D state) shows clear capacity effect with oracle
   perception. embed=32 optimal (0.306, 100% success), embed=2 random (0.501).
   Reliability increases monotonically with capacity.
-- How does VAE quality modulate the capacity effect? (VAE pipeline shows
-  no learning at all — too lossy for spatial tasks)
+- ANSWERED: VAE lat=4 destroys spatial info (R²=0.229, rock_y R²=0.044).
+  lat=16 preserves 82% and enables learning (0.460). Raw emission works (0.438).
+  The capacity effect scales with perception quality: oracle gap=+0.098,
+  emission gap=+0.015, VAE lat=16 gap=+0.033, VAE lat=4 gap=+0.007.
 - How complex must the task be before embedding dimension matters?
 - Would multi-object or multi-bit state spaces create a real capacity
   bottleneck?
@@ -59,6 +60,7 @@ the perception pipeline preserves enough task-relevant information.
 
 ## Recently Completed
 
+- [2026-03-16] obj-011: Perception ladder — VAE lat=4 root cause (R²=0.229), raw emission works (0.438), lat=16 enables learning (0.460)
 - [2026-03-16] obj-010: VAE vs oracle comparison — VAE kills all capacity effects (0.502 everywhere vs oracle 0.306)
 - [2026-03-15] obj-009-oracle: Oracle baseline — embed dim matters! embed=8 best (0.395 vs 0.50 random)
 - [2026-03-15] obj-006: Stochastic resonance debunked — PPO flat ~0.82 across noise 0.01-0.5, no real peak
