@@ -657,7 +657,9 @@ def train_organism_ppo_rockpush(
 
         for t in range(steps_per_episode):
             result = world.step(state, action)
-            z = result["z"].detach()
+            # Use mu (deterministic) when world.use_mu is set — stochastic z
+            # destroys spatial signal for directional control (obj-012)
+            z = result["mu"].detach() if getattr(world, "use_mu", False) else result["z"].detach()
 
             action_mean, embedding, value = world.organism(z)
             std = log_std.exp().unsqueeze(0).expand_as(action_mean)

@@ -353,6 +353,11 @@ class RockPushWorld(nn.Module):
             hidden_size=organism_hidden,
         )
 
+        # Use deterministic mu instead of stochastic z for organism input.
+        # Stochastic z adds sampling noise that destroys spatial signal
+        # needed for directional control (obj-012 finding).
+        self.use_mu = False
+
     def step(
         self,
         state: torch.Tensor,
@@ -370,7 +375,8 @@ class RockPushWorld(nn.Module):
         next_state, emission, contact = self.matter(state, seed, prev_action)
         channel_out = self.channel(emission)
         z, y_hat, mu, logvar = self.environment(channel_out)
-        action, embedding, value = self.organism(z)
+        obs = mu if self.use_mu else z
+        action, embedding, value = self.organism(obs)
 
         # For rock-push, actions go directly to matter (no environment
         # transform) — directional control requires preserving action semantics
