@@ -175,6 +175,48 @@ an embedding without global context, it must either:
 A flat-attention model resolves this in $O(1)$ by attending to
 disambiguating context elsewhere in the document.
 
+### Prior art and novelty assessment (2026-03-17)
+
+**Intuition 1 overlaps with:**
+- Blakemore & Cooper (1970) — stripe-reared kittens lose orientation
+  selectivity. The real experiment, close to (but not identical to) the
+  random-noise headset version described above.
+- Friston's Free Energy Principle (2010) — perception-action as KL
+  divergence minimization. The cat interpretation IS this framework.
+- CCA / Deep CCA / CLIP — learning projections to align cross-modal
+  representations. The R_i operators are what CCA/DCCA learns.
+- Churchland lab / Vyas et al. (2020, PNAS) — motor cortex uses rotational
+  dynamics to separate sensory from motor representations; learning aligns
+  axes (84° → 67° measured).
+- BDNF / critical period neuroscience (Rossi 1999, Capsoni 1996, Huang 1999)
+  — monocular deprivation decreases BDNF in contralateral visual cortex.
+  Activity-dependent trophic support is established.
+
+**What may be novel:** The unified synthesis connecting developmental
+neuroscience (critical periods + BDNF), multimodal alignment math (CCA),
+and our specific experimental apparatus (WorldNN capacity + vaural emitter)
+under one framework with a biological deadline. No single paper combines
+all three. The cross-project bridge is genuine. But it's a synthesis, not
+a new theorem.
+
+**Intuition 2 overlaps with:**
+- Deep Equilibrium Models (Bai et al., NeurIPS 2019) — solve fixed-point
+  equations via implicit differentiation. They show it CAN work, partially
+  contradicting the impossibility claim.
+- Hierarchical context merging (Song et al. 2024), In-Context Former (2024),
+  Stingy Context (2025) — people ARE doing hierarchical compression.
+- EM algorithm — the iterative refinement IS EM.
+- ELMo → BERT — the "bank" example is the textbook motivation for
+  contextual embeddings.
+
+**What may be novel:** The "race condition" metaphor; the O(n²) = cost of
+avoiding hierarchy observation. But impossibility claim needs tightening
+given DEQs. Must characterize WHICH function classes break.
+
+**Path to novelty:** Experimentally measure C_i (coordination quality) in
+WorldNN/vaural and relate it to probe R² values. That's a testable,
+concrete contribution rather than a re-derivation of known math.
+
 ### Project fit assessment
 
 **Intuition 1 (sensory-motor alignment):**
