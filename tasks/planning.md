@@ -57,8 +57,13 @@ state variance (rock_y R²=0.044). Raw emission works fine (0.438).
 - Would multi-object or multi-bit state spaces create a real capacity
   bottleneck?
 - Does episode length (perception-action cycles) interact with capacity?
+- THEORETICAL: The sensory-motor alignment framework (rotation matrices
+  and projections) unifies WorldNN and vaural. The organism's embedding
+  layer IS the learned alignment operator $R$. See tasks/research.md.
 
 ## Recently Completed
+
+- [2026-03-17] Formalized PI's sensory-motor alignment intuition (cat experiment, rotation matrices, neurotrophic constraints) in tasks/research.md. Assessed project fit: Intuition 1 bridges WorldNN+vaural, Intuition 2 (hierarchical LLM race condition) is standalone.
 
 - [2026-03-16] obj-012: Oracle vs VAE lat=16 sweep — oracle capacity gap +0.115, standard VAE pipeline zero learning (z vs mu)
 - [2026-03-16] obj-011: Perception ladder — VAE lat=4 root cause (R²=0.229), raw emission works (0.438), lat=16 enables learning (0.460)
