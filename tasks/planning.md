@@ -15,11 +15,12 @@ state variance (rock_y R²=0.044). Raw emission works fine (0.438).
 
 ### Active
 
-1. **Fix VAE pipeline: use deterministic mu instead of stochastic z** (obj-013)
-   obj-012 proved the standard pipeline is broken — VAE z destroys spatial
-   signal. The perception ladder (obj-011) worked because it used mu. Fix
-   world.step() or train_organism_ppo_rockpush to use mu, then re-run the
-   embed_dim sweep to see if the capacity curve replicates through the VAE.
+1. **Coordination quality C_i + mu fix** (obj-013) — SUBMITTED TO PACE (job 5027120)
+   Fixed VAE pipeline: added `use_mu` flag to RockPushWorld + train loop.
+   New experiment measures C_i (cosine similarity with optimal action) after
+   training. 50 configs: oracle + VAE(mu) lat=16 × embed=[2,4,8,16,32] × 5 seeds.
+   Awaiting PACE results. When done: fetch results, generate plot, assess
+   whether C_i predicts task performance across conditions.
 
 2. **Characterize the perception-capacity interaction** — The ladder shows
    capacity gap shrinks as perception degrades: oracle (+0.098), emission
