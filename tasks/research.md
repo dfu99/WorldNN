@@ -175,6 +175,36 @@ an embedding without global context, it must either:
 A flat-attention model resolves this in $O(1)$ by attending to
 disambiguating context elsewhere in the document.
 
+### The perception-action asymmetry (PI insight, 2026-03-20)
+
+The perception-action loop in WorldNN is fundamentally *asymmetric*:
+
+- **Perception**: true state → emission → channel → VAE → observation
+  (each step lossy)
+- **Action**: action → directly modifies true state (NO lossy chain)
+
+The organism perceives a degraded version of reality but acts on the
+real physics. The rock doesn't respond to the organism's *perception*
+of the rock — it responds to the actual force applied to its actual
+atoms. The action channel is clean.
+
+C_i measures exactly this bridge: *given degraded perception of true
+state, can the organism determine the correct action on true state?*
+
+The environment (VAE) is not a camera — it is the *medium* through
+which information travels (light, sound, etc.). The organism's hand
+doesn't push the medium; it pushes the real object. But it must decide
+where to push based only on what the medium conveyed.
+
+This is deeper than "perception quality matters." The contribution is:
+the organism must bridge degraded perception and direct physical action.
+The entire perception chain exists to give the organism enough
+information to act correctly on a reality it can never directly observe.
+
+Analogy: performing surgery through a foggy window, but your hands are
+inside the room. Vision is degraded; actions are precise. C_i measures
+whether degraded vision gives enough to guide precise hands.
+
 ### Prior art and novelty assessment (2026-03-17)
 
 **Intuition 1 overlaps with:**
