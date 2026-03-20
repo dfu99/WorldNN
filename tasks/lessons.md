@@ -116,13 +116,13 @@
   latent quality (linear R²) before running organism training. If R²<0.5
   for any critical state variable, increase latent dim.
 
-- **C_i (coordination quality) predicts learning with r=-0.867 and a sharp threshold.**
+- **C_i (coordination quality) predicts learning with r=-0.735 across 7 conditions.**
   Cosine similarity between learned action and optimal action is the single best
-  predictor of task performance. C_i ≥ 0.6 guarantees success (100%), C_i < 0.5
-  guarantees failure (97%). Capacity and perception are multiplicative: oracle
-  emb=32 achieves C_i=0.739, but VAE mu lat=16 caps at C_i=0.461 regardless of
-  capacity — below the threshold. You need BOTH adequate perception AND sufficient
-  capacity to cross the C_i threshold.
+  predictor of task performance. Expanded from r=-0.867 (2 conditions, 50 configs)
+  to r=-0.735 (7 conditions, 105 configs). Threshold: C_i≥0.8 → 100% success,
+  C_i<0.5 → 85% failure. Capacity and perception are multiplicative. Raw emission
+  (no VAE, 8D) outperforms all VAE conditions — the VAE adds compression loss
+  without benefit when the organism could learn from raw signals directly.
 
 - **Standard pipeline uses stochastic z — kills learning for spatial tasks.**
   The world.step() → organism loop feeds z (sampled from VAE posterior) to the

@@ -531,3 +531,35 @@ objectives:
       still doesn't preserve enough directional information for spatial tasks.
     connects_to: obj-014
     completed_date: "2026-03-18"
+
+  - id: obj-014
+    status: completed
+    statement: "Expanded C_i sweep across all perception conditions confirms r=-0.735"
+    methodology: >
+      Ran 105 configs on PACE RTX 6000: 7 perception conditions (oracle,
+      oracle+noise 0.1/0.5, raw emission, VAE mu lat=8/16/32) × 5 embed
+      dims × 3 seeds. Used perception_ladder's custom training loop with
+      C_i measurement from coordination_quality.py. 500 episodes each.
+    metrics:
+      total_configs: 105
+      perception_conditions: 7
+      correlation_r: -0.735
+      oracle_mean_Ci: 0.552
+      oracle_noise05_Ci: 0.196
+      raw_emission_Ci: 0.460
+      vae_mu_lat8_Ci: 0.292
+      vae_mu_lat16_Ci: 0.438
+      vae_mu_lat32_Ci: 0.457
+      threshold_Ci_08: "100% learn (5/5)"
+      threshold_Ci_05_below: "15% learn (12/79)"
+      runtime_minutes: 328
+    figures:
+      - results/obj014_expanded_ci.png
+    conclusions: >
+      C_i correlation holds across 7 perception conditions (r=-0.735, down
+      from -0.867 with 2 conditions — expected with more variance). Threshold
+      pattern confirmed: C_i≥0.8 → 100%, C_i<0.5 → 15%. Oracle+noise(0.5)
+      kills C_i to 0.196 — the computational blind cat. VAE lat=8 is poor
+      (C_i=0.292). Raw emission (no VAE) outperforms all VAE conditions.
+      Capacity × perception interaction is multiplicative across all 7 modes.
+    completed_date: "2026-03-20"
