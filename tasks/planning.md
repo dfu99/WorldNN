@@ -11,20 +11,23 @@ C_i ≥ 0.8 → 100% success, C_i < 0.5 → 85% failure.
 
 ### Active
 
-1. **C_i dynamics during training** (obj-015) — Measure C_i every 50
-   episodes during training (not just post-hoc). Shows the *trajectory*
-   of alignment learning. Key prediction: oracle+large embed should show
-   rapid C_i rise crossing threshold early, while VAE conditions plateau
-   below threshold. This would strengthen the paper by showing C_i is
-   not just a post-hoc diagnostic but a real-time predictor.
+1. **C_i dynamics during training** (obj-015) — SUBMITTED TO PACE (job 5264477)
+   27 configs: oracle/emission/VAE × emb=2/8/32 × 3 seeds. Measures C_i
+   every 50 episodes. Awaiting results.
+
+2. **Address obj-014 critique** — See `tasks/critique_obj014.md`. Key fixes:
+   - Fix threshold table (row-shift error, wrong counts)
+   - Define success criterion with random-action baseline
+   - Decompose correlation (between-level r=-0.894, within-level r=-0.47)
+   - Increase seeds to 5 for key conditions
+   - Address oracle_noise0.5 C_i reversal
+   - Distinguish C_i from policy cosine similarity in imitation learning
 
 ### Backlog
 
-2. Higher-dimensional task (multi-object) to stress capacity further
-3. Cross-validate C_i in vaural (emitter alignment) and CorticalNN
-   (per-layer alignment in bio-derived networks)
-4. Investigate C_i estimation without access to optimal action
-   (contrastive/self-supervised proxies)
+3. Higher-dimensional task (multi-object) to stress capacity further
+4. Cross-validate C_i in vaural and CorticalNN
+5. C_i estimation without access to optimal action
 
 ## Open Questions
 
