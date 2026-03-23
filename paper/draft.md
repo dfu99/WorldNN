@@ -163,50 +163,74 @@ Connections:
 
 ## 4. Results
 
+All results reported from the at-scale experiment (obj-016): 245
+trained configs + 35 random baselines. 7 perception conditions × 5
+embedding dimensions × 7 seeds per condition. Random baseline
+(untrained organism): dist = 0.516 ± 0.003, C_i = 0.003 ± 0.022.
+Success defined as dist < 0.511 (baseline − 2σ).
+
 ### 4.1 C_i predicts task performance across 7 perception conditions
 
-105 configs across 7 perception modes × 5 embedding dimensions × 3 seeds:
+| Perception mode | Mean dist ↓ | Mean C_i ↑ | Success rate |
+|----------------|-------------|------------|-------------|
+| Oracle (direct true state) | 0.480 ± 0.050 | 0.483 ± 0.142 | 69% (24/35) |
+| Oracle + noise σ=0.1 | 0.488 ± 0.042 | 0.452 ± 0.138 | 63% (22/35) |
+| Raw emission (8D, no VAE) | 0.466 ± 0.039 | 0.489 ± 0.090 | 89% (31/35) |
+| VAE μ lat=32 | 0.498 ± 0.022 | 0.452 ± 0.066 | 63% (22/35) |
+| VAE μ lat=16 | 0.499 ± 0.021 | 0.440 ± 0.076 | 57% (20/35) |
+| VAE μ lat=8 | 0.508 ± 0.014 | 0.286 ± 0.057 | 37% (13/35) |
+| Oracle + noise σ=0.5 | 0.525 ± 0.004 | 0.141 ± 0.077 | 0% (0/35) |
 
-| Perception mode | Mean dist ↓ | Mean C_i ↑ | Learns? |
-|----------------|-------------|------------|---------|
-| Oracle (direct true state) | 0.472 | 0.552 | Partially (high emb) |
-| Oracle + noise σ=0.1 | 0.483 | 0.506 | Partially |
-| Raw emission (8D, no VAE) | 0.470 | 0.460 | Partially |
-| VAE μ lat=32 | 0.498 | 0.457 | Barely |
-| VAE μ lat=16 | 0.497 | 0.438 | Barely |
-| VAE μ lat=8 | 0.507 | 0.292 | No |
-| Oracle + noise σ=0.5 | 0.526 | 0.196 | No |
+Overall Pearson correlation: **r = -0.724** (n=245, p < 10⁻⁴⁰).
 
-Pearson correlation: **r = -0.735** (n=105, p < 0.001).
+**Correlation decomposition**: Between the 7 condition means,
+r = −0.878. Within individual conditions, mean r = −0.582 (range:
+−0.801 to +0.463). Six of seven conditions show strong within-level
+correlation (r < −0.7); oracle+noise(0.5) is the exception (see §5).
 
-### 4.2 Sharp threshold
+### 4.2 Learnability threshold
 
 | C_i threshold | N above | Success rate |
 |--------------|---------|-------------|
-| ≥ 0.8 | 5 | **100%** |
-| ≥ 0.7 | 9 | 80% |
-| ≥ 0.6 | 16 | 78% |
-| ≥ 0.5 | 26 | 65% |
-| < 0.5 | 79 | **15%** |
+| ≥ 0.3 | 187 | 68% |
+| ≥ 0.4 | 124 | **88%** |
+| ≥ 0.5 | 53 | **98%** |
+| ≥ 0.6 | 18 | **100%** |
+| < 0.3 | 58 | 22% |
 
-### 4.3 Capacity × perception interaction
+C_i ≥ 0.5 yields 98% success (52/53). C_i ≥ 0.6 yields 100% (18/18).
+The transition from failure to success occurs in the C_i = 0.3–0.5
+range, with the sharpest inflection at 0.4.
 
-Oracle: C_i rises monotonically from 0.435 (emb=2) to 0.739 (emb=32).
-More internal capacity → better alignment → actions that better match
-what the true state requires.
+Note: we report this as a "learnability threshold" rather than a
+"sharp threshold" — the transition is a steep gradient, not a cliff.
+The C_i ≥ 0.8 bucket contains only n=2, so we do not make claims
+about that range.
 
-VAE μ lat=16: C_i is flat at 0.38–0.50 regardless of capacity.
-The lossy perception chain does not preserve enough information about
-the true state for additional capacity to improve the bridge.
+### 4.3 Formal interaction test: capacity × perception
 
-VAE μ lat=8: C_i is flat at 0.23–0.36. Even worse — the compression
-is too severe for any amount of capacity to help.
+A log-linear regression model predicts rock-target distance from
+perception quality (ordinal, 0–6), log₂(embedding_dim), and their
+interaction:
 
-**The interaction is multiplicative, not additive.** Capacity helps
-only when perception preserves actionable information about the true
-state. This is because actions affect the true state, not the percept.
-A larger brain cannot help if the eyes do not convey where the rock
-actually is.
+$$\text{dist} = \beta_0 + \beta_p \cdot \text{perc} + \beta_c \cdot \log_2(\text{emb}) + \beta_{pc} \cdot \text{perc} \times \log_2(\text{emb}) + \epsilon$$
+
+| Coefficient | Value | Interpretation |
+|------------|-------|---------------|
+| β_perception | +0.003 | Main effect of perception quality |
+| β_capacity | −0.001 | Main effect of embedding dimension |
+| **β_interaction** | **−0.004** | Capacity helps MORE with better perception |
+
+Full model R² = 0.458. The interaction term is highly significant:
+**F(1, 241) = 34.2, p = 5.0 × 10⁻⁹**. Adding the interaction
+increases R² by 0.077 over the additive model (R² = 0.381).
+
+The negative interaction coefficient confirms that capacity and
+perception are **multiplicative, not additive**: increasing embedding
+dimension reduces distance more when perception quality is higher.
+This is because actions affect the true physical state, not the
+percept — a larger brain cannot help if the eyes do not convey where
+the rock actually is.
 
 ## 5. The Blind Cat
 
@@ -247,37 +271,41 @@ can never directly observe.
 
 ### Limitations
 
-- Rock-push is 4D state, 2D action — relatively simple
+- Rock-push is 4D state, 2D action — a second, higher-dimensional
+  task is needed to test threshold generalization
 - C_i requires a computable optimal action (feasible in simulation,
-  not in general real-world tasks)
-- The threshold values (0.5–0.8) may be task-specific
-- 3 seeds per condition in the expanded sweep; variance is high
+  not in general real-world tasks) — a self-supervised proxy is needed
+- The learnability threshold (C_i ≈ 0.4–0.5) may be task-specific
+- oracle+noise(0.5) shows a within-level correlation reversal
+  (r = +0.46) — at the noise floor, C_i becomes unreliable
 
 ### Future work
 
-- Higher-dimensional tasks to stress the asymmetry further
-- C_i dynamics *during* training — does the trajectory predict
-  final success?
-- Cross-validation in vaural (emitter-receiver alignment through
-  unknown channel) and CorticalNN (bio-derived network topology)
-- Investigate whether C_i can be estimated without access to optimal
-  action (e.g., via contrastive or self-supervised proxies)
+- **Second task** (8D+ state, ≥4D action) to validate threshold
+  generalization — non-negotiable for main-track submission
+- **Self-supervised C_i proxy** without oracle access — prediction
+  error, contrastive alignment, or value gradient as estimators
+- C_i dynamics during training (obj-015 shows slope r = −0.705)
+- Cross-validation in vaural and CorticalNN
 
 ## Figures
 
-1. `results/obj013_coordination_quality.png` — obj-013 (50 configs,
-   2 conditions, r=-0.867)
-2. `results/obj014_expanded_ci.png` — obj-014 (105 configs,
-   7 conditions, r=-0.735)
+1. `results/obj016_ci_at_scale.png` — At-scale (245 configs,
+   7 seeds, random baseline, correlation decomposition)
+2. `results/obj015_ci_dynamics.png` — C_i dynamics during training
+   (slope r = −0.705)
+3. `results/obj014_expanded_ci.png` — Expanded sweep (105 configs)
+4. `results/obj013_coordination_quality.png` — Initial C_i discovery
 
 ## Status
 
 - [x] Core simulation with asymmetric perception-action loop
-- [x] Oracle baseline establishing capacity gradient
-- [x] VAE pipeline diagnosis (z vs μ, latent dim sweep)
-- [x] C_i definition, measurement, and threshold discovery
-- [x] 50-config sweep: r = -0.867 (obj-013)
-- [x] 105-config expanded sweep: r = -0.735 across 7 conditions (obj-014)
-- [ ] C_i dynamics during training
-- [ ] Higher-dimensional task validation
-- [ ] Cross-validation in vaural and CorticalNN
+- [x] C_i definition, measurement, and learnability threshold
+- [x] At-scale validation: 245 configs, 7 seeds (r = −0.724)
+- [x] Formal interaction test: F(1,241) = 34.2, p = 5×10⁻⁹
+- [x] Random baseline and explicit success criterion
+- [x] Correlation decomposition (between r=−0.878, within r=−0.582)
+- [x] C_i dynamics: slope r = −0.705 predicts success (obj-015)
+- [ ] Second task (8D+) — BLOCKER for main track
+- [ ] Self-supervised C_i proxy
+- [ ] Framing: rename to "sensorimotor alignment", lead with blind cat
