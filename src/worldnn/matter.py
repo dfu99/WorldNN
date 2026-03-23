@@ -303,3 +303,102 @@ class RockPushMatter(nn.Module):
     def reset_state(self, batch_size: int, device: torch.device) -> torch.Tensor:
         """Initialize random positions: rock and organism in [0.1, 0.9]."""
         return torch.rand(batch_size, self.state_dim, device=device) * 0.8 + 0.1
+
+
+class MultiRockMatter(nn.Module):
+    """Multi-object matter: organism pushes 3 rocks to 3 targets in 2D.
+
+    State: [r1x, r1y, r2x, r2y, r3x, r3y, ox, oy] — 8D continuous.
+    The organism moves in 2D and pushes any rock it contacts.
+    Goal: get all 3 rocks to their respective targets.
+
+    This is the 8D second task required for ICLR submission:
+    - 8D state (vs 4D rock-push) stresses capacity requirements
+    - 3 objects require the organism to attend and prioritize
+    - Sequential strategy: approach nearest off-target rock → push → repeat
+    """
+
+    def __init__(
+        self,
+        emission_dim: int = 16,
+        action_dim: int = 2,
+        seed_dim: int = 4,
+        move_speed: float = 0.15,
+        push_radius: float = 0.2,
+        push_strength: float = 0.12,
+        n_rocks: int = 3,
+    ):
+        super().__init__()
+        self.emission_dim = emission_dim
+        self.action_dim = action_dim
+        self.seed_dim = seed_dim
+        self.move_speed = move_speed
+        self.push_radius = push_radius
+        self.push_strength = push_strength
+        self.n_rocks = n_rocks
+        self.state_dim = n_rocks * 2 + 2  # n_rocks×(x,y) + org(x,y) = 8D
+
+        # Emission projection: state_vec → emission
+        # state_vec = [r1x, r1y, r2x, r2y, r3x, r3y, ox, oy, c1, c2, c3]
+        proj_dim = self.state_dim + n_rocks  # positions + contact per rock
+        self.register_buffer(
+            "state_proj", torch.randn(proj_dim, emission_dim) * 0.5
+        )
+        self.register_buffer(
+            "emission_bias", torch.randn(emission_dim) * 0.2
+        )
+        self.register_buffer(
+            "seed_proj", torch.randn(seed_dim, emission_dim) * 0.15
+        )
+
+    def forward(
+        self, state: torch.Tensor, seed: torch.Tensor, action: torch.Tensor
+    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        """One step of multi-rock physics.
+
+        Returns:
+            next_state: [batch, 8]
+            emission: [batch, emission_dim]
+            contact: [batch] total contact (sum across rocks)
+        """
+        n = self.n_rocks
+        rock_positions = state[:, :n*2].reshape(-1, n, 2)  # [batch, n, 2]
+        org_pos = state[:, n*2:n*2+2]  # [batch, 2]
+
+        # Organism movement
+        movement = torch.tanh(action[:, :2]) * self.move_speed
+        new_org = torch.clamp(org_pos + movement, 0.0, 1.0)
+
+        # Per-rock contact and push
+        contacts = []
+        new_rocks = []
+        for i in range(n):
+            rock_i = rock_positions[:, i, :]  # [batch, 2]
+            rel = rock_i - new_org
+            dist = torch.norm(rel, dim=-1)
+            contact_i = torch.exp(-((dist / self.push_radius) ** 2))
+            contacts.append(contact_i)
+
+            push_dir = rel / (dist.unsqueeze(-1) + 1e-6)
+            push_force = contact_i.unsqueeze(-1) * push_dir * self.push_strength
+            new_rock_i = torch.clamp(rock_i + push_force, 0.0, 1.0)
+            new_rocks.append(new_rock_i)
+
+        # Assemble state and emission
+        new_rocks_flat = torch.cat(new_rocks, dim=-1)  # [batch, n*2]
+        next_state = torch.cat([new_rocks_flat, new_org], dim=-1)  # [batch, 8]
+
+        contact_stack = torch.stack(contacts, dim=-1)  # [batch, n]
+        total_contact = contact_stack.sum(dim=-1)  # [batch]
+
+        # Emission: full state + per-rock contacts
+        state_vec = torch.cat([next_state, contact_stack], dim=-1)  # [batch, 8+3=11]
+        emission = state_vec @ self.state_proj + self.emission_bias
+        noise = seed @ self.seed_proj
+        emission = emission + noise
+
+        return next_state, emission, total_contact
+
+    def reset_state(self, batch_size: int, device: torch.device) -> torch.Tensor:
+        """Random positions for 3 rocks + organism in [0.1, 0.9]."""
+        return torch.rand(batch_size, self.state_dim, device=device) * 0.8 + 0.1
