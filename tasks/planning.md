@@ -12,13 +12,10 @@ interaction p = 5×10⁻⁹, within-level mean r = -0.582.
 
 ### Active — Head Scientist Priorities
 
-1. **Second task** (8D+ locomotion or manipulation) — NON-NEGOTIABLE
-   Design and implement a higher-dimensional task to test whether C_i
-   threshold generalizes. Must be ≥8D state, ≥4D action. Options:
-   - Multi-object push (2 rocks, 8D state, 4D action)
-   - Locomotion (ant/swimmer with joint angles)
-   - Object manipulation with orientation
-   Major PACE job. THIS IS THE BLOCKER for main-track submission.
+1. **Second task — SUBMITTED TO PACE** (job 5389549, A100, 24h)
+   Multi-rock push: 3 rocks, 8D state, 16D emission, 2D action.
+   126 configs: 5 perception × 3 embed dims × 7 seeds + baselines.
+   Awaiting results. THIS WAS THE BLOCKER for main-track submission.
 
 2. **Self-supervised C_i proxy** — makes metric practical beyond simulation.
    Options: prediction error as proxy, contrastive alignment, value function
