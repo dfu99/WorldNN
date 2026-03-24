@@ -12,12 +12,10 @@ interaction p = 5×10⁻⁹, within-level mean r = -0.582.
 
 ### Active — Head Scientist Priorities
 
-1. **Second task — FIX REQUIRED** (obj-017 completed but NOBODY LEARNED)
-   Multi-rock push: 3 rocks, 8D state. All conditions at random baseline
-   (~0.493 vs 0.489). r = -0.194. C_i at emb=64 reaches ~0.44 (some
-   alignment) but doesn't translate to performance. Suspected causes:
-   (a) 500 episodes insufficient for 8D, (b) hidden_size=32 bottleneck,
-   (c) reward too diffuse. MUST FIX AND RE-RUN before main-track.
+1. **Second task — FIXED AND RE-SUBMITTED** (job 5452882, A100, 24h)
+   Diagnosis: 500 episodes insufficient, hidden=32 bottleneck, reward diluted.
+   Fix: 1000 episodes, hidden=64, focused reward on worst rock.
+   Awaiting PACE results. This is the ICLR main-track blocker.
 
 2. **Self-supervised C_i proxy** — makes metric practical beyond simulation.
    Options: prediction error as proxy, contrastive alignment, value function
