@@ -563,3 +563,72 @@ objectives:
       (C_i=0.292). Raw emission (no VAE) outperforms all VAE conditions.
       Capacity × perception interaction is multiplicative across all 7 modes.
     completed_date: "2026-03-20"
+
+  - id: obj-015
+    status: completed
+    statement: "SA dynamics during training: slope predicts final success (r=-0.705)"
+    methodology: >
+      27 configs (oracle/emission/VAE × emb=2/8/32 × 3 seeds) on PACE RTX 6000.
+      Measured SA every 50 episodes over 500 training episodes.
+    metrics:
+      total_configs: 27
+      slope_correlation_r: -0.705
+      early_snapshot_r: -0.232
+      runtime_minutes: 82
+    figures:
+      - results/obj015_ci_dynamics.png
+    conclusions: >
+      SA learning slope in first 200 episodes predicts final performance
+      (r=-0.705) — stronger than any single snapshot (ep=100 r=-0.232).
+      The RATE of alignment improvement is more predictive than level.
+    connects_to: obj-016
+    completed_date: "2026-03-21"
+
+  - id: obj-016
+    status: completed
+    statement: "At-scale validation: 245 configs, 7 seeds, interaction p=5e-9"
+    methodology: >
+      280 configs on PACE RTX 6000: 7 perception conditions × 5 embed dims
+      × 7 seeds + 35 random baselines. Formal log-linear interaction test.
+      Metric ablation: 6 candidate metrics compared.
+    metrics:
+      total_configs: 280
+      overall_r: -0.724
+      between_level_r: -0.878
+      within_level_mean_r: -0.582
+      interaction_F: 34.2
+      interaction_p: "5.0e-9"
+      random_baseline_dist: 0.516
+      random_baseline_SA: 0.003
+      mag_weighted_SA_r: -0.893
+      runtime_minutes: 752
+    figures:
+      - results/obj016_ci_at_scale.png
+    conclusions: >
+      SA correlation confirmed at scale (r=-0.724). Interaction highly
+      significant (F=34.2, p=5e-9). Within-level r improved to -0.582
+      with 7 seeds. Metric ablation: mag-weighted SA best overall (r=-0.893),
+      plain cosine best interaction signal (F=104.8). Random baseline SA≈0.
+    connects_to: obj-017
+    completed_date: "2026-03-22"
+
+  - id: obj-017
+    status: in_progress
+    statement: "Multi-rock 8D task — second task for ICLR (first attempt failed, re-submitted)"
+    methodology: >
+      3-rock push (8D state, 16D emission, 2D action). First attempt (500ep,
+      hidden=32): nobody learned (r=-0.194). Diagnosed: insufficient episodes,
+      hidden bottleneck, diluted reward. Fixed: 1000ep, hidden=64, worst-rock
+      focused reward. Re-submitted to PACE A100 (job 5452882).
+    metrics:
+      first_attempt_r: -0.194
+      first_attempt_all_at_baseline: true
+      fix_episodes: 1000
+      fix_hidden: 64
+    figures: []
+    conclusions: >
+      First attempt confirmed 8D task is harder — 500 episodes insufficient.
+      Diagnostic identified 3 root causes. Fix applied and re-submitted.
+      Awaiting PACE results.
+    connects_to: null
+    completed_date: null

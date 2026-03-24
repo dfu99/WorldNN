@@ -298,6 +298,30 @@ dimension reduces distance more when perception quality is higher.
 Actions affect the true physical state, not the percept — a larger
 brain cannot help if the eyes do not convey where the rock actually is.
 
+### 5.4 SA dynamics during training
+
+SA is not only a post-hoc diagnostic — its trajectory during training
+predicts final success. We measured SA every 50 episodes across 27
+configs (3 perception modes × 3 embedding dims × 3 seeds).
+
+**SA learning rate predicts final performance.** The slope of SA over
+the first 200 episodes correlates with final rock-target distance at
+r = −0.705. This is stronger than any single snapshot (e.g., SA at
+episode 100: r = −0.232). The *rate* of alignment improvement is more
+predictive than the alignment level at any given time.
+
+**Time-to-threshold differs by condition.** Using SA ≥ 0.4 as the
+learnability threshold:
+- Oracle: reaches threshold by episode 100 for all embed dims
+- Raw emission: emb=8,32 reach by episode 133; emb=2 slower (283ep)
+- VAE μ lat=16: emb=32 reaches by 133ep, emb=2 often never reaches
+
+**Practical implication**: SA slope in the first 200 episodes can serve
+as an early stopping criterion. If SA slope < 0.1 per 100 episodes
+by episode 200, the configuration is unlikely to learn — training
+resources can be redirected. This makes SA actionable as a real-time
+training diagnostic, not just a post-hoc metric.
+
 ## 6. The Blind Cat
 
 Blakemore & Cooper's (1970) kittens lost orientation selectivity

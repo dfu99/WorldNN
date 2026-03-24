@@ -21,10 +21,10 @@ interaction p = 5×10⁻⁹, within-level mean r = -0.582.
    Options: prediction error as proxy, contrastive alignment, value function
    gradient magnitude. Needs design + experiments.
 
-3. **Rename + framing fixes** in paper draft:
-   - "coordination quality" → "sensorimotor alignment" (avoid MARL confusion)
-   - Lead with blind cat hook
-   - Cite Pinto et al., DreamerV3, quasimetric RL
+3. **SA dynamics analysis** — Generate publication-quality dynamics figure
+   from obj-015 data. Add §5.4 to paper. NEXT TASK.
+
+4. **Fetch multi-rock v2 results** — When PACE job 5452882 completes.
 
 ### Completed from Head Scientist Critique
 
@@ -51,6 +51,9 @@ interaction p = 5×10⁻⁹, within-level mean r = -0.582.
 
 ## Recently Completed
 
+- [2026-03-24] Framing overhaul: renamed to "sensorimotor alignment", blind cat hook, related work section
+- [2026-03-24] Metric ablation: mag-weighted SA best overall (r=-0.893), cosine best interaction
+- [2026-03-24] Multi-rock diagnosis: 500ep/hidden=32/diluted reward → fixed → re-submitted (job 5452882)
 - [2026-03-22] obj-016: At-scale (245+35 configs, 7 seeds), interaction p=5e-9, within r=-0.58
 - [2026-03-22] Formal interaction test on existing data (Head Scientist exp #1)
 - [2026-03-21] obj-015: C_i dynamics — slope r=-0.705 predicts success
