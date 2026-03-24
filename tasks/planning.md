@@ -6,59 +6,52 @@
 **Head Scientist critique**: `tasks/head-scientist-critique.md`
 **Progress tracker**: `tasks/head-scientist-progress.md`
 
-Sensorimotor alignment (C_i) predicts learning success across asymmetric
+Sensorimotor alignment (SA) predicts learning success across asymmetric
 perception-action loops. At scale (245 configs, 7 seeds): r = -0.724,
 interaction p = 5×10⁻⁹, within-level mean r = -0.582.
 
-### Active — Head Scientist Priorities
+### Active — Remaining Blockers
 
-1. **Second task — FIXED AND RE-SUBMITTED** (job 5452882, A100, 24h)
-   Diagnosis: 500 episodes insufficient, hidden=32 bottleneck, reward diluted.
-   Fix: 1000 episodes, hidden=64, focused reward on worst rock.
-   Awaiting PACE results. This is the ICLR main-track blocker.
+1. **Fetch multi-rock v2 results** — PACE job 5453852 (RTX 6000) still
+   pending. When it completes: fetch, analyze, run interaction test,
+   update paper §5.5 with second-task results. THIS IS THE ICLR BLOCKER.
+   If it fails again, consider reducing to 2 rocks (6D) as fallback.
 
-2. **Self-supervised C_i proxy** — makes metric practical beyond simulation.
-   Options: prediction error as proxy, contrastive alignment, value function
-   gradient magnitude. Needs design + experiments.
+2. **Self-supervised SA proxy** — Design needed. Options: (a) prediction
+   error as proxy (train world model, measure prediction accuracy),
+   (b) value function gradient magnitude, (c) contrastive alignment with
+   augmented observations. Nice-to-have for main track, not strictly
+   required.
 
-3. **SA dynamics analysis** — Generate publication-quality dynamics figure
-   from obj-015 data. Add §5.4 to paper. NEXT TASK.
-
-4. **Fetch multi-rock v2 results** — When PACE job 5452882 completes.
-
-### Completed from Head Scientist Critique
+### All Completed from Head Scientist Critique
 
 - [x] Formal interaction test: F(1,241)=34.2, p=5×10⁻⁹ (obj-016)
 - [x] Seeds increased to 7 (obj-016, 280 configs)
-- [x] Random baseline: dist=0.516±0.003, C_i=0.003±0.022
+- [x] Random baseline: dist=0.516±0.003, SA=0.003±0.022
 - [x] Success criterion: dist < 0.511 (baseline - 2σ)
-- [x] Correlation decomposition: between r=-0.878, within mean r=-0.582
-- [x] C_i dynamics (obj-015): slope r=-0.705 predicts final success
-
-### Backlog
-
-4. Cosine vs L2 ablation — action_magnitude slightly outperforms C_i (r=-0.739 vs -0.724). Investigate.
-5. Cross-validate in vaural and CorticalNN
+- [x] Correlation decomposition: between r=-0.878, within r=-0.582
+- [x] SA dynamics (obj-015): slope r=-0.705, time-to-threshold, paper §5.4
+- [x] Metric ablation: 6 metrics, cosine F=104.8, mag-weighted r=-0.893
+- [x] Framing: renamed SA, blind cat hook, related work §2, imitation learning distinction
+- [x] Reversal analysis: oracle_noise0.5 explained as boundary artifact, paper §6
+- [x] Multi-rock diagnosed + fixed + re-submitted (job 5453852)
 
 ## Open Questions
 
-- ANSWERED: Interaction is significant (p=5×10⁻⁹ with 7 seeds)
-- ANSWERED: Within-level r improved to -0.58 (was -0.47 with 3 seeds)
-- ANSWERED: C_i slope predicts final success (r=-0.705)
-- oracle_noise0.5 reversal persists — boundary condition, not a bug
-- Action magnitude (r=-0.739) slightly outperforms cosine C_i (r=-0.724) — why?
-- Does the threshold generalize to 8D+ tasks?
+- ANSWERED: Interaction significant (p=5e-9)
+- ANSWERED: Within-level r=-0.58 (improved with 7 seeds)
+- ANSWERED: SA slope predicts success (r=-0.705)
+- ANSWERED: Reversal = boundary artifact (distance std=0.004)
+- ANSWERED: Mag-weighted SA outperforms cosine overall (r=-0.893 vs -0.724)
+- Does the SA threshold generalize to 8D? (awaiting PACE)
 
 ## Recently Completed
 
-- [2026-03-24] Framing overhaul: renamed to "sensorimotor alignment", blind cat hook, related work section
-- [2026-03-24] Metric ablation: mag-weighted SA best overall (r=-0.893), cosine best interaction
-- [2026-03-24] Multi-rock diagnosis: 500ep/hidden=32/diluted reward → fixed → re-submitted (job 5452882)
-- [2026-03-22] obj-016: At-scale (245+35 configs, 7 seeds), interaction p=5e-9, within r=-0.58
-- [2026-03-22] Formal interaction test on existing data (Head Scientist exp #1)
-- [2026-03-21] obj-015: C_i dynamics — slope r=-0.705 predicts success
-- [2026-03-20] obj-014: Expanded C_i sweep — 105 configs, r=-0.735
-- [2026-03-20] Paper rewritten with perception-action asymmetry framing
-- [2026-03-18] obj-013: C_i metric introduced, r=-0.867
-- [2026-03-17] Sensory-motor alignment formalization + prior art
-- [2026-03-16] obj-012: Oracle capacity gap +0.115, VAE pipeline broken
+- [2026-03-24] AFK session: 7/8 tasks completed. Metric ablation, framing overhaul, SA dynamics pub figure, reversal analysis, progress report. Multi-rock fetch blocked on PACE.
+- [2026-03-24] Multi-rock diagnosis: 500ep insufficient → 1000ep, hidden=64, worst-rock reward
+- [2026-03-22] obj-016: At-scale (280 configs, 7 seeds), interaction p=5e-9
+- [2026-03-21] obj-015: SA dynamics — slope r=-0.705
+- [2026-03-20] obj-014: Expanded sweep — 105 configs, r=-0.735
+- [2026-03-18] obj-013: SA metric introduced, r=-0.867
+- [2026-03-17] Sensory-motor alignment formalization
+- [2026-03-16] obj-012/011/010: Perception ladder, VAE diagnosis, oracle baseline
