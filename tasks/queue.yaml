@@ -1,23 +1,101 @@
 queue:
-- objective: 'DO NOT use the local GPU (RTX 3060) for training or inference. It crashes
-    the system. Instead, submit GPU jobs to the Georgia Tech PACE cluster. Use the
-    pace-slurm-ops skill or run: mc sync <project> && mc submit <script.sbatch>. VPN
-    is available via globalprotect CLI. Only use local GPU for tiny tests (<100MB
-    VRAM). For anything larger, write a SLURM script and submit to PACE.'
-  priority: 3
-  status: completed
-  added: 2026-03-13 14:19
-  source: manual
-  context: 'Local GPU causes system crashes. PACE account: gts-yke8, user: dfu71.
-    VPN: globalprotect connect --portal vpn.gatech.edu. See PACE.md for SLURM rules.'
-  started: 2026-03-13 14:50
-  completed: 2026-03-15 15:11
-  commits: 19
-- objective: Yes, trying an oracle baseline where the organism directly observes state
-    (no VAE) is a good suggestion.
-  priority: 3
+- objective: 'Diagnose and fix multi-rock task learning failure. obj-017 showed r=-0.194
+    with all conditions near random baseline. Analyze results: is the task too hard
+    for 500 episodes? Is organism hidden_size=32 a bottleneck for 8D input? Test locally
+    with oracle emb=64: (a) increase episodes to 2000, (b) increase hidden_size to
+    128, (c) increase push_strength/move_speed. Find the minimum fix that makes the
+    oracle condition learn. Do NOT use local GPU — run short diagnostic tests on CPU
+    with small batch_size=64 and n_episodes=200 to identify the bottleneck.'
+  priority: 1
   status: in_progress
-  added: 2026-03-15 14:30
-  source: slack
-  channel_id: C0AKT5LAF1Q
-  started: 2026-03-15 15:11
+  added: 2026-03-24 03:45
+  source: afk
+  context: 'obj-017 multi-rock (8D state) completed on PACE but nobody learned. All
+    dists ~0.493 vs baseline 0.489. C_i at emb=64 reaches ~0.44 (some alignment exists)
+    but doesn''t translate to performance. Key suspects: (1) 500 episodes insufficient
+    for 3-object task, (2) hidden_size=32 bottleneck for 8D→64D, (3) reward too diffuse
+    across 3 rocks. Must fix before re-submitting to PACE.'
+  success_criteria: Identify the root cause and produce a fix that makes oracle emb=64
+    achieve dist < 0.45 (clear improvement over baseline 0.489)
+  started: 2026-03-24 03:41
+- objective: 'Re-submit fixed multi-rock sweep to PACE. After fixing the learning
+    failure, update experiments/multirock_ci.py with the fix and re-submit to PACE
+    A100 with the same grid: 5 perception × 3 embed dims × 7 seeds = 126 configs.
+    Use the pace-slurm-ops skill. Verify the job starts successfully.'
+  priority: 1
+  status: pending
+  added: 2026-03-24 03:45
+  source: afk
+  context: Depends on task 1 identifying and fixing the learning failure.
+  success_criteria: PACE job submitted and running with the fix applied.
+- objective: 'Run metric ablation on existing obj-016 data: compare cosine C_i vs
+    L2 distance vs action magnitude vs embedding norm as predictors of task performance.
+    The internal critique noted action_magnitude (r=-0.739) slightly outperforms cosine
+    C_i (r=-0.724). Compute all four metrics, run the interaction test for each, and
+    determine which is the strongest predictor. Update paper §3.2 with ablation results.
+    No PACE needed — analysis only.'
+  priority: 2
+  status: pending
+  added: 2026-03-24 03:45
+  source: afk
+  context: 'Head Scientist rigor gap #4: no ablation of metric definition.'
+  success_criteria: Ablation table with 4+ metrics, each with r, interaction F, and
+    p-value. Paper §3.2 updated with justification for why cosine C_i is the right
+    choice (or why we should switch to action magnitude).
+- objective: 'Apply framing fixes to paper/draft.md per Head Scientist critique: (1)
+    rename ''coordination quality'' to ''sensorimotor alignment'' throughout, (2)
+    lead abstract and §1 with blind cat hook more aggressively, (3) add related work
+    section citing Pinto et al. (Asymmetric Actor-Critic), DreamerV3 prediction probes,
+    and quasimetric RL — distinguish C_i from each. (4) In §3.2, explicitly distinguish
+    C_i from policy cosine similarity in imitation learning.'
+  priority: 2
+  status: pending
+  added: 2026-03-24 03:45
+  source: afk
+  context: Head Scientist framing fixes. These are editorial, no experiments needed.
+  success_criteria: Paper draft updated with all four framing changes. 'coordination
+    quality' appears zero times; 'sensorimotor alignment' used throughout.
+- objective: 'Analyze obj-015 C_i dynamics results in detail. Generate a publication-quality
+    figure showing: (1) C_i trajectories colored by final success/failure, (2) early
+    C_i slope vs final performance, (3) time-to-threshold analysis (how many episodes
+    to reach C_i=0.4?). Update paper with a new §4.4 on C_i dynamics. This makes C_i
+    actionable as a training-time diagnostic.'
+  priority: 2
+  status: pending
+  added: 2026-03-24 03:45
+  source: afk
+  context: 'Head Scientist experiment #4. obj-015 data already fetched. Slope r=-0.705.'
+  success_criteria: Publication-quality dynamics figure saved to results/. Paper §4.4
+    added with dynamics analysis.
+- objective: Fetch and analyze fixed multi-rock results from PACE. Once the re-submitted
+    job completes, fetch results, generate the C_i scatter plot, run the interaction
+    test, and determine whether the C_i threshold generalizes to 8D. Update paper
+    §4.5 with second-task results.
+  priority: 1
+  status: pending
+  added: 2026-03-24 03:45
+  source: afk
+  context: Depends on task 2 (re-submission). This is the KEY result for main-track.
+  success_criteria: Multi-rock C_i correlation and interaction test reported. Paper
+    updated with second-task results.
+- objective: 'Write the oracle_noise0.5 reversal analysis. This condition shows r=+0.463
+    (positive — higher C_i associated with WORSE performance). Investigate: (a) is
+    this because at the noise floor, C_i measures alignment with noise not task structure?
+    (b) does the reversal disappear if we filter out configs with C_i < 0.1? (c) add
+    explicit discussion to paper §5 (Blind Cat section). No PACE needed.'
+  priority: 3
+  status: pending
+  added: 2026-03-24 03:45
+  source: afk
+  context: Internal critique and Head Scientist both flagged this.
+  success_criteria: Analysis of the reversal with explanation. Paper §5 updated.
+- objective: Update tasks/head-scientist-progress.md with all completed work. Update
+    the paper status checklist. Generate a summary figure showing the full experimental
+    progression (obj-009 through obj-017) for the PI. Stage a Slack report via /slack-respond
+    with the current state of the paper and what remains for ICLR.
+  priority: 3
+  status: pending
+  added: 2026-03-24 03:45
+  source: afk
+  context: Housekeeping and PI communication.
+  success_criteria: Progress tracker updated. Summary Slack report staged.
