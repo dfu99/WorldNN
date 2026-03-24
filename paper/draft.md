@@ -136,17 +136,42 @@ it should do, despite only seeing a degraded version.
 C_i = 0: the organism's action is orthogonal to optimal — it cannot
 bridge the perception-action gap.
 
-### 3.2 Why C_i is the right metric
+### 3.2 Metric ablation: why cosine alignment?
 
-The asymmetry is key. Existing metrics measure one side:
+We compared six candidate metrics as predictors of task performance
+on the at-scale dataset (n=245):
 
-- **Probe R²** measures perception quality (how much true state
-  survives the lossy chain) — but not whether the organism uses it.
-- **Task reward** measures action success — but not why it succeeds
-  or fails.
-- **C_i** measures the bridge: does the full pipeline (lossy
-  perception → bounded embedding → policy) produce actions that are
-  correct *with respect to the true state it cannot see?*
+| Metric | Overall r | Within-level r | Interaction F |
+|--------|----------|----------------|--------------|
+| **mag-weighted C_i** (cos × ‖a‖) | **−0.893** | **−0.714** | 98.6 |
+| action magnitude ‖a‖ | −0.739 | −0.582 | 39.4 |
+| |C_i| (abs cosine) | −0.727 | −0.588 | 101.7 |
+| C_i (cosine) | −0.724 | −0.582 | **104.8** |
+| positive fraction (C_i > 0) | −0.699 | −0.568 | 108.5 |
+| embedding utilization | −0.499 | −0.573 | 12.2 |
+
+**Magnitude-weighted C_i** — the product of directional alignment and
+action magnitude — is the strongest overall predictor (r = −0.893).
+This makes physical sense: the organism must both point in the right
+direction (cosine component) AND push with sufficient force (magnitude
+component) to move the rock.
+
+Plain cosine C_i has the strongest interaction signal (F = 104.8),
+meaning it best captures the capacity × perception multiplicative
+relationship. This is because cosine is scale-invariant: it isolates
+the directional alignment from the magnitude, making the
+capacity-dependent component more visible.
+
+We report cosine C_i as the primary metric for interpretability and
+interaction sensitivity, and magnitude-weighted C_i as a complementary
+predictor that captures the full action quality. Existing metrics
+measure one side:
+
+- **Probe R²** measures perception quality — but not whether the
+  organism exploits it
+- **Task reward** measures final performance — but not *why*
+- **C_i** measures the bridge: does the full pipeline produce actions
+  correct with respect to the true state?
 
 ### 3.3 Theoretical grounding
 
