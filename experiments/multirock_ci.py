@@ -4,6 +4,11 @@
 threshold and perception×capacity interaction generalize to higher-
 dimensional tasks.
 
+FIXES from diagnostic (2026-03-24):
+- n_episodes: 500 → 1000 (8D needs more training)
+- organism_hidden: 32 → 64 (bottleneck for 8D input)
+- Reward: focus on worst rock (not average), stronger approach bonus
+
 Grid:
   perception: [oracle, oracle_noise0.1, raw_emission, vae_mu_lat16, vae_mu_lat32]
   embedding_dim: [4, 16, 64]
@@ -131,20 +136,27 @@ def train_multirock_ppo(
             action_sample = dist.sample()
             lp = dist.log_prob(action_sample).sum(dim=-1)
 
-            # Reward: sum of (1 - dist_to_target) for each rock + contact bonus
+            # Reward: focus on worst rock + approach bonus
             rock_positions = next_state[:, :n_rocks*2].reshape(-1, n_rocks, 2)
-            reward = torch.zeros(batch_size, device=dev)
-            for i in range(n_rocks):
-                rd = torch.norm(rock_positions[:, i] - targets[i].unsqueeze(0), dim=-1)
-                reward += (1.0 - rd) / n_rocks
-            org_pos = next_state[:, n_rocks*2:n_rocks*2+2]
-            # Approach bonus: get close to any rock
-            min_org_rock = torch.stack([
-                torch.norm(rock_positions[:, i] - org_pos, dim=-1)
+            rock_dists = torch.stack([
+                torch.norm(rock_positions[:, i] - targets[i].unsqueeze(0), dim=-1)
                 for i in range(n_rocks)
-            ], dim=-1).min(dim=-1).values
-            reward += 0.2 * (1.0 - min_org_rock)
-            reward += 0.1 * contact
+            ], dim=-1)  # [batch, n_rocks]
+            # Primary: mean proximity (equal weighting)
+            reward = (1.0 - rock_dists.mean(dim=-1))
+            # Bonus: extra reward for reducing the WORST rock's distance
+            worst_dist = rock_dists.max(dim=-1).values
+            reward += 0.3 * (1.0 - worst_dist)
+            # Approach bonus: get close to the worst rock
+            org_pos = next_state[:, n_rocks*2:n_rocks*2+2]
+            worst_idx = rock_dists.argmax(dim=-1)  # [batch]
+            worst_rock_pos = torch.zeros_like(org_pos)
+            for i in range(n_rocks):
+                mask = (worst_idx == i).unsqueeze(-1).float()
+                worst_rock_pos += mask * rock_positions[:, i]
+            org_worst_dist = torch.norm(worst_rock_pos - org_pos, dim=-1)
+            reward += 0.4 * (1.0 - org_worst_dist)
+            reward += 0.15 * contact
 
             all_obs.append(obs.detach())
             all_actions.append(action_sample.detach())
@@ -206,12 +218,13 @@ def run_config(level_name, matter, sensory_dim, embed_dim, seed,
                perception_fn, targets, device="cuda"):
     torch.manual_seed(seed)
     dev = torch.device(device)
-    organism = Organism(sensory_dim=sensory_dim, embedding_dim=embed_dim, action_dim=2).to(dev)
+    organism = Organism(sensory_dim=sensory_dim, embedding_dim=embed_dim,
+                        action_dim=2, hidden_size=64).to(dev)
 
     t0 = time.time()
     metrics = train_multirock_ppo(
         matter, organism, perception_fn, targets,
-        n_episodes=500, device=device,
+        n_episodes=1000, device=device,
     )
     elapsed = time.time() - t0
 
@@ -233,7 +246,8 @@ def run_config(level_name, matter, sensory_dim, embed_dim, seed,
 def run_baseline(matter, sensory_dim, embed_dim, seed, perception_fn, targets, device="cuda"):
     torch.manual_seed(seed)
     dev = torch.device(device)
-    organism = Organism(sensory_dim=sensory_dim, embedding_dim=embed_dim, action_dim=2).to(dev)
+    organism = Organism(sensory_dim=sensory_dim, embedding_dim=embed_dim,
+                        action_dim=2, hidden_size=64).to(dev)
     n_rocks = matter.n_rocks
 
     ci = measure_ci_multirock(organism, perception_fn, matter, targets, device=device)

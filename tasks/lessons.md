@@ -132,6 +132,18 @@
   (encoder mean) for tasks requiring precise spatial information. Stochastic z
   may only work for coarse classification tasks (like binary state-flip).
 
+- **Multi-rock (8D) needs 1000+ episodes, hidden≥64, focused reward shaping.**
+  obj-017 failed (all conditions at baseline) because: (1) 500 episodes
+  insufficient for 3-object sequential task, (2) hidden_size=32 bottleneck
+  for 8D→64D, (3) reward diluted across 3 rocks (each contributes only 1/3).
+  Fix: increase episodes, hidden size, and focus reward on worst-performing
+  rock rather than averaging. CPU diagnostic confirmed even single-rock doesn't
+  learn reliably at batch=64 — need batch≥256 for PPO stability.
+
+- **torch.norm(x, -1) computes L^(-1) norm, not dim=-1.** Use torch.norm(x, dim=-1)
+  for Euclidean distance along last dimension. The positional argument is the
+  norm ORDER (p), not the dimension.
+
 - **VAE env_latent_dim must be ≥ state dimensionality for spatial tasks.**
   For 4D state projected through 8D emissions, lat=4 is catastrophically
   too small. lat=8 is marginal (R²=0.453). lat=16 is adequate (R²=0.817).
