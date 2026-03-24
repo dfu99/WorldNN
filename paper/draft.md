@@ -338,15 +338,36 @@ compression (8D→8D→8-dim latent) caps SA at ~0.29. The perception
 chain does not preserve enough directional information for the
 organism to determine which way to push the actual rock.
 
-**Oracle + noise σ=0.5**: Direct state observation corrupted by heavy
-noise. SA drops to 0.14 — below the learnability threshold. This
-condition also shows a within-level correlation *reversal* (r = +0.46):
-higher SA is associated with slightly worse performance. We interpret
-this as a boundary effect: when perception is at the noise floor, the
-cosine metric captures alignment with noise structure rather than task
-structure. This reversal occurs only when SA is uniformly below the
-learnability threshold (all 35 configs fail), so it does not
-contaminate the main finding.
+**Oracle + noise σ=0.5 — the noise floor reversal.** Direct state
+observation corrupted by heavy noise. SA = 0.14 ± 0.08, below the
+learnability threshold. All 35 configs fail (0% success). This
+condition shows a within-level correlation *reversal* (r = +0.46):
+higher SA is associated with slightly worse performance.
+
+Investigation reveals this is a **boundary artifact**, not a metric
+failure. Three observations:
+
+1. **Distance variance is near-zero** (std = 0.004). All configs
+   achieve dist ≈ 0.525 regardless of SA. When the outcome variable
+   has no variance, any correlation with a predictor is noise.
+
+2. **Capacity increases SA but not performance.** emb=32 achieves
+   SA = 0.20 vs emb=2 at SA = 0.12 — the organism develops more
+   directional alignment with more capacity. But distance actually
+   worsens slightly (0.529 vs 0.523). The larger model overfits to
+   noise structure, producing directional alignment that is
+   anti-correlated with task-relevant structure.
+
+3. **VAE lat=8, with comparable SA (0.29 ± 0.06), shows normal
+   negative correlation (r = −0.75)** — because it has enough
+   distance variance (std = 0.015) for the signal to emerge.
+
+The reversal occurs exclusively when perception carries zero
+task-relevant information (all configs fail equally). SA is undefined
+in this regime — it measures alignment with noise, not with task
+structure. This does not contaminate the main finding: the reversal
+condition contributes no successes and sits entirely below the
+learnability threshold.
 
 ## 7. Discussion
 
