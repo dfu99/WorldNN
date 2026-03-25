@@ -17,11 +17,13 @@ interaction p = 5×10⁻⁹, within-level mean r = -0.582.
    update paper §5.5 with second-task results. THIS IS THE ICLR BLOCKER.
    If it fails again, consider reducing to 2 rocks (6D) as fallback.
 
-2. **Self-supervised SA proxy** — Design needed. Options: (a) prediction
-   error as proxy (train world model, measure prediction accuracy),
-   (b) value function gradient magnitude, (c) contrastive alignment with
-   augmented observations. Nice-to-have for main track, not strictly
-   required.
+2. **SA transfer / generalization** (obj-019) — PI priority.
+   Does SA generalize across rock variants? Train on standard, evaluate
+   on 8 physics variants without retraining. Measures SA retention.
+   Script designed (`experiments/sa_transfer.py`), awaiting submission.
+
+3. **Self-supervised SA proxy** (obj-018) — designed, awaiting PI input.
+   3 candidates in `experiments/sa_proxy.py`. Nice-to-have for main track.
 
 ### All Completed from Head Scientist Critique
 
