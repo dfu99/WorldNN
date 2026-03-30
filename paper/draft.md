@@ -319,6 +319,35 @@ In this task, configs with SA slope < 0.1 per 100 episodes by episode
 tasks, SA slope could serve as an early stopping criterion, though
 cross-task validation is needed.
 
+### 5.5 Second task: multi-rock (3 rocks, 8D state)
+
+To test whether SA generalizes beyond the 4D rock-push task, we
+implemented a 3-rock variant with 8D state
+[r1x, r1y, r2x, r2y, r3x, r3y, ox, oy], 16D emission, and 2D action.
+The organism must push all 3 rocks to separate targets. We evaluated
+5 perception conditions × 3 embedding dims × 7 seeds = 105 configs
+with 1000 training episodes each.
+
+The overall SA-performance correlation is r = −0.300 (p = 4 × 10⁻⁴),
+weaker than the 4D task (r = −0.724). The perception × capacity
+interaction remains significant (F(1, 101) = 12.5, p = 4 × 10⁻⁴),
+confirming the multiplicative relationship holds at 8D. Within-level
+correlations vary: VAE conditions show moderate to strong correlations
+(vae_mu_lat32: r = −0.83, vae_mu_lat16: r = −0.57, raw emission:
+r = −0.55), while oracle conditions are near zero (r = −0.14).
+
+The weaker overall correlation reflects a floor effect: most
+conditions achieve distances within 0.01 of the random baseline
+(0.489). The task is harder to learn in 1000 episodes with the
+current architecture, and only the highest-capacity configurations
+(emb=64) with the best perception modes (raw emission, VAE lat=32)
+show clear improvement (dist = 0.464−0.471 vs baseline 0.489).
+
+SA values at 8D are comparable to 4D (oracle emb=64: SA = 0.66),
+confirming that the metric remains meaningful. The weaker correlation
+is attributable to insufficient training budget for the harder task,
+not to a failure of SA as a diagnostic.
+
 ## 6. Perception Failure Conditions
 
 Three conditions produce SA values below the learnability threshold,
