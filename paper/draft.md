@@ -265,7 +265,7 @@ correlation (r < −0.7); oracle+noise(0.5) is the exception (see §6).
 | ≥ 0.4 | 124 | **88%** |
 | ≥ 0.5 | 53 | **98%** |
 | ≥ 0.6 | 18 | **100%** |
-| < 0.3 | 58 | 22% |
+| < 0.3 | 58 | 7% |
 
 SA ≥ 0.5 yields 98% success (52/53). SA ≥ 0.6 yields 100% (18/18).
 The transition from failure to success occurs in the SA = 0.3–0.5
@@ -329,15 +329,15 @@ dims × 5 seeds = 45 configs with 1000 training episodes.
 
 | Perception mode | Mean dist | Mean SA | Learns? |
 |----------------|-----------|---------|---------|
-| Oracle emb=4 | 0.502 ± 0.009 | 0.407 ± 0.128 | Marginal |
-| Oracle emb=16 | 0.486 ± 0.006 | 0.643 ± 0.065 | Yes |
-| Oracle emb=64 | 0.466 ± 0.005 | 0.714 ± 0.050 | Yes |
-| Raw emission emb=4 | 0.503 ± 0.010 | 0.386 ± 0.093 | Marginal |
-| Raw emission emb=16 | 0.471 ± 0.009 | 0.564 ± 0.025 | Yes |
-| Raw emission emb=64 | 0.449 ± 0.005 | 0.587 ± 0.038 | Yes |
-| VAE μ lat=16 emb=4 | 0.509 ± 0.002 | 0.355 ± 0.033 | No |
-| VAE μ lat=16 emb=16 | 0.500 ± 0.011 | 0.379 ± 0.063 | Marginal |
-| VAE μ lat=16 emb=64 | 0.466 ± 0.007 | 0.540 ± 0.013 | Yes |
+| Oracle emb=4 | 0.503 ± 0.008 | 0.408 ± 0.131 | Marginal |
+| Oracle emb=16 | 0.486 ± 0.005 | 0.644 ± 0.063 | Yes |
+| Oracle emb=64 | 0.466 ± 0.005 | 0.714 ± 0.046 | Yes |
+| Raw emission emb=4 | 0.503 ± 0.009 | 0.386 ± 0.090 | Marginal |
+| Raw emission emb=16 | 0.471 ± 0.008 | 0.564 ± 0.024 | Yes |
+| Raw emission emb=64 | 0.449 ± 0.005 | 0.587 ± 0.033 | Yes |
+| VAE μ lat=16 emb=4 | 0.509 ± 0.001 | 0.355 ± 0.032 | No |
+| VAE μ lat=16 emb=16 | 0.500 ± 0.010 | 0.379 ± 0.062 | Marginal |
+| VAE μ lat=16 emb=64 | 0.466 ± 0.006 | 0.540 ± 0.012 | Yes |
 
 The SA-performance correlation at 6D is r = −0.728 (n=45), matching
 the 4D single-rock result (r = −0.724). The capacity gradient is
