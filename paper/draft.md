@@ -360,6 +360,49 @@ SA = 0.66), confirming the metric remains meaningful. The weaker
 correlation is attributable to insufficient training budget for the
 harder 3-object task.
 
+### 5.6 SA transfer across physics and appearance variants
+
+If SA captures structural alignment rather than memorized actions, it
+should generalize to objects with different physical properties and
+visual appearance. We tested this by training organisms on a standard
+rock and evaluating SA on 8 variants without retraining.
+
+**Physics transfer (obj-019).** We varied push_radius (±20%) and
+push_strength (±30%) to create rocks that respond differently to
+force. SA retention across 15 trained organisms:
+
+| Variant | SA retention |
+|---------|-------------|
+| Standard (control) | 102% |
+| Smaller rock (radius −20%) | 101% |
+| Larger rock (radius +20%) | 103% |
+| Heavier rock (strength −30%) | 100% |
+| Lighter rock (strength +30%) | 102% |
+| Hard combo (smaller + heavier) | 94% |
+| Easy combo (larger + lighter) | 106% |
+
+Single-parameter changes produce 100−103% retention. Even the
+hardest combined variant (smaller and heavier) retains 94%.
+
+**Appearance transfer (obj-020).** We additionally perturbed the
+emission projection matrix (state_proj) by adding ε × N(0,1) noise
+(ε ∈ {0.1, 0.3, 0.5}), so that variant rocks both look and respond
+differently. SA retention across 240 evaluations (4 physics variants
+× 4 appearance levels × 3 embed dims × 5 seeds):
+
+| Physics \ Appearance ε | 0.0 | 0.1 | 0.3 | 0.5 |
+|------------------------|-----|-----|-----|-----|
+| Standard | 101% | 101% | 101% | 102% |
+| Smaller rock | 100% | 99% | 100% | 100% |
+| Heavier rock | 97% | 96% | 97% | 97% |
+| Hard combo | 96% | 94% | 95% | 95% |
+
+Appearance perturbation has no measurable effect on SA retention:
+r(ε, retention) = 0.033. The organism's alignment is invariant to
+changes in the emission matrix up to ε = 0.5, indicating that SA
+measures structural understanding of the push interaction rather
+than a memorized mapping from specific visual patterns to actions.
+
 ## 6. Perception Failure Conditions
 
 Three conditions produce SA values below the learnability threshold,
