@@ -456,31 +456,112 @@ learnability threshold.
 
 ## 7. Discussion
 
-### 7.1 Scope of the perception-action asymmetry
+### 7.1 The perception-action asymmetry
 
-The perception-action asymmetry is a structural property of any
-system that perceives through lossy channels and acts on true state.
-SA measures the organism's ability to produce correct actions from
-degraded perception. The perception chain exists to provide the
-organism with sufficient information to act on a state it cannot
-directly observe.
+The asymmetry between lossy perception and direct action is a
+structural property of any embodied system. SA quantifies a specific
+consequence of this asymmetry: whether the information surviving the
+perception chain is sufficient to determine correct actions on a
+physical state the agent cannot directly observe. The metric is
+computable whenever an optimal action can be derived analytically, and
+the simulation provides independent control over every stage of the
+loop. This combination of a defined metric and a controllable testbed
+is the methodological contribution of this work.
 
-### Limitations
+### 7.2 Relationship to biological critical periods
 
-- Rock-push is 4D state, 2D action; a second, higher-dimensional
-  task is needed to test threshold generalization
-- SA requires a computable optimal action, feasible in simulation
-  but not in general real-world tasks; a self-supervised proxy is needed
-- The learnability threshold (SA ≈ 0.4–0.5) may be task-specific
-- oracle+noise(0.5) correlation reversal at the noise floor
+The perception failure conditions in §6 reproduce the computational
+structure of critical-period pruning. In biological systems,
+BDNF-dependent signaling sustains sensory pathways that achieve
+alignment with motor experience; pathways that do not are eliminated
+\citep{huang1999bdnf, rossi1999monocular}. In our simulation, the
+oracle+noise(0.5) condition produces SA permanently below the
+learnability threshold across all capacity levels. The organism
+develops directional alignment with noise structure (SA = 0.20 at
+emb=32), but this alignment is anti-correlated with task-relevant
+structure. The computational analog of pathway pruning is the flat SA
+landscape: no learning signal exists to improve alignment further.
 
-### Future work
+The analogy is structural, not mechanistic. Our simulation does not
+model BDNF, synaptic pruning, or developmental timing. The claim is
+that SA formalizes the condition under which pruning is expected (SA
+below threshold for the duration of the training budget), not that the
+simulation reproduces the biological mechanism.
 
-- **Self-supervised SA proxy** without oracle access, enabling SA
-  estimation in tasks where the optimal action is not computable
-- **Higher-dimensional tasks** (8D+ state) with increased training
-  budget to test capacity limits
-- Cross-validation in related simulation frameworks
+### 7.3 SA as a training diagnostic
+
+SA slope during the first 200 training episodes predicts final
+performance (r = −0.705). This suggests a practical application:
+monitoring SA during training to identify configurations that are
+unlikely to learn, enabling early reallocation of compute. In our
+experiments, all configurations with SA slope < 0.1 per 100 episodes
+at episode 200 failed to achieve successful learning. This diagnostic
+is limited to settings where SA can be computed (i.e., where the
+optimal action is known), motivating future work on self-supervised
+proxies.
+
+### 7.4 Transfer and structural alignment
+
+SA transfers across physics variants (94−106% retention) and
+appearance variants (r(ε, retention) = 0.033). The organism trained
+on one rock variant retains alignment when evaluated on rocks that
+both look and respond differently. This indicates that SA captures the
+structure of the push interaction (approach, contact, push toward
+target) rather than a memorized mapping from specific perceptual
+patterns to specific motor commands. The transfer result is consistent
+with the interpretation that the learned alignment operator R
+(§4.3) encodes task-relevant geometry that is invariant to moderate
+perturbations of both the physics and the emission model.
+
+### 7.5 Limitations
+
+The 4D and 6D tasks are low-dimensional relative to real-world
+manipulation. The 3-rock (8D) task produced a weaker SA correlation
+(r = −0.300), attributable to a floor effect from insufficient
+training budget rather than a failure of SA, but this remains a
+limitation of the current experimental scope.
+
+SA requires a computable optimal action, which is feasible in
+simulation but not in general real-world tasks. A self-supervised
+proxy for SA would extend its applicability. Candidate proxies
+(prediction consistency, action stability, value-action alignment) are
+designed but not yet validated at scale.
+
+The learnability threshold (SA ≈ 0.4−0.5) may be task-specific.
+Cross-task validation on 2 tasks shows consistent thresholds, but
+broader validation across task families is needed.
+
+The oracle+noise(0.5) within-level correlation reversal (r = +0.46)
+indicates that SA is unreliable when the perception signal contains
+zero task-relevant information. SA is defined for regimes where some
+perception-action alignment is achievable; it is not designed to
+discriminate within the fully-degraded regime.
+
+### 7.6 Future work
+
+A self-supervised SA proxy without oracle access would enable SA
+estimation in tasks where the optimal action is not computable.
+Higher-dimensional tasks with increased training budget would test
+whether the learnability threshold scales predictably with state
+dimensionality.
+
+## 8. Conclusion
+
+We defined sensorimotor alignment (SA), a scalar metric that
+quantifies how well an agent's learned policy under degraded
+perception aligns with the optimal action on the true physical state.
+Across 245 conditions on a 4D task and 45 conditions on a 6D task, SA
+predicts task performance (r = −0.72 and r = −0.73 respectively),
+exhibits a learnability threshold (SA ≥ 0.5 yields 98% success), and
+reveals a significant multiplicative interaction between perception
+quality and organism capacity (p = 5 × 10⁻⁹). SA transfers across
+physics and appearance variants with 89−106% retention. The SA
+learning slope during training predicts final success (r = −0.71).
+These results formalize the principle that sensory pathways which fail
+to achieve alignment with motor experience are functionally useless,
+reproducing the computational structure of critical-period pruning in
+a controlled simulation where every stage of the perception-action
+loop is independently manipulable.
 
 ## Figures
 
