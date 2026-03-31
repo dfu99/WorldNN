@@ -272,7 +272,7 @@ Overall Pearson correlation: $r = -0.724$ ($n=245$, $p < 10^{-40}$). Between the
 7 condition means, $r = -0.878$. Within individual conditions, mean $r = -0.582$
 (range: $-0.801$ to $+0.463$). Six of seven conditions show strong within-level
 correlation ($r < -0.7$); oracle+noise(0.5) is the exception (see
-\S\ref{sec:failure}).
+\S\ref{sec:failure}). Figure~\ref{fig:main} summarizes these results.
 
 \subsection{Learnability threshold}
 \label{sec:threshold}
@@ -359,20 +359,102 @@ variance (std $= 0.015$).
 \label{sec:discussion}
 %-----------------------------------------------------------------------
 
-The perception-action asymmetry is a structural property of any system that
-perceives through lossy channels and acts on true state. SA measures the
-organism's ability to produce correct actions from degraded perception.
+\subsection{The perception-action asymmetry}
 
-\textbf{Limitations.} The 4D and 6D tasks, while demonstrating the SA pattern,
-are relatively low-dimensional. SA requires a computable optimal action, feasible
-in simulation but not in general real-world tasks; a self-supervised proxy is
-needed. The learnability threshold (SA $\approx 0.4$--$0.5$) may be
-task-specific.
+The asymmetry between lossy perception and direct action is a structural property
+of any embodied system. SA quantifies a specific consequence: whether the
+information surviving the perception chain is sufficient to determine correct
+actions on a physical state the agent cannot directly observe. The combination of
+a defined metric and a controllable testbed where every stage of the loop is
+independently manipulable is the methodological contribution.
 
-\textbf{Future work.} A self-supervised SA proxy without oracle access would
-enable SA estimation in tasks where the optimal action is not computable.
-Higher-dimensional tasks with increased training budget would test capacity limits
-further.
+\subsection{Relationship to biological critical periods}
+
+The perception failure conditions in \S\ref{sec:failure} reproduce the
+computational structure of critical-period pruning. In biological systems,
+BDNF-dependent signaling sustains sensory pathways that achieve alignment with
+motor experience; pathways that do not are eliminated
+\citep{huang1999bdnf, rossi1999monocular}. In our simulation, oracle+noise(0.5)
+produces SA permanently below the learnability threshold. The computational analog
+of pruning is the flat SA landscape: no learning signal exists to improve alignment.
+The analogy is structural, not mechanistic: we do not model BDNF or synaptic pruning.
+
+\subsection{SA as a training diagnostic}
+
+SA slope during the first 200 episodes predicts final performance ($r = -0.705$).
+All configurations with SA slope $< 0.1$ per 100 episodes at episode 200 failed
+to learn. This suggests SA slope as an early stopping criterion, though
+cross-task validation is needed.
+
+\subsection{Transfer and structural alignment}
+
+SA transfers across physics variants (94--106\% retention) and appearance variants
+($r(\epsilon, \text{retention}) = 0.033$). The organism retains alignment when
+evaluated on rocks that both look and respond differently, indicating that SA
+captures the structure of the push interaction rather than a memorized mapping.
+
+\subsection{Limitations}
+
+The 4D and 6D tasks are low-dimensional. The 3-rock (8D) task produced weaker SA
+correlation ($r = -0.300$) due to a floor effect from insufficient training budget.
+SA requires a computable optimal action, feasible in simulation but not in general
+real-world tasks. The learnability threshold (SA $\approx 0.4$--$0.5$) may be
+task-specific. The oracle+noise(0.5) reversal ($r = +0.46$) indicates SA is
+unreliable when perception carries zero task-relevant information.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig1_main.pdf}
+\caption{Sensorimotor alignment predicts learning across perception and capacity
+conditions. (a)~SA vs.\ distance ($r = -0.724$, $n = 245$). (b)~Between-level
+correlation ($r = -0.878$, interaction $p = 5 \times 10^{-9}$). (c)~SA trajectories
+during training; green = success, red = failure. (d)~SA retention across physics
+variants (94--106\%). (e)~Metric ablation: 6 candidates compared. (f)~Learnability
+threshold curve.}
+\label{fig:main}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig3_transfer.pdf}
+\caption{SA generalizes across tasks and variants. (a)~SA retention under combined
+physics and appearance perturbation ($r(\epsilon, \text{retention}) = 0.033$).
+(b)~2-rock task (6D state): SA-performance correlation $r = -0.728$ replicates
+the 4D finding.}
+\label{fig:transfer}
+\end{figure}
+
+%-----------------------------------------------------------------------
+\section{Conclusion}
+%-----------------------------------------------------------------------
+
+We defined sensorimotor alignment (SA), a scalar metric that quantifies how well
+an agent's learned policy under degraded perception aligns with the optimal action
+on true physical state. Across 245 conditions on a 4D task and 45 on a 6D task,
+SA predicts performance ($r = -0.72$ and $r = -0.73$), exhibits a learnability
+threshold (SA $\geq 0.5$ yields 98\% success), and reveals a multiplicative
+perception $\times$ capacity interaction ($p = 5 \times 10^{-9}$). SA transfers
+across physics and appearance variants (89--106\% retention) and its training
+slope predicts final success ($r = -0.71$). These results formalize the principle
+that sensory pathways failing to achieve motor alignment are functionally useless,
+reproducing the computational structure of critical-period pruning in a controlled
+simulation.
+
+%-----------------------------------------------------------------------
+% Supplementary (after main text, before references)
+%-----------------------------------------------------------------------
+
+\section*{Supplementary Materials}
+
+Code, data, and all experimental scripts are available at
+\url{https://github.com/dfu99/WorldNN}. The repository includes:
+the WorldNN simulation framework (\texttt{src/worldnn/}), all experiment
+scripts (\texttt{experiments/}), raw results in JSON format
+(\texttt{results/}), and SLURM scripts for PACE cluster reproduction
+(\texttt{slurm/}).
+
+Additional figures (SA dynamics detail, per-objective plots) are
+provided in the \texttt{results/} directory.
 
 %-----------------------------------------------------------------------
 % References
