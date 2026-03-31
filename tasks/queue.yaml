@@ -1,102 +1,95 @@
 queue:
-- objective: 'Run SA proxy validation on local GPU. Execute experiments/sa_proxy.py
-    with the 3 candidate proxies (prediction consistency, action stability, value-action
-    alignment) on a small oracle grid: embed_dims=[2,8,32] × seeds=[42,123,456]. Measure
-    r(proxy, true_SA) for each. Determine which proxy best approximates SA without
-    oracle access. This addresses Head Scientist experiment #5.'
+- objective: Add 2-rock (obj-021) results to paper/draft.md. Update §5.5 to lead with
+    the 2-rock result (r=-0.728) as the primary second task, with 3-rock as supplementary.
+    Add a table with 2-rock per-condition breakdown. Reference the 2-rock data in
+    the abstract and introduction where the second task is mentioned.
   priority: 1
   status: in_progress
-  added: 2026-03-29 21:10
+  added: 2026-03-31 17:20
   source: afk
-  context: SA proxy candidates designed in experiments/sa_proxy.py but never validated.
-    Head Scientist flagged this as needed for practical relevance. Local GPU authorized.
-  success_criteria: All 3 proxies computed alongside true SA. Correlation table produced.
-    Best proxy identified with r(proxy, SA) > 0.5.
-  started: 2026-03-29 21:10
-- objective: 'Run SA transfer with APPEARANCE variation on local GPU. The PI flagged
-    that obj-019 only varied physics (push_radius, push_strength) but kept the emission
-    matrix identical — all rocks ''look the same''. Create rock variants that also
-    vary the emission projection matrix (state_proj) by adding epsilon*randn perturbations.
-    Test: does SA retention hold when the rock both LOOKS and RESPONDS differently?'
+  context: obj-021 (2-rock 6D) completed with r=-0.728. Paper §5.5 currently only
+    has 3-rock (r=-0.300). The 2-rock result is the stronger second task and should
+    lead.
+  success_criteria: Paper §5.5 updated with 2-rock table and narrative. Abstract mentions
+    both tasks. Status checklist updated.
+  started: 2026-03-31 17:20
+- objective: 'Final numbers pass on paper/draft.md. Read every number in the paper
+    and verify it against the actual JSON results files. Check: (a) all r values match
+    data, (b) all p-values match, (c) threshold table counts are correct, (d) per-condition
+    means and stds match, (e) baseline numbers match. Fix any discrepancies.'
   priority: 1
   status: pending
-  added: 2026-03-29 21:10
+  added: 2026-03-31 17:20
   source: afk
-  context: PI asked 'How are different rocks actually being defined here?' and pointed
-    out the emission matrix is shared. Need to perturb state_proj to create visually
-    distinct rock variants. This is a critical gap in the transfer story.
-  success_criteria: SA retention measured across appearance perturbations (epsilon=0.1,
-    0.3, 0.5). Retention > 80% for small perturbations confirms structural alignment.
-- objective: Run 2-rock fallback experiment on local GPU. Multi-rock v2 (3 rocks,
-    8D) showed r=-0.300 — marginal. Test whether 2 rocks (6D state) produces a cleaner
-    SA pattern. 2 rocks is simpler (organism only sequences between 2 targets) and
-    6D is still a meaningful step up from 4D. Run oracle + 2 VAE conditions × 3 embed
-    dims × 5 seeds = 45 configs with 1000 episodes.
+  context: Numbers have been updated across multiple sessions. Some may be stale or
+    have rounding inconsistencies. The internal critique flagged a threshold table
+    error.
+  success_criteria: Every number in the paper verified against raw data. Any corrections
+    committed.
+- objective: 'Add 2-rock and appearance transfer results to paper. Write a new §5.6
+    on SA transfer (combining obj-019 physics transfer + obj-020 appearance transfer).
+    Frame: SA captures structural alignment that generalizes across both physics and
+    appearance variation. Include retention table.'
   priority: 1
   status: pending
-  added: 2026-03-29 21:10
+  added: 2026-03-31 17:20
   source: afk
-  context: Multi-rock v2 (3 rocks) showed weak r=-0.300. Head Scientist requires a
-    second task for main-track. 2 rocks (6D) may give a cleaner result while still
-    being meaningfully higher-dimensional than 4D rock-push.
-  success_criteria: 2-rock sweep complete. r(SA, dist) > 0.5 and interaction p < 0.01
-    would confirm the SA pattern generalizes to 6D.
-- objective: 'Analyze multi-rock v2 results in detail and generate publication-quality
-    figures. The data (r=-0.300, p=4e-4) is already fetched. Generate: (1) SA scatter
-    plot colored by condition, (2) per-condition breakdown table with error bars,
-    (3) interaction test results. Update paper with a §5.5 on the multi-rock task.
-    Frame honestly: the pattern holds but learning is marginal at 8D.'
+  context: Transfer results (obj-019, obj-020) are strong but not yet in the paper.
+    These strengthen the generalization claim significantly.
+  success_criteria: Paper §5.6 written with physics + appearance transfer results.
+- objective: 'Polish abstract and introduction for NeurIPS. The abstract should be
+    150-250 words, state the problem, method, key result, and implication. Lead with
+    the perception-action asymmetry framing. Mention both tasks (4D r=-0.724, 6D r=-0.728).
+    Introduction should flow: problem → gap → our approach → key results → paper outline.'
+  priority: 1
+  status: pending
+  added: 2026-03-31 17:20
+  source: afk
+  context: Abstract was revised for academic writing but may need tightening for NeurIPS
+    word limits. Introduction needs to reference both tasks.
+  success_criteria: Abstract under 250 words. Introduction references both tasks and
+    transfer results.
+- objective: Convert paper/draft.md to LaTeX using NeurIPS 2026 template. Create paper/neurips2026/main.tex.
+    Use the standard neurips_2026.sty style file. Convert all markdown sections, tables,
+    equations, and figure references to proper LaTeX. Do NOT try to compile — just
+    produce the .tex file.
   priority: 2
   status: pending
-  added: 2026-03-29 21:10
+  added: 2026-03-31 17:20
   source: afk
-  context: Multi-rock v2 results fetched but never analyzed in detail or added to
-    paper. Need publication-quality figures and honest §5.5.
-  success_criteria: Multi-rock analysis figure saved to results/. Paper §5.5 added.
-- objective: Run SA dynamics on multi-rock (8D) on local GPU. Does the SA slope still
-    predict success in the harder 8D task? Run 9 configs (oracle/emission/VAE × emb=4/16/64)
-    with SA measured every 100 episodes over 1000 episodes. Compare slope-performance
-    correlation to the 4D result (r=-0.705).
+  context: NeurIPS deadline is May 6, 2026. Need LaTeX conversion for submission.
+    The neurips_2026.sty template should be downloaded or created.
+  success_criteria: paper/neurips2026/main.tex exists with all content from draft.md
+    properly formatted in LaTeX.
+- objective: Generate camera-ready figures at 300 DPI. Regenerate fig_main.png and
+    all individual objective figures at publication resolution. Ensure all text is
+    readable at print size. Save to paper/neurips2026/figures/. Use consistent color
+    scheme and font sizes across all panels.
   priority: 2
   status: pending
-  added: 2026-03-29 21:10
+  added: 2026-03-31 17:20
   source: afk
-  context: SA dynamics (obj-015) only measured on 4D rock-push. Testing whether the
-    slope-prediction result holds at 8D strengthens the paper's generalizability claim.
-  success_criteria: SA dynamics measured on multi-rock. Slope-performance correlation
-    reported. Comparison to 4D result (r=-0.705).
-- objective: 'Run single-rock with 10 seeds for the 5 most important conditions to
-    tighten error bars. Conditions: oracle emb=2, oracle emb=32, raw_emission emb=32,
-    vae_mu_lat16 emb=32, oracle_noise0.5 emb=32. These are the anchor points of the
-    SA story. 10 seeds per condition = 50 configs.'
+  context: Current figures are at 150-200 DPI. NeurIPS requires high-resolution figures.
+  success_criteria: All figures regenerated at 300 DPI in paper/neurips2026/figures/.
+- objective: 'Write discussion and conclusion sections for NeurIPS. Discussion should
+    address: (a) the asymmetry as the core insight, (b) relationship to biological
+    critical periods, (c) practical implications (SA as training diagnostic), (d)
+    transfer generalization. Conclusion should be 1 paragraph summarizing the contribution.'
   priority: 2
   status: pending
-  added: 2026-03-29 21:10
+  added: 2026-03-31 17:20
   source: afk
-  context: Current at-scale has 7 seeds. Key comparisons (oracle extremes, best VAE,
-    reversal condition) would benefit from tighter confidence intervals.
-  success_criteria: 50 configs complete. Updated error bars for the 5 anchor conditions.
-- objective: Test whether SA generalizes across TARGET positions (not just rock physics).
-    Train on target=(0.8, 0.8), evaluate on target=(0.2, 0.2) and (0.5, 0.5) without
-    retraining. If SA retention is high, the organism learned general push-toward-
-    target, not push-toward-(0.8,0.8). Run oracle emb=32 × 3 seeds × 3 targets.
+  context: Current discussion is brief. NeurIPS papers typically have more thorough
+    discussion sections.
+  success_criteria: Discussion expanded with all 4 subsections. Conclusion paragraph
+    added.
+- objective: 'Final pre-submission checklist: (a) verify all figures render in LaTeX,
+    (b) check page count (NeurIPS main = 9 pages + refs), (c) ensure all references
+    are complete, (d) add author/affiliation placeholder, (e) write supplementary
+    materials section if needed. Update tasks/planning.md with submission status.'
   priority: 3
   status: pending
-  added: 2026-03-29 21:10
+  added: 2026-03-31 17:20
   source: afk
-  context: Extends the generalization story beyond rock variants to task variants.
-    Complements obj-019.
-  success_criteria: SA retention measured for 2 novel targets. Retention > 80% confirms
-    general alignment, not memorized target position.
-- objective: 'Generate a comprehensive 6-panel publication figure combining the key
-    results: (a) SA vs distance scatter (obj-016), (b) interaction test visualization,
-    (c) SA dynamics trajectories, (d) SA transfer retention bars, (e) metric ablation
-    comparison, (f) learnability threshold curve. Save as results/fig_main.png. This
-    is the main figure for the paper.'
-  priority: 3
-  status: pending
-  added: 2026-03-29 21:10
-  source: afk
-  context: The paper needs a single comprehensive main figure. Individual plots exist
-    but no unified figure.
-  success_criteria: 6-panel figure saved. Each panel clean and publication-ready.
+  context: Final housekeeping before submission.
+  success_criteria: Pre-submission checklist complete. Planning updated.
