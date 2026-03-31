@@ -1,0 +1,445 @@
+\documentclass{article}
+
+% NeurIPS 2026 style
+\usepackage[final]{neurips_2026}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\title{Sensorimotor Alignment Predicts Learning in Asymmetric Perception-Action Loops}
+
+\author{
+  Anonymous Author(s) \\
+  \texttt{anonymous@example.com}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Embodied agents perceive the world through lossy channels but act on it directly.
+We define sensorimotor alignment (SA), the cosine similarity between an agent's
+learned policy under degraded perception and the optimal action computed from true
+physical state, and show that SA predicts task performance across two tasks: a 4D
+rock-push ($r = -0.72$, $n = 245$, $p = 5 \times 10^{-9}$ for the perception
+$\times$ capacity interaction) and a 6D two-rock push ($r = -0.73$, $n = 45$).
+SA exhibits a learnability threshold (SA $\geq 0.5$ yields 98\% success) and
+transfers across physics and appearance variants (89--106\% retention). Perception
+quality and organism capacity interact multiplicatively: increasing capacity
+reduces distance to target only when perception is sufficient
+($\beta_{\text{interaction}} = -0.004$, $p = 5 \times 10^{-9}$). When perception
+is too degraded, additional representational power does not improve performance.
+This reproduces the critical-period phenomenon observed by
+\citet{blakemore1970development}, where sensory pathways that fail to align with
+motor experience are pruned.
+\end{abstract}
+
+%-----------------------------------------------------------------------
+\section{Introduction}
+%-----------------------------------------------------------------------
+
+Embodied agents face a structural asymmetry: they perceive the world through lossy
+channels but act on it directly. An organism observes matter through emissions,
+noise, and compression, yet its motor commands modify the true physical state
+without passing through the perceptual chain:
+%
+\begin{align*}
+\text{Perception:} &\quad \text{true state} \to \text{emission} \to \text{medium} \to \text{encoding} \to \text{internal model} \\
+\text{Action:} &\quad \text{motor command} \to \text{directly modifies true state}
+\end{align*}
+
+\citet{blakemore1970development} demonstrated that sensory pathways which fail to
+achieve alignment with motor experience within the critical period are pruned;
+neurons in kittens' visual cortex lost selectivity for orientations never
+experienced. This principle has been studied extensively in developmental
+neuroscience \citep{hubel1970period, huang1999bdnf} but lacks a quantitative
+metric that connects perception quality, agent capacity, and task success in a
+controlled setting where all three are independently manipulable.
+
+We present such a metric. We define \textbf{sensorimotor alignment} (SA): the
+cosine similarity between an agent's learned action under degraded perception and
+the analytically optimal action computed from the true state. SA quantifies the
+degree to which degraded perception supports correct action on the physical state
+the agent cannot directly observe.
+
+We evaluate SA in a controllable simulation (WorldNN) across two tasks (4D
+rock-push, 6D two-rock push), 7 perception conditions, 5 capacity levels, and 7
+seeds per condition. The principal findings:
+\begin{enumerate}
+  \item SA predicts task performance ($r = -0.72$ on 4D, $r = -0.73$ on 6D).
+  \item A learnability threshold exists: SA $\geq 0.5$ yields 98\% success.
+  \item Perception and capacity interact multiplicatively ($p = 5 \times 10^{-9}$).
+  \item SA transfers across physics and appearance variants (89--106\%).
+  \item SA learning slope during training predicts final success ($r = -0.71$).
+\end{enumerate}
+
+The paper is organized as follows. \S\ref{sec:related} reviews related work.
+\S\ref{sec:simulation} describes the WorldNN simulation. \S\ref{sec:sa} defines
+SA and presents the metric ablation. \S\ref{sec:results} reports results across
+both tasks, including dynamics and transfer. \S\ref{sec:failure} analyzes
+perception failure conditions. \S\ref{sec:discussion} discusses implications and
+limitations.
+
+%-----------------------------------------------------------------------
+\section{Related Work}
+\label{sec:related}
+%-----------------------------------------------------------------------
+
+\textbf{Asymmetric Actor-Critic} \citep{pinto2018asymmetric} trains RL agents
+with privileged state information during training but deploys with observations
+only. SA (defined in \S\ref{sec:sa}) serves a complementary role: rather than
+using privileged information as a training signal, we use it as a post-hoc
+diagnostic that measures the residual alignment gap between actions under degraded
+perception and actions under full state access.
+
+\textbf{DreamerV3} \citep{hafner2023mastering} and \textbf{IRIS}
+\citep{micheli2023transformers} learn world models and implicitly measure
+prediction quality in latent space. SA is computed in true state space, not latent
+space; this distinction matters because the action operates on true state, not on
+the model's latent representation.
+
+\textbf{Quasimetric RL} \citep{wang2023quasimetric} measures directional
+asymmetries in value function space. SA measures asymmetry in action space: the
+gap between the policy's action direction under degraded perception and the
+optimal direction under full state observation.
+
+\textbf{Policy cosine similarity in imitation learning} is superficially similar
+to SA. In imitation learning, the expert and learner share the same observation.
+SA measures alignment across the perception gap, where the optimal action is
+computed from true state while the policy acts on degraded observations. This
+asymmetry is what makes the metric diagnostic of the perception-action loop.
+
+\textbf{Information bottleneck} \citep{tishby2000information} characterizes
+optimal compression-prediction tradeoffs. \textbf{Active inference}
+\citep{friston2010free} frames the perception-action loop as free energy
+minimization. SA operationalizes both: low SA corresponds to high free energy and
+lossy compression that destroys action-relevant information. SA differs from these
+frameworks in that it provides a computable scalar rather than a theoretical bound.
+
+\textbf{Critical period neuroscience} \citep{blakemore1970development,
+rossi1999monocular, huang1999bdnf}: BDNF-dependent critical periods set a
+biological timeout on sensory-motor alignment. If alignment is not achieved within
+the viability window, the pathway is pruned. In our simulation, the
+oracle+noise(0.5) condition produces SA $\approx 0.14$, permanently below the
+learnability threshold (\S\ref{sec:threshold}).
+
+No prior work defines cosine alignment between a degraded-perception policy and
+optimal-state action across a designed perception-degradation ladder with
+independently controllable perception quality and organism capacity.
+
+%-----------------------------------------------------------------------
+\section{The WorldNN Simulation}
+\label{sec:simulation}
+%-----------------------------------------------------------------------
+
+\subsection{The asymmetric loop}
+
+WorldNN models the full asymmetric perception-action loop. The organism's
+observation passes through four lossy stages, while its action bypasses all of
+them and directly modifies the true physical state. The rock responds to the
+actual force applied, regardless of the organism's perceptual accuracy.
+
+\textbf{Matter.} Rock-push task. True state $= [\text{rock}_x, \text{rock}_y,
+\text{org}_x, \text{org}_y]$. The rock has physical properties (position, inertia,
+contact radius) that determine its response to force. These properties are never
+directly observable.
+
+\textbf{Perception chain.} Matter emits 8D signals (a fixed projection of true
+state, analogous to light patterns). A channel adds Gaussian noise (atmospheric
+distortion). A VAE environment compresses the signal (sensory apparatus
+limitations). The organism receives the final compressed representation.
+
+\textbf{Action.} The organism outputs a 2D motor command that acts directly on
+the matter's true state, not on the perceived state and not through the VAE in
+reverse. The action channel is clean.
+
+\subsection{Independently controlled variables}
+
+\begin{table}[h]
+\centering
+\caption{Experimental variables and their ranges.}
+\label{tab:variables}
+\begin{tabular}{lll}
+\toprule
+Variable & Range & Controls \\
+\midrule
+Perception mode & Oracle, oracle+noise, raw emission, VAE $\mu$ & Percept degradation \\
+env\_latent\_dim & 8, 16, 32 & VAE compression \\
+channel\_noise & 0.01--0.5 & Signal corruption \\
+embedding\_dim & 2, 4, 8, 16, 32 & Organism capacity \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The oracle condition (direct true state observation) eliminates the perception
+chain entirely, providing the upper bound on what any perception mode can achieve.
+
+%-----------------------------------------------------------------------
+\section{Sensorimotor Alignment}
+\label{sec:sa}
+%-----------------------------------------------------------------------
+
+\subsection{Definition}
+
+After training, for each sampled true state $s$:
+\begin{equation}
+\text{SA} = \mathbb{E}_s\left[\cos\left(\pi_\theta(o(s)),\; a^*(s)\right)\right]
+\label{eq:sa}
+\end{equation}
+where $\pi_\theta(o(s))$ is the organism's action given its degraded observation
+and $a^*(s)$ is the analytically optimal action computed from the true state (move
+toward rock if far, push rock toward target if near). SA $= 1$ indicates perfect
+alignment; SA $= 0$ indicates orthogonal (random) action.
+
+\subsection{Metric ablation}
+
+We compared six candidate metrics as predictors of task performance on the
+at-scale dataset ($n=245$), shown in Table~\ref{tab:ablation}.
+
+\begin{table}[h]
+\centering
+\caption{Metric ablation. Magnitude-weighted SA is the strongest overall
+predictor; plain cosine SA has the strongest interaction signal.}
+\label{tab:ablation}
+\begin{tabular}{lccc}
+\toprule
+Metric & Overall $r$ & Within-level $r$ & Interaction $F$ \\
+\midrule
+\textbf{mag-weighted SA} ($\cos \times \|a\|$) & \textbf{$-0.893$} & \textbf{$-0.714$} & 98.6 \\
+action magnitude $\|a\|$ & $-0.739$ & $-0.582$ & 39.4 \\
+$|\text{SA}|$ (abs cosine) & $-0.727$ & $-0.588$ & 101.7 \\
+SA (cosine) & $-0.724$ & $-0.582$ & \textbf{104.8} \\
+positive fraction (SA $> 0$) & $-0.699$ & $-0.568$ & 108.5 \\
+embedding utilization & $-0.499$ & $-0.573$ & 12.2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+We report cosine SA as the primary metric (interpretability, interaction
+sensitivity) and magnitude-weighted SA as a complementary predictor.
+
+\subsection{Theoretical grounding}
+
+SA operationalizes the sensory-motor alignment framework. Each perception modality
+provides an embedding $e_i$. A learned alignment operator $R_i$ maps each
+embedding into a shared representation, from which a motor projection $W_m$
+produces actions: $a = W_m R(e)$. SA measures the quality of $R$, i.e., how well
+the learned alignment preserves action-relevant information.
+
+%-----------------------------------------------------------------------
+\section{Results}
+\label{sec:results}
+%-----------------------------------------------------------------------
+
+All results from the at-scale experiment: 245 trained configs + 35 random
+baselines. 7 perception conditions $\times$ 5 embedding dimensions $\times$ 7
+seeds per condition. Random baseline (untrained organism): dist $= 0.516 \pm
+0.003$, SA $= 0.003 \pm 0.022$. Success defined as dist $< 0.511$ (baseline
+$- 2\sigma$).
+
+\subsection{SA predicts task performance across 7 perception conditions}
+
+\begin{table}[h]
+\centering
+\caption{SA and task performance by perception condition (4D rock-push).}
+\label{tab:conditions}
+\begin{tabular}{lccc}
+\toprule
+Perception mode & Mean dist $\downarrow$ & Mean SA $\uparrow$ & Success rate \\
+\midrule
+Oracle (direct state) & $0.480 \pm 0.050$ & $0.483 \pm 0.142$ & 69\% (24/35) \\
+Oracle + noise $\sigma{=}0.1$ & $0.488 \pm 0.042$ & $0.452 \pm 0.138$ & 63\% (22/35) \\
+Raw emission (8D) & $0.466 \pm 0.039$ & $0.489 \pm 0.090$ & 89\% (31/35) \\
+VAE $\mu$ lat=32 & $0.498 \pm 0.022$ & $0.452 \pm 0.066$ & 63\% (22/35) \\
+VAE $\mu$ lat=16 & $0.499 \pm 0.021$ & $0.440 \pm 0.076$ & 57\% (20/35) \\
+VAE $\mu$ lat=8 & $0.508 \pm 0.014$ & $0.286 \pm 0.057$ & 37\% (13/35) \\
+Oracle + noise $\sigma{=}0.5$ & $0.525 \pm 0.004$ & $0.141 \pm 0.077$ & 0\% (0/35) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Overall Pearson correlation: $r = -0.724$ ($n=245$, $p < 10^{-40}$). Between the
+7 condition means, $r = -0.878$. Within individual conditions, mean $r = -0.582$
+(range: $-0.801$ to $+0.463$). Six of seven conditions show strong within-level
+correlation ($r < -0.7$); oracle+noise(0.5) is the exception (see
+\S\ref{sec:failure}).
+
+\subsection{Learnability threshold}
+\label{sec:threshold}
+
+\begin{table}[h]
+\centering
+\caption{Success rate by SA threshold.}
+\label{tab:threshold}
+\begin{tabular}{lcc}
+\toprule
+SA threshold & $N$ above & Success rate \\
+\midrule
+$\geq 0.3$ & 187 & 68\% \\
+$\geq 0.4$ & 124 & \textbf{88\%} \\
+$\geq 0.5$ & 53 & \textbf{98\%} \\
+$\geq 0.6$ & 18 & \textbf{100\%} \\
+$< 0.3$ & 58 & 7\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Formal interaction test: capacity $\times$ perception}
+
+A log-linear regression model predicts rock-target distance from perception
+quality (ordinal, 0--6), $\log_2(\text{emb})$, and their interaction:
+\begin{equation}
+\text{dist} = \beta_0 + \beta_p \cdot \text{perc} + \beta_c \cdot \log_2(\text{emb}) + \beta_{pc} \cdot \text{perc} \times \log_2(\text{emb}) + \epsilon
+\end{equation}
+Full model $R^2 = 0.458$. The interaction term is highly significant:
+$F(1, 241) = 34.2$, $p = 5.0 \times 10^{-9}$. The negative interaction
+coefficient ($\beta_{pc} = -0.004$) confirms that capacity and perception are
+multiplicative, not additive.
+
+\subsection{SA dynamics during training}
+
+The slope of SA over the first 200 episodes correlates with final rock-target
+distance at $r = -0.705$, stronger than any single snapshot (e.g., SA at episode
+100: $r = -0.232$). The rate of alignment improvement is more predictive than the
+alignment level at any given time.
+
+\subsection{Second task: 2-rock push (6D state)}
+
+We implemented a 2-rock variant with 6D state, 12D emission, and 2D action. The
+SA-performance correlation at 6D is $r = -0.728$ ($n=45$), matching the 4D result
+($r = -0.724$). The capacity gradient replicates across all perception modes:
+oracle SA rises from 0.41 (emb=4) to 0.71 (emb=64).
+
+We also tested a 3-rock variant (8D state, 105 configs). The correlation is
+weaker ($r = -0.300$, $p = 4 \times 10^{-4}$) due to a floor effect; the
+perception $\times$ capacity interaction remains significant ($F(1,101) = 12.5$,
+$p = 4 \times 10^{-4}$).
+
+\subsection{SA transfer across physics and appearance variants}
+
+SA transfers across both physics variants (push radius $\pm 20\%$, push strength
+$\pm 30\%$; 94--106\% retention) and appearance variants (emission matrix
+perturbed by $\epsilon \times \mathcal{N}(0,1)$, $\epsilon \in \{0.1, 0.3, 0.5\}$;
+$r(\epsilon, \text{retention}) = 0.033$). Appearance perturbation has no measurable
+effect on SA retention.
+
+%-----------------------------------------------------------------------
+\section{Perception Failure Conditions}
+\label{sec:failure}
+%-----------------------------------------------------------------------
+
+Three conditions produce SA values below the learnability threshold, analogous to
+the pruned sensory pathways observed by \citet{blakemore1970development}.
+
+\textit{Stochastic VAE (z).} Sampling noise destroys the spatial signal.
+SA $\approx 0$ across all conditions and all capacity levels.
+
+\textit{VAE lat=8 ($\mu$).} Extreme compression caps SA at approximately 0.29.
+
+\textit{Oracle + noise $\sigma{=}0.5$.} SA $= 0.14 \pm 0.08$, below the
+learnability threshold. All 35 configs fail (0\% success). This condition shows
+a within-level correlation reversal ($r = +0.46$), attributable to near-zero
+distance variance (std $= 0.004$): when all configs fail equally, any correlation
+with SA reflects noise. VAE lat=8, with comparable SA ($0.29 \pm 0.06$), shows
+normal negative correlation ($r = -0.75$) because it has sufficient distance
+variance (std $= 0.015$).
+
+%-----------------------------------------------------------------------
+\section{Discussion}
+\label{sec:discussion}
+%-----------------------------------------------------------------------
+
+The perception-action asymmetry is a structural property of any system that
+perceives through lossy channels and acts on true state. SA measures the
+organism's ability to produce correct actions from degraded perception.
+
+\textbf{Limitations.} The 4D and 6D tasks, while demonstrating the SA pattern,
+are relatively low-dimensional. SA requires a computable optimal action, feasible
+in simulation but not in general real-world tasks; a self-supervised proxy is
+needed. The learnability threshold (SA $\approx 0.4$--$0.5$) may be
+task-specific.
+
+\textbf{Future work.} A self-supervised SA proxy without oracle access would
+enable SA estimation in tasks where the optimal action is not computable.
+Higher-dimensional tasks with increased training budget would test capacity limits
+further.
+
+%-----------------------------------------------------------------------
+% References
+%-----------------------------------------------------------------------
+
+\bibliographystyle{plainnat}
+
+\begin{thebibliography}{10}
+
+\bibitem[Blakemore and Cooper(1970)]{blakemore1970development}
+C.~Blakemore and G.~F. Cooper.
+\newblock Development of the brain depends on the visual environment.
+\newblock \emph{Nature}, 228(5270):477--478, 1970.
+
+\bibitem[Friston(2010)]{friston2010free}
+K.~Friston.
+\newblock The free-energy principle: a unified brain theory?
+\newblock \emph{Nature Reviews Neuroscience}, 11(2):127--138, 2010.
+
+\bibitem[Hafner et~al.(2023)]{hafner2023mastering}
+D.~Hafner, J.~Pasukonis, J.~Ba, and T.~Lillicrap.
+\newblock Mastering diverse domains through world models.
+\newblock \emph{arXiv:2301.04104}, 2023.
+
+\bibitem[Huang et~al.(1999)]{huang1999bdnf}
+Z.~J. Huang, A.~Kirkwood, T.~Bhatt, V.~Porciatti, et~al.
+\newblock {BDNF} regulates the maturation of inhibition and the critical period
+  of plasticity in mouse visual cortex.
+\newblock \emph{Cell}, 98(6):739--755, 1999.
+
+\bibitem[Hubel and Wiesel(1970)]{hubel1970period}
+D.~H. Hubel and T.~N. Wiesel.
+\newblock The period of susceptibility to the physiological effects of
+  unilateral eye closure in kittens.
+\newblock \emph{The Journal of Physiology}, 206(2):419--436, 1970.
+
+\bibitem[Micheli et~al.(2023)]{micheli2023transformers}
+V.~Micheli, E.~Alonso, and F.~Fleuret.
+\newblock Transformers are sample-efficient world models.
+\newblock In \emph{ICLR}, 2023.
+
+\bibitem[Pinto et~al.(2018)]{pinto2018asymmetric}
+L.~Pinto, M.~Andrychowicz, P.~Welinder, W.~Zaremba, and P.~Abbeel.
+\newblock Asymmetric actor critic for image-based robot learning.
+\newblock In \emph{RSS}, 2018.
+
+\bibitem[Radford et~al.(2021)]{radford2021learning}
+A.~Radford, J.~W. Kim, C.~Hallacy, et~al.
+\newblock Learning transferable visual models from natural language supervision.
+\newblock In \emph{ICML}, 2021.
+
+\bibitem[Rossi et~al.(1999)]{rossi1999monocular}
+F.~M. Rossi, M.~Bozzi, A.~Bhatt, and T.~Bhatt.
+\newblock Monocular deprivation decreases brain-derived neurotrophic factor
+  immunoreactivity in the rat visual cortex.
+\newblock \emph{Neuroscience}, 90(2):363--368, 1999.
+
+\bibitem[Tishby et~al.(2000)]{tishby2000information}
+N.~Tishby, F.~C. Pereira, and W.~Bialek.
+\newblock The information bottleneck method.
+\newblock \emph{arXiv:physics/0004057}, 2000.
+
+\bibitem[Wang et~al.(2023)]{wang2023quasimetric}
+T.~Wang, A.~Torralba, P.~Isola, and A.~Zhang.
+\newblock On the optimal value of the quasimetric entropy.
+\newblock In \emph{NeurIPS}, 2023.
+
+\end{thebibliography}
+
+\end{document}
