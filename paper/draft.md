@@ -4,47 +4,30 @@
 
 ## Abstract
 
-Blakemore and Cooper (1970) showed that kittens raised without
-exposure to specific visual orientations lost cortical selectivity for
-those orientations; sensory pathways that failed to align with motor
-experience were pruned. We formalize this principle for embodied
-agents that perceive the world through lossy channels but act on it
-directly.
-
-We define *sensorimotor alignment* (SA), the cosine similarity between
-an agent's learned policy and the optimal action computed from the true
-physical state. SA predicts task performance with r = −0.72 on a 4D
-rock-push task (245 configs, 7 seeds; F(1,241) = 34.2, p = 5 × 10⁻⁹)
-and r = −0.73 on a 6D two-rock task. SA exhibits a learnability
-threshold: SA ≥ 0.5 yields 98% success; SA < 0.3 yields 22%. SA
-transfers across physics and appearance variants (89−106% retention).
-
-Perception quality and organism capacity interact multiplicatively,
-not additively. In the data, increasing capacity reduces distance to
-target only when perception quality is sufficient (β_interaction =
-−0.004, p = 5 × 10⁻⁹). When perception is too degraded, larger
-embedding dimensions do not improve performance, consistent with the
-interpretation that additional representational power cannot compensate
-for insufficient information in the incoming signal.
+Embodied agents perceive the world through lossy channels but act on
+it directly. We define sensorimotor alignment (SA), the cosine
+similarity between an agent's learned policy under degraded perception
+and the optimal action computed from true physical state, and show
+that SA predicts task performance across two tasks: a 4D rock-push
+(r = −0.72, n = 245, p = 5 × 10⁻⁹ for the perception × capacity
+interaction) and a 6D two-rock push (r = −0.73, n = 45). SA exhibits
+a learnability threshold (SA ≥ 0.5 yields 98% success) and transfers
+across physics and appearance variants (89−106% retention). Perception
+quality and organism capacity interact multiplicatively: increasing
+capacity reduces distance to target only when perception is sufficient
+(β_interaction = −0.004, p = 5 × 10⁻⁹). When perception is too
+degraded, additional representational power does not improve
+performance. This reproduces the critical-period phenomenon observed
+by Blakemore and Cooper (1970), where sensory pathways that fail to
+align with motor experience are pruned.
 
 ## 1. Introduction
 
-Blakemore and Cooper (1970) raised kittens in cylinders painted with
-only vertical or only horizontal stripes. After five months, neurons
-in the kittens' visual cortex had lost selectivity for the missing
-orientations. Sensory pathways that failed to achieve alignment between
-perception and motor experience within the critical period were pruned.
-
-This result illustrates a general principle in developmental
-neuroscience: sensory pathways that do not contribute to actionable
-perception are eliminated (Hubel & Wiesel, 1970; Huang et al., 1999).
-
-We study this principle computationally. In our simulation, an
-organism must push a rock to a target, but it never sees the rock
-directly. It perceives the world through a chain of lossy
-transformations (emission → noise → compression), while its actions
-operate directly on the true physical state. The perception-action
-loop is fundamentally asymmetric:
+Embodied agents face a structural asymmetry: they perceive the world
+through lossy channels but act on it directly. An organism observes
+matter through emissions, noise, and compression, yet its motor
+commands modify the true physical state without passing through the
+perceptual chain. The perception-action loop is asymmetric:
 
 ```
 Perception:  true state → emission → medium → encoding → internal model
@@ -53,17 +36,37 @@ Perception:  true state → emission → medium → encoding → internal model
 Action:      motor command → directly modifies true state
 ```
 
-We define *sensorimotor alignment* (SA): the cosine similarity between
-the organism's learned action (based on degraded perception) and the
-analytically optimal action (computed from true state). SA quantifies
-the degree to which degraded perception supports correct action.
+Blakemore and Cooper (1970) demonstrated that sensory pathways which
+fail to achieve alignment with motor experience within the critical
+period are pruned; neurons in kittens' visual cortex lost selectivity
+for orientations never experienced. This principle, that unused
+perception-action pathways are eliminated, has been studied
+extensively in developmental neuroscience (Hubel & Wiesel, 1970;
+Huang et al., 1999) but lacks a quantitative metric that connects
+perception quality, agent capacity, and task success in a controlled
+setting where all three are independently manipulable.
 
-Across 245 conditions varying perception quality and organism capacity,
-SA predicts task performance (r = −0.72) and reveals a significant
-multiplicative interaction between perception and capacity
-(p = 5 × 10⁻⁹). The results, detailed in §5, show that when
-perception is sufficiently degraded, increasing organism capacity does
-not improve performance.
+We present such a metric. We define sensorimotor alignment (SA): the
+cosine similarity between an agent's learned action under degraded
+perception and the analytically optimal action computed from the true
+state. SA quantifies the degree to which degraded perception supports
+correct action on the physical state the agent cannot directly observe.
+
+We evaluate SA in a controllable simulation (WorldNN) across two
+tasks (4D rock-push, 6D two-rock push), 7 perception conditions,
+5 capacity levels, and 7 seeds per condition. The principal findings:
+
+1. SA predicts task performance (r = −0.72 on 4D, r = −0.73 on 6D).
+2. A learnability threshold exists: SA ≥ 0.5 yields 98% success.
+3. Perception and capacity interact multiplicatively (p = 5 × 10⁻⁹).
+4. SA transfers across physics and appearance variants (89−106%).
+5. SA learning slope during training predicts final success (r = −0.71).
+
+The paper is organized as follows. §2 reviews related work. §3
+describes the WorldNN simulation. §4 defines SA and presents the
+metric ablation. §5 reports results across both tasks, including
+dynamics and transfer. §6 analyzes perception failure conditions.
+§7 discusses implications and limitations.
 
 ## 2. Related Work
 
