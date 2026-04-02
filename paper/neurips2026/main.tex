@@ -39,7 +39,9 @@ quality and organism capacity interact multiplicatively: increasing capacity
 reduces distance to target only when perception is sufficient
 ($\beta_{\text{interaction}} = -0.004$, $p = 5 \times 10^{-9}$). When perception
 is too degraded, additional representational power does not improve performance.
-This reproduces the critical-period phenomenon observed by
+An oracle-free proxy---action variance across observations---predicts performance
+comparably ($r = -0.82$) without access to optimal actions. These results
+reproduce the critical-period phenomenon observed by
 \citet{blakemore1970development}, where sensory pathways that fail to align with
 motor experience are pruned.
 \end{abstract}
@@ -81,6 +83,7 @@ seeds per condition. The principal findings:
   \item Perception and capacity interact multiplicatively ($p = 5 \times 10^{-9}$).
   \item SA transfers across physics and appearance variants (89--106\%).
   \item SA learning slope during training predicts final success ($r = -0.71$).
+  \item An oracle-free proxy (action variance) predicts performance comparably ($r = -0.82$).
 \end{enumerate}
 
 The paper is organized as follows. \S\ref{sec:related} reviews related work.
@@ -393,14 +396,44 @@ SA transfers across physics variants (94--106\% retention) and appearance varian
 evaluated on rocks that both look and respond differently, indicating that SA
 captures the structure of the push interaction rather than a memorized mapping.
 
+\subsection{Oracle-free proxy estimation}
+
+SA as defined requires oracle access to the optimal action $\mathbf{a}^*$, limiting
+its applicability to settings where the optimal policy is computable. We evaluated
+five oracle-free proxy candidates across 30 configurations (2 perception conditions
+$\times$ 3 embedding dimensions $\times$ 5 seeds). The strongest proxy is
+\emph{action variance}: $\mathrm{Var}[\mathbf{a}(o)]$ across randomly sampled
+observations $o$. Action variance measures whether the organism produces
+structured, state-dependent actions (high variance) or outputs similar actions
+regardless of observation (low variance, indicating no learned mapping).
+
+Action variance predicts task performance with $r = -0.82$ ($n = 30$), comparable
+to true SA ($r = -0.80$ on the same grid). Within oracle-only conditions, $r = -0.78$;
+within VAE-only conditions, $r = -0.75$. Four other candidates---prediction
+consistency (forward model error), action stability under noise, value-action
+alignment, and policy self-predictability---achieved weaker correlations
+($|r| \leq 0.43$). Action variance requires no knowledge of the optimal action, the
+environment dynamics, or the true state, and is computable from the organism's policy
+network alone (Figure~\ref{fig:proxy}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig4_proxy.pdf}
+\caption{Action variance as an oracle-free SA proxy. (a)~Action variance vs.\ true
+SA ($r = +0.65$). (b)~Action variance vs.\ task performance ($r = -0.82$), comparable
+to true SA's $r = -0.80$. Oracle-free, computable from policy outputs alone.}
+\label{fig:proxy}
+\end{figure}
+
 \subsection{Limitations}
 
 The 4D and 6D tasks are low-dimensional. The 3-rock (8D) task produced weaker SA
 correlation ($r = -0.300$) due to a floor effect from insufficient training budget.
-SA requires a computable optimal action, feasible in simulation but not in general
-real-world tasks. The learnability threshold (SA $\approx 0.4$--$0.5$) may be
+The learnability threshold (SA $\approx 0.4$--$0.5$) may be
 task-specific. The oracle+noise(0.5) reversal ($r = +0.46$) indicates SA is
 unreliable when perception carries zero task-relevant information.
+While action variance provides a strong oracle-free proxy on these tasks,
+cross-task validation is needed to confirm generalization.
 
 \begin{figure}[t]
 \centering
@@ -434,8 +467,9 @@ on true physical state. Across 245 conditions on a 4D task and 45 on a 6D task,
 SA predicts performance ($r = -0.72$ and $r = -0.73$), exhibits a learnability
 threshold (SA $\geq 0.5$ yields 98\% success), and reveals a multiplicative
 perception $\times$ capacity interaction ($p = 5 \times 10^{-9}$). SA transfers
-across physics and appearance variants (89--106\% retention) and its training
-slope predicts final success ($r = -0.71$). These results formalize the principle
+across physics and appearance variants (89--106\% retention), its training
+slope predicts final success ($r = -0.71$), and action variance provides a
+comparable oracle-free proxy ($r = -0.82$). These results formalize the principle
 that sensory pathways failing to achieve motor alignment are functionally useless,
 reproducing the computational structure of critical-period pruning in a controlled
 simulation.

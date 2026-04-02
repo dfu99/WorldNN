@@ -10,12 +10,12 @@
 
 All experimental, analytical, and writing tasks are complete. The paper
 is structurally finished with LaTeX conversion, camera-ready figures,
-expanded discussion, and conclusion.
+expanded discussion, conclusion, and oracle-free proxy estimation section.
 
 ### Pre-submission checklist
 
-- [x] 3 PDF figures at 300 DPI in paper/neurips2026/figures/
-- [x] ~527 lines LaTeX, estimated 8-9 pages (within NeurIPS 9-page limit)
+- [x] 4 PDF figures at 300 DPI in paper/neurips2026/figures/
+- [x] ~561 lines LaTeX, estimated 8.5-9 pages (within NeurIPS 9-page limit)
 - [x] 11 bibliography entries, all citations resolved
 - [x] Anonymous author placeholder
 - [x] Supplementary materials section with code URL
@@ -46,9 +46,11 @@ expanded discussion, and conclusion.
 - [x] Camera-ready figures (300 DPI, PNG+PDF)
 - [x] Transfer section (§5.6)
 - [x] Pre-submission checklist
+- [x] Oracle-free SA proxy (obj-022): action variance r=-0.82
 
 ## Recently Completed
 
+- [2026-04-01] Oracle-free proxy experiment (obj-022): action variance r=-0.82 with distance
 - [2026-03-31] Pre-submission checklist, LaTeX figures + discussion update
 - [2026-03-31] Camera-ready figures at 300 DPI
 - [2026-03-31] LaTeX conversion: paper/neurips2026/main.tex

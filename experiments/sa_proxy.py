@@ -201,6 +201,102 @@ def proxy_c_value_action_alignment(organism, matter, perception_fn,
     return {"proxy_c_value_align": mean_alignment, "proxy_c_value": mean_alignment}
 
 
+def proxy_d_action_entropy(organism, matter, perception_fn,
+                            n_samples=2000, device="cuda"):
+    """Proxy D: Action dispersion (entropy-like).
+
+    Measure the variance of actions across different states. A well-aligned
+    organism produces structured, state-dependent actions → high variance
+    (different actions for different states). A poorly aligned organism
+    outputs similar random actions regardless of state → low variance.
+    """
+    dev = torch.device(device)
+    organism.eval()
+
+    all_actions = []
+    with torch.no_grad():
+        for _ in range(n_samples // 256 + 1):
+            state = matter.reset_state(256, dev)
+            seed = torch.randn(256, matter.seed_dim, device=dev)
+            action = torch.zeros(256, 2, device=dev)
+            next_state, emission, _ = matter(state, seed, action)
+            obs = perception_fn(next_state, emission)
+            action_mean, _, _ = organism(obs)
+            all_actions.append(action_mean)
+
+    actions = torch.cat(all_actions)[:n_samples]
+
+    # Measure: variance of actions across states (structured behavior)
+    action_var = actions.var(dim=0).sum().item()
+    # Also measure mean magnitude (purposeful vs near-zero)
+    action_mag = torch.norm(actions, dim=-1).mean().item()
+
+    return {"proxy_d_action_var": action_var, "proxy_d_mag": action_mag,
+            "proxy_d_value": action_var * action_mag}
+
+
+def proxy_e_policy_consistency(organism, matter, perception_fn,
+                                n_samples=2000, device="cuda"):
+    """Proxy E: Policy consistency (self-predictability).
+
+    Train a simple model to predict the organism's own actions from
+    observations. If the organism has a consistent policy, this model has
+    low error. If the policy is noisy/random, the model has high error.
+
+    Proxy = 1 - normalized_prediction_error (higher = more consistent).
+    """
+    dev = torch.device(device)
+    organism.eval()
+
+    obs_list, act_list = [], []
+    with torch.no_grad():
+        for _ in range(n_samples // 256 + 1):
+            state = matter.reset_state(256, dev)
+            seed = torch.randn(256, matter.seed_dim, device=dev)
+            action = torch.zeros(256, 2, device=dev)
+            next_state, emission, _ = matter(state, seed, action)
+            obs = perception_fn(next_state, emission)
+            action_mean, _, _ = organism(obs)
+            obs_list.append(obs)
+            act_list.append(action_mean)
+
+    obs_all = torch.cat(obs_list)[:n_samples]
+    act_all = torch.cat(act_list)[:n_samples]
+
+    # Train simple predictor: obs → action
+    obs_dim = obs_all.shape[-1]
+    predictor = nn.Sequential(
+        nn.Linear(obs_dim, 32),
+        nn.ReLU(),
+        nn.Linear(32, 2),
+    ).to(dev)
+    opt = torch.optim.Adam(predictor.parameters(), lr=1e-3)
+
+    n_train = int(0.8 * len(obs_all))
+    for epoch in range(200):
+        idx = torch.randperm(n_train, device=dev)[:256]
+        pred = predictor(obs_all[idx])
+        loss = F.mse_loss(pred, act_all[idx])
+        opt.zero_grad()
+        loss.backward()
+        opt.step()
+
+    # Test error
+    predictor.eval()
+    with torch.no_grad():
+        pred_test = predictor(obs_all[n_train:])
+        test_error = F.mse_loss(pred_test, act_all[n_train:]).item()
+        # Normalize by action variance
+        act_var = act_all[n_train:].var().item() + 1e-8
+        normalized_error = test_error / act_var
+
+    # Higher consistency (lower normalized error) = higher proxy value
+    consistency = 1.0 - min(normalized_error, 1.0)
+
+    return {"proxy_e_error": test_error, "proxy_e_norm_error": normalized_error,
+            "proxy_e_value": consistency}
+
+
 def validate_proxies(embed_dims=[2, 8, 32], seeds=[42, 123, 456],
                      device="cpu"):
     """Run all proxies alongside true SA on a small grid to validate correlation."""

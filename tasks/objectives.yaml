@@ -613,22 +613,62 @@ objectives:
     completed_date: "2026-03-22"
 
   - id: obj-017
-    status: in_progress
-    statement: "Multi-rock 8D task — second task for ICLR (first attempt failed, re-submitted)"
+    status: completed
+    statement: "Multi-rock 8D task — weak SA correlation (r=-0.300) due to floor effect"
     methodology: >
-      3-rock push (8D state, 16D emission, 2D action). First attempt (500ep,
-      hidden=32): nobody learned (r=-0.194). Diagnosed: insufficient episodes,
-      hidden bottleneck, diluted reward. Fixed: 1000ep, hidden=64, worst-rock
-      focused reward. Re-submitted to PACE A100 (job 5452882).
+      3-rock push (8D state, 16D emission, 2D action). Fixed version with
+      1000ep, hidden=64, worst-rock focused reward. 126 configs across 5
+      perception conditions × 3 embed dims × 7 seeds + random baselines.
     metrics:
-      first_attempt_r: -0.194
-      first_attempt_all_at_baseline: true
-      fix_episodes: 1000
-      fix_hidden: 64
-    figures: []
+      correlation_r: -0.300
+      oracle_mean_SA: 0.550
+      total_configs: 126
+      dist_range: "0.458-0.502"
+    figures:
+      - results/obj017_multirock_v2_analysis.png
     conclusions: >
-      First attempt confirmed 8D task is harder — 500 episodes insufficient.
-      Diagnostic identified 3 root causes. Fix applied and re-submitted.
-      Awaiting PACE results.
+      3-rock (8D) task produces weak SA correlation (r=-0.300) due to floor
+      effect. Distance barely varies (0.46-0.50), suggesting organisms cannot
+      meaningfully solve the 3-object task even with oracle perception. The
+      task exceeds the training budget/architecture capacity. 2-rock (6D) used
+      as primary second task instead.
+    connects_to: obj-022
+    completed_date: "2026-03-24"
+
+  - id: obj-022
+    status: completed
+    statement: "Oracle-free SA proxy: action variance predicts performance with r=-0.82"
+    methodology: >
+      Tested 5 oracle-free proxy candidates across 30 configs (oracle +
+      VAE_mu_lat16 × emb=[2,8,32] × 5 seeds, 500 episodes PPO each).
+      Proxies: (A) prediction consistency, (B) action stability under noise,
+      (C) value-action alignment, (D) action variance across states,
+      (E) policy self-predictability. Validated both overall and within-
+      perception-condition correlations.
+    metrics:
+      total_configs: 30
+      true_SA_vs_dist_r: -0.804
+      proxy_D_action_var_vs_dist_r: -0.822
+      proxy_D_vs_SA_r: 0.647
+      proxy_D_oracle_within_r: -0.775
+      proxy_D_vae_within_r: -0.751
+      proxy_A_r: 0.407
+      proxy_B_r: 0.185
+      proxy_C_r: 0.129
+      proxy_E_r: -0.265
+    figures:
+      - results/obj022_proxy_best.png
+      - results/obj022_proxy_comparison.png
+      - paper/neurips2026/figures/fig4_proxy.pdf
+    conclusions: >
+      Action variance (Var[a(o)] across observations) is the strongest oracle-
+      free proxy for SA, predicting task performance with r=-0.822 — slightly
+      stronger than true SA's r=-0.804 on the same grid. It works within both
+      oracle (r=-0.775) and VAE conditions (r=-0.751). The proxy measures
+      whether the organism produces structured, state-dependent actions (high
+      variance) vs near-constant outputs regardless of state (low variance).
+      Other proxies (prediction consistency, stability, value alignment,
+      policy consistency) all achieved |r| ≤ 0.43 overall. Paper updated with
+      new subsection in Discussion, figure, and abstract/conclusion mentions.
     connects_to: null
-    completed_date: null
+    completed_date: "2026-04-01"
