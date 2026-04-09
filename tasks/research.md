@@ -279,6 +279,57 @@ programs. If you want to connect it eventually, the bridge would be:
 our simulation (WorldNN/vaural) similarly uses end-to-end differentiable
 pipelines rather than hierarchical training."
 
+## Cross-Post from Vaural: C_i Measures the Full Pipeline Inverse (2026-03-21)
+
+*Cross-posted from vaural obj-025 → obj-027.*
+
+### Finding
+
+C_i = cos(emitter(s), M⁻¹·s) ≈ 0 across all channel conditions in vaural.
+The Emitter does NOT learn the channel inverse M⁻¹. It learns the **full
+pipeline inverse** P⁻¹ where P = Receiver ∘ Environment ∘ ActionToSignal.
+
+When redefined as C_i = cos(emitter(s), P⁻¹·s), the metric is **exactly
+1.0000** — perfect alignment in both direction and magnitude.
+
+### Why C_i(channel) ≈ 0
+
+In vaural's sequential training, the Receiver pre-trains to invert the
+channel (Recv ≈ M⁻¹). So the full pipeline P = Recv ∘ M ≈ M⁻¹ ∘ M ≈ I.
+The Emitter correctly learns P⁻¹ ≈ I (identity). Measuring cos(I·s, M⁻¹·s)
+gives random alignment because I ≠ M⁻¹.
+
+### Is this result trivial?
+
+Partly. For a converged system minimizing ||P(emitter(s)) - s||², the
+Emitter must approach P⁻¹ by definition (when P is invertible and the
+network has capacity). So C_i(pipeline) = 1.0 is partly tautological —
+it restates convergence.
+
+What is NOT trivial:
+1. The **contrast** C_i(channel) ≈ 0 vs C_i(pipeline) = 1.0 reveals
+   that the Emitter learns a fundamentally different transform than
+   naively expected. The system distributes inversion across components.
+2. The **fixed linear Receiver** experiment shows the Emitter CAN learn
+   a non-trivial inverse when forced (J→I distance 36 vs 0.03), AND
+   C_i(pipeline) is still 1.0 — so the metric works in both regimes.
+3. The **biological implication**: the vocal system inverts the full
+   sensory path (vocal tract + air + ear), not just the air channel.
+   This is a testable claim about motor learning.
+
+### Implication for WorldNN
+
+C_i in WorldNN should be defined against the full pipeline inverse:
+cos(organism_action, (motor_projection ∘ embedding ∘ perception)⁻¹ · target).
+If the organism's action pathway is clean (no lossy chain on the action
+side — see "perception-action asymmetry" above), then the relevant
+inverse is only on the perception side.
+
+When the perception chain is severely lossy (VAE with small lat_dim),
+no C_i can be high because P is not invertible — information was
+destroyed. This connects to the blind cat formalization: flat C_i
+landscape when mutual information is zero.
+
 ## Related Work to Investigate
 
 - **Noah Goodman** — Bayesian world models, probabilistic programming

@@ -4,7 +4,7 @@ queue:
     Add a table with 2-rock per-condition breakdown. Reference the 2-rock data in
     the abstract and introduction where the second task is mentioned.
   priority: 1
-  status: in_progress
+  status: completed
   added: 2026-03-31 17:20
   source: afk
   context: obj-021 (2-rock 6D) completed with r=-0.728. Paper §5.5 currently only
@@ -13,12 +13,17 @@ queue:
   success_criteria: Paper §5.5 updated with 2-rock table and narrative. Abstract mentions
     both tasks. Status checklist updated.
   started: 2026-03-31 17:20
+  completed: 2026-03-31 17:22
+  commits: 1
+  notes: 'Task 1 complete: 2-rock results added to paper §5.5 as primary second task
+    (r=-0.728). Abstract updated with both tasks + transfer. Status checklist updated.
+    8-task NeurIPS queue written. Committed.'
 - objective: 'Final numbers pass on paper/draft.md. Read every number in the paper
     and verify it against the actual JSON results files. Check: (a) all r values match
     data, (b) all p-values match, (c) threshold table counts are correct, (d) per-condition
     means and stds match, (e) baseline numbers match. Fix any discrepancies.'
   priority: 1
-  status: pending
+  status: completed
   added: 2026-03-31 17:20
   source: afk
   context: Numbers have been updated across multiple sessions. Some may be stale or
@@ -26,70 +31,179 @@ queue:
     error.
   success_criteria: Every number in the paper verified against raw data. Any corrections
     committed.
+  started: 2026-03-31 17:22
+  completed: 2026-03-31 17:24
+  commits: 2
+  notes: 'Numbers pass complete. One substantive fix: threshold table SA<0.3 was 22%
+    (stale from obj-014), corrected to 7% (obj-016 data). 2-rock table stds corrected
+    for rounding. All other numbers verified correct against raw JSON. Committed.'
 - objective: 'Add 2-rock and appearance transfer results to paper. Write a new §5.6
     on SA transfer (combining obj-019 physics transfer + obj-020 appearance transfer).
     Frame: SA captures structural alignment that generalizes across both physics and
     appearance variation. Include retention table.'
   priority: 1
-  status: pending
+  status: completed
   added: 2026-03-31 17:20
   source: afk
   context: Transfer results (obj-019, obj-020) are strong but not yet in the paper.
     These strengthen the generalization claim significantly.
   success_criteria: Paper §5.6 written with physics + appearance transfer results.
+  started: 2026-03-31 17:24
+  completed: 2026-03-31 17:25
+  commits: 1
+  notes: §5.6 SA transfer written. Physics retention (94-106%) + appearance × physics
+    matrix (r(ε,retention)=0.033). Committed.
 - objective: 'Polish abstract and introduction for NeurIPS. The abstract should be
     150-250 words, state the problem, method, key result, and implication. Lead with
     the perception-action asymmetry framing. Mention both tasks (4D r=-0.724, 6D r=-0.728).
     Introduction should flow: problem → gap → our approach → key results → paper outline.'
   priority: 1
-  status: pending
+  status: completed
   added: 2026-03-31 17:20
   source: afk
   context: Abstract was revised for academic writing but may need tightening for NeurIPS
     word limits. Introduction needs to reference both tasks.
   success_criteria: Abstract under 250 words. Introduction references both tasks and
     transfer results.
+  started: 2026-03-31 17:25
+  completed: 2026-03-31 17:26
+  commits: 1
+  notes: Abstract polished (~160 words), intro restructured with problem→gap→metric→results→outline
+    flow. Both tasks, transfer, and 5 numbered findings referenced. Committed.
 - objective: Convert paper/draft.md to LaTeX using NeurIPS 2026 template. Create paper/neurips2026/main.tex.
     Use the standard neurips_2026.sty style file. Convert all markdown sections, tables,
     equations, and figure references to proper LaTeX. Do NOT try to compile — just
     produce the .tex file.
   priority: 2
-  status: pending
+  status: completed
   added: 2026-03-31 17:20
   source: afk
   context: NeurIPS deadline is May 6, 2026. Need LaTeX conversion for submission.
     The neurips_2026.sty template should be downloaded or created.
   success_criteria: paper/neurips2026/main.tex exists with all content from draft.md
     properly formatted in LaTeX.
+  started: 2026-03-31 17:26
+  completed: 2026-03-31 17:29
+  commits: 2
+  notes: LaTeX conversion complete. paper/neurips2026/main.tex created with all 7
+    sections, 6 tables, 2 equations, 11 references. Placeholder neurips_2026.sty included
+    (replace with official before submission). Committed.
 - objective: Generate camera-ready figures at 300 DPI. Regenerate fig_main.png and
     all individual objective figures at publication resolution. Ensure all text is
     readable at print size. Save to paper/neurips2026/figures/. Use consistent color
     scheme and font sizes across all panels.
   priority: 2
-  status: pending
+  status: completed
   added: 2026-03-31 17:20
   source: afk
   context: Current figures are at 150-200 DPI. NeurIPS requires high-resolution figures.
   success_criteria: All figures regenerated at 300 DPI in paper/neurips2026/figures/.
+  started: 2026-03-31 17:29
+  completed: 2026-03-31 17:30
+  commits: 1
+  notes: 'Camera-ready figures complete: 3 figures × 2 formats (PNG+PDF) at 300 DPI.
+    fig1_main (6-panel), fig2_dynamics (3-panel), fig3_transfer (2-panel). Consistent
+    style throughout. Committed.'
 - objective: 'Write discussion and conclusion sections for NeurIPS. Discussion should
     address: (a) the asymmetry as the core insight, (b) relationship to biological
     critical periods, (c) practical implications (SA as training diagnostic), (d)
     transfer generalization. Conclusion should be 1 paragraph summarizing the contribution.'
   priority: 2
-  status: pending
+  status: completed
   added: 2026-03-31 17:20
   source: afk
   context: Current discussion is brief. NeurIPS papers typically have more thorough
     discussion sections.
   success_criteria: Discussion expanded with all 4 subsections. Conclusion paragraph
     added.
+  started: 2026-03-31 17:30
+  completed: 2026-03-31 17:32
+  commits: 2
+  notes: Discussion expanded to 6 subsections (asymmetry, critical periods, training
+    diagnostic, transfer, limitations, future work) + 1-paragraph conclusion (§8).
+    All declarative, no narrative. Committed.
 - objective: 'Final pre-submission checklist: (a) verify all figures render in LaTeX,
     (b) check page count (NeurIPS main = 9 pages + refs), (c) ensure all references
     are complete, (d) add author/affiliation placeholder, (e) write supplementary
     materials section if needed. Update tasks/planning.md with submission status.'
   priority: 3
-  status: pending
+  status: completed
   added: 2026-03-31 17:20
   source: afk
   context: Final housekeeping before submission.
   success_criteria: Pre-submission checklist complete. Planning updated.
+  started: 2026-03-31 17:32
+  completed: 2026-03-31 17:34
+  commits: 1
+  notes: 'Pre-submission checklist complete. LaTeX has figures, expanded discussion,
+    conclusion, supplementary section. 11 refs resolved, ~527 lines (~8-9pp), anonymous
+    author. Remaining: download official neurips_2026.sty, compile, PI review. Planning
+    updated.'
+- objective: '[AFK CONTINUE] Your AFK goal: finish all the remaining tasks left for
+    submission: 1. Add 2-rock results to paper (~1 hour) 2. Final numbers pass (~2
+    hours) 3. Convert to LaTeX + format for NeurIPS template (~1 day) 4. Write proper
+    abstract, polish intro/discussion (~1 day) 5. Generate camera-ready figures at
+    proper resolution (~half day) 6. SA proxy validation (nice-to-have, not blocking).
+    Assess what you''ve accomplished so far. Read tasks/planning.md and recent commits.
+    If the goal is met, write ''AFK_COMPLETE'' to /tmp/mc-task-done/WorldNN/done.txt
+    and stop. Otherwise, identify what''s still needed and add 1-3 concrete next tasks
+    to your queue, then start working on the first one.'
+  priority: 3
+  status: completed
+  added: 2026-03-31 17:34
+  source: afk-refill
+  started: 2026-03-31 17:34
+  completed: 2026-03-31 17:54
+  commits: 1
+  notes: AFK_COMPLETE
+- objective: keep building and running tests and simulations to address the gaps
+  priority: 3
+  status: skipped
+  added: 2026-04-01 20:03
+  source: slack
+  channel_id: C0AKT5LAF1Q
+  started: 2026-04-01 20:04
+  completed: 2026-04-01 21:15
+  notes: Recovered stale in_progress item after newer queued work arrived.
+- objective: keep building and running tests and simulations to address the gaps
+  priority: 3
+  status: completed
+  added: 2026-04-01 21:15
+  source: slack
+  channel_id: C0AKT5LAF1Q
+  started: 2026-04-01 21:15
+  completed: 2026-04-01 22:28
+  commits: 1
+  notes: 'obj-022 complete: Oracle-free SA proxy (action variance, r=-0.82). Paper
+    updated. All head scientist critique gaps addressed.'
+- objective: 'oh, what about this, this might be potent framing that allows our research
+    to garner more interest: as I''ve mentioned, my taste in research is that environmental
+    interaction is necessary layer and it is being taken largely for granted. Imitation
+    learning for robotics ultimately needs a huge model where memory is stored in
+    the weights. But per Godel (is Godel the right argument to make? Why out why not?),
+    it''s pretty much impossible to memorize enough of the world to create a reliable
+    actor within that world. While some robotics add haptic feedback, it is measly,
+    like one of two sensory feedback channels. If we can show that sensory dimension
+    has an inverse relationship with model size while being able to still produce
+    stable and convergent training, I think that might be a main track result. What
+    do you think? Why or why not? Essentially, we provide the theoretical framing
+    that would convince people that you need a rich sensory layer, which would allow
+    models to become much smaller while still being as powerful.'
+  priority: 3
+  status: completed
+  added: 2026-04-08 01:30
+  source: slack
+  channel_id: C0AKT5LAF1Q
+  started: 2026-04-08 01:31
+  completed: 2026-04-08 01:32
+  notes: Auto-completed via slack_staged.
+- objective: Is there a Perspectives paper that would be accepted at NeurIPS that
+    I could put together from this and ../vaural?
+  priority: 3
+  status: completed
+  added: 2026-04-08 01:30
+  source: slack
+  channel_id: C0AKT5LAF1Q
+  started: 2026-04-08 01:32
+  completed: 2026-04-08 01:37
+  notes: Recovered completion from staged Slack response after stale session.

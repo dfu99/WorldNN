@@ -90,15 +90,28 @@ in the perception-action loop?**
 
 TBD — to be decided after initial prototyping direction is set.
 
+## Local GPU Scheduler
+
+This machine has a single shared RTX 3060 (12GB). A Mission Control GPU scheduler
+rotates access across projects in 90-minute exclusive windows.
+
+- **Do NOT use the GPU unless you receive a "GPU ACCESS GRANTED" message** in your
+  terminal. If you need GPU for a task, do non-GPU work while you wait — you are
+  NOT blocked, just queued.
+- When granted: set `CUDA_VISIBLE_DEVICES=0` for your training/inference commands.
+- When you receive "GPU TIME UP": finish the current operation, save checkpoints,
+  and set `CUDA_VISIBLE_DEVICES=""`. Switch to CPU-only work.
+- Your window is ~90 minutes. Plan GPU work to fit or checkpoint incrementally.
+- Do NOT report being "blocked on GPU." You are in a queue and will get your turn.
+
 ## PACE Cluster SLURM Rules
 
 When writing SLURM scripts for the PACE cluster:
 
 - **Account**: Always use `-A gts-yke8`
-- **A100**: `--gres=gpu:A100:N` and **must** add `-C A100-80GB` constraint
-- **RTX 6000**: `--gres=gpu:RTX_6000:N` (note underscore). No constraint needed.
-- **H100**: `--gres=gpu:H100:N`. No constraint needed.
-- **H200**: `--gres=gpu:H200:N`. No constraint needed.
+- 9 GPU types available, ordered cheapest first: V100-16GB, V100-32GB, RTX_6000, A100-40GB, L40S, A100-80GB, H100, H200, RTX Pro Blackwell
+- V100 and A100 need `-C` constraints to select VRAM variant (e.g. `-C V100-16GB`, `-C A100-40GB`, `-C A100-80GB`)
+- Always pick the cheapest GPU whose VRAM fits the job
 - **Modules**: Always `module load cuda` for GPU jobs
 - **Mail**: `--mail-type=END,FAIL` / `--mail-user=daniel.fu@emory.edu`
 - **Paths**: scratch at `~/scratch/`, project storage at `~/p-yke8-0/`
@@ -108,10 +121,9 @@ When writing SLURM scripts for the PACE cluster:
 When writing SLURM scripts for the PACE cluster:
 
 - **Account**: Always use `-A gts-yke8`
-- **A100**: `--gres=gpu:A100:N` and **must** add `-C A100-80GB` constraint
-- **RTX 6000**: `--gres=gpu:RTX_6000:N` (note underscore). No constraint needed.
-- **H100**: `--gres=gpu:H100:N`. No constraint needed.
-- **H200**: `--gres=gpu:H200:N`. No constraint needed.
+- 9 GPU types available, ordered cheapest first: V100-16GB, V100-32GB, RTX_6000, A100-40GB, L40S, A100-80GB, H100, H200, RTX Pro Blackwell
+- V100 and A100 need `-C` constraints to select VRAM variant (e.g. `-C V100-16GB`, `-C A100-40GB`, `-C A100-80GB`)
+- Always pick the cheapest GPU whose VRAM fits the job
 - **Modules**: Always `module load cuda` for GPU jobs
 - **Mail**: `--mail-type=END,FAIL` / `--mail-user=daniel.fu@emory.edu`
 - **Paths**: scratch at `~/scratch/`, project storage at `~/p-yke8-0/`
@@ -121,10 +133,9 @@ When writing SLURM scripts for the PACE cluster:
 When writing SLURM scripts for the PACE cluster:
 
 - **Account**: Always use `-A gts-yke8`
-- **A100**: `--gres=gpu:A100:N` and **must** add `-C A100-80GB` constraint
-- **RTX 6000**: `--gres=gpu:RTX_6000:N` (note underscore). No constraint needed.
-- **H100**: `--gres=gpu:H100:N`. No constraint needed.
-- **H200**: `--gres=gpu:H200:N`. No constraint needed.
+- 9 GPU types available, ordered cheapest first: V100-16GB, V100-32GB, RTX_6000, A100-40GB, L40S, A100-80GB, H100, H200, RTX Pro Blackwell
+- V100 and A100 need `-C` constraints to select VRAM variant (e.g. `-C V100-16GB`, `-C A100-40GB`, `-C A100-80GB`)
+- Always pick the cheapest GPU whose VRAM fits the job
 - **Modules**: Always `module load cuda` for GPU jobs
 - **Mail**: `--mail-type=END,FAIL` / `--mail-user=daniel.fu@emory.edu`
 - **Paths**: scratch at `~/scratch/`, project storage at `~/p-yke8-0/`
@@ -134,10 +145,9 @@ When writing SLURM scripts for the PACE cluster:
 When writing SLURM scripts for the PACE cluster:
 
 - **Account**: Always use `-A gts-yke8`
-- **A100**: `--gres=gpu:A100:N` and **must** add `-C A100-80GB` constraint
-- **RTX 6000**: `--gres=gpu:RTX_6000:N` (note underscore). No constraint needed.
-- **H100**: `--gres=gpu:H100:N`. No constraint needed.
-- **H200**: `--gres=gpu:H200:N`. No constraint needed.
+- 9 GPU types available, ordered cheapest first: V100-16GB, V100-32GB, RTX_6000, A100-40GB, L40S, A100-80GB, H100, H200, RTX Pro Blackwell
+- V100 and A100 need `-C` constraints to select VRAM variant (e.g. `-C V100-16GB`, `-C A100-40GB`, `-C A100-80GB`)
+- Always pick the cheapest GPU whose VRAM fits the job
 - **Modules**: Always `module load cuda` for GPU jobs
 - **Mail**: `--mail-type=END,FAIL` / `--mail-user=daniel.fu@emory.edu`
 - **Paths**: scratch at `~/scratch/`, project storage at `~/p-yke8-0/`
