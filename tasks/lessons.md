@@ -176,3 +176,14 @@
   When grouping configs by design variables for R² comparisons, R² is
   shared across all configs with the same sensory_dim. Partial correlation
   with SA controls for this correctly; raw correlation does not.
+
+## Infrastructure (continued)
+
+- **RunPod A4500 has no scheduler — gate every GPU launch on VRAM.**
+  Shared A4500 node at 213.173.102.219:12447 is unmanaged. Multiple users
+  can OOM each other if they launch without checking. Before any GPU
+  job: estimate peak VRAM (params × 4B + optimizer ≈ 2× params + batch
+  activations), then `mc runpod check` (JSON) or `mc runpod fits <gb>`
+  (exit 0 if safe). Use `mc runpod await <gb> --timeout N` to block
+  until free. Small PPO jobs (~2K params, batch=256) use ~0.3 GB; VAE
+  pretraining (batch=512) can hit 2-4 GB.

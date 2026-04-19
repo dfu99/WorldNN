@@ -610,14 +610,18 @@ queue:
     generate preliminary 4-panel figure comparing 1-rock vs 2-rock sensory-
     capacity patterns. If the substitution effect replicates on 2-rock,
     Reviewer E risk moves from High to Medium. Generate both the figure and
-    a 2-sentence update for claim_to_evidence.md.'
+    a 2-sentence update for claim_to_evidence.md. NOTE: this is an analysis
+    task on local CPU — no RunPod gating needed. Fetch data via `mc runpod
+    fetch WorldNN` before analyzing.'
   priority: 3
   status: pending
   added: 2026-04-19 13:25
   source: afk-plan-iter2
   context: Depends on T10 (obj-026) producing at least 30+ configs. If T10
     cannot run (RunPod down), execute this task against the local RTX 3060
-    with the 5-seed version scaled back to 3 seeds.
+    with the 5-seed version scaled back to 3 seeds. Before relaunching any
+    GPU job, use the memory-gated protocol: `mc runpod fits <gb>` or
+    `mc runpod await <gb>` before `mc runpod sync` + exec.
   success_criteria: results/obj026_1rock_vs_2rock.png showing both grids side-
     by-side. claim_to_evidence.md updated with Reviewer E status change if
     applicable.
