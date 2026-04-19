@@ -148,3 +148,31 @@
   For 4D state projected through 8D emissions, lat=4 is catastrophically
   too small. lat=8 is marginal (R²=0.453). lat=16 is adequate (R²=0.817).
   Rule of thumb: lat ≥ 2× effective state dim for the task.
+
+## Analysis
+
+- **KSG estimator needs normalized inputs for stable MI in >4D.** Raw
+  KSG on unnormalized high-dim data (e.g., 4D state vs 16D emission)
+  gives negative/clamped-zero outputs because the Chebyshev distance
+  blows up with scale mismatch. Fix: z-score both x and y before KSG.
+  Even then KSG struggles past ~8D. For rate-distortion analyses, pair
+  KSG with a linear-probe R² → Gaussian-MI lower bound (far more
+  stable and interpretable for reviewers).
+
+- **Dynamic-range matters for correlation claims.** obj-024's per-config
+  SA vs dist correlation was only r=-0.245, far below obj-016's r=-0.724.
+  Reason: obj-024 had most configs near zero SA because sensory_dim ≤ 4
+  cannot learn. Always report the spread of the independent variable
+  when making correlation claims — a compressed range tanks r even when
+  the underlying mechanism is correct.
+
+- **Small absolute effect + very low noise = large Cohen's d.** obj-024
+  substitution (+0.040 mean diff) looked "weak" in raw SA, but with the
+  poor-input condition's std=0.011 vs rich-min's std=0.050, Cohen's d
+  came out to +1.10 (large). Bootstrap CIs exclude zero. Always compute
+  effect size, not just raw magnitude, when claiming an effect is "weak."
+
+- **Linear-probe R² is a per-sensory-dim property, not per-config.**
+  When grouping configs by design variables for R² comparisons, R² is
+  shared across all configs with the same sensory_dim. Partial correlation
+  with SA controls for this correctly; raw correlation does not.

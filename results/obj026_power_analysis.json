@@ -1,0 +1,9 @@
+{
+  "observed_effects": {
+    "substitution_d": 1.1011295324645074,
+    "ceiling_floor_d": 2.209825397878296
+  },
+  "post_hoc_power_n5": 0.6922542957804654,
+  "n_for_80_power": 13,
+  "recommendation_obj026": "n=3 adequate for d>=1.0 (power>0.68). Medium effects (d=0.5) need n>=17 \u2014 not feasible in obj-026."
+}

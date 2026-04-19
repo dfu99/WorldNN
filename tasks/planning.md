@@ -48,13 +48,22 @@ expanded discussion, conclusion, and oracle-free proxy estimation section.
 - [x] Pre-submission checklist
 - [x] Oracle-free SA proxy (obj-022): action variance r=-0.82
 
-## Active AFK goal (2026-04-19)
+## Active AFK goal (2026-04-19 13:19 — refill)
 
-Status: *COMPLETE*. All 8 tasks (T1-T8) finished. obj-025 logged with 5
-figures addressing reviewer concerns. See tasks/claim_to_evidence.md for
-the publication-readiness mapping. Reviewer risk: 3/5 Low, 1/5 Medium
-(Reviewer A), 1/5 High (Reviewer E, needs explicit limit disclosure +
-possible 2-rock sensory replicate).
+Previous iteration (obj-025, 03:24) COMPLETE. New iteration focused on:
+(a) Reviewer E residual risk — 2-rock sensory-capacity replicate on RunPod A4500
+(b) Paper integration — fold obj-024/obj-025 results into draft with scope caveats
+(c) Discriminating extension — longer-training test for substitution-vs-floor
+
+RunPod A4500 now available for >10min jobs: `mc runpod sync WorldNN` / fetch.
+
+## Next priority
+
+T9-T15 complete. T16 pending obj-026 (2-rock sensory-capacity) data from
+RunPod — still running at config 1/60 as of 13:55. When checkpoint has
+30+ configs: run obj026_seed_robustness.py adapted for 2-rock, generate
+1-rock vs 2-rock comparison figure, update claim_to_evidence.md with
+Reviewer E status.
 
 ## Recently Completed
 

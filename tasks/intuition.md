@@ -2,11 +2,13 @@
 
 ## One-line claim
 
-In a perception-action loop where matter is observable only through lossy
-energy channels, a measurable symmetry-action (SA) metric over the agent's
-internal embedding predicts task success better than direct supervision
-metrics — and the SA-achievable ceiling is gated by the information content
-of the sensory channel, not by model capacity.
+Two coupled claims govern effective action in a perception-action loop:
+(1) within a regime where the sensory chain preserves task-relevant
+information, the symmetry-action (SA) metric over the agent's internal
+embedding predicts task success better than direct supervision metrics;
+(2) the regime itself is defined by an information-theoretic bound —
+the achievable SA ceiling scales with I(state; observation), and model
+capacity cannot substitute for information absent from the input.
 
 ## Why we believe it
 
@@ -33,24 +35,31 @@ from the input.
 
 ## What would falsify it
 
-**Primary claim:** Falsified if a controlled experiment manipulates SA without
-manipulating reconstruction loss (or vice versa) and SA fails to predict
-task success in the manipulated direction. Currently SA and recon are
-correlated through training dynamics — disentangling them requires an
-intervention. The 3-rock multi-rock result already gives r=-0.300 (much
-weaker), warning that the metric may not scale to higher-dimensional
-manipulation. Equally falsifying: if SA-vs-success on a qualitatively
-different task family (locomotion, dexterous grasping, navigation) gives
-r > -0.3, the claim is restricted to manipulation-style tasks.
+**Primary claim (SA as predictor):** Falsified if a controlled experiment
+manipulates SA without manipulating reconstruction loss (or vice versa)
+and SA fails to predict task success in the manipulated direction. The
+obj-024 ΔR² = 0.004 result already shows that on compressed dynamic-range
+grids, SA does not add signal beyond input-information predictors — this
+is a scope boundary we have disclosed in §7.5 rather than a full
+falsification, because the wide-dynamic-range result (r=-0.724, 245
+configs) still stands. Full falsification would require: (a) wide-dynamic
+cross-task regime where SA does NOT predict; (b) successful intervention
+that changes SA without changing recon and performance tracks recon, not SA.
 
-**Sensory-capacity claim:** Falsified if (a) the substitution effect
-disappears with longer training (the effect could be a PPO convergence
-artifact rather than an information bound), (b) sensory=2/embed=32 can be
-made to learn with different hyperparameters (defeating the "information
-floor" narrative), or (c) the SA ceiling at sensory=16 fails to exceed
-sensory=2 on a second task family. Current effect size is small enough
-(Cohen's d ≈ 0.3-0.5 range, pending bootstrap analysis) that sensitivity
-to task structure is a live risk.
+**Sensory-capacity claim (info-bound):** obj-025 T3 makes this the
+STRONGER claim — Gaussian-MI(S; obs) vs peak SA correlates at r=0.975
+on obj-024. Falsified if (a) the correlation weakens below r<0.7 on a
+second task family (obj-026 2-rock replicate in progress), (b) the
+floor effect disappears with radically different hyperparameters, or (c)
+longer training reveals a phase transition where sensory=2 eventually
+does learn with embed=32 (which would imply the information-theoretic
+ceiling was a convergence artifact). Power for the substitution effect
+at n=5 is 0.69 (underpowered); full confirmation needs n≥13 per cell.
+
+**Task-similarity risk (Reviewer E):** Falsified if the 2-rock replicate
+(obj-026, in progress) shows a qualitatively different (s, e) pattern
+than obj-024's 1-rock, which would imply the 1-rock effect was
+task-structure-specific rather than general.
 
 ## Target panel and venue
 

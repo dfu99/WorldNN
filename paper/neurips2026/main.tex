@@ -336,6 +336,38 @@ perturbed by $\epsilon \times \mathcal{N}(0,1)$, $\epsilon \in \{0.1, 0.3, 0.5\}
 $r(\epsilon, \text{retention}) = 0.033$). Appearance perturbation has no measurable
 effect on SA retention.
 
+\subsection{Information-theoretic bound on the SA ceiling}
+\label{sec:infobound}
+
+The SA ceiling achievable by any organism is bounded by the mutual information
+between the environment state and the organism's sensory channels. We tested
+this directly by independently sweeping sensory richness and model capacity.
+
+In a sensory-capacity grid with emission\_dim$=16$, sensory\_dim $\in \{2,4,8,16\}$,
+and embedding\_dim $\in \{2,4,8,16,32\}$ (100 configs, 5 seeds each, 800 episodes
+per config), peak SA rose monotonically with sensory richness: 0.069, 0.042,
+0.105, 0.234 for sensory\_dim $= 2, 4, 8, 16$. A floor effect was evident at
+sensory\_dim $\leq 4$: no embedding dimension rescued performance. Conversely,
+rich input with minimal capacity (sensory$=16$, embed$=2$, SA$=0.033$) outperformed
+poor input with maximal capacity (sensory$=2$, embed$=32$, SA$=-0.007$); Cohen's
+$d = 1.10$, 95\% bootstrap CI for mean difference $[+0.004, +0.083]$.
+
+Estimating the information available about state $S$ from the first sensory\_dim
+emission channels via a linear-probe Gaussian-MI lower bound, we obtain
+$I(S; \text{obs}) \approx \{0.33, 0.64, 3.44, 27.6\}$ nats for sensory\_dim
+$= \{2, 4, 8, 16\}$, with linear $R^2(S \mid \text{obs}) = \{0.15, 0.28, 0.82, 1.00\}$.
+The Gaussian-MI correlates with peak SA at $r = 0.975$. This matches the Data
+Processing Inequality prediction: capacity cannot recover information absent from
+the input. The floor effect at sensory $\leq 4$ corresponds to linear $R^2 < 0.3$
+--- the information about state is below what the task requires, and no policy
+dimension closes the gap.
+
+The 2--16 channel range sits at the low end of biological sensing, comparable to
+paramecium chemotaxis (2), vestibular ($\sim 6$), haptic vibrotactile ($\sim 10$),
+and cutaneous types per digit ($\sim 16$); well below vision ($\sim 10^6$ optic
+nerve fibers), audition ($\sim 10^4$ cochlear hair cells), or olfaction
+($10^2$--$10^3$ receptor classes).
+
 %-----------------------------------------------------------------------
 \section{Perception Failure Conditions}
 \label{sec:failure}
@@ -434,6 +466,21 @@ task-specific. The oracle+noise(0.5) reversal ($r = +0.46$) indicates SA is
 unreliable when perception carries zero task-relevant information.
 While action variance provides a strong oracle-free proxy on these tasks,
 cross-task validation is needed to confirm generalization.
+
+\paragraph{Scope of SA's predictive advantage.}
+SA adds signal beyond reconstruction-style metrics when the
+(perception $\times$ capacity) grid spans broad dynamic range
+($\S\ref{sec:results}$: $r = -0.724$ across 7 perception levels). On
+compressed grids where perception is uniformly impoverished --- as in the
+$\S\ref{sec:infobound}$ sensory-capacity sweep, where sensory\_dim $\leq 4$ fails
+to learn regardless of capacity --- SA's predictive power collapses to what
+input-information alone provides: linear-probe recon $R^2$ and SA correlate with
+task distance at $r = -0.419$ and $r = -0.245$ respectively on that grid, with
+partial $r(\text{SA} \mid \text{inputs}) = -0.071$ and $\Delta R^2 = 0.004$. We
+read this as a scope specification: SA measures structural alignment across
+perception richness; when richness varies little, there is no alignment dimension
+for SA to track. SA is complementary to reconstruction loss, most useful when
+the perception chain is part of the experimental variation.
 
 \begin{figure}[t]
 \centering
