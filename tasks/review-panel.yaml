@@ -1,0 +1,76 @@
+project: WorldNN
+domain: world models / information-theoretic limits in perception-action loops
+type: research
+target_venue: "NeurIPS 2026"
+
+reviewers:
+  - id: A
+    name: "The World Model / Model-Based RL Researcher"
+    inspired_by: "David Ha / Danijar Hafner (World Models, Dreamer)"
+    lens: |
+      Frames embodied agency as latent dynamics learning. Will challenge
+      whether your Mealy-machine-without-direct-observation differs
+      meaningfully from POMDP world models, and whether SA (your symmetry-
+      action metric) measures something Dreamer's KL bound doesn't already
+      capture.
+    biases: "Penalizes contributions that re-derive POMDP results in different language. Rewards explicit comparison to Dreamer/PlaNet/MuZero on benchmark tasks."
+    signature_questions:
+      - "Why a Mealy machine and not a POMDP? What does the formalism buy you?"
+      - "Your SA metric correlates r=-0.724 with task success. Doesn't Dreamer's reconstruction loss tell you the same thing?"
+      - "If I gave you the DMC suite, would your SA metric predict performance better than Dreamer's variational bound?"
+
+  - id: B
+    name: "The Embodied Cognition Theorist"
+    inspired_by: "Andy Clark / Karl Friston (active inference, predictive processing, extended mind)"
+    lens: |
+      Cares whether the agent has a meaningful sensorimotor loop or just
+      a frozen sensor + actuator. Will challenge the 'no direct matter
+      observation' claim — what does that mean for an active-inference
+      agent that minimizes free energy?
+    biases: "Penalizes feedforward-only embodiment. Rewards explicit closed-loop dynamics with prediction-action coupling."
+    signature_questions:
+      - "Where is the predictive component? Active inference says agents minimize surprise — your agent only acts to maximize task reward."
+      - "Your 'organism samples a subset of channels' — is this the Markov blanket of the agent? If yes, formalize it."
+      - "How does this connect to Friston's free energy principle, given you're invoking VAE channels and information loss?"
+
+  - id: C
+    name: "The Information Theorist"
+    inspired_by: "Naftali Tishby / Susanne Still (information bottleneck, predictive information)"
+    lens: |
+      Will compute every quantity as I(·;·) and demand rate-distortion
+      curves at each bottleneck. Cares whether 'minimum embedding size for
+      1-bit state change' is the right operationalization of perception-
+      action capacity.
+    biases: "Penalizes information-theoretic framing without MI estimation. Rewards explicit bounds (DPI, rate-distortion)."
+    signature_questions:
+      - "Define your doubt as I(X;W) - I(Z;W). Estimate it with KSG. Show me the curve."
+      - "Why minimum embedding size and not channel capacity? They're related but not identical."
+      - "Your action variance r=-0.82 with distance — is this just predicting the value function gradient?"
+
+  - id: D
+    name: "The Sensorimotor Neuroscientist"
+    inspired_by: "Daniel Wolpert / Konrad Kording (motor control, sensory uncertainty)"
+    lens: |
+      Demands that any 'organism' with sensorimotor filters connect to real
+      neural systems. Will ask whether the embedding bottleneck maps to
+      cortical representational capacity or working memory limits.
+    biases: "Penalizes 'organism' framing without neural grounding. Rewards explicit connection to behavioral or neural data."
+    signature_questions:
+      - "Is your 'embedding size' supposed to be cortical neurons, working memory slots, or something else? Pin it down."
+      - "Real organisms use signal-dependent noise. Your channel adds Gaussian noise. Does the conclusion change?"
+      - "What animal or behavioral experiment would test your prediction that doubt scales with bottleneck width?"
+
+  - id: E
+    name: "The Generative Simulation Skeptic"
+    inspired_by: "Surya Ganguli / Anandkumar (theoretical ML for simulation)"
+    lens: |
+      Will ask whether the 'rocks' task is a meaningful enough environment
+      to support general claims. Has seen many simulation-based agency
+      papers fail to transfer. Wants explicit second-task validation
+      (your 2-rock and 3-rock results) and skeptical of multi-environment
+      generalization.
+    biases: "Penalizes single-environment claims. Rewards explicit transfer to qualitatively different tasks."
+    signature_questions:
+      - "Your second task (2-rock 6D) gives r=-0.728, very close to the 1-rock r=-0.724. Is this transfer or just task similarity?"
+      - "Multi-rock 3-rock gives r=-0.300 — much weaker. Why is 2-rock the real result and 3-rock a footnote?"
+      - "A boundary-artifact reversal in your reversal analysis suggests your task has degenerate failure modes. How do you know SA isn't measuring those?"

@@ -1,0 +1,83 @@
+{
+  "sensory_dims_tested": [
+    2,
+    4,
+    8,
+    16
+  ],
+  "biological_channel_counts": [
+    {
+      "name": "Paramecium chemotaxis",
+      "functional_channels": 2,
+      "category": "bacteria/proto"
+    },
+    {
+      "name": "Vestibular (functional)",
+      "functional_channels": 6,
+      "category": "balance"
+    },
+    {
+      "name": "Haptic vibrotactile",
+      "functional_channels": 10,
+      "category": "robotics"
+    },
+    {
+      "name": "Auditory critical bands",
+      "functional_channels": 24,
+      "category": "hearing"
+    },
+    {
+      "name": "Cutaneous types \u00d7 digit",
+      "functional_channels": 16,
+      "category": "touch"
+    },
+    {
+      "name": "V1 orientation columns",
+      "functional_channels": 180,
+      "category": "vision"
+    },
+    {
+      "name": "Olfactory classes (human)",
+      "functional_channels": 400,
+      "category": "smell"
+    },
+    {
+      "name": "Olfactory classes (mouse)",
+      "functional_channels": 1000,
+      "category": "smell"
+    },
+    {
+      "name": "Proprioceptive joints",
+      "functional_channels": 100,
+      "category": "body"
+    },
+    {
+      "name": "Retinal ganglion types",
+      "functional_channels": 20,
+      "category": "vision"
+    },
+    {
+      "name": "Cochlear hair cells",
+      "functional_channels": 15000,
+      "category": "hearing"
+    },
+    {
+      "name": "Optic nerve fibers",
+      "functional_channels": 1200000,
+      "category": "vision"
+    },
+    {
+      "name": "Auditory nerve fibers",
+      "functional_channels": 30000,
+      "category": "hearing"
+    }
+  ],
+  "interpretation": {
+    "sensory_dim=2": "paramecium chemotaxis level \u2014 1-2 chemical gradients",
+    "sensory_dim=4": "minimal vestibular: hair cell groups",
+    "sensory_dim=8": "basic proprioception or coarse touch",
+    "sensory_dim=16": "vibrotactile haptic or cutaneous-types-per-digit",
+    "compared_to_vision": "obj-024 max (16) is ~10^5 below optic nerve fiber count",
+    "compared_to_audition": "obj-024 max (16) is ~10^3 below cochlear hair cells, comparable to critical bands (24)"
+  }
+}

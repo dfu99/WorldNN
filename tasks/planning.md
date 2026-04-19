@@ -48,8 +48,18 @@ expanded discussion, conclusion, and oracle-free proxy estimation section.
 - [x] Pre-submission checklist
 - [x] Oracle-free SA proxy (obj-022): action variance r=-0.82
 
+## Active AFK goal (2026-04-19)
+
+Status: *COMPLETE*. All 8 tasks (T1-T8) finished. obj-025 logged with 5
+figures addressing reviewer concerns. See tasks/claim_to_evidence.md for
+the publication-readiness mapping. Reviewer risk: 3/5 Low, 1/5 Medium
+(Reviewer A), 1/5 High (Reviewer E, needs explicit limit disclosure +
+possible 2-rock sensory replicate).
+
 ## Recently Completed
 
+- [2026-04-19] obj-025: AFK review-panel sprint — rate-distortion (r=0.975 MI vs peak SA), bootstrap CIs (Cohen's d=1.10 substitution), biological calibration, SA-as-free-energy, reviewer risk map
+- [2026-04-19] obj-024: Sensory-capacity tradeoff (100 configs, peak SA=0.234 at sensory=16/embed=16, floor effect confirms DPI, substitution effect statistically significant with d=1.10)
 - [2026-04-01] Oracle-free proxy experiment (obj-022): action variance r=-0.82 with distance
 - [2026-03-31] Pre-submission checklist, LaTeX figures + discussion update
 - [2026-03-31] Camera-ready figures at 300 DPI

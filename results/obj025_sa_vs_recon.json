@@ -1,0 +1,16 @@
+{
+  "raw_correlations_with_dist": {
+    "SA": -0.24480731254557261,
+    "sensory_dim": -0.36596881924736263,
+    "embed_dim": -0.2540494659107956,
+    "log2(embed)": -0.2275989633549794,
+    "recon-R\u00b2(S|obs)": -0.41922505435383034,
+    "Gauss-MI(S;obs)": -0.28997338438180564
+  },
+  "partial_r_SA_given_inputs": -0.07107563780870108,
+  "partial_r_reconR2_given_SA": -0.3698846319333193,
+  "R2_input_only": 0.23162838210000491,
+  "R2_input_plus_SA": 0.23551000057000615,
+  "deltaR2_from_SA": 0.0038816184700012357,
+  "n_configs": 100
+}
