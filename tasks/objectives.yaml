@@ -771,5 +771,47 @@ objectives:
       bounded estimator of negative variational free energy, connecting to
       Friston's active inference. (6) Reviewer risk map: 3/5 Low, 1/5
       Medium (Reviewer A), 1/5 High (Reviewer E, task-similarity concerns).
-    connects_to: null
+    connects_to: obj-026
     completed_date: "2026-04-19"
+
+  - id: obj-026
+    status: completed
+    statement: "2-rock sensory-capacity replicate — floor effect, substitution pattern does NOT replicate"
+    methodology: >
+      Adapted sensory_capacity_tradeoff.py to 2-rock task (MultiRockMatter,
+      n_rocks=2, 6D state, emission_dim=16). 60 configs: 4 sensory_dim ×
+      5 embed_dim × 3 seeds × 800 episodes PPO. Ran on RunPod A4500 over
+      ~35 hours (GPU contention from co-tenants). Same organism/matter
+      architecture as obj-024 but with two rocks and two targets.
+    metrics:
+      total_configs: 60
+      n_seeds_per_cell: 3
+      episodes_per_config: 800
+      runtime_minutes: 2083
+      # Comparison to obj-024 (1-rock):
+      peak_SA_sensory_2:  0.031  # obj-024 had 0.069
+      peak_SA_sensory_4:  0.098  # obj-024 had 0.042
+      peak_SA_sensory_8:  0.027  # obj-024 had 0.105
+      peak_SA_sensory_16: 0.058  # obj-024 had 0.234
+      overall_mean_SA:    0.004
+      overall_mean_dist:  0.501  # floor effect — near random
+      dist_range: "0.487-0.531"  # very narrow
+      substitution_replicates: false
+    figures:
+      - results/obj026_1rock_vs_2rock.png
+    conclusions: >
+      The 2-rock task exhibits a FLOOR EFFECT within the 800-episode PPO
+      training budget: overall mean distance is 0.501 (near-random), dist
+      range is 0.487-0.531, and no cell learns reliably. Peak SA collapses
+      from 0.234 (1-rock) to 0.098 (2-rock, at sensory=4/embed=16 — not the
+      sensory=16 cell). The monotonic sensory-richness ceiling observed in
+      obj-024 does NOT replicate. This is consistent with obj-017 (3-rock,
+      r=-0.300): reward dilution across objects exceeds training budget.
+      Implications: (a) obj-024's within-regime finding is PRESERVED, (b)
+      the information-bound claim (Gauss-MI vs peak SA r=0.975) currently
+      has empirical support only within the 1-rock task, (c) Reviewer E
+      risk remains HIGH — either longer training (≥2000 ep, n=13 seeds)
+      or scope-restriction of the claim is required. Paper §5.7 and §7.5
+      must disclose this replicate failure.
+    connects_to: null
+    completed_date: "2026-04-21"

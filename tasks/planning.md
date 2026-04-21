@@ -59,11 +59,21 @@ RunPod A4500 now available for >10min jobs: `mc runpod sync WorldNN` / fetch.
 
 ## Next priority
 
-T9-T15 complete. T16 pending obj-026 (2-rock sensory-capacity) data from
-RunPod — still running at config 1/60 as of 13:55. When checkpoint has
-30+ configs: run obj026_seed_robustness.py adapted for 2-rock, generate
-1-rock vs 2-rock comparison figure, update claim_to_evidence.md with
-Reviewer E status.
+AFK iter-2 COMPLETE. obj-026 (2-rock sensory-capacity) finished on RunPod
+A4500 after ~35 hours (GPU contention). Negative finding: 2-rock shows
+floor effect (mean dist 0.501, peak SA 0.098 vs 0.234 on 1-rock). Paper
+§5.7/§7.5 updated with scope restriction.
+
+**PI decision needed:** Reviewer E risk remains HIGH. Options:
+(a) *Scope-restrict* the info-bound claim to 1-rock, rely on obj-021
+(r=-0.728) as cross-task SA evidence, frame obj-026 as future work;
+(b) *Rerun obj-026* with ≥2000 episodes + n=13 seeds (≈ 2-3 days on
+RunPod even with gating);
+(c) *Intermediate task* — e.g., 1-rock with randomized target, testing
+whether substitution is task-width-specific rather than object-count.
+
+Recommended: (a) for NeurIPS deadline (May 6); queue (b) or (c) as a
+future revision if accepted.
 
 ## Recently Completed
 

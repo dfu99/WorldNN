@@ -460,6 +460,15 @@ vibrotactile (~10), and cutaneous types per digit (~16). It is well
 below vision (~10⁶ optic nerve fibers), audition (~10⁴ cochlear hair
 cells), or olfaction (10²–10³ receptor classes).
 
+**Scope on 2-rock.** A direct replication on the 2-rock task (60 configs,
+3 seeds, 800 episodes) produced a floor effect: overall mean distance
+0.501 (near-random), peak SA 0.098 vs 0.234 on 1-rock, and no monotonic
+sensory-richness ceiling. This matches obj-017's 3-rock floor (r=-0.300):
+PPO training budget is insufficient when reward is diluted across
+multiple targets. The 2-rock result does not contradict the 1-rock
+finding, but restricts the empirical support for the information bound
+to tasks that converge within the training budget.
+
 ## 6. Perception Failure Conditions
 
 Three conditions produce SA values below the learnability threshold,

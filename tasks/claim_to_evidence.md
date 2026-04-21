@@ -130,30 +130,48 @@ close to 1-rock r=-0.724. Is this transfer or just task similarity? Why
 is 3-rock r=-0.300 a footnote?"
 
 *Our evidence:*
-- obj-021 (2-rock 6D): r=-0.728, replicates 1-rock pattern on a 6D state
-  with different object count — stronger than "task similarity" if the
-  2-rock has independent challenges (two targets, coordination).
-- obj-017 (3-rock): r=-0.300 is weak because the 3-rock task has a
-  *floor effect* where no organism learns reliably (distance 0.46-0.50
-  across all conditions). This is a TASK-COMPLEXITY scaling limit, not
-  a metric failure. Addressed honestly as a limitation.
-- obj-019 physics transfer: 93-106% retention across physics variants
-  strengthens the "not-just-task-similarity" argument.
+- obj-021 (2-rock 6D): r=-0.728 on the original 2-rock PPO setup with
+  oracle/VAE perception — replicates 1-rock SA-predicts-success pattern.
+- obj-019 physics transfer: 93-106% retention across physics variants.
 - obj-020 appearance transfer: 89-102% retention.
+- obj-017 (3-rock): r=-0.300 due to floor effect (dist 0.46-0.50 across
+  all conditions). Task-complexity scaling limit, disclosed as limitation.
+- **obj-026 (2-rock sensory-capacity replicate, 2026-04-21): FLOOR EFFECT
+  — the sensory-capacity substitution pattern did NOT replicate on 2-rock.
+  Overall mean dist = 0.501 (near-random); peak SA dropped from 0.234
+  (1-rock) to 0.098 (2-rock); the monotonic sensory-richness ceiling
+  disappeared.** This is consistent with obj-017 (3-rock floor): reward
+  dilution across objects exceeds the 800-episode PPO training budget for
+  *sensory-limited* perception. It does NOT contradict obj-024 (the
+  within-regime SA/capacity pattern on 1-rock stands), but it DOES
+  restrict the information-bound claim's empirical support to tasks
+  that are learnable within the training budget.
 
-*Action items for paper:* Explicitly acknowledge 3-rock floor effect as a
-scaling limit. Lead with 2-rock + transfer as multi-task evidence. Consider
-a 2-rock sensory-capacity replicate if time permits (T9 candidate).
+*Action items for paper:*
+- Explicitly acknowledge the obj-026 floor effect in §5.7 and §7.5.
+- State the scope of the sensory-capacity claim: demonstrated on 1-rock
+  4D manipulation; replicates on 2-rock only when PPO converges.
+- Either run a longer-training 2-rock replicate (n≥13 seeds, ≥2000
+  episodes) OR frame obj-024 as single-task evidence and cite obj-021's
+  transfer numbers as the cross-task backup.
+- Acceptable framing: "We observe the information-theoretic bound
+  empirically on one task; generalization to higher-object-count tasks
+  requires training budget scaling that exceeded our compute allocation."
 
 ## Publication readiness summary
 
 | Reviewer | Risk level | Primary evidence | Additional needed? |
 |:----|:----|:----|:----|
-| A (World Model) | Medium | obj-016 (r=-0.724) | Scope-boundary disclosure (T4) |
-| B (Active Inference) | Low | T7 theory note | Paragraph in §7 |
-| C (Info Theorist) | Low | T3 rate-distortion r=0.975 | Promote T3 to main text |
+| A (World Model) | Medium | obj-016 (r=-0.724) | Scope-boundary disclosure (T4, done) |
+| B (Active Inference) | Low | T7 theory note | Paragraph in §7 (done in draft) |
+| C (Info Theorist) | Low | T3 rate-distortion r=0.975 | Promote T3 to main text (done §5.7) |
 | D (Neuroscientist) | Low | T6 calibration | Fold table into Methods |
-| E (Generative Sim) | High | obj-021 + transfer | 3-rock limit disclosure, possible 2-rock sensory replicate |
+| E (Generative Sim) | *Still High* | obj-021 + transfer; obj-026 floor | Longer 2-rock training OR scope-restrict claim to 1-rock |
 
-*Highest residual risk:* Reviewer E. Mitigation: explicit limitation
-statement + optional 2-rock sensory-capacity replicate experiment.
+*Highest residual risk:* Reviewer E, unchanged after obj-026. The 2-rock
+sensory-capacity replicate hit a floor effect, providing NO positive
+confirmation of the substitution pattern beyond 1-rock. Options:
+(a) Scope-restrict the information-bound claim to 1-rock and lean on
+obj-021 for cross-task SA; (b) Rerun obj-026 with ≥2000 episodes and n=13+
+seeds (compute-heavy); (c) Run an intermediate task (e.g., 1-rock with
+randomized target) to probe whether substitution is task-width-specific.

@@ -1,0 +1,35 @@
+{
+  "obj024_1rock": {
+    "peak_SA_by_sensory_dim": {
+      "2": 0.06932500284165144,
+      "4": 0.04179363781586289,
+      "8": 0.10467006266117096,
+      "16": 0.23346528708934783
+    },
+    "mean_dist": 0.48923308372199537,
+    "dist_range": [
+      0.4208411890268326,
+      0.5216790255904198
+    ],
+    "n_configs": 100
+  },
+  "obj026_2rock": {
+    "peak_SA_by_sensory_dim": {
+      "2": 0.030599186817804973,
+      "4": 0.09844618973632653,
+      "8": 0.02723329762617747,
+      "16": 0.057899666484445333
+    },
+    "mean_dist": 0.5013804574112098,
+    "dist_range": [
+      0.48739675283432005,
+      0.5311539459228516
+    ],
+    "n_configs": 60
+  },
+  "verdict": {
+    "substitution_replicates": false,
+    "reason": "2-rock task shows floor effect (mean dist 0.501, range 0.487-0.531). Peak SA collapses from 0.234 (1-rock) to 0.098 (2-rock). Similar to obj-017 (3-rock floor effect) \u2014 reward dilution across objects exceeds 800-episode training budget. Does NOT invalidate obj-024's within-regime finding, but does restrict the information-bound claim to 1-rock-like task complexity.",
+    "reviewer_E_status": "HIGH \u2014 replicate failed; need longer training OR simpler intermediate task (e.g., smaller-arena 1-rock with varied target)."
+  }
+}

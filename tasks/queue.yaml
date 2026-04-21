@@ -344,7 +344,7 @@ queue:
   context: The obj-024 result is directionally correct but weak. Need to decide whether
     the substitution effect is real or noise. This is the discriminating analysis
     the AFK plan requires.
-  success_criteria: results/obj025_bootstrap_ci.png with error bars. Cohen''s d value
+  success_criteria: results/obj025_bootstrap_ci.png with error bars. Cohen's d value
     reported. Clear verdict on whether substitution is significant.
   started: 2026-04-19 03:34
   completed: 2026-04-19 03:47
@@ -457,15 +457,14 @@ queue:
   source: afk
   started: 2026-04-19 13:19
   completed: 2026-04-19 13:25
-  notes: 8 new tasks queued (T9-T16) addressing Reviewer E high risk via 2-rock
-    sensory-capacity replicate on RunPod, paper integration of obj-024/025, scope-
-    boundary paragraph, matter-seed robustness, power analysis, and intuition review.
-
+  notes: 8 new tasks queued (T9-T16) addressing Reviewer E high risk via 2-rock sensory-capacity
+    replicate on RunPod, paper integration of obj-024/025, scope- boundary paragraph,
+    matter-seed robustness, power analysis, and intuition review.
 - objective: 'T9: Verify RunPod A4500 connection and deploy sensory_capacity_tradeoff
-    code. SSH root@213.173.102.219 -p 12447 -i ~/.ssh/runpod_key. Check GPU
-    availability (nvidia-smi). Use `mc runpod sync WorldNN` or rsync to push
-    experiments/sensory_capacity_tradeoff.py, src/, and requirements to the node.
-    Run a 1-minute smoke test (5 configs, 50 episodes) to confirm end-to-end.'
+    code. SSH root@213.173.102.219 -p 12447 -i ~/.ssh/runpod_key. Check GPU availability
+    (nvidia-smi). Use `mc runpod sync WorldNN` or rsync to push experiments/sensory_capacity_tradeoff.py,
+    src/, and requirements to the node. Run a 1-minute smoke test (5 configs, 50 episodes)
+    to confirm end-to-end.'
   priority: 1
   status: completed
   added: 2026-04-19 13:25
@@ -476,13 +475,11 @@ queue:
     file.
   started: 2026-04-19 13:26
   completed: 2026-04-19 13:29
-  notes: 'RunPod A4500 reachable. 17.7/20 GB VRAM free, GPU 100% util from
-    co-tenant but memory headroom available. torch 2.4.1+cu124, CUDA available.
-    mc runpod sync WorldNN pushed 13MB. Project at ~/projects/WorldNN/. Ready for
-    T10.'
-
-- objective: 'T10: Design and launch obj-026 (2-rock sensory-capacity replicate)
-    on RunPod. Adapt experiments/sensory_capacity_tradeoff.py to use RockPushMatter2
+  notes: RunPod A4500 reachable. 17.7/20 GB VRAM free, GPU 100% util from co-tenant
+    but memory headroom available. torch 2.4.1+cu124, CUDA available. mc runpod sync
+    WorldNN pushed 13MB. Project at ~/projects/WorldNN/. Ready for T10.
+- objective: 'T10: Design and launch obj-026 (2-rock sensory-capacity replicate) on
+    RunPod. Adapt experiments/sensory_capacity_tradeoff.py to use RockPushMatter2
     (6D state) instead of RockPushMatter (4D). Emission_dim=16, sensory_dim ∈ {2,4,8,16},
     embed_dim ∈ {2,4,8,16,32}, 3 seeds, 800 episodes. Save checkpoint locally during
     run. This addresses Reviewer E (task-similarity) directly.'
@@ -492,45 +489,42 @@ queue:
   source: afk-plan-iter2
   started: 2026-04-19 13:29
   completed: 2026-04-19 13:41
-  context: Reviewer E is the only High risk. A 2-rock replicate directly tests
-    whether the sensory-capacity pattern holds across task dimensionality.
-  success_criteria: experiments/obj026_sensory_capacity_2rock.py written, job
-    launched on RunPod (or local if RunPod unavailable). First-checkpoint figure
-    saved once initial configs complete.
-  notes: 'Wrote obj026_sensory_capacity_2rock.py using MultiRockMatter(n_rocks=2).
+  context: Reviewer E is the only High risk. A 2-rock replicate directly tests whether
+    the sensory-capacity pattern holds across task dimensionality.
+  success_criteria: experiments/obj026_sensory_capacity_2rock.py written, job launched
+    on RunPod (or local if RunPod unavailable). First-checkpoint figure saved once
+    initial configs complete.
+  notes: Wrote obj026_sensory_capacity_2rock.py using MultiRockMatter(n_rocks=2).
     60 configs (4 sensory × 5 embed × 3 seeds) × 800 eps. Launched on RunPod A4500
     at PID 7369 (17:40 UTC). Running in background. Checkpoint writes every 5 configs
     to results/obj026_sensory_capacity_2rock_checkpoint.json on the RunPod node —
-    use `mc runpod fetch WorldNN` to pull.'
-
-- objective: 'T11: Write paper §5.7 integrating obj-024 + obj-025 findings.
-    Section title: "Information-theoretic bound on SA ceiling." Contents: (a)
-    obj-024 sensory-capacity sweep (2-panel summary figure), (b) obj-025 T3
-    rate-distortion curve (MI vs peak SA r=0.975), (c) obj-025 T5 bootstrap
-    verdict (Cohen d=1.10, CI excludes zero), (d) scope caveat about information-
-    starved regime. Add to paper/draft.md and paper/neurips2026/main.tex.'
+    use `mc runpod fetch WorldNN` to pull.
+- objective: 'T11: Write paper §5.7 integrating obj-024 + obj-025 findings. Section
+    title: "Information-theoretic bound on SA ceiling." Contents: (a) obj-024 sensory-capacity
+    sweep (2-panel summary figure), (b) obj-025 T3 rate-distortion curve (MI vs peak
+    SA r=0.975), (c) obj-025 T5 bootstrap verdict (Cohen d=1.10, CI excludes zero),
+    (d) scope caveat about information- starved regime. Add to paper/draft.md and
+    paper/neurips2026/main.tex.'
   priority: 1
   status: completed
   added: 2026-04-19 13:25
   source: afk-plan-iter2
   started: 2026-04-19 13:41
   completed: 2026-04-19 13:45
-  context: obj-024/025 findings are not yet in the paper. §5.7 is the natural
-    slot after §5.6 SA transfer.
+  context: obj-024/025 findings are not yet in the paper. §5.7 is the natural slot
+    after §5.6 SA transfer.
   success_criteria: §5.7 written in both draft.md and main.tex. Figure references
     resolve. Word count <= 450 for section fit.
-  notes: '§5.7 "Information-theoretic bound on the SA ceiling" added to both
-    draft.md and main.tex. Contents: sensory-capacity sweep table, Cohen d=1.10
-    substitution result, Gaussian-MI vs peak SA r=0.975, biological calibration
-    sentence. ~430 words (target met).'
-
-- objective: 'T12 (Reviewer A mitigation): Write scope-boundary paragraph for
-    Discussion §7.5 limitations. State explicitly: SA adds signal BEYOND
-    reconstruction when the (perception × capacity) grid spans broad dynamic
-    range (obj-016 r=-0.724 across 7 perception levels); on compressed grids
-    (obj-024 with only 2 perception levels effectively learning) SA collapses
-    to input-information predictors (ΔR²=0.004). This concedes Reviewer A''s
-    concern WHILE defending the primary result.'
+  notes: '§5.7 "Information-theoretic bound on the SA ceiling" added to both draft.md
+    and main.tex. Contents: sensory-capacity sweep table, Cohen d=1.10 substitution
+    result, Gaussian-MI vs peak SA r=0.975, biological calibration sentence. ~430
+    words (target met).'
+- objective: 'T12 (Reviewer A mitigation): Write scope-boundary paragraph for Discussion
+    §7.5 limitations. State explicitly: SA adds signal BEYOND reconstruction when
+    the (perception × capacity) grid spans broad dynamic range (obj-016 r=-0.724 across
+    7 perception levels); on compressed grids (obj-024 with only 2 perception levels
+    effectively learning) SA collapses to input-information predictors (ΔR²=0.004).
+    This concedes Reviewer A''s concern WHILE defending the primary result.'
   priority: 2
   status: completed
   added: 2026-04-19 13:25
@@ -538,39 +532,37 @@ queue:
   started: 2026-04-19 13:45
   completed: 2026-04-19 13:47
   context: T4 found ΔR²=0.004 — honest scope disclosure is better than hiding.
-  success_criteria: Paragraph written in paper/draft.md §7.5 and mirrored in
-    main.tex. One sentence in abstract ("where SA's dynamic range is informative").
+  success_criteria: Paragraph written in paper/draft.md §7.5 and mirrored in main.tex.
+    One sentence in abstract ("where SA's dynamic range is informative").
   notes: Scope-of-predictive-advantage paragraph added to draft.md §7.5 and main.tex
     Limitations. Frames obj-024's ΔR²=0.004 as a scope specification, not a failure
-    — SA measures structural alignment across perception richness, complementary
-    to recon loss. Abstract sentence skipped (abstract is already at target 160w).
-
-- objective: 'T13: Matter-seed robustness for obj-024. Re-analyze obj-024
-    checkpoint: for each (sensory_dim, embed_dim) cell, compute per-seed SA and
-    examine whether the variance across training seeds is driven by a minority
-    of outlier matter projections. Generate figure showing per-seed SA within
-    each cell, flagging any unusual variance patterns. Saves to results/obj026_seed_robustness.png.'
+    — SA measures structural alignment across perception richness, complementary to
+    recon loss. Abstract sentence skipped (abstract is already at target 160w).
+- objective: 'T13: Matter-seed robustness for obj-024. Re-analyze obj-024 checkpoint:
+    for each (sensory_dim, embed_dim) cell, compute per-seed SA and examine whether
+    the variance across training seeds is driven by a minority of outlier matter projections.
+    Generate figure showing per-seed SA within each cell, flagging any unusual variance
+    patterns. Saves to results/obj026_seed_robustness.png.'
   priority: 2
   status: completed
   added: 2026-04-19 13:25
   source: afk-plan-iter2
   started: 2026-04-19 13:47
   completed: 2026-04-19 13:50
-  context: Reviewer scrutiny of 5-seed experiments is routine. Need to show
-    the effect isn''t driven by seed artifacts.
-  success_criteria: Figure with per-seed SA distributions per cell. Quantitative
-    check: max/min seed ratio < 3x within each cell (or explicit explanation).
-  notes: 'Per-seed dot plot + CV heatmap generated. Honest finding: 6/20 cells
-    are outlier-driven (>50% mean shift if max/min removed). Best cell
-    (sensory=16,embed=16): all 5 seeds positive but max/min ratio 8.27 — high
-    variance, learning happens but strength varies. Most sensory=2,4 cells have
-    CV > 3 (pure noise, as expected for info-starved regime).'
-
-- objective: 'T14: Power analysis for obj-024. Given observed effect size
-    d=1.10 (rich-min vs poor-max substitution), compute the sample size needed
-    to detect the effect at α=0.05, β=0.2 (80% power). Also compute post-hoc
-    power at current n=5/cell. Determine whether obj-024 was adequately
-    powered or borderline. Save figure showing power vs n.'
+  context: Reviewer scrutiny of 5-seed experiments is routine. Need to show the effect
+    isn't driven by seed artifacts.
+  success_criteria: 'Figure with per-seed SA distributions per cell. Quantitative
+    check: max/min seed ratio < 3x within each cell (or explicit explanation).'
+  notes: 'Per-seed dot plot + CV heatmap generated. Honest finding: 6/20 cells are
+    outlier-driven (>50% mean shift if max/min removed). Best cell (sensory=16,embed=16):
+    all 5 seeds positive but max/min ratio 8.27 — high variance, learning happens
+    but strength varies. Most sensory=2,4 cells have CV > 3 (pure noise, as expected
+    for info-starved regime).'
+- objective: 'T14: Power analysis for obj-024. Given observed effect size d=1.10 (rich-min
+    vs poor-max substitution), compute the sample size needed to detect the effect
+    at α=0.05, β=0.2 (80% power). Also compute post-hoc power at current n=5/cell.
+    Determine whether obj-024 was adequately powered or borderline. Save figure showing
+    power vs n.'
   priority: 2
   status: completed
   added: 2026-04-19 13:25
@@ -580,18 +572,17 @@ queue:
   context: Reviewer scrutiny will ask whether 5 seeds/cell is enough.
   success_criteria: results/obj026_power_analysis.png with power curve. Recommendation
     on whether to increase n for obj-026.
-  notes: 'Honest finding: substitution effect (d=1.10) at n=5 has power 0.692 —
-    UNDERPOWERED (target 0.80). Need n=13/group for 80%. However ceiling-floor
-    (d=2.21) power=0.999, peak-min within sensory=16 (d=1.74) power=0.973 — both
-    adequate. Recommendation: add n=13 config note to obj-026 future runs, or
-    explicitly frame obj-024 substitution finding as suggestive with CI.'
-
-- objective: 'T15: Update intuition.md after obj-025 results. The T3 rate-
-    distortion finding (r=0.975) is strong enough to elevate the sensory-
-    capacity claim from "secondary pillar" to a co-equal pillar. Rewrite
-    one-line claim to reflect the two-pronged argument: (a) SA predicts task
-    success within the agent''s access regime, (b) the regime is set by
-    information content of the input channel. Update falsification conditions.'
+  notes: 'Honest finding: substitution effect (d=1.10) at n=5 has power 0.692 — UNDERPOWERED
+    (target 0.80). Need n=13/group for 80%. However ceiling-floor (d=2.21) power=0.999,
+    peak-min within sensory=16 (d=1.74) power=0.973 — both adequate. Recommendation:
+    add n=13 config note to obj-026 future runs, or explicitly frame obj-024 substitution
+    finding as suggestive with CI.'
+- objective: 'T15: Update intuition.md after obj-025 results. The T3 rate- distortion
+    finding (r=0.975) is strong enough to elevate the sensory- capacity claim from
+    "secondary pillar" to a co-equal pillar. Rewrite one-line claim to reflect the
+    two-pronged argument: (a) SA predicts task success within the agent''s access
+    regime, (b) the regime is set by information content of the input channel. Update
+    falsification conditions.'
   priority: 2
   status: completed
   added: 2026-04-19 13:25
@@ -599,29 +590,36 @@ queue:
   started: 2026-04-19 13:53
   completed: 2026-04-19 13:54
   context: T3 is a major result that warrants promoting sensory-capacity claim.
-  success_criteria: intuition.md reflects both pillars. New falsification
-    condition: if MI vs peak SA correlation weakens below r<0.7 on 2-rock.
-  notes: 'Rewrote one-line claim as two coupled claims. Added explicit
-    falsification criteria for info-bound (r<0.7 on 2-rock) and task-similarity
-    risk (obj-026 pattern divergent from obj-024). Noted obj-024 n=5 underpowered
-    for d=1.10 substitution effect (power=0.69).'
-
-- objective: 'T16: Once obj-026 (2-rock sensory-capacity) has partial data,
-    generate preliminary 4-panel figure comparing 1-rock vs 2-rock sensory-
-    capacity patterns. If the substitution effect replicates on 2-rock,
-    Reviewer E risk moves from High to Medium. Generate both the figure and
-    a 2-sentence update for claim_to_evidence.md. NOTE: this is an analysis
-    task on local CPU — no RunPod gating needed. Fetch data via `mc runpod
-    fetch WorldNN` before analyzing.'
+  success_criteria: 'intuition.md reflects both pillars. New falsification condition:
+    if MI vs peak SA correlation weakens below r<0.7 on 2-rock.'
+  notes: Rewrote one-line claim as two coupled claims. Added explicit falsification
+    criteria for info-bound (r<0.7 on 2-rock) and task-similarity risk (obj-026 pattern
+    divergent from obj-024). Noted obj-024 n=5 underpowered for d=1.10 substitution
+    effect (power=0.69).
+- objective: 'T16: Once obj-026 (2-rock sensory-capacity) has partial data, generate
+    preliminary 4-panel figure comparing 1-rock vs 2-rock sensory- capacity patterns.
+    If the substitution effect replicates on 2-rock, Reviewer E risk moves from High
+    to Medium. Generate both the figure and a 2-sentence update for claim_to_evidence.md.
+    NOTE: this is an analysis task on local CPU — no RunPod gating needed. Fetch data
+    via `mc runpod fetch WorldNN` before analyzing.'
   priority: 3
-  status: pending
+  status: completed
   added: 2026-04-19 13:25
   source: afk-plan-iter2
-  context: Depends on T10 (obj-026) producing at least 30+ configs. If T10
-    cannot run (RunPod down), execute this task against the local RTX 3060
-    with the 5-seed version scaled back to 3 seeds. Before relaunching any
-    GPU job, use the memory-gated protocol: `mc runpod fits <gb>` or
-    `mc runpod await <gb>` before `mc runpod sync` + exec.
-  success_criteria: results/obj026_1rock_vs_2rock.png showing both grids side-
-    by-side. claim_to_evidence.md updated with Reviewer E status change if
-    applicable.
+  context: 'Depends on T10 (obj-026) producing at least 30+ configs. If T10 cannot
+    run (RunPod down), execute this task against the local RTX 3060 with the 5-seed
+    version scaled back to 3 seeds. Before relaunching any GPU job, use the memory-gated
+    protocol: `mc runpod fits <gb>` or `mc runpod await <gb>` before `mc runpod sync`
+    + exec.'
+  success_criteria: results/obj026_1rock_vs_2rock.png showing both grids side- by-side.
+    claim_to_evidence.md updated with Reviewer E status change if applicable.
+  started: 2026-04-20 00:05
+  completed: 2026-04-21 04:30
+  notes: 'obj-026 complete (60/60 in 2083 min due to GPU contention). HONEST NEGATIVE
+    RESULT: substitution pattern does NOT replicate on 2-rock. Floor effect (mean
+    dist 0.501 near-random), peak SA 0.098 vs obj-024 0.234, no monotonic sensory-
+    richness ceiling. Reviewer E risk stays High. Paper §5.7 and §7.5 updated with
+    scope restriction. claim_to_evidence.md and intuition.md honest disclosure.
+    Options for PI: (a) scope-restrict to 1-rock + lean on obj-021 cross-task, (b)
+    rerun with ≥2000 episodes and n=13 seeds (compute heavy), (c) accept as-is for
+    NeurIPS and cite as a future-work target.'

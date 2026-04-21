@@ -56,10 +56,18 @@ does learn with embed=32 (which would imply the information-theoretic
 ceiling was a convergence artifact). Power for the substitution effect
 at n=5 is 0.69 (underpowered); full confirmation needs n≥13 per cell.
 
-**Task-similarity risk (Reviewer E):** Falsified if the 2-rock replicate
-(obj-026, in progress) shows a qualitatively different (s, e) pattern
-than obj-024's 1-rock, which would imply the 1-rock effect was
-task-structure-specific rather than general.
+**Task-similarity risk (Reviewer E):** obj-026 (2-rock sensory-capacity
+replicate, 2026-04-21, 60 configs on RunPod A4500) did NOT confirm the
+substitution pattern. Peak SA dropped from 0.234 (1-rock) to 0.098
+(2-rock); overall mean dist = 0.501 (near-random), consistent with a
+floor effect mirroring obj-017 (3-rock). The reward dilution across two
+objects exceeded the 800-episode PPO training budget. This is a scope
+restriction, not a contradiction — obj-024's within-regime finding
+stands, but the information-bound claim is currently only supported on
+tasks PPO can solve within compute budget. Full falsification would
+require obj-026 pattern persisting with much longer training (≥2000
+episodes, n=13 seeds), which would imply 2-rock has no sensory-capacity
+substitution even after convergence.
 
 ## Target panel and venue
 

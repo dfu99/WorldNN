@@ -368,6 +368,16 @@ and cutaneous types per digit ($\sim 16$); well below vision ($\sim 10^6$ optic
 nerve fibers), audition ($\sim 10^4$ cochlear hair cells), or olfaction
 ($10^2$--$10^3$ receptor classes).
 
+\paragraph{Scope on 2-rock.}
+A direct replication on the 2-rock task (60 configs, 3 seeds, 800 episodes)
+produced a floor effect: overall mean distance 0.501 (near-random), peak SA
+0.098 vs.\ 0.234 on 1-rock, and no monotonic sensory-richness ceiling. This
+matches the 3-rock floor observed previously: PPO training budget is
+insufficient when reward is diluted across multiple targets. The 2-rock
+result does not contradict the 1-rock finding, but restricts the empirical
+support for the information bound to tasks that converge within the training
+budget.
+
 %-----------------------------------------------------------------------
 \section{Perception Failure Conditions}
 \label{sec:failure}
