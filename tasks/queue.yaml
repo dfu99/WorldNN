@@ -619,7 +619,190 @@ queue:
     RESULT: substitution pattern does NOT replicate on 2-rock. Floor effect (mean
     dist 0.501 near-random), peak SA 0.098 vs obj-024 0.234, no monotonic sensory-
     richness ceiling. Reviewer E risk stays High. Paper §5.7 and §7.5 updated with
-    scope restriction. claim_to_evidence.md and intuition.md honest disclosure.
-    Options for PI: (a) scope-restrict to 1-rock + lean on obj-021 cross-task, (b)
-    rerun with ≥2000 episodes and n=13 seeds (compute heavy), (c) accept as-is for
-    NeurIPS and cite as a future-work target.'
+    scope restriction. claim_to_evidence.md and intuition.md honest disclosure. Options
+    for PI: (a) scope-restrict to 1-rock + lean on obj-021 cross-task, (b) rerun with
+    ≥2000 episodes and n=13 seeds (compute heavy), (c) accept as-is for NeurIPS and
+    cite as a future-work target.'
+- objective: '[AFK PLAN] Read tasks/afk-policy.yaml. Your AFK goal is: Deep research
+    sweep. Four parts. (A) Literature scan: WebSearch + WebFetch 10-20 recent papers
+    (2024-2026) on world models, structural asymmetry in learning, action-space conditioning,
+    predictive processing, sensorimotor contingency, latent dynamics models, task-performance
+    predictors from structural properties. Abstracts+intros+conclusions of all; full
+    PDF+supplementaries for the 3-5 most relevant. Note methodological moves unexplored
+    by WorldNN. (B) Current-results review: reread paper/draft.md, paper/neurips2026/main.tex,
+    rock_push, predictive_processing, sensory_capacity_tradeoff, mi_chain, ci_at_scale
+    experiments; list unclaimed adjacent hypotheses, reviewer-visible weak spots,
+    scaling gaps. (C) Experiment plan: propose 3-5 experiments. Directions: asymmetry-scaling
+    curves at larger capacity, cross-physics transfer, multi-task generalization,
+    causal intervention on action-space dimensions, SA slope as early-stop criterion
+    validation. Per experiment: hypothesis, minimal design, compute (verify via `mc
+    runpod fits <gb>`), falsifier, marginal contribution. Use mc runpod, respect OOM.
+    (D) Cross-discipline hook: unrelated field whose dynamics map onto action-space
+    asymmetry driving learning. Example the project lead gave: agent-to-agent context
+    degradation <-> fungal hyphal signal propagation <-> single-point-of-failure in
+    serial chains — shared network topology and information-engineering backbone.
+    Look laterally — free-energy principle, predictive coding circuits, sensorimotor
+    loops in biology. Commit progress, tokens liberal, max thinking. Post Slack summaries
+    via bin/slack-notify.sh WorldNN "...". Read CLAUDE.md, tasks/planning.md, tasks/lessons.md,
+    and recent objectives to understand current project state. Then break this goal
+    into 8 concrete tasks and add each to your queue using this exact format in tasks/queue.yaml:
+    each task should be 15-60 minutes of work, have clear success criteria, and be
+    suitable for unattended chaining. After writing the plan, start working on the
+    first task immediately.'
+  priority: 3
+  status: completed
+  added: 2026-04-23 03:07
+  source: afk
+  started: 2026-04-23 03:07
+  completed: 2026-04-23 04:00
+  notes: 8 tasks queued (T17-T24) covering literature scan (3 queries), deep-read
+    of top 3-5 papers, current-results review, experiment plan, cross-discipline memo,
+    and synthesis.
+- objective: 'T17 (Part A, 1/4): Literature scan — world models + latent dynamics
+    models 2024-2026. Use WebSearch with queries: "world model latent dynamics 2025",
+    "Dreamer PlaNet successor 2025", "action-conditioned latent dynamics 2026". Collect
+    title/authors/abstract for 6-8 papers. Note which (if any) touch on sensory-capacity
+    tradeoffs or information-theoretic bounds. Save notes to tasks/research/lit_scan_A_world_models.md.'
+  priority: 1
+  status: completed
+  added: 2026-04-23 04:00
+  source: afk-plan-iter3
+  context: Part A of 4-part deep research sweep. Goal is 10-20 recent papers across
+    4 subtopics. T17 covers world-models/latent-dynamics.
+  success_criteria: tasks/research/lit_scan_A_world_models.md has 6-8 papers with
+    full abstracts, 1-sentence relevance-to-WorldNN each.
+  started: 2026-04-23 03:10
+  completed: 2026-04-23 04:05
+  notes: 8 papers catalogued. Key finds: Dreamer V4 (2509.24527) action-supervision
+    sparsity, V-JEPA 2-AC (2506.22355) frozen-encoder ablation unexplored, ACT-JEPA
+    (2501.14622) joint policy+prediction loss. Two surveys for Related Work
+    (2510.16732, Shang et al.). 6 methodological moves unexplored by WorldNN flagged.
+- objective: 'T18 (Part A, 2/4): Literature scan — predictive processing + active
+    inference + free energy 2024-2026. WebSearch queries: "active inference agent
+    embodied 2025", "predictive coding circuits 2025", "free energy principle RL 2025".
+    Collect 6-8 papers. Focus on methodological moves WorldNN could adopt (e.g., explicit
+    predictive heads, Markov-blanket formalism, precision-weighted prediction error).
+    Save to tasks/research/lit_scan_B_predictive.md.'
+  priority: 1
+  status: completed
+  added: 2026-04-23 04:00
+  source: afk-plan-iter3
+  started: 2026-04-23 04:05
+  completed: 2026-04-23 04:12
+  context: Part A 2/4. Directly relevant to SA-as-free-energy note (obj-025 T7).
+  success_criteria: 6-8 papers with abstracts + methodological-moves notes.
+  notes: 8 papers catalogued. Key finds — EFE-minimization (2508.05619) as PPO
+    alternative; PrediRep and 2506.06332 show predictive-coding scaling limits;
+    Active Predictive Coding (2024) unifies active perception + planning;
+    precision-weighted prediction errors (PyHGF) unexplored in WorldNN.
+- objective: 'T19 (Part A, 3/4): Literature scan — structural asymmetry in learning
+    + sensorimotor contingency + task-performance predictors from structural properties
+    2024-2026. WebSearch: "sensorimotor contingency neural network 2025", "structural
+    asymmetry embodiment learning 2025", "task success predictor neural 2025". Collect
+    6-8 papers. Note any metrics analogous to SA. Save to tasks/research/lit_scan_C_asymmetry.md.'
+  priority: 1
+  status: completed
+  added: 2026-04-23 04:00
+  source: afk-plan-iter3
+  started: 2026-04-23 04:12
+  completed: 2026-04-23 04:18
+  context: Part A 3/4. This is the most topically adjacent to SA itself.
+  success_criteria: 6-8 papers with abstracts; explicit list of SA-analogue metrics
+    in recent work.
+  notes: '8 papers catalogued. SA-analogues: neural-similarity scores (2509.14360,
+    Science Adv 2023), task-success rates (Habitat/ManiSkill), info-bottleneck
+    bounds (Sensorimotor Rep Learning 2021). Unexplored moves: neural-similarity
+    validation, morphological variation, imitation-from-motion-prediction.'
+- objective: 'T20 (Part A, 4/4): Deep-read top 3-5 most relevant papers from T17-19.
+    Use WebFetch to retrieve full intro+discussion+conclusion sections. For each,
+    write a half-page summary in tasks/research/deep_read_<slug>.md covering: (1)
+    what they do, (2) what WorldNN has that they don''t, (3) what they have that WorldNN
+    could adopt, (4) citation-to-paper mapping (threat? support? orthogonal?).'
+  priority: 2
+  status: completed
+  added: 2026-04-23 04:00
+  source: afk-plan-iter3
+  started: 2026-04-23 04:18
+  completed: 2026-04-23 04:26
+  context: Part A 4/4. Converts breadth scan into deep methodological contact points.
+  success_criteria: 3-5 deep_read files written with all 4 analysis sections.
+  notes: 3 deep-reads written — Dreamer V4 (canonical scale instance, cite as
+    support), Missing Reward / AIF (theoretical substrate, cite in §7), ACT-JEPA
+    (candidate ablation via joint action+observation prediction loss). Adoption
+    targets: EFE policy objective, joint prediction-loss variant, sparse
+    action supervision.
+- objective: 'T21 (Part B): Current-results review. Re-read paper/draft.md, paper/neurips2026/main.tex,
+    and skim experiments/{rock_push.py, predictive_processing.py, sensory_capacity_tradeoff.py,
+    mi_chain.py, ci_at_scale.py}. Write tasks/research/current_state_review.md with
+    sections: (a) unclaimed adjacent hypotheses, (b) reviewer-visible weak spots beyond
+    what claim_to_evidence.md already covers, (c) scaling gaps. Target ~500 words.'
+  priority: 2
+  status: completed
+  added: 2026-04-23 04:00
+  source: afk-plan-iter3
+  started: 2026-04-23 04:26
+  completed: 2026-04-23 04:30
+  context: Part B. Grounds experiment plan in current artifact state.
+  success_criteria: Memo written with all three sections, each with 3+ concrete items.
+  notes: '6 unclaimed hypotheses (incl. Outcome Alignment from PI chat), 6 weak
+    spots (single morphology, no Dreamer baseline, obj-024-only recon comparison,
+    missing chain-MI figure, no sensory-dim transfer, SA-norm ablation), 6
+    scaling gaps (embed_dim ceiling, episode count, task diversity, batch size,
+    seed power, compute transparency).'
+- objective: 'T22 (Part C): Experiment plan — propose 3-5 new experiments covering
+    the suggested directions (asymmetry-scaling curves at larger capacity, cross-physics
+    transfer, multi-task generalization, causal intervention on action-space dimensions,
+    SA slope as early-stop validation). Per experiment, include: hypothesis, minimal
+    design, compute (verify via `mc runpod check` — record free VRAM), falsifier,
+    marginal contribution vs existing obj-024/025/026. Save to tasks/research/experiment_plan.md.'
+  priority: 2
+  status: completed
+  added: 2026-04-23 04:00
+  source: afk-plan-iter3
+  started: 2026-04-23 04:30
+  completed: 2026-04-23 04:37
+  context: Part C. Uses T21 gaps + T20 adopted methods to design follow-on work.
+  success_criteria: 3-5 fully-specified experiments; compute estimates verified against
+    `mc runpod check` snapshot.
+  notes: 5 experiments proposed and ranked. VRAM snapshot at plan time 44.4/45 GB
+    free (upgraded RunPod node). Top: E1 asymmetry-scaling at larger embed_dim
+    (addresses Reviewer A, ~3-4h on RunPod). Cheap: E2 Outcome Alignment (CPU,
+    responds to PI), E3 action-space rotation intervention (CPU), E5 1D-positioning
+    multi-task sensory sweep (RunPod ~2h, Reviewer E mitigation).
+- objective: 'T23 (Part D): Cross-discipline hook memo. Choose one unrelated field
+    whose dynamics map onto action-space asymmetry driving learning. Candidates to
+    work through: fungal hyphal signal propagation; neural critical periods (BDNF);
+    mycorrhizal network resource allocation; predictive-coding cortex circuits; slime
+    mold decision-making; insect central-complex navigation. Write 500-800 word memo
+    at tasks/research/cross_discipline.md mapping at least 3 structural analogies
+    (network topology, information engineering, failure modes).'
+  priority: 3
+  status: completed
+  added: 2026-04-23 04:00
+  source: afk-plan-iter3
+  started: 2026-04-23 04:37
+  completed: 2026-04-23 04:42
+  context: Part D. Targets lateral intuition for paper framing / discussion / future
+    grants.
+  success_criteria: 500-800 words, 3+ structural analogies mapped with testable predictions.
+  notes: 'Fungal hyphal signaling ↔ WorldNN analogies: (1) serial-chain information
+    loss matching DPI floor; (2) single-point-of-failure at embedding hub ≈
+    hyphal junctions; (3) directional/irreversible action ≈ hyphal apical
+    extension. Testable bridge: compare signal-decay exponents between CMN
+    literature (Simard, Gorzelak, Babikova) and a serial-chain extension of
+    WorldNN.'
+- objective: 'T24 (synthesis): Compile final research-sweep memo at tasks/research/sweep_memo_2026-04-23.md
+    combining T17-T23. Sections: (1) Literature headline findings (3 bullets), (2)
+    Current-state gaps (3 bullets), (3) Recommended experiments (3 ranked), (4) Cross-discipline
+    hook (1 paragraph), (5) Suggested next AFK cycle. Post Slack summary via `/home/dan/Documents/code/development/bin/slack-notify.sh
+    WorldNN "Deep research sweep: ..."`. Update tasks/planning.md with recommendations.'
+  priority: 3
+  status: completed
+  added: 2026-04-23 04:00
+  source: afk-plan-iter3
+  started: 2026-04-23 04:42
+  completed: 2026-04-23 04:45
+  context: Final synthesis. Produces single PI-facing deliverable.
+  success_criteria: sweep_memo committed, Slack posted, planning.md updated.
+  notes: sweep_memo_2026-04-23.md committed with all 5 sections. Slack posted
+    to #worldnn. planning.md updated with Next priority pointing to E1/E5/E2.

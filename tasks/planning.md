@@ -48,35 +48,29 @@ expanded discussion, conclusion, and oracle-free proxy estimation section.
 - [x] Pre-submission checklist
 - [x] Oracle-free SA proxy (obj-022): action variance r=-0.82
 
-## Active AFK goal (2026-04-19 13:19 — refill)
+## Active AFK goal (2026-04-23 03:07 — iter-3)
 
-Previous iteration (obj-025, 03:24) COMPLETE. New iteration focused on:
-(a) Reviewer E residual risk — 2-rock sensory-capacity replicate on RunPod A4500
-(b) Paper integration — fold obj-024/obj-025 results into draft with scope caveats
-(c) Discriminating extension — longer-training test for substitution-vs-floor
-
-RunPod A4500 now available for >10min jobs: `mc runpod sync WorldNN` / fetch.
+Deep research sweep COMPLETE. 4 parts across 8 tasks (T17-T24). Artifacts
+at tasks/research/ (10 memos). Synthesis memo is sweep_memo_2026-04-23.md.
 
 ## Next priority
 
-AFK iter-2 COMPLETE. obj-026 (2-rock sensory-capacity) finished on RunPod
-A4500 after ~35 hours (GPU contention). Negative finding: 2-rock shows
-floor effect (mean dist 0.501, peak SA 0.098 vs 0.234 on 1-rock). Paper
-§5.7/§7.5 updated with scope restriction.
+Three experiments recommended by sweep:
+1. *E1 asymmetry-scaling at larger embed_dim* (RunPod, 3-4 h) — addresses
+   Reviewer A "does capacity eventually win?"
+2. *E5 1D multi-task sensory-capacity* (RunPod, ~2 h) — addresses
+   Reviewer E task-similarity on a non-push task.
+3. *E2 Outcome Alignment on obj-024 data* (CPU, <1 h) — responds to PI's
+   "intent vs real" framing.
 
-**PI decision needed:** Reviewer E risk remains HIGH. Options:
-(a) *Scope-restrict* the info-bound claim to 1-rock, rely on obj-021
-(r=-0.728) as cross-task SA evidence, frame obj-026 as future work;
-(b) *Rerun obj-026* with ≥2000 episodes + n=13 seeds (≈ 2-3 days on
-RunPod even with gating);
-(c) *Intermediate task* — e.g., 1-rock with randomized target, testing
-whether substitution is task-width-specific rather than object-count.
-
-Recommended: (a) for NeurIPS deadline (May 6); queue (b) or (c) as a
-future revision if accepted.
+Awaiting PI direction. Paper is internally consistent as-is; these
+experiments are for strengthening, not rescuing.
 
 ## Recently Completed
 
+- [2026-04-23] AFK iter-3: Deep research sweep — 24 recent papers catalogued, 3 deep-reads, current-state review, 5 ranked experiments, fungal-hyphae cross-discipline memo
+- [2026-04-22] Compliance sweep: PACE scrub, silent-GPU-grab fix, manuscript emdash/hedge cleanup
+- [2026-04-21] obj-026: 2-rock sensory-capacity replicate floor effect (peak SA 0.098, Reviewer E risk HIGH)
 - [2026-04-19] obj-025: AFK review-panel sprint — rate-distortion (r=0.975 MI vs peak SA), bootstrap CIs (Cohen's d=1.10 substitution), biological calibration, SA-as-free-energy, reviewer risk map
 - [2026-04-19] obj-024: Sensory-capacity tradeoff (100 configs, peak SA=0.234 at sensory=16/embed=16, floor effect confirms DPI, substitution effect statistically significant with d=1.10)
 - [2026-04-01] Oracle-free proxy experiment (obj-022): action variance r=-0.82 with distance
