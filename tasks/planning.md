@@ -53,18 +53,33 @@ expanded discussion, conclusion, and oracle-free proxy estimation section.
 Deep research sweep COMPLETE. 4 parts across 8 tasks (T17-T24). Artifacts
 at tasks/research/ (10 memos). Synthesis memo is sweep_memo_2026-04-23.md.
 
-## Next priority
+## Standing directive: keep A40 productive (48 GB, ~$0.50/hr)
 
-Three experiments recommended by sweep:
-1. *E1 asymmetry-scaling at larger embed_dim* (RunPod, 3-4 h) — addresses
-   Reviewer A "does capacity eventually win?"
-2. *E5 1D multi-task sensory-capacity* (RunPod, ~2 h) — addresses
-   Reviewer E task-similarity on a non-push task.
-3. *E2 Outcome Alignment on obj-024 data* (CPU, <1 h) — responds to PI's
-   "intent vs real" framing.
+Active pod info: `development/status/runpod-active.json`. Always `mc runpod
+check/fits/await` before launching. Never hardcode addresses.
 
-Awaiting PI direction. Paper is internally consistent as-is; these
-experiments are for strengthening, not rescuing.
+### Currently running
+- **obj-027 asymmetry-scaling** (90 configs: sensory ∈ {2,8,16} × embed ∈
+  {16,32,64,128,256,512} × 5 seeds, batch=1024). Launched 2026-04-23 on A40;
+  using ~700 MB VRAM. ETA 3-4 h.
+
+### Queued (ready to launch after obj-027)
+- **obj-028 1D sensory-capacity** (75 configs on ContinuousMatter, 500 ep,
+  batch=1024). Script written at experiments/obj028_1d_sensory_capacity.py.
+  Estimated VRAM 2 GB; `mc runpod fits 2` before launch.
+
+### Backlog
+- **obj-029 PPO hyperparameter sweep** — lr ∈ {1e-4, 3e-4, 1e-3} × entropy_coef
+  ∈ {0.001, 0.01, 0.05} × clip_eps ∈ {0.1, 0.2, 0.3} × 3 seeds on obj-024's
+  peak cell (sensory=16, embed=16). 27×3 = 81 configs at batch=1024. Never
+  done; could reveal whether obj-024 was optimally tuned. Est. 4 GB.
+- **obj-030 Outcome Alignment** — requires adding OA logging to the training
+  loop (current scripts don't save trajectories). Rerun 1 cell of obj-024
+  with OA instrumentation. Responds to PI's "intent vs real" question.
+  Est. 1 GB CPU/GPU.
+- **obj-031 Sparse-action supervision** (Dreamer V4-inspired) — train with
+  only N% of oracle-action pairs, measure SA at N ∈ {1%, 5%, 25%, 100%}.
+  Tests whether our SA ceiling holds under weaker supervision. Est. 2 GB.
 
 ## Recently Completed
 
