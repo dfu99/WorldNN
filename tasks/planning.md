@@ -61,10 +61,10 @@ at tasks/research/ (10 memos). Synthesis memo is sweep_memo_2026-04-23.md.
 - **Keep A40 productive** when halulujah is idle. Read
   `development/status/runpod-active.json` for address. Always gate via
   `mc runpod check/fits/await` before launching. Never hardcode.
-- **WD_BLACK snapshots** at every milestone: `rsync -a --exclude
-  '.git/objects/pack' --exclude '__pycache__' <repo>/
-  /media/dan/WD_BLACK/claude/backups/WorldNN/<YYYY-MM-DD-HHMM>/`. Keep
-  last ~5.
+- **WD_BLACK diff/mirror** at every milestone — `rsync -a --delete` per
+  subdir (`results/`, `figures/`, `paper/`) into
+  `/media/dan/WD_BLACK/claude/backups/WorldNN/<sub>/`. No dated snapshots.
+  Scope: experimental outputs only, never code/caches. See memory.
 
 ### Currently SUBSCRIBED (event-driven, no polling)
 - **obj-027 asymmetry-scaling** — killed at config 2/90 when halulujah
