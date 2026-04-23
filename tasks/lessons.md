@@ -59,13 +59,9 @@
 - **Use `CUDA_VISIBLE_DEVICES=''` for CPU-only runs.** Avoids CUDA
   initialization overhead and errors when no GPU is available.
 
-- **PACE RTX 6000 nodes enforce max 6 CPUs per GPU.** Requesting
-  `--cpus-per-task=8` with 1 RTX 6000 fails with "Maximum CPU:GPU
-  ratio of 6:1". Use `--cpus-per-task=6` or fewer.
-
 - **Local scipy is broken (numpy 2.4 vs scipy 1.11).** Avoid `from scipy
-  import stats` in analysis scripts. Use manual implementations for t-tests
-  and other basic stats. PACE environment may differ — check there too.
+  import stats` in analysis scripts. Use manual implementations for
+  t-tests and other basic stats.
 
 - **PredictiveOrganism replaces world.organism after World init.** To use
   predictive processing, create a normal World then swap:

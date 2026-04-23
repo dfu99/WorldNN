@@ -7,4 +7,4 @@ All code-style rules live there. This file is a pointer; do not edit it. Edit th
 For **WorldNN**, apply:
 
 - All Core Rules from the canonical file.
-- the **research-gpu** overlay (CPU-only by default, PACE SLURM rules, greppable training output, `mc runpod` for RunPod node discovery).
+- the **research-gpu** overlay (CPU-only by default, greppable training output, `mc runpod` for the shared RunPod A4500).

@@ -104,50 +104,17 @@ rotates access across projects in 90-minute exclusive windows.
 - Your window is ~90 minutes. Plan GPU work to fit or checkpoint incrementally.
 - Do NOT report being "blocked on GPU." You are in a queue and will get your turn.
 
-## PACE Cluster SLURM Rules
+## Remote GPU (RunPod)
 
-When writing SLURM scripts for the PACE cluster:
+For GPU jobs longer than 10 minutes, use the shared RunPod A4500 via `mc runpod`. The node has no scheduler, so gate every launch on free VRAM:
 
-- **Account**: Always use `-A gts-yke8`
-- 9 GPU types available, ordered cheapest first: V100-16GB, V100-32GB, RTX_6000, A100-40GB, L40S, A100-80GB, H100, H200, RTX Pro Blackwell
-- V100 and A100 need `-C` constraints to select VRAM variant (e.g. `-C V100-16GB`, `-C A100-40GB`, `-C A100-80GB`)
-- Always pick the cheapest GPU whose VRAM fits the job
-- **Modules**: Always `module load cuda` for GPU jobs
-- **Mail**: `--mail-type=END,FAIL` / `--mail-user=daniel.fu@emory.edu`
-- **Paths**: scratch at `~/scratch/`, project storage at `~/p-yke8-0/`
+```
+mc runpod check                    # JSON: free_gb per GPU, top processes
+mc runpod fits <gb>                # exit 0 if safe
+mc runpod await <gb> --timeout N   # block until free
+mc runpod sync WorldNN             # rsync code
+mc runpod exec "cd ~/projects/WorldNN && ..."
+mc runpod fetch WorldNN            # pull results back
+```
 
-## PACE Cluster SLURM Rules
-
-When writing SLURM scripts for the PACE cluster:
-
-- **Account**: Always use `-A gts-yke8`
-- 9 GPU types available, ordered cheapest first: V100-16GB, V100-32GB, RTX_6000, A100-40GB, L40S, A100-80GB, H100, H200, RTX Pro Blackwell
-- V100 and A100 need `-C` constraints to select VRAM variant (e.g. `-C V100-16GB`, `-C A100-40GB`, `-C A100-80GB`)
-- Always pick the cheapest GPU whose VRAM fits the job
-- **Modules**: Always `module load cuda` for GPU jobs
-- **Mail**: `--mail-type=END,FAIL` / `--mail-user=daniel.fu@emory.edu`
-- **Paths**: scratch at `~/scratch/`, project storage at `~/p-yke8-0/`
-
-## PACE Cluster SLURM Rules
-
-When writing SLURM scripts for the PACE cluster:
-
-- **Account**: Always use `-A gts-yke8`
-- 9 GPU types available, ordered cheapest first: V100-16GB, V100-32GB, RTX_6000, A100-40GB, L40S, A100-80GB, H100, H200, RTX Pro Blackwell
-- V100 and A100 need `-C` constraints to select VRAM variant (e.g. `-C V100-16GB`, `-C A100-40GB`, `-C A100-80GB`)
-- Always pick the cheapest GPU whose VRAM fits the job
-- **Modules**: Always `module load cuda` for GPU jobs
-- **Mail**: `--mail-type=END,FAIL` / `--mail-user=daniel.fu@emory.edu`
-- **Paths**: scratch at `~/scratch/`, project storage at `~/p-yke8-0/`
-
-## PACE Cluster SLURM Rules
-
-When writing SLURM scripts for the PACE cluster:
-
-- **Account**: Always use `-A gts-yke8`
-- 9 GPU types available, ordered cheapest first: V100-16GB, V100-32GB, RTX_6000, A100-40GB, L40S, A100-80GB, H100, H200, RTX Pro Blackwell
-- V100 and A100 need `-C` constraints to select VRAM variant (e.g. `-C V100-16GB`, `-C A100-40GB`, `-C A100-80GB`)
-- Always pick the cheapest GPU whose VRAM fits the job
-- **Modules**: Always `module load cuda` for GPU jobs
-- **Mail**: `--mail-type=END,FAIL` / `--mail-user=daniel.fu@emory.edu`
-- **Paths**: scratch at `~/scratch/`, project storage at `~/p-yke8-0/`
+Estimate peak VRAM (params × 4B + optimizer ≈ 2× params + batch activations) before `fits`. Small PPO jobs (~2K params, batch=256) use ~0.3 GB.

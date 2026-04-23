@@ -27,8 +27,6 @@ Proxy C — Value-Action Alignment:
   differences along the action direction.
 
 Each proxy is computed alongside the true SA for validation.
-
-DO NOT SUBMIT TO PACE — design only. Awaiting PI approval.
 """
 
 import sys
