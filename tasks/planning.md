@@ -66,12 +66,20 @@ at tasks/research/ (10 memos). Synthesis memo is sweep_memo_2026-04-23.md.
   /media/dan/WD_BLACK/claude/backups/WorldNN/<YYYY-MM-DD-HHMM>/`. Keep
   last ~5.
 
-### Currently YIELDED
-- **obj-027 asymmetry-scaling** — launched, then killed at config 2/90
-  because `mc runpod check` showed halulujah running (PID 9461, 23.5 GB
-  VRAM, biology full FT). No checkpoint saved (script writes every 5
-  configs; 2 done, re-run cheap). Re-launch when halulujah finishes.
-  Config complete so far: sensory=2/embed=16 seeds 42,123 (SA=0.009, 0.027).
+### Currently SUBSCRIBED (event-driven, no polling)
+- **obj-027 asymmetry-scaling** — killed at config 2/90 when halulujah
+  started. Subscribed to pod via `mc runpod subscribe WorldNN "..."`
+  (queue position 8 of 8 at last check: dippy-WAN, conformers, haro,
+  RL-Arm, --help, FIND-SNP, difftoken, WorldNN). Will be woken via `mc
+  send` on release. On wake: re-check `mc runpod fits 5` and either
+  submit or resubscribe.
+- Re-launch command: `mc runpod sync WorldNN && mc runpod exec "cd
+  ~/projects/WorldNN && WORLDNN_DEVICE=cuda nohup python3
+  experiments/obj027_asymmetry_scaling.py > /tmp/obj027.log 2>&1 &"`.
+  Script writes checkpoint every 5 configs — config 2 results (seed=42
+  and 123 at sensory=2/embed=16: SA=0.009, 0.027) were NOT persisted, so
+  resume re-does them. Cost: ~1 min. No action needed beyond relaunch.
+  Must `mc runpod release` when obj-027 finishes to wake next subscriber.
 
 ### Queued (ready to launch after obj-027)
 - **obj-028 1D sensory-capacity** (75 configs on ContinuousMatter, 500 ep,
