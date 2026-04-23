@@ -53,15 +53,25 @@ expanded discussion, conclusion, and oracle-free proxy estimation section.
 Deep research sweep COMPLETE. 4 parts across 8 tasks (T17-T24). Artifacts
 at tasks/research/ (10 memos). Synthesis memo is sweep_memo_2026-04-23.md.
 
-## Standing directive: keep A40 productive (48 GB, ~$0.50/hr)
+## Standing directives
 
-Active pod info: `development/status/runpod-active.json`. Always `mc runpod
-check/fits/await` before launching. Never hardcode addresses.
+- **halulujah priority (highest).** If `mc runpod check` shows any
+  halulujah process running or queued, YIELD — checkpoint cleanly, kill
+  own job, wait. Re-check before resuming. dippy-WAN is lowest priority.
+- **Keep A40 productive** when halulujah is idle. Read
+  `development/status/runpod-active.json` for address. Always gate via
+  `mc runpod check/fits/await` before launching. Never hardcode.
+- **WD_BLACK snapshots** at every milestone: `rsync -a --exclude
+  '.git/objects/pack' --exclude '__pycache__' <repo>/
+  /media/dan/WD_BLACK/claude/backups/WorldNN/<YYYY-MM-DD-HHMM>/`. Keep
+  last ~5.
 
-### Currently running
-- **obj-027 asymmetry-scaling** (90 configs: sensory ∈ {2,8,16} × embed ∈
-  {16,32,64,128,256,512} × 5 seeds, batch=1024). Launched 2026-04-23 on A40;
-  using ~700 MB VRAM. ETA 3-4 h.
+### Currently YIELDED
+- **obj-027 asymmetry-scaling** — launched, then killed at config 2/90
+  because `mc runpod check` showed halulujah running (PID 9461, 23.5 GB
+  VRAM, biology full FT). No checkpoint saved (script writes every 5
+  configs; 2 done, re-run cheap). Re-launch when halulujah finishes.
+  Config complete so far: sensory=2/embed=16 seeds 42,123 (SA=0.009, 0.027).
 
 ### Queued (ready to launch after obj-027)
 - **obj-028 1D sensory-capacity** (75 configs on ContinuousMatter, 500 ep,
