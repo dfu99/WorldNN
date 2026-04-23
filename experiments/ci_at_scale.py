@@ -18,6 +18,7 @@ Plus 35 random baseline configs (untrained, 5 embed × 7 seeds).
 Total: 280 configs.
 """
 
+import os
 import sys
 import json
 import time
@@ -40,7 +41,7 @@ from coordination_quality import compute_optimal_action, measure_coordination_qu
 
 
 def measure_random_baseline(matter, sensory_dim, embed_dim, seed,
-                             perception_fn, device="cuda"):
+                             perception_fn, device="cpu"):
     """Measure C_i and distance for an UNTRAINED organism."""
     torch.manual_seed(seed)
     dev = torch.device(device)
@@ -80,7 +81,7 @@ def measure_random_baseline(matter, sensory_dim, embed_dim, seed,
 
 
 def run_config(level_name, matter, sensory_dim, embed_dim, seed,
-               perception_fn, device="cuda", n_episodes=500):
+               perception_fn, device="cpu", n_episodes=500):
     """Run one config with C_i measurement."""
     torch.manual_seed(seed)
     dev = torch.device(device)
@@ -118,7 +119,9 @@ def run_config(level_name, matter, sensory_dim, embed_dim, seed,
 
 
 def main():
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = os.environ.get("WORLDNN_DEVICE", "cpu")
+    if device == "cuda" and not torch.cuda.is_available():
+        raise RuntimeError("WORLDNN_DEVICE=cuda set but CUDA unavailable")
     print(f"Device: {device}")
     if device == "cuda":
         print(f"GPU: {torch.cuda.get_device_name(0)}")

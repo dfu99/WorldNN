@@ -84,7 +84,8 @@ def run_config(
 def main():
     parser = argparse.ArgumentParser(description="Rock-push experiment")
     parser.add_argument("--results-dir", default="results")
-    parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
+    parser.add_argument("--device", default="cpu",
+                        help="cpu (default) or cuda; GPU must be explicitly requested")
     parser.add_argument("--n-episodes", type=int, default=500)
     parser.add_argument("--checkpoint-every", type=int, default=10)
     args = parser.parse_args()
@@ -144,13 +145,6 @@ def main():
             completed.append(result)
             print(f"dist={result['final_rock_distance']:.3f}, "
                   f"contact={result['final_contact_rate']:.3f}")
-        except Exception as e:
-            print(f"FAILED: {e}")
-            completed.append({
-                "channel_noise": noise, "env_latent_dim": lat,
-                "embedding_dim": emb, "seed": s,
-                "error": str(e),
-            })
 
         # Checkpoint
         if len(completed) % args.checkpoint_every == 0:
@@ -173,11 +167,7 @@ def main():
     print(f"\nDone: {len(completed)}/{total} in {elapsed/60:.1f} min")
     print(f"Results: {results_path}")
 
-    # Generate summary plot
-    try:
-        generate_plot(completed, results_dir)
-    except Exception as e:
-        print(f"Plot generation failed: {e}")
+    generate_plot(completed, results_dir)
 
 
 def generate_plot(results, results_dir):

@@ -117,7 +117,7 @@ def compute_separability(z, states):
         kde1 = gaussian_kde(z1[:, best_dim])
         x_grid = np.linspace(z[:, best_dim].min(), z[:, best_dim].max(), 500)
         overlap = np.trapz(np.minimum(kde0(x_grid), kde1(x_grid)), x_grid)
-    except Exception:
+    except np.linalg.LinAlgError:
         overlap = float("nan")
 
     return {

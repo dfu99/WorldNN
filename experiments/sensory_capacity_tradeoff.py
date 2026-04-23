@@ -29,6 +29,7 @@ sensory richness for model capacity. A 16-channel organism with emb=4
 should match a 2-channel organism with emb=32 (or beat it).
 """
 
+import os
 import sys
 import json
 import time
@@ -51,7 +52,7 @@ def train_organism_sensory(
     n_episodes=800, steps_per_episode=20, batch_size=256,
     lr=3e-4, gamma=0.99, entropy_coef=0.01,
     action_std_init=0.8, action_std_final=0.2, clip_eps=0.2,
-    ppo_epochs=4, device="cuda",
+    ppo_epochs=4, device="cpu",
 ):
     """Train organism with a subset of emission channels.
 
@@ -175,7 +176,7 @@ def train_organism_sensory(
     return metrics
 
 
-def compute_sa_sensory(matter, organism, sensory_dim, n_samples=2000, device="cuda"):
+def compute_sa_sensory(matter, organism, sensory_dim, n_samples=2000, device="cpu"):
     """Compute SA for a sensory-limited organism."""
     dev = torch.device(device)
     organism.eval()
@@ -208,7 +209,9 @@ def compute_sa_sensory(matter, organism, sensory_dim, n_samples=2000, device="cu
 
 
 def main():
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = os.environ.get("WORLDNN_DEVICE", "cpu")
+    if device == "cuda" and not torch.cuda.is_available():
+        raise RuntimeError("WORLDNN_DEVICE=cuda set but CUDA unavailable")
     print(f"Device: {device}")
     if device == "cuda":
         print(f"GPU: {torch.cuda.get_device_name(0)}")

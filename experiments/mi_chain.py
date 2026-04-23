@@ -23,6 +23,7 @@ For each condition × embed_dim × seed, we:
 Output: results/mi_chain.json + results/mi_chain.png
 """
 
+import os
 import sys
 import json
 import time
@@ -49,7 +50,7 @@ from perception_ladder import train_organism_with_perception
 
 def compute_mi_chain(
     matter, organism, perception_fn, chain_components,
-    n_samples=2000, device="cuda",
+    n_samples=2000, device="cpu",
 ):
     """Compute MI at each stage of the perception chain.
 
@@ -121,7 +122,7 @@ def compute_mi_chain(
     return result
 
 
-def compute_sa(matter, organism, perception_fn, n_samples=1000, device="cuda"):
+def compute_sa(matter, organism, perception_fn, n_samples=1000, device="cpu"):
     """Compute SA = cos(a_learned, a_optimal) across samples."""
     dev = torch.device(device)
     organism.eval()
@@ -155,7 +156,9 @@ def compute_sa(matter, organism, perception_fn, n_samples=1000, device="cuda"):
 
 
 def main():
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = os.environ.get("WORLDNN_DEVICE", "cpu")
+    if device == "cuda" and not torch.cuda.is_available():
+        raise RuntimeError("WORLDNN_DEVICE=cuda set but CUDA unavailable")
     print(f"Device: {device}")
     if device == "cuda":
         print(f"GPU: {torch.cuda.get_device_name(0)}")

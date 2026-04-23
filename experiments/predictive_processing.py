@@ -124,7 +124,9 @@ def run_study(results_dir: str = "results"):
 
     configs = list(itertools.product(noise_levels, env_lats, pred_coefs, seeds))
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = os.environ.get("WORLDNN_DEVICE", "cpu")
+    if device == "cuda" and not torch.cuda.is_available():
+        raise RuntimeError("WORLDNN_DEVICE=cuda set but CUDA unavailable")
     print(f"Device: {device}")
     print(f"Total configs: {len(configs)}")
 

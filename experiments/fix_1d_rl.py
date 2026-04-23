@@ -329,12 +329,14 @@ def main():
     baseline = all_results[0]
     print(f"\nBaseline: {baseline['final_success']:.1%}")
     print(f"Best fix: {best['label']} at {best['final_success']:.1%}")
-    if best["final_success"] > 0.5:
-        print("SUCCESS: At least one fix enables learning from 1D latent!")
-    else:
-        print("PARTIAL: Improvements found but no fix reaches >50% success.")
-        print("Consider: more training episodes, different architectures, or")
-        print("the 1D RL problem may require fundamentally different approach.")
+
+    # Greppable final metrics (prefix: METRIC)
+    print(f"METRIC baseline_final_success={baseline['final_success']:.4f}")
+    print(f"METRIC best_label={best['label']}")
+    print(f"METRIC best_final_success={best['final_success']:.4f}")
+    for res in all_results:
+        label = res["label"].replace(" ", "_")
+        print(f"METRIC fix_{label}_final_success={res['final_success']:.4f}")
 
 
 if __name__ == "__main__":
