@@ -191,7 +191,7 @@ despite only seeing a degraded version.
 SA = 0: the organism's action is orthogonal to optimal; it cannot
 bridge the perception-action gap.
 
-### 4.2 Metric ablation: why cosine alignment?
+### 4.2 Metric ablation
 
 We compared six candidate metrics as predictors of task performance
 on the at-scale dataset (n=245):
@@ -318,9 +318,8 @@ learnability threshold:
 - VAE μ lat=16: emb=32 reaches by 133ep; emb=2 often never reaches
 
 In this task, configs with SA slope < 0.1 per 100 episodes by episode
-200 did not achieve successful learning. If this pattern holds across
-tasks, SA slope could serve as an early stopping criterion, though
-cross-task validation is needed.
+200 did not achieve successful learning. Cross-task validation is
+needed before deploying SA slope as an early stopping criterion.
 
 ### 5.5 Second task: 2-rock push (6D state)
 
@@ -428,10 +427,10 @@ episodes each), peak SA rose monotonically with sensory richness:
 
 A floor effect was evident at sensory_dim ≤ 4: no embedding dimension
 rescued performance. Bootstrap analysis confirmed a statistically
-significant substitution effect in the opposite limit — rich-input
+significant substitution effect in the opposite limit. Rich-input
 with minimal capacity (sensory=16, embed=2, SA=0.033) outperformed
-poor-input with maximal capacity (sensory=2, embed=32, SA=−0.007):
-Cohen's d = 1.10, 95% CI for mean difference [+0.004, +0.083].
+poor-input with maximal capacity (sensory=2, embed=32, SA=−0.007),
+with Cohen's d = 1.10 and 95% CI for mean difference [+0.004, +0.083].
 
 **Rate-distortion analysis (obj-025 T3).** We estimated the
 information available about state S from the first sensory_dim
@@ -449,7 +448,7 @@ The Gaussian-MI correlates with peak achieved SA at r = 0.975 across
 the four sensory conditions. This matches the prediction of the Data
 Processing Inequality: capacity cannot recover information absent
 from the input. The floor effect at sensory ≤ 4 corresponds to
-linear R² < 0.3 — the information about state is below what the task
+linear R² < 0.3. The information about state is below what the task
 requires, and no policy regardless of internal dimension can close
 the gap.
 
@@ -554,9 +553,9 @@ simulation reproduces the biological mechanism.
 ### 7.3 SA as a training diagnostic
 
 SA slope during the first 200 training episodes predicts final
-performance (r = −0.705). This suggests a practical application:
-monitoring SA during training to identify configurations that are
-unlikely to learn, enabling early reallocation of compute. In our
+performance (r = −0.705). Monitoring SA during training identifies
+configurations unlikely to learn and enables early reallocation of
+compute. In our
 experiments, all configurations with SA slope < 0.1 per 100 episodes
 at episode 200 failed to achieve successful learning. This diagnostic
 is limited to settings where SA can be computed (i.e., where the
@@ -604,18 +603,17 @@ discriminate within the fully-degraded regime.
 reconstruction-style metrics when the perception × capacity grid
 spans broad dynamic range (§5.1: r = −0.724 across 7 perception
 levels). On compressed grids where perception is uniformly
-impoverished — such as §5.7's sensory-capacity sweep, where sensory
-dim ≤ 4 fails to produce learning regardless of capacity — SA's
+impoverished, such as §5.7's sensory-capacity sweep where sensory
+dim ≤ 4 fails to produce learning regardless of capacity, SA's
 predictive power collapses to what input-information alone provides.
 A linear-probe recon R² and SA correlate with task performance at
 r = −0.419 and r = −0.245 respectively on that grid, with partial
 r(SA | inputs) = −0.071 and ΔR² from adding SA of 0.004. We read this
-as a *scope specification*, not a failure: SA measures structural
+as a scope specification, not a failure. SA measures structural
 alignment across perception richness; when richness varies little,
-there is no alignment dimension for SA to track. This places SA as
-complementary to reconstruction loss rather than a replacement —
-useful primarily when the perception chain itself is part of the
-experimental variation.
+there is no alignment dimension for SA to track. SA is thus
+complementary to reconstruction loss, useful primarily when the
+perception chain itself is part of the experimental variation.
 
 ### 7.6 Future work
 

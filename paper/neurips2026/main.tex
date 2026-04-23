@@ -35,11 +35,11 @@ rock-push ($r = -0.72$, $n = 245$, $p = 5 \times 10^{-9}$ for the perception
 $\times$ capacity interaction) and a 6D two-rock push ($r = -0.73$, $n = 45$).
 SA exhibits a learnability threshold (SA $\geq 0.5$ yields 98\% success) and
 transfers across physics and appearance variants (89--106\% retention). Perception
-quality and organism capacity interact multiplicatively: increasing capacity
+quality and organism capacity interact multiplicatively. Increasing capacity
 reduces distance to target only when perception is sufficient
 ($\beta_{\text{interaction}} = -0.004$, $p = 5 \times 10^{-9}$). When perception
 is too degraded, additional representational power does not improve performance.
-An oracle-free proxy---action variance across observations---predicts performance
+An oracle-free proxy, action variance across observations, predicts performance
 comparably ($r = -0.82$) without access to optimal actions. These results
 reproduce the critical-period phenomenon observed by
 \citet{blakemore1970development}, where sensory pathways that fail to align with
@@ -50,7 +50,7 @@ motor experience are pruned.
 \section{Introduction}
 %-----------------------------------------------------------------------
 
-Embodied agents face a structural asymmetry: they perceive the world through lossy
+Embodied agents face a structural asymmetry. They perceive the world through lossy
 channels but act on it directly. An organism observes matter through emissions,
 noise, and compression, yet its motor commands modify the true physical state
 without passing through the perceptual chain:
@@ -112,9 +112,9 @@ space; this distinction matters because the action operates on true state, not o
 the model's latent representation.
 
 \textbf{Quasimetric RL} \citep{wang2023quasimetric} measures directional
-asymmetries in value function space. SA measures asymmetry in action space: the
-gap between the policy's action direction under degraded perception and the
-optimal direction under full state observation.
+asymmetries in value function space. SA measures asymmetry in action space.
+It quantifies the gap between the policy's action direction under degraded
+perception and the optimal direction under full state observation.
 
 \textbf{Policy cosine similarity in imitation learning} is superficially similar
 to SA. In imitation learning, the expert and learner share the same observation.
@@ -125,8 +125,8 @@ asymmetry is what makes the metric diagnostic of the perception-action loop.
 \textbf{Information bottleneck} \citep{tishby2000information} characterizes
 optimal compression-prediction tradeoffs. \textbf{Active inference}
 \citep{friston2010free} frames the perception-action loop as free energy
-minimization. SA operationalizes both: low SA corresponds to high free energy and
-lossy compression that destroys action-relevant information. SA differs from these
+minimization. SA operationalizes both frameworks; low SA corresponds to high
+free energy and to lossy compression that destroys action-relevant information. SA differs from these
 frameworks in that it provides a computable scalar rather than a theoretical bound.
 
 \textbf{Critical period neuroscience} \citep{blakemore1970development,
@@ -358,8 +358,8 @@ $I(S; \text{obs}) \approx \{0.33, 0.64, 3.44, 27.6\}$ nats for sensory\_dim
 $= \{2, 4, 8, 16\}$, with linear $R^2(S \mid \text{obs}) = \{0.15, 0.28, 0.82, 1.00\}$.
 The Gaussian-MI correlates with peak SA at $r = 0.975$. This matches the Data
 Processing Inequality prediction: capacity cannot recover information absent from
-the input. The floor effect at sensory $\leq 4$ corresponds to linear $R^2 < 0.3$
---- the information about state is below what the task requires, and no policy
+the input. The floor effect at sensory $\leq 4$ corresponds to linear $R^2 < 0.3$.
+The information about state is below what the task requires, and no policy
 dimension closes the gap.
 
 The 2--16 channel range sits at the low end of biological sensing, comparable to
@@ -451,9 +451,9 @@ regardless of observation (low variance, indicating no learned mapping).
 
 Action variance predicts task performance with $r = -0.82$ ($n = 30$), comparable
 to true SA ($r = -0.80$ on the same grid). Within oracle-only conditions, $r = -0.78$;
-within VAE-only conditions, $r = -0.75$. Four other candidates---prediction
+within VAE-only conditions, $r = -0.75$. Four other candidates, namely prediction
 consistency (forward model error), action stability under noise, value-action
-alignment, and policy self-predictability---achieved weaker correlations
+alignment, and policy self-predictability, achieved weaker correlations
 ($|r| \leq 0.43$). Action variance requires no knowledge of the optimal action, the
 environment dynamics, or the true state, and is computable from the organism's policy
 network alone (Figure~\ref{fig:proxy}).
@@ -481,9 +481,9 @@ cross-task validation is needed to confirm generalization.
 SA adds signal beyond reconstruction-style metrics when the
 (perception $\times$ capacity) grid spans broad dynamic range
 ($\S\ref{sec:results}$: $r = -0.724$ across 7 perception levels). On
-compressed grids where perception is uniformly impoverished --- as in the
-$\S\ref{sec:infobound}$ sensory-capacity sweep, where sensory\_dim $\leq 4$ fails
-to learn regardless of capacity --- SA's predictive power collapses to what
+compressed grids where perception is uniformly impoverished, as in the
+$\S\ref{sec:infobound}$ sensory-capacity sweep where sensory\_dim $\leq 4$ fails
+to learn regardless of capacity, SA's predictive power collapses to what
 input-information alone provides: linear-probe recon $R^2$ and SA correlate with
 task distance at $r = -0.419$ and $r = -0.245$ respectively on that grid, with
 partial $r(\text{SA} \mid \text{inputs}) = -0.071$ and $\Delta R^2 = 0.004$. We
