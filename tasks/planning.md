@@ -66,20 +66,22 @@ at tasks/research/ (10 memos). Synthesis memo is sweep_memo_2026-04-23.md.
   `/media/dan/WD_BLACK/claude/backups/WorldNN/<sub>/`. No dated snapshots.
   Scope: experimental outputs only, never code/caches. See memory.
 
-### Currently SUBSCRIBED (event-driven, no polling)
-- **obj-027 asymmetry-scaling** — killed at config 2/90 when halulujah
-  started. Subscribed to pod via `mc runpod subscribe WorldNN "..."`
-  (queue position 8 of 8 at last check: dippy-WAN, conformers, haro,
-  RL-Arm, --help, FIND-SNP, difftoken, WorldNN). Will be woken via `mc
-  send` on release. On wake: re-check `mc runpod fits 5` and either
-  submit or resubscribe.
-- Re-launch command: `mc runpod sync WorldNN && mc runpod exec "cd
-  ~/projects/WorldNN && WORLDNN_DEVICE=cuda nohup python3
-  experiments/obj027_asymmetry_scaling.py > /tmp/obj027.log 2>&1 &"`.
-  Script writes checkpoint every 5 configs — config 2 results (seed=42
-  and 123 at sensory=2/embed=16: SA=0.009, 0.027) were NOT persisted, so
-  resume re-does them. Cost: ~1 min. No action needed beyond relaunch.
-  Must `mc runpod release` when obj-027 finishes to wake next subscriber.
+### Pod state (2026-05-01 checkpoint): UNREACHABLE
+- `runpod-active.json` last_confirmed 2 d ago; SSH to 213.173.108.214:10031
+  refuses connection. `mc runpod check` returns empty gpus/processes.
+- Subscribers list previously empty ("No subscribers"); my prior
+  subscription has cleared.
+- Cannot launch obj-027 until a new pod is registered. No action
+  available beyond waiting.
+
+### Queued for next available pod
+- **obj-027 asymmetry-scaling** — script ready at
+  experiments/obj027_asymmetry_scaling.py. Re-subscribe + sync + exec
+  when a pod is registered. Resume logic skips completed configs (none
+  persisted from prior partial run; 2 configs lost = ~1 min re-cost).
+  After completion, `mc runpod release` to wake next subscriber.
+- **obj-028 1D sensory-capacity** — script ready, queued behind obj-027.
+- **obj-029 PPO hparam sweep, obj-030 OA, obj-031 sparse-action** — backlog.
 
 ### Queued (ready to launch after obj-027)
 - **obj-028 1D sensory-capacity** (75 configs on ContinuousMatter, 500 ep,
