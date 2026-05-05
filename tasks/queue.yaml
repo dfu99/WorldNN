@@ -861,13 +861,22 @@ queue:
     SA over recon. Currently we have this only on obj-024 narrow grid (ΔR²=0.004);
     the headline obj-016 number is what would settle Reviewer A.'
   priority: 3
-  status: pending
+  status: completed
   added: 2026-05-05 12:30
   source: audit-2026-05-05
+  started: 2026-05-05 21:00
+  completed: 2026-05-05 21:45
   context: Audit follow-up. Reviewer A's signature question 2 is unanswered for
     the wide-dynamic-range grid.
   success_criteria: results/obj028_recon_vs_sa_obj016.json with per-config
     recon-error and ΔR² number. Update §7.5 with the new ΔR² if non-trivial.
+  notes: 'HEADLINE FINDING. ΔR²(SA over recon) = +0.374 on the obj-016 wide
+    grid (vs 0.004 on obj-024 narrow). r(SA, dist) = -0.724, r(recon, dist) =
+    -0.436, partial r(SA | recon) = -0.679, partial r(recon | SA) = +0.285
+    (sign flips). SA explains 37% additional variance beyond recon-loss.
+    Paper §7.5 rewritten as "SA versus reconstruction-loss" leading with
+    +0.374; obj-024 ΔR²=0.004 reframed as the regime where SA collapses.
+    Reviewer A risk drops Medium → Low. Generator at scripts/obj028_recon_vs_sa_obj016.py.'
 
 - objective: 'T29 Pin KSG estimator behavior + add docstring warning. Audit D2
     found estimate_mi_ksg under-reports MI by 30-100% on bivariate Gaussian

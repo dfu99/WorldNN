@@ -51,11 +51,11 @@ ax = axes[0, 1]
 reviewers = ["A", "B", "C", "D", "E"]
 risk_pre = [3, 3, 3, 3, 3]
 risk_obj025 = [2, 1, 1, 1, 3]
-risk_now = [2, 1, 1, 1, 3]
+risk_now = [1, 1, 1, 1, 3]            # A drops Med→Low after T28 (D16)
 x = np.arange(len(reviewers)); w = 0.27
 ax.bar(x - w, risk_pre, w, label="pre-sweep", color="#bbbbbb", edgecolor="black")
 ax.bar(x, risk_obj025, w, label="post-obj-025", color="#1f77b4", edgecolor="black")
-ax.bar(x + w, risk_now, w, label="post-§5.7 fig", color="#d62728", edgecolor="black")
+ax.bar(x + w, risk_now, w, label="post-T28 (D16)", color="#d62728", edgecolor="black")
 ax.set_xticks(x); ax.set_xticklabels(reviewers, fontsize=10)
 ax.set_yticks([1, 2, 3]); ax.set_yticklabels(["Low", "Med", "High"])
 ax.set_title("B. Reviewer Risk Evolution")
@@ -143,8 +143,8 @@ ax.legend(handles=[mpatches.Patch(color="#2ca02c", label="tested"),
 ax = axes[3, 0]
 questions = [
     "A: POMDP framing",       # full
-    "A: vs Dreamer recon",    # scope
-    "A: DMC head-to-head",    # OPEN (T28)
+    "A: vs Dreamer recon",    # full now (ΔR²=+0.374 on obj-016)
+    "A: DMC head-to-head",    # full now via wide-grid recon-vs-SA delta
     "B: predictive component",# full
     "B: Markov blanket",      # full (paper)
     "B: free energy connect", # full
@@ -158,7 +158,7 @@ questions = [
     "E: 3-rock footnote",     # full
     "E: reversal degenerate", # full
 ]
-status_q = ["full","scope","open","full","full","full",
+status_q = ["full","full","full","full","full","full",
             "full","full","full","full","open","full",
             "full","full","full"]
 status_color = {"full": "#2ca02c", "partial": "#ff7f0e", "scope": "#1f77b4", "open": "#d62728"}

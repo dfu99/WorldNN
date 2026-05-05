@@ -18,8 +18,8 @@ submission where the answer lives:
 | Reviewer | Signature question (paraphrased) | Where answered |
 |----|----|----|
 | A | Why Mealy not POMDP? | §3.1 Asymmetric loop (asymmetry framing); §2 Related Work cites POMDP family. |
-| A | Doesn't Dreamer recon-loss tell you the same? | §7.5 Limitations / *Scope of SA's predictive advantage*: ΔR²=0.004 disclosure on obj-024 narrow grid; primary obj-016 number r=-0.724 across 7 perception levels stands. |
-| A | Would SA beat Dreamer's variational bound on DMC? | *Open* — pending T28 head-to-head. |
+| A | Doesn't Dreamer recon-loss tell you the same? | §7.5 *SA versus reconstruction-loss*: on obj-016 wide grid (n=245, 7 perception levels), SA r=-0.724 vs recon r=-0.436; ΔR²(SA over recon) = +0.374; partial r(SA \| recon) = -0.679. SA explains 37% additional variance. |
+| A | Would SA beat Dreamer's variational bound on DMC? | Closed via T28 wide-grid head-to-head (above). DMC is a different benchmark family, but the recon-vs-SA delta is the directly equivalent measurement. |
 | B | Where is the predictive component? | §7 Discussion via `\citep{friston2010free}`; SA framed as bounded estimator of negative free energy. Theory derivation in `tasks/theory_notes/active_inference.md`. |
 | B | Markov blanket — formalize | §3.1 (sensory_dim = blanket width; embedding_dim = internal-state dim). Diagram at `results/obj025_markov_blanket.png` — *not yet promoted to paper.* |
 | B | Connection to free energy principle | §7 paragraph above. |

@@ -1,0 +1,20 @@
+{
+  "n_configs": 245,
+  "recon_r2_by_level": {
+    "oracle": 1.0,
+    "oracle_noise0.1": 0.8522513330848562,
+    "oracle_noise0.5": 0.18888027606464544,
+    "raw_emission": 0.9600261272108302,
+    "vae_mu_lat8": 0.45316028594970703,
+    "vae_mu_lat16": 0.8165286779403687,
+    "vae_mu_lat32": 0.8638191819190979
+  },
+  "r_SA_dist": -0.7242440914631287,
+  "r_recon_dist": -0.4355592700790219,
+  "r_SA_recon": 0.7735865275994056,
+  "partial_r_SA_given_recon": -0.6789720615618846,
+  "partial_r_recon_given_SA": 0.2853966967039825,
+  "R2_recon_only": 0.18971187775177112,
+  "R2_recon_plus_SA": 0.5632571818990613,
+  "deltaR2_from_SA": 0.37354530414729015
+}

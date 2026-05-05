@@ -512,20 +512,29 @@ unreliable when perception carries zero task-relevant information.
 While action variance provides a strong oracle-free proxy on these tasks,
 cross-task validation is needed to confirm generalization.
 
-\paragraph{Scope of SA's predictive advantage.}
-SA adds signal beyond reconstruction-style metrics when the
-(perception $\times$ capacity) grid spans broad dynamic range
-($\S\ref{sec:results}$: $r = -0.724$ across 7 perception levels). On
-compressed grids where perception is uniformly impoverished, as in the
-$\S\ref{sec:infobound}$ sensory-capacity sweep where sensory\_dim $\leq 4$ fails
-to learn regardless of capacity, SA's predictive power collapses to what
-input-information alone provides: linear-probe recon $R^2$ and SA correlate with
-task distance at $r = -0.419$ and $r = -0.245$ respectively on that grid, with
-partial $r(\text{SA} \mid \text{inputs}) = -0.071$ and $\Delta R^2 = 0.004$. We
-read this as a scope specification: SA measures structural alignment across
-perception richness; when richness varies little, there is no alignment dimension
-for SA to track. SA is complementary to reconstruction loss, most useful when
-the perception chain is part of the experimental variation.
+\paragraph{SA versus reconstruction-loss.}
+We computed the linear-probe recon ceiling
+$R^2(\mathrm{state}\,\vert\,\mathrm{obs})$ for each of the seven perception
+conditions in the at-scale grid ($\S\ref{sec:results}$, $n = 245$): oracle
+1.00, oracle+noise(0.1) 0.85, oracle+noise(0.5) 0.19, raw emission 0.96,
+VAE $\mu$ lat$\,8$ 0.45, lat$\,16$ 0.82, lat$\,32$ 0.86. Per-config recon
+ceilings correlate with task distance at $r = -0.436$, weaker than SA's
+$r = -0.724$. After controlling for recon ceiling, SA still correlates with
+distance at partial $r = -0.679$; recon's residual partial correlation
+flips sign to $+0.285$, indicating shared variance with SA rather than
+independent predictive power. Multiple regression on distance gives
+$R^2 = 0.190$ for recon alone and $R^2 = 0.563$ when SA is added: SA
+contributes $\Delta R^2 = +0.374$ on top of reconstruction. SA captures
+a structural property of the policy that reconstruction loss does not.
+
+This finding is regime-dependent. On a compressed grid where every
+perception condition saturates the same recon ceiling --- as in the
+$\S\ref{sec:infobound}$ sensory-capacity sweep, where sensory\_dim
+$\leq 4$ fails to learn regardless of capacity --- SA's
+incremental contribution drops to $\Delta R^2 = 0.004$. SA is informative
+when perception itself varies; on grids where it does not, recon and SA
+collapse to the same signal. The asymmetric perception-action loop is
+where SA pulls its weight.
 
 \begin{figure}[t]
 \centering
