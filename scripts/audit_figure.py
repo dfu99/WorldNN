@@ -87,14 +87,18 @@ ax = axes[1, 1]
 blockers = [
     ("Download official .sty", 1.0, "#d62728", "PI"),
     ("PI review + approval", 1.0, "#9467bd", "PI"),
-    ("Promote §5.7 figure", 0.0, "#2ca02c", "DONE"),
-    ("Add §5.4 dynamics fig", 0.0, "#2ca02c", "DONE"),
+    ("§5.7 fig5_infobound", 0.0, "#2ca02c", "DONE"),
+    ("§5.4 dynamics fig cite", 0.0, "#2ca02c", "DONE"),
+    ("§3.2 WM-slot anchor", 0.0, "#2ca02c", "DONE"),
+    ("§7.4 biol. prediction", 0.0, "#2ca02c", "DONE"),
     ("Backfill obj-019/020/021", 0.0, "#2ca02c", "DONE"),
-    ("LaTeX compiles", 0.0, "#2ca02c", "DONE"),
-    ("Tests pass (39/39)", 0.0, "#2ca02c", "DONE"),
+    ("KSG pinned + warned", 0.0, "#2ca02c", "DONE"),
+    ("Drop orphan citation", 0.0, "#2ca02c", "DONE"),
+    ("draft.md deprecated", 0.0, "#2ca02c", "DONE"),
+    ("Label/ref hygiene", 0.0, "#2ca02c", "DONE"),
     ("§5.7 numbers verified", 0.0, "#2ca02c", "DONE"),
-    ("KSG behavior pinned", 0.0, "#2ca02c", "DONE"),
-    ("Drop orphan citation", 0.5, "#ff7f0e", "MINOR"),
+    ("Tests pass (39/39)", 0.0, "#2ca02c", "DONE"),
+    ("LaTeX compiles", 0.0, "#2ca02c", "DONE"),
 ]
 labels_d = [b[0] for b in blockers]; sev = [b[1] for b in blockers]
 colors_d = [b[2] for b in blockers]; flags = [b[3] for b in blockers]
@@ -136,27 +140,27 @@ ax.legend(handles=[mpatches.Patch(color="#2ca02c", label="tested"),
                    mpatches.Patch(color="#d62728", label="untested")],
           loc="lower right", fontsize=8)
 
-# G — Signature-question coverage matrix (NEW)
+# G — Signature-question coverage matrix (NEW; updated post-T33/T34)
 ax = axes[3, 0]
 questions = [
-    "A: POMDP framing",       # answered
-    "A: vs Dreamer recon",    # answered (scoped)
+    "A: POMDP framing",       # full
+    "A: vs Dreamer recon",    # scope
     "A: DMC head-to-head",    # OPEN (T28)
-    "B: predictive component",# answered
-    "B: Markov blanket",      # answered (paper) but no diagram in paper
-    "B: free energy connect", # answered
-    "C: KSG curve",           # answered (Fig 5)
-    "C: capacity vs channel", # answered (§5.7)
-    "C: action-var = ∇V?",    # answered (§Oracle proxy)
-    "D: cortical / WM",       # partial
+    "B: predictive component",# full
+    "B: Markov blanket",      # full (paper)
+    "B: free energy connect", # full
+    "C: KSG curve",           # full (Fig 5)
+    "C: capacity vs channel", # full (§5.7)
+    "C: action-var = ∇V?",    # full (§Oracle proxy)
+    "D: cortical / WM",       # full (§3.2 anchor; was partial)
     "D: signal-dep noise",    # OPEN
-    "D: animal experiment",   # partial (Blakemore-Cooper cited, no fresh prediction)
-    "E: 2-rock = task-sim?",  # answered (§5.5+§5.6)
-    "E: 3-rock footnote",     # answered (§7.5)
-    "E: reversal degenerate", # answered (§6)
+    "D: animal experiment",   # full (§7.4 prediction; was partial)
+    "E: 2-rock = task-sim?",  # full
+    "E: 3-rock footnote",     # full
+    "E: reversal degenerate", # full
 ]
-status_q = ["full","scope","open","full","partial","full",
-            "full","full","full","partial","open","partial",
+status_q = ["full","scope","open","full","full","full",
+            "full","full","full","full","open","full",
             "full","full","full"]
 status_color = {"full": "#2ca02c", "partial": "#ff7f0e", "scope": "#1f77b4", "open": "#d62728"}
 y3 = np.arange(len(questions))

@@ -955,10 +955,34 @@ queue:
     learnability threshold within the BDNF critical period). Currently §7.4
     cites Blakemore-Cooper but does not state a fresh testable prediction.'
   priority: 3
-  status: pending
+  status: completed
   added: 2026-05-05 18:00
   source: audit-2026-05-05-third-pass
+  started: 2026-05-05 19:00
+  completed: 2026-05-05 19:05
   context: Audit D8 q3 for Reviewer D marked "partial" — citation present, no
     fresh prediction.
   success_criteria: 1-2 sentences in §7.4 or §7.6 stating a testable
     biological prediction.
+  notes: 4-sentence prediction added in §7.4 (after pruning analogy). States
+    that monocular deprivation during BDNF critical period should drop SA
+    in visuomotor reaching below threshold; the integrated time-below-threshold
+    is the predicted dose-response variable. PDF stays at 10 pages.
+
+- objective: 'T30 Decide on draft.md vs main.tex source-of-truth: add a
+    DEPRECATED preamble to paper/draft.md pointing to main.tex; record drift
+    inventory pointer to audit-2026-05-05.md D3.'
+  priority: 3
+  status: completed
+  added: 2026-05-05 15:00
+  source: audit-2026-05-05-deep
+  started: 2026-05-05 19:05
+  completed: 2026-05-05 19:08
+  context: D3 found drift between draft.md and main.tex. main.tex is the
+    submission target.
+  success_criteria: paper/draft.md has DEPRECATED preamble; commits frozen
+    at the 2026-03-27 last-updated date.
+  notes: Block-quoted DEPRECATED preamble added to draft.md pointing to
+    main.tex. Lists the 5 specific drift items (Oracle-free proxy section,
+    §5.7 figure, §3.2 WM-slot anchor, §7.4 biological prediction, orphan
+    citation removal). After-submission action documented but not gated.

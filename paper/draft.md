@@ -1,6 +1,14 @@
 # Sensorimotor Alignment Predicts Learning in Asymmetric Perception-Action Loops
 
-**Living draft, last updated 2026-03-27**
+> **DEPRECATED 2026-05-05.** Authoritative manuscript is
+> `paper/neurips2026/main.tex`. This markdown draft has drifted (missing
+> §Oracle-free proxy estimation, the §5.7 figure citation, the §3.2
+> WM-slot anchor, the §7.4 biological prediction, and one orphan
+> citation removal). Do not edit further. After NeurIPS submission,
+> either delete this file or re-sync it from main.tex. See
+> `tasks/audit-2026-05-05.md` D3 for the drift inventory.
+
+**Frozen at 2026-03-27.**
 
 ## Abstract
 

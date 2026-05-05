@@ -173,6 +173,35 @@
   shared across all configs with the same sensory_dim. Partial correlation
   with SA controls for this correctly; raw correlation does not.
 
+- **KSG MI estimator under-reports on 2-D Gaussian by 30-100%.** Audit
+  2026-05-05 D2 verified `src/worldnn/utils.py::estimate_mi_ksg` returns
+  the clamped-zero output at rho≤0.6 (truth ≤0.22 nats) and recovers
+  ~66% at rho=0.9. The `max(0.0, mi)` clamp masks the negative raw
+  output that signals failed estimation. For paper-grade MI on
+  high-dimensional y, use linear-probe Gaussian-MI (see
+  `experiments/obj025_mi_vs_sensory.py`) instead. Behavior pinned by
+  `TestKSGEstimator`.
+
+- **Cross-check backfill numbers against JSONs every time.** Audit D6
+  found two errors I made when backfilling obj-019/020/021 from commit
+  messages alone: claimed retention range 89-102% (actual 89-110%);
+  claimed oracle SA mean 0.55 (actual 0.588). Lesson: paper-cite
+  prose is rounded for readability; the JSONs are the source of truth.
+
+- **Single source of truth for the manuscript.** Audit D3 found
+  `paper/draft.md` and `paper/neurips2026/main.tex` had drifted on
+  multiple sections. Pick one (we picked `main.tex` for the submission
+  target) and deprecate the other with an explicit DEPRECATED preamble.
+
+- **Commit-message claims are not state.** A commit "obj-027: launched
+  on RunPod" was true at commit-time but became misleading after
+  preemption. Always issue a counter-commit when a launched job fails
+  ("yield to halulujah; kill obj-027" pattern).
+
+- **Bibliography orphan check is cheap and worth doing.** `radford2021learning`
+  was bibitem-defined but never cited in body — caught by `grep \\\\cite`
+  vs `grep \\\\bibitem`. Run before every submission.
+
 ## Infrastructure (continued)
 
 - **RunPod A4500 has no scheduler — gate every GPU launch on VRAM.**
