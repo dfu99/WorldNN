@@ -81,9 +81,14 @@ def main():
     plt.title("obj-025 T7: SA as a Proxy for Variational Free Energy Minimization",
               fontsize=13, fontweight="bold", pad=12)
 
-    out = Path("results/obj025_markov_blanket.png")
-    plt.savefig(out, dpi=200, bbox_inches="tight")
-    print(f"Saved: {out}")
+    for out_path in [
+        Path("results/obj025_markov_blanket.png"),
+        Path("paper/neurips2026/figures/fig6_markov_blanket.png"),
+        Path("paper/neurips2026/figures/fig6_markov_blanket.pdf"),
+    ]:
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        plt.savefig(out_path, dpi=300, bbox_inches="tight")
+        print(f"Saved: {out_path}")
 
 
 if __name__ == "__main__":

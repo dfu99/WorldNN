@@ -67,11 +67,11 @@ for i in range(len(reviewers)):
 # C
 ax = axes[1, 0]
 items = [
-    ("paper figs cited", 4, "#2ca02c"),
+    ("paper figs cited", 5, "#2ca02c"),         # +fig5_infobound, +fig6_markov_blanket
     ("paper figs orphan", 0, "#ff7f0e"),
-    ("results/ pngs", 35, "#1f77b4"),
-    ("§5.7 figure", 1, "#2ca02c"),
-    ("compiled PDF", 1, "#2ca02c"),
+    ("results/ pngs", 36, "#1f77b4"),
+    ("§5.7 + §7 figs", 2, "#2ca02c"),
+    ("compiled PDF (11pp)", 1, "#2ca02c"),
     ("official .sty", 0, "#d62728"),
 ]
 labels = [a[0] for a in items]; counts = [a[1] for a in items]; cs = [a[2] for a in items]
