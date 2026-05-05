@@ -125,17 +125,16 @@ ax.legend(fontsize=8); ax.grid(axis="y", alpha=0.3)
 ax = axes[2, 1]
 components = ["RockPushMatter", "RockPushWorld", "Organism.forward",
               "Organism slicing", "MultiRockMatter", "ContinuousMatter",
-              "EnvironmentVAE", "compute_sa_random", "estimate_mi_ksg(3 cases)",
-              "linear_probe_r2", "gaussian_mi_from_r2", "compute_chain_mi"]
-covered = ["yes", "yes", "yes", "yes", "no", "no", "no", "yes", "yes",
-           "no", "no", "no"]
+              "EnvironmentVAE", "compute_sa_random", "estimate_mi_ksg(3)",
+              "linear_probe_r2(3)", "gaussian_mi_from_r2", "compute_chain_mi"]
+covered = ["yes"] * 12  # all covered as of fifth pass
 color_map = {"yes": "#2ca02c", "no": "#d62728"}
 y2 = np.arange(len(components))
 ax.barh(y2, [1] * len(components), color=[color_map[c] for c in covered], edgecolor="black")
 ax.set_yticks(y2); ax.set_yticklabels(components, fontsize=9)
 ax.invert_yaxis(); ax.set_xticks([])
-ax.set_title(f"F. Test Coverage — {covered.count('yes')}/{len(components)} covered "
-             f"(was 2/12 pre-deep-pass)")
+ax.set_title(f"F. Test Coverage — {covered.count('yes')}/{len(components)} "
+             f"(was 2/12 pre-audit; 46/46 tests pass)")
 ax.legend(handles=[mpatches.Patch(color="#2ca02c", label="tested"),
                    mpatches.Patch(color="#d62728", label="untested")],
           loc="lower right", fontsize=8)

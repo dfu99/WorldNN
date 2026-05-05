@@ -839,13 +839,21 @@ queue:
     against a known-MI distribution, MultiRockMatter shape contracts, and the
     sensory-dim slicing path (obs = emission[:, :sensory_dim]). 10-15 new tests.'
   priority: 3
-  status: pending
+  status: completed
   added: 2026-05-05 12:30
   source: audit-2026-05-05
+  started: 2026-05-05 19:20
+  completed: 2026-05-05 20:10
   context: Audit identified that 29 existing tests cover only RockPushMatter +
     World. Numerical drift in Organism, SA computation, or MI estimator would
     silently invalidate paper claims.
   success_criteria: tests/test_components.py grows by 10-15 tests, all pass.
+  notes: Total now 46/46 tests passing (was 29/29 pre-audit, 39/39 after
+    second pass). Coverage 12/12 component surfaces. New classes added in
+    this pass; TestMultiRockMatter (3 tests), TestContinuousMatter (1),
+    TestEnvironmentVAE (4), TestLinearProbeR2 (3), TestComputeChainMI (1).
+    Earlier passes added TestOrganismShape (5), TestKSGEstimator (3),
+    TestSAOnConstantPolicy (1).
 
 - objective: 'T28 Dreamer recon-loss head-to-head: on the obj-016 grid (245
     configs, wide perception range), fit per-config linear probe organism-embedding

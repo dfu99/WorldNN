@@ -397,3 +397,164 @@ class TestSAOnConstantPolicy:
                 cos_sims.append((a_learn * a_opt).sum(dim=-1))
         sa = torch.cat(cos_sims).mean().item()
         assert abs(sa) < 0.10, f"random-policy SA should be near 0, got {sa:.3f}"
+
+
+class TestMultiRockMatter:
+    """Shape-contract tests for MultiRockMatter (used in obj-017, obj-021,
+    obj-026). Audit 2026-05-05 D4: previously untested."""
+
+    @pytest.mark.parametrize("n_rocks", [2, 3])
+    def test_state_emission_shapes(self, device, n_rocks):
+        from worldnn.matter import MultiRockMatter
+        m = MultiRockMatter(emission_dim=16, action_dim=2, seed_dim=4,
+                            n_rocks=n_rocks).to(device)
+        batch = 8
+        state = m.reset_state(batch, device)
+        seed = torch.randn(batch, 4, device=device)
+        action = torch.randn(batch, 2, device=device)
+        next_state, emission, total_contact = m(state, seed, action)
+        # state = n_rocks * 2 + 2 (org_x, org_y)
+        assert state.shape == (batch, n_rocks * 2 + 2)
+        assert next_state.shape == (batch, n_rocks * 2 + 2)
+        assert emission.shape == (batch, 16)
+        assert total_contact.shape == (batch,)
+        assert torch.all(next_state >= 0.0) and torch.all(next_state <= 1.0)
+
+    def test_state_in_unit_square(self, device):
+        from worldnn.matter import MultiRockMatter
+        m = MultiRockMatter(emission_dim=16, n_rocks=2).to(device)
+        s = m.reset_state(64, device)
+        assert torch.all(s >= 0.1) and torch.all(s <= 0.9)
+
+
+class TestContinuousMatter:
+    """Shape-contract tests for ContinuousMatter (1D positioning task,
+    used in obj-028 plan). Audit 2026-05-05 D4: previously untested."""
+
+    def test_step_shapes(self, device):
+        from worldnn.matter import ContinuousMatter
+        m = ContinuousMatter(emission_dim=4, action_dim=1, seed_dim=4).to(device)
+        batch = 16
+        state = m.reset_state(batch, device)
+        seed = torch.randn(batch, 4, device=device)
+        action = torch.randn(batch, 1, device=device)
+        next_state, emission, force = m(state, seed, action)
+        # State is 1-D (just position)
+        assert state.shape == (batch,)
+        assert next_state.shape == (batch,)
+        assert emission.shape == (batch, 4)
+        assert torch.isfinite(emission).all()
+
+
+class TestEnvironmentVAE:
+    """Shape and behavioral tests for EnvironmentVAE.
+
+    Audit 2026-05-05 D4: previously untested. Lessons (env_lat<state_dim
+    catastrophic) live in tasks/lessons.md but the code itself was unverified.
+    """
+
+    def test_encode_decode_shapes(self, device):
+        from worldnn.environment import EnvironmentVAE
+        vae = EnvironmentVAE(channel_dim=8, latent_dim=4, action_dim=2).to(device)
+        y = torch.randn(7, 8, device=device)
+        mu, logvar = vae.encode(y)
+        assert mu.shape == (7, 4)
+        assert logvar.shape == (7, 4)
+        z = vae.reparameterize(mu, logvar)
+        y_hat = vae.decode(z)
+        assert y_hat.shape == (7, 8)
+
+    def test_forward_returns_four_tensors(self, device):
+        from worldnn.environment import EnvironmentVAE
+        vae = EnvironmentVAE(channel_dim=4, latent_dim=2).to(device)
+        y = torch.randn(5, 4, device=device)
+        z, y_hat, mu, logvar = vae(y)
+        assert z.shape == (5, 2)
+        assert y_hat.shape == (5, 4)
+        assert mu.shape == (5, 2)
+        assert logvar.shape == (5, 2)
+        # Sanity: with std~exp(0.5*logvar), z is in mu±a-few-sigma
+        # Just check it's finite.
+        assert torch.isfinite(z).all()
+
+    def test_propagate_action_preserves_action_dim(self, device):
+        from worldnn.environment import EnvironmentVAE
+        vae = EnvironmentVAE(action_dim=3).to(device)
+        a = torch.randn(4, 3, device=device)
+        a2 = vae.propagate_action(a)
+        assert a2.shape == (4, 3)
+
+    def test_deterministic_mu_under_eval(self, device):
+        """Encoder mu is deterministic given fixed input."""
+        from worldnn.environment import EnvironmentVAE
+        vae = EnvironmentVAE(channel_dim=4, latent_dim=2).to(device).eval()
+        y = torch.randn(3, 4, device=device)
+        mu1, _ = vae.encode(y)
+        mu2, _ = vae.encode(y)
+        assert torch.allclose(mu1, mu2)
+
+
+class TestLinearProbeR2:
+    """Tests for the linear-probe R² helper used in obj-025 T3 (the
+    paper's actual MI estimator). Currently lives in
+    experiments/obj025_mi_vs_sensory.py — we re-import for testing."""
+
+    def test_perfect_recovery(self, device):
+        """y = x exactly → R² = 1.0."""
+        import numpy as np
+        import sys
+        from pathlib import Path
+        sys.path.insert(0, str(Path(__file__).parent.parent / "experiments"))
+        from obj025_mi_vs_sensory import linear_probe_r2
+
+        rng = np.random.default_rng(0)
+        x = rng.standard_normal((500, 4))
+        y = x.copy()
+        r2 = linear_probe_r2(x, y)
+        assert r2 > 0.99, f"perfect recovery should give R²≈1, got {r2:.3f}"
+
+    def test_independent_zero(self):
+        """y independent of x → R² ≈ 0."""
+        import numpy as np
+        import sys
+        from pathlib import Path
+        sys.path.insert(0, str(Path(__file__).parent.parent / "experiments"))
+        from obj025_mi_vs_sensory import linear_probe_r2
+
+        rng = np.random.default_rng(0)
+        x = rng.standard_normal((500, 4))
+        y = rng.standard_normal((500, 2))
+        r2 = linear_probe_r2(x, y)
+        assert abs(r2) < 0.05, f"independent should give R²≈0, got {r2:.3f}"
+
+    def test_gaussian_mi_monotone_in_r2(self):
+        """gaussian_mi_from_r2 is monotone increasing in R²."""
+        import sys
+        from pathlib import Path
+        sys.path.insert(0, str(Path(__file__).parent.parent / "experiments"))
+        from obj025_mi_vs_sensory import gaussian_mi_from_r2
+        prev = -float("inf")
+        for r2 in [0.0, 0.1, 0.3, 0.5, 0.7, 0.9, 0.99]:
+            mi = gaussian_mi_from_r2(r2, state_dim=4)
+            assert mi > prev, f"non-monotone at R²={r2}: {prev} → {mi}"
+            prev = mi
+
+
+class TestComputeChainMI:
+    """compute_chain_mi shape contract for the obj-014 chain pipeline."""
+
+    def test_returns_dict_with_four_keys(self, device):
+        from worldnn.utils import compute_chain_mi
+
+        # Synthetic state→emission→channel→z→embedding pipeline
+        n = 200
+        state = torch.randn(n, 1, device=device)
+        emission = state @ torch.randn(1, 8, device=device) + 0.1 * torch.randn(n, 8, device=device)
+        channel_out = emission @ torch.randn(8, 4, device=device)
+        z = channel_out @ torch.randn(4, 4, device=device)
+        embedding = z @ torch.randn(4, 2, device=device)
+        result = compute_chain_mi(state, emission, channel_out, z, embedding, n_samples=200)
+        assert isinstance(result, dict)
+        assert set(result.keys()) == {"I(S;X)", "I(S;Y)", "I(S;Z)", "I(S;E)"}
+        # All non-negative due to KSG clamp
+        assert all(v >= 0 for v in result.values())
