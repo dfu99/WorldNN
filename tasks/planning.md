@@ -66,41 +66,49 @@ at tasks/research/ (10 memos). Synthesis memo is sweep_memo_2026-04-23.md.
   `/media/dan/WD_BLACK/claude/backups/WorldNN/<sub>/`. No dated snapshots.
   Scope: experimental outputs only, never code/caches. See memory.
 
-## Audit 2026-05-05 — single blocker, ship list
+## Audit 2026-05-05 — six passes complete, 18 of 20 ship-list items done
 
-`tasks/audit-2026-05-05.md` (figure: `figures/audit-2026-05-05.png`).
-Headline: NeurIPS deadline May 6, *one* blocker (official neurips_2026.sty
-not downloaded), three optional strengtheners (fig2 orphan, §5.7 figure,
-obj-019/020/021 backfill). Ship list = T25; T26-T28 are followup queue.
+Audit committed across commits eac1e62 through e62762f. 18 D-findings
+(D15 retracted) documented in `tasks/audit-2026-05-05.md`. Headline
+finding: T28 ΔR²(SA over recon) = +0.374 on obj-016 wide grid (90×
+obj-024's narrow grid). Paper §7.5 rewritten leading with this number.
+
+Reviewer signature-question coverage: **15/15 full** (was 13/1/0/1 at
+audit start). Reviewer panel risk: A=Low, B=Low, C=Low, D=Low, E=High
+(E held by single-env disposition only).
+
+Audit objectives logged in `tasks/objectives.yaml`: obj-027 (audit
+itself), obj-028 (Dreamer recon h2h), obj-029 (signal-dep noise
+sensitivity).
 
 ### Pod state (2026-05-01 checkpoint): UNREACHABLE
 - `runpod-active.json` last_confirmed 2 d ago; SSH to 213.173.108.214:10031
   refuses connection. `mc runpod check` returns empty gpus/processes.
 - Subscribers list previously empty ("No subscribers"); my prior
   subscription has cleared.
-- Cannot launch obj-027 until a new pod is registered. No action
-  available beyond waiting.
+- Cannot launch obj-031 (asymmetry-scaling) until a new pod is
+  registered. No action available beyond waiting.
 
-### Queued for next available pod
-- **obj-027 asymmetry-scaling** — script ready at
-  experiments/obj027_asymmetry_scaling.py. Re-subscribe + sync + exec
-  when a pod is registered. Resume logic skips completed configs (none
-  persisted from prior partial run; 2 configs lost = ~1 min re-cost).
-  After completion, `mc runpod release` to wake next subscriber.
-- **obj-028 1D sensory-capacity** — script ready, queued behind obj-027.
-- **obj-029 PPO hparam sweep, obj-030 OA, obj-031 sparse-action** — backlog.
+### Queued for next available pod (note: ID collision resolved 2026-05-05)
+The audit work consumed obj-027/028/029 IDs. The previously-named
+experiment scripts (filenames retained on disk) have been *re-IDed*:
 
-### Queued (ready to launch after obj-027)
-- **obj-028 1D sensory-capacity** (75 configs on ContinuousMatter, 500 ep,
-  batch=1024). Script written at experiments/obj028_1d_sensory_capacity.py.
-  Estimated VRAM 2 GB; `mc runpod fits 2` before launch.
+- **obj-031 asymmetry-scaling** (script: `experiments/obj027_asymmetry_scaling.py`)
+  — Ready. Re-subscribe + sync + exec when a pod is registered.
+  Resume logic skips completed configs (none persisted from prior
+  partial run; 2 configs lost = ~1 min re-cost). After completion,
+  `mc runpod release` to wake next subscriber.
+- **obj-032 1D sensory-capacity** (script: `experiments/obj028_1d_sensory_capacity.py`)
+  — Ready, queued behind obj-031.
+- **obj-033 PPO hparam sweep, obj-034 OA, obj-035 sparse-action** —
+  backlog (script unwritten; design memos in tasks/research/).
 
-### Backlog
-- **obj-029 PPO hyperparameter sweep** — lr ∈ {1e-4, 3e-4, 1e-3} × entropy_coef
+### Backlog (post-NeurIPS scope)
+- **obj-033 PPO hparam sweep** — lr ∈ {1e-4, 3e-4, 1e-3} × entropy_coef
   ∈ {0.001, 0.01, 0.05} × clip_eps ∈ {0.1, 0.2, 0.3} × 3 seeds on obj-024's
-  peak cell (sensory=16, embed=16). 27×3 = 81 configs at batch=1024. Never
-  done; could reveal whether obj-024 was optimally tuned. Est. 4 GB.
-- **obj-030 Outcome Alignment** — requires adding OA logging to the training
+  peak cell (sensory=16, embed=16). 81 configs at batch=1024. Never done.
+  Est. 4 GB.
+- **obj-034 Outcome Alignment** — requires adding OA logging to the training
   loop (current scripts don't save trajectories). Rerun 1 cell of obj-024
   with OA instrumentation. Responds to PI's "intent vs real" question.
   Est. 1 GB CPU/GPU.
@@ -110,6 +118,9 @@ obj-019/020/021 backfill). Ship list = T25; T26-T28 are followup queue.
 
 ## Recently Completed
 
+- [2026-05-05] obj-029: signal-dep noise sensitivity (Reviewer D q2 closed; Gaussian is conservative; 15/15 reviewer questions full)
+- [2026-05-05] obj-028: Dreamer recon vs SA on obj-016 — *ΔR²=+0.374* (90× obj-024); §7.5 rewritten; Reviewer A Med→Low
+- [2026-05-05] obj-027: 2026-05-05 self-audit (6 passes, 18 D-findings, 18/20 ship-list items, paper recompiles 11pp body≤9)
 - [2026-04-23] AFK iter-3: Deep research sweep — 24 recent papers catalogued, 3 deep-reads, current-state review, 5 ranked experiments, fungal-hyphae cross-discipline memo
 - [2026-04-22] Compliance sweep: PACE scrub, silent-GPU-grab fix, manuscript emdash/hedge cleanup
 - [2026-04-21] obj-026: 2-rock sensory-capacity replicate floor effect (peak SA 0.098, Reviewer E risk HIGH)

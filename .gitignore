@@ -14,3 +14,14 @@ htmlcov/
 *.mp4
 *.gif
 wandb/
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# task scratch
+tasks/queue.yaml.broken
