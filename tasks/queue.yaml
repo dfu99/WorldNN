@@ -903,10 +903,62 @@ queue:
     reflect the concrete artifact reference. Reviewer A also benefits from
     obj-019/020/021 backfill now visible in objectives.yaml.'
   priority: 3
-  status: pending
+  status: completed
   added: 2026-05-05 15:00
   source: audit-2026-05-05-deep
+  started: 2026-05-05 17:30
+  completed: 2026-05-05 17:50
   context: claim_to_evidence.md was last refreshed 2026-04-19 (16 days stale).
     Several reviewer-mitigation items have landed since.
   success_criteria: claim_to_evidence.md reflects current state with concrete
     artifact citations (paper section + figure label) per reviewer.
+  notes: Refreshed with refresh-notes preamble, signature-question→paper-location
+    map (15 questions × 5 reviewers), and stale TODOs marked DONE for B and C.
+
+- objective: 'T32 Drop orphan bibliography entry (radford2021learning) and
+    re-verify all bib entries are cited. Audit D7 found the CLIP citation
+    defined but never used. Remove the \bibitem and reverify with grep.'
+  priority: 3
+  status: completed
+  added: 2026-05-05 18:00
+  source: audit-2026-05-05-third-pass
+  started: 2026-05-05 18:00
+  completed: 2026-05-05 18:05
+  context: Bibliography sanity caught one orphan in the third audit pass.
+  success_criteria: All \bibitem entries are cited at least once; pdflatex
+    compiles clean; page count unchanged.
+  notes: radford2021learning bibitem removed. PDF stays at 10 pages. 39/39 tests
+    still pass.
+
+- objective: 'T33 Reviewer D anchor: add a one-sentence "embedding_dim ≈
+    working-memory slots, not cortical neurons" anchor to §3 or §5.7.
+    Reviewer D signature question 1 ("cortical neurons, WM slots, or what?")
+    is currently answered only by §5.7 biological-channel calibration; an
+    explicit framing sentence would close the gap.'
+  priority: 3
+  status: completed
+  added: 2026-05-05 18:00
+  source: audit-2026-05-05-third-pass
+  started: 2026-05-05 18:10
+  completed: 2026-05-05 18:12
+  context: Audit D8 signature-question map shows Reviewer D q1 as "partial".
+    A 1-sentence addition could move it to "full".
+  success_criteria: One sentence added near the embedding_dim definition or
+    §5.7 calibration paragraph framing it as a working-memory analogue.
+  notes: Added 3-line paragraph after Table 1 (perception variables) in §3.2
+    framing embedding_dim as WM-slot analogue. Page count stays at 10. PDF
+    recompiles clean.
+
+- objective: 'T34 Reviewer D animal-experiment prediction: add 1-2 sentences
+    proposing a concrete behavioral prediction (e.g., monocular deprivation
+    in mice should drop SA in V1-driven visuomotor tasks below the
+    learnability threshold within the BDNF critical period). Currently §7.4
+    cites Blakemore-Cooper but does not state a fresh testable prediction.'
+  priority: 3
+  status: pending
+  added: 2026-05-05 18:00
+  source: audit-2026-05-05-third-pass
+  context: Audit D8 q3 for Reviewer D marked "partial" — citation present, no
+    fresh prediction.
+  success_criteria: 1-2 sentences in §7.4 or §7.6 stating a testable
+    biological prediction.

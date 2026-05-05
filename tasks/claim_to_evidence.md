@@ -1,4 +1,41 @@
-# Claim-to-Evidence Map (2026-04-19)
+# Claim-to-Evidence Map (refreshed 2026-05-05)
+
+## Refresh notes
+
+- 2026-04-19: initial scoring (A=Med, B=Low, C=Low, D=Low, E=High).
+- 2026-05-05 (audit): §5.7 figure landed (`fig5_infobound`), §5.4
+  dynamics figure cited, obj-019/020/021 backfilled in objectives.yaml,
+  bibliography sanity check (one orphan: `radford2021learning`).
+  Reviewer scores unchanged at the headline level (A=Med, B=Low, C=Low,
+  D=Low, E=High) but several action items previously listed as TODO
+  are now DONE; the per-reviewer sections below reflect this.
+
+## Signature-question → paper-location map
+
+For each reviewer's signature questions, the literal section in the
+submission where the answer lives:
+
+| Reviewer | Signature question (paraphrased) | Where answered |
+|----|----|----|
+| A | Why Mealy not POMDP? | §3.1 Asymmetric loop (asymmetry framing); §2 Related Work cites POMDP family. |
+| A | Doesn't Dreamer recon-loss tell you the same? | §7.5 Limitations / *Scope of SA's predictive advantage*: ΔR²=0.004 disclosure on obj-024 narrow grid; primary obj-016 number r=-0.724 across 7 perception levels stands. |
+| A | Would SA beat Dreamer's variational bound on DMC? | *Open* — pending T28 head-to-head. |
+| B | Where is the predictive component? | §7 Discussion via `\citep{friston2010free}`; SA framed as bounded estimator of negative free energy. Theory derivation in `tasks/theory_notes/active_inference.md`. |
+| B | Markov blanket — formalize | §3.1 (sensory_dim = blanket width; embedding_dim = internal-state dim). Diagram at `results/obj025_markov_blanket.png` — *not yet promoted to paper.* |
+| B | Connection to free energy principle | §7 paragraph above. |
+| C | Define I(X;W)-I(Z;W); estimate KSG; show curve | §5.7 + Figure 5 (`fig5_infobound.pdf`): linear-probe Gaussian-MI = 0.33, 0.64, 3.44, 27.6 nats; r=0.975 with peak SA. |
+| C | Min embedding size vs channel capacity | §5.7: information-theoretic ceiling argument (peak SA scales with I(S;obs)). |
+| C | Action variance r=-0.82 — value-function gradient? | §7 Oracle-free proxy estimation (in main.tex; absent from draft.md per audit D3). Disambiguates against value-function direct supervision. |
+| D | Cortical neurons, WM slots, or what? | §5.7 biological calibration sentence (paramecium 2 → cutaneous 16, well below vision 10⁶). *No explicit one-line "WM-slot analogue" anchor* — minor gap. |
+| D | Signal-dependent noise vs Gaussian | *Open* — paper uses Gaussian channel additive noise; signal-dependent variant not tested. |
+| D | What animal/behavioral experiment | §7.4 Critical periods cites Blakemore-Cooper. *Concrete prediction* (e.g., visual-deprivation → SA drop) is absent. |
+| E | Is 2-rock r=-0.728 transfer or task-similarity? | §5.5 + §5.6 transfer (94-106% physics retention, 89-110% appearance). Frames transfer as structural-not-memorized. |
+| E | Why is 3-rock r=-0.300 a footnote? | §5.5 / §7.5 Limitations: 3-rock floor effect disclosed honestly. |
+| E | Boundary-artifact reversal — degenerate failure mode? | §6 Perception Failure Conditions: dist std 0.004 → no signal in zero-info regime, separately documented. |
+
+This is the cleanest reviewer-coverage state we've had.
+
+---
 
 Maps our current evidence to each reviewer's anticipated weakness.
 Compiled from obj-001 through obj-025 (obj-025 covers T3–T7 analyses).
@@ -84,8 +121,9 @@ only acts to maximize task reward."
 - Our Markov blanket mapping is explicit: sensory_dim = blanket width;
   embedding_dim = internal-state dim. Figure at results/obj025_markov_blanket.png.
 
-*Action items for paper:* Add 1 paragraph in Discussion citing Friston 2010
-and referencing the Markov blanket figure.
+*Action items for paper:* ~~Add 1 paragraph in Discussion citing Friston 2010~~
+DONE (lines 127-129 cite friston2010free). Markov blanket figure
+(`results/obj025_markov_blanket.png`) still NOT promoted to paper.
 
 ### Reviewer C — Information Theorist (Tishby / Still)
 
@@ -102,8 +140,9 @@ with KSG. Show me the curve."
 - obj-014 chain-MI (I(S;X) → I(S;Y) → I(S;Z) → I(S;E)) already
   demonstrates monotonic DPI for the full pipeline.
 
-*Action items for paper:* Promote T3 rate-distortion figure to main text
-or an appendix; frame as "quantifying the information-theoretic floor."
+*Action items for paper:* ~~Promote T3 rate-distortion figure to main text~~
+DONE 2026-05-05. `paper/neurips2026/figures/fig5_infobound.pdf` rendered
+from `obj025_mi_vs_sensory.json` and cited in §5.7 (Figure 5).
 
 ### Reviewer D — Sensorimotor Neuroscientist (Wolpert / Kording)
 

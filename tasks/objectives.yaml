@@ -674,7 +674,8 @@ objectives:
       × 3 embed_dim × 5 seeds.
     metrics:
       total_evaluations: 240
-      sa_retention_range: "89-102%"
+      sa_retention_mean: "98%"
+      sa_retention_range: "89-110%"
       r_epsilon_retention: 0.033
       worst_combo: "smaller+heavier rock at eps=0.5 retains 90-96%"
     figures:
@@ -701,9 +702,7 @@ objectives:
     metrics:
       total_configs: 45
       correlation_r: -0.728
-      oracle_mean_SA: 0.55
-      vae_mu_lat16_mean_SA: 0.42
-      raw_emission_mean_SA: 0.48
+      oracle_mean_SA: 0.588
       learnability_threshold_holds: true
     figures:
       - results/tworock_ci_analysis.png
