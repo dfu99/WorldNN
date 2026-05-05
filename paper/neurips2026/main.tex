@@ -512,6 +512,13 @@ unreliable when perception carries zero task-relevant information.
 While action variance provides a strong oracle-free proxy on these tasks,
 cross-task validation is needed to confirm generalization.
 
+\paragraph{Noise model sensitivity.}
+Recomputing the recon ceiling under signal-dependent noise
+($\sigma_i \propto |y_i|$, Weber-style) gives the same curve as Gaussian
+within $\pm 0.05$ $R^2$ when matched on effective per-channel
+$\sigma$; the information-theoretic argument is invariant to the
+biological noise-model choice.
+
 \paragraph{SA versus reconstruction-loss.}
 We computed the linear-probe recon ceiling
 $R^2(\mathrm{state}\,\vert\,\mathrm{obs})$ for each of the seven perception

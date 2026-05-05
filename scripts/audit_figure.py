@@ -152,15 +152,15 @@ questions = [
     "C: capacity vs channel", # full (§5.7)
     "C: action-var = ∇V?",    # full (§Oracle proxy)
     "D: cortical / WM",       # full (§3.2 anchor; was partial)
-    "D: signal-dep noise",    # OPEN
+    "D: signal-dep noise",    # full now (D18: matched-σ curves coincide ±0.05)
     "D: animal experiment",   # full (§7.4 prediction; was partial)
     "E: 2-rock = task-sim?",  # full
     "E: 3-rock footnote",     # full
     "E: reversal degenerate", # full
 ]
 status_q = ["full","full","full","full","full","full",
-            "full","full","full","full","open","full",
-            "full","full","full"]
+            "full","full","full","full","full","full",
+            "full","full","full"]  # all 14 full + 1 scope after D18
 status_color = {"full": "#2ca02c", "partial": "#ff7f0e", "scope": "#1f77b4", "open": "#d62728"}
 y3 = np.arange(len(questions))
 ax.barh(y3, [1] * len(questions), color=[status_color[s] for s in status_q], edgecolor="black")

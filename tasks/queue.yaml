@@ -878,6 +878,28 @@ queue:
     +0.374; obj-024 ΔR²=0.004 reframed as the regime where SA collapses.
     Reviewer A risk drops Medium → Low. Generator at scripts/obj028_recon_vs_sa_obj016.py.'
 
+- objective: 'T35 Signal-dep noise sensitivity (Reviewer D q2). Without
+    retraining, recompute the linear-probe recon ceiling under signal-dep
+    noise (sigma_i ∝ |y_i|, Weber style) vs Gaussian on the same RockPushMatter.
+    Show the conclusion is invariant or strengthens. Add a 1-paragraph
+    sensitivity note to §7.5 Limitations.'
+  priority: 3
+  status: completed
+  added: 2026-05-05 22:00
+  source: audit-2026-05-05-sixth-pass
+  started: 2026-05-05 22:00
+  completed: 2026-05-05 22:30
+  context: Audit D8/D17 last open question for Reviewer D. Answer expected
+    to be "Gaussian is conservative" since signal-dep zeroes noise on
+    low-amplitude channels.
+  success_criteria: results/obj029_signal_dep_noise.{png,json} produced;
+    1-paragraph note in §7.5; D q2 moves to full.
+  notes: 'Confirmed: signal-dep R² is strictly above Gaussian R² at every c
+    (low-amp channels emit less corruption). At matched effective σ the two
+    curves coincide ±0.05. Gaussian is the conservative noise model. §7.5
+    paragraph added (4 lines). Reviewer D q2 moves from open → full. Sig-
+    question coverage now 15/15 full.'
+
 - objective: 'T29 Pin KSG estimator behavior + add docstring warning. Audit D2
     found estimate_mi_ksg under-reports MI by 30-100% on bivariate Gaussian
     (clamps zero at rho≤0.6, recovers 66% at rho=0.9). Pin in tests/test_components.py
