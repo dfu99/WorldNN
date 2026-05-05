@@ -16,6 +16,17 @@ def estimate_mi_ksg(x: np.ndarray, y: np.ndarray, k: int = 3) -> float:
 
     Returns:
         Estimated I(X; Y) in nats
+
+    Warning:
+        Audit 2026-05-05 verified this implementation under-reports MI on
+        2-D Gaussian samples by 30-100%: at rho=0.3 (truth 0.05) and 0.6
+        (truth 0.22) it returns the clamped-zero output; at rho=0.9
+        (truth 0.83) it recovers ~66%. The ``max(0.0, mi)`` clamp masks
+        negative raw outputs that would otherwise signal failed estimation.
+        For paper-grade MI claims (especially with high-dimensional y),
+        prefer the linear-probe Gaussian-MI lower bound used in
+        ``experiments/obj025_mi_vs_sensory.py`` instead. Current behavior
+        is pinned by ``TestKSGEstimator`` in ``tests/test_components.py``.
     """
     n = x.shape[0]
     if n < k + 1:

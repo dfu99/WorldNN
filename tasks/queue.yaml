@@ -860,3 +860,53 @@ queue:
     the wide-dynamic-range grid.
   success_criteria: results/obj028_recon_vs_sa_obj016.json with per-config
     recon-error and ΔR² number. Update §7.5 with the new ΔR² if non-trivial.
+
+- objective: 'T29 Pin KSG estimator behavior + add docstring warning. Audit D2
+    found estimate_mi_ksg under-reports MI by 30-100% on bivariate Gaussian
+    (clamps zero at rho≤0.6, recovers 66% at rho=0.9). Pin in tests/test_components.py
+    so a future refactor cannot silently change paper numbers. Add a Warning
+    section to the docstring noting the under-estimation and pointing to
+    linear-probe Gaussian-MI as the preferred estimator for high-dimensional
+    obs.'
+  priority: 2
+  status: completed
+  added: 2026-05-05 15:00
+  source: audit-2026-05-05-deep
+  started: 2026-05-05 15:30
+  completed: 2026-05-05 15:45
+  context: Done in same session as audit. Tests added; docstring warning
+    queued for the same commit.
+  success_criteria: 3 KSG tests in test_components.py (independent, rho=0.6,
+    rho=0.9 partial recovery) all pass; docstring includes Warning block.
+  notes: 3 tests added (TestKSGEstimator), all pass. 4 Organism shape tests
+    + 1 random-policy SA test also added in the same pass (TestOrganismShape,
+    TestSAOnConstantPolicy). 39/39 pytest passing.
+
+- objective: 'T30 Decide on draft.md vs main.tex source-of-truth. Audit D3
+    documented drift: main.tex has §Oracle-free proxy estimation (only there);
+    draft.md has §Future work (only there). Plus today''s §5.7 figure landed
+    only in main.tex. Recommendation: deprecate draft.md after May 6 submission;
+    treat main.tex as sole authoritative manuscript. Action: add a one-line
+    DEPRECATED notice to draft.md preamble OR re-sync from main.tex.'
+  priority: 3
+  status: pending
+  added: 2026-05-05 15:00
+  source: audit-2026-05-05-deep
+  context: D3 finding. Maintaining two diverging manuscripts is overhead with
+    no benefit at this stage.
+  success_criteria: draft.md either tagged DEPRECATED at the top or fully
+    re-synced. Decision committed with rationale.
+
+- objective: 'T31 Refresh claim_to_evidence.md after fig5 landing. Reviewer C
+    (Info Theorist) signature question (rate-distortion curve) is now answered
+    by paper §5.7 + fig5_infobound. Update the per-reviewer status table to
+    reflect the concrete artifact reference. Reviewer A also benefits from
+    obj-019/020/021 backfill now visible in objectives.yaml.'
+  priority: 3
+  status: pending
+  added: 2026-05-05 15:00
+  source: audit-2026-05-05-deep
+  context: claim_to_evidence.md was last refreshed 2026-04-19 (16 days stale).
+    Several reviewer-mitigation items have landed since.
+  success_criteria: claim_to_evidence.md reflects current state with concrete
+    artifact citations (paper section + figure label) per reviewer.
