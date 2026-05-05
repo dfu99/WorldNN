@@ -14,13 +14,16 @@ capacity cannot substitute for information absent from the input.
 
 **Primary evidence (SA as predictor):** In a 245-config × 7-seed sweep on a
 1-rock manipulation task, the magnitude-weighted SA metric correlates
-r=-0.893 with task error, and a formal interaction test (F=34.2, p=5×10⁻⁹)
-establishes SA as a non-trivial predictor beyond reconstruction loss. The
-result transfers: 2-rock 6D gives r=-0.728; SA dynamics during training
-(r=-0.705) predict trajectory; transfer across physics (93-106%) and
-appearance (89-102%) holds. The oracle-free proxy (action variance r=-0.82)
-means SA can be estimated from agent behavior alone, without ground-truth
-state.
+r=-0.893 with task error; a formal interaction test gives F=34.2, p=5×10⁻⁹.
+Direct head-to-head against reconstruction-loss (obj-028, 2026-05-05) on
+the same 245-config grid: SA r=-0.724 vs recon r=-0.436; partial
+r(SA | recon)=-0.679; SA adds ΔR²=+0.374 over recon-loss alone in
+multiple regression on task distance. The result transfers: 2-rock 6D
+gives r=-0.728; SA dynamics during training (r=-0.705) predict trajectory;
+transfer across physics (94-106%) and appearance (89-110% per-config /
+89-106% per-cell-mean) holds. The oracle-free proxy (action variance
+r=-0.82) means SA can be estimated from agent behavior alone, without
+ground-truth state.
 
 **Secondary evidence (sensory-capacity tradeoff):** obj-024 (100 configs,
 sensory_dim ∈ {2,4,8,16} × embed_dim ∈ {2,4,8,16,32} × 5 seeds, 800 episodes
