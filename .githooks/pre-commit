@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# Pre-commit hook: writing-style guards for paper/neurips2026/.
+#
+# Per audit-2026-05-05 D20 lesson: emdashes ('---' in tex, '—' anywhere)
+# regress easily after rewrites. Catch them before they land.
+#
+# Enable with: git config core.hooksPath .githooks
+#
+# Bypass with --no-verify only after fixing the violation.
+
+set -e
+
+failed=0
+
+# 1. LaTeX-style emdashes (---) in any staged .tex inside paper/
+tex_offenders=$(git diff --cached --name-only --diff-filter=ACMR \
+  | grep -E '^paper/.*\.tex$' \
+  | xargs -r grep -lE -- '---' 2>/dev/null \
+  | xargs -r grep -nE -- '^[^%]*---' 2>/dev/null \
+  | grep -v '^[^:]*:[0-9]*:%' || true)
+
+if [ -n "$tex_offenders" ]; then
+  echo "writing-style: '---' (LaTeX emdash) found in staged .tex; use comma/semicolon/restructure:"
+  echo "$tex_offenders"
+  failed=1
+fi
+
+# 2. Unicode emdashes (—) in any staged paper/**/*.{tex,md}
+unicode_offenders=$(git diff --cached --name-only --diff-filter=ACMR \
+  | grep -E '^paper/.*\.(tex|md)$' \
+  | xargs -r grep -nP -- '\xe2\x80\x94' 2>/dev/null || true)
+
+if [ -n "$unicode_offenders" ]; then
+  echo "writing-style: Unicode emdash (\xe2\x80\x94) found in staged paper files:"
+  echo "$unicode_offenders"
+  failed=1
+fi
+
+# 3. AI-slop question headings ('### *? at end of section title')
+slop_offenders=$(git diff --cached --name-only --diff-filter=ACMR \
+  | grep -E '^paper/.*\.(tex|md)$' \
+  | xargs -r grep -nE -- '(\\section\{[^}]*\?\}|\\subsection\{[^}]*\?\}|^### .*\?\s*$)' 2>/dev/null || true)
+
+if [ -n "$slop_offenders" ]; then
+  echo "writing-style: question-headings (AI-slop) in staged paper files:"
+  echo "$slop_offenders"
+  failed=1
+fi
+
+if [ "$failed" -ne 0 ]; then
+  echo
+  echo "Commit blocked. Fix the violations or pass --no-verify if you accept the risk."
+  exit 1
+fi
+
+exit 0
