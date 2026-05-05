@@ -632,8 +632,90 @@ objectives:
       meaningfully solve the 3-object task even with oracle perception. The
       task exceeds the training budget/architecture capacity. 2-rock (6D) used
       as primary second task instead.
-    connects_to: obj-022
+    connects_to: obj-019
     completed_date: "2026-03-24"
+
+  - id: obj-019
+    status: completed
+    statement: "SA transfers across physics variants: 93-106% retention on 8 rock types"
+    methodology: >
+      Trained organisms on a standard rock-push, then evaluated SA on 8 variants
+      with perturbed push_radius (±20%) and push_strength (±30%). 81 evaluations:
+      9 variants × 3 embed_dim × 3 seeds. No retraining; SA computed via the
+      eval-time oracle action.
+    metrics:
+      total_evaluations: 81
+      sa_retention_standard: "102%"
+      sa_retention_smaller_rock: "101%"
+      sa_retention_larger_rock: "103%"
+      sa_retention_heavier_rock: "100%"
+      sa_retention_lighter_rock: "102%"
+      sa_retention_hard_combo: "94%"
+      sa_retention_easy_combo: "106%"
+      retention_range: "94-106%"
+    figures:
+      - results/obj019_sa_transfer.png
+    conclusions: >
+      SA captures structural alignment that survives physics perturbations.
+      Even the hardest combined variant (smaller + heavier) retains 94%; the
+      easiest variant gains 6% (suggests SA estimator has minor positive bias
+      in easier regimes). Pre-empts Reviewer E's task-similarity concern: SA
+      is invariant to single-parameter physics changes within ±30%.
+    connects_to: obj-020
+    completed_date: "2026-03-25"
+
+  - id: obj-020
+    status: completed
+    statement: "SA transfers across appearance + physics: 89-102% retention, r(eps,retention)=0.033"
+    methodology: >
+      Extended obj-019 by perturbing the emission projection matrix
+      (state_proj += eps * randn) so variants both look and respond differently.
+      240 evaluations: 4 physics × 4 appearance_epsilon ∈ {0, 0.1, 0.3, 0.5}
+      × 3 embed_dim × 5 seeds.
+    metrics:
+      total_evaluations: 240
+      sa_retention_range: "89-102%"
+      r_epsilon_retention: 0.033
+      worst_combo: "smaller+heavier rock at eps=0.5 retains 90-96%"
+    figures:
+      - results/obj020_sa_transfer_appearance.png
+    conclusions: >
+      Appearance perturbations have essentially zero effect on SA retention
+      (r=0.033). Even at eps=0.5 (substantial visual perturbation), the
+      hardest physics combo retains ≥90% SA. The organism's alignment is not
+      a memorized mapping from emission patterns to actions but a structural
+      understanding of the push interaction. Closes the appearance gap in the
+      transfer story (paper §5.6 uses both obj-019 and obj-020).
+    connects_to: obj-021
+    completed_date: "2026-03-29"
+
+  - id: obj-021
+    status: completed
+    statement: "Second task: 2-rock 6D push gives r=-0.728, replicating 1-rock SA pattern"
+    methodology: >
+      MultiRockMatter with n_rocks=2 (6D state, 12D emission, 2D action).
+      45 configs: 3 perception conditions (oracle, raw_emission,
+      vae_mu_lat16) × 3 embed_dim ∈ {4, 16, 64} × 5 seeds. PPO 500
+      episodes, batch=256. SA via two-rock optimal action targeting
+      worst-from-target rock.
+    metrics:
+      total_configs: 45
+      correlation_r: -0.728
+      oracle_mean_SA: 0.55
+      vae_mu_lat16_mean_SA: 0.42
+      raw_emission_mean_SA: 0.48
+      learnability_threshold_holds: true
+    figures:
+      - results/tworock_ci_analysis.png
+    conclusions: >
+      6D 2-rock task produces r=-0.728 — within 1% of the 1-rock r=-0.724
+      result. SA's predictive power is not specific to a 4D state space.
+      Used as the primary second task in paper §5.5 after obj-017's 3-rock
+      floor effect. The 2-rock floor effect appears later (in obj-026's
+      sensory-capacity replicate at 800 episodes); obj-021 used 500
+      episodes with broader perception conditions which avoided the floor.
+    connects_to: obj-022
+    completed_date: "2026-03-29"
 
   - id: obj-022
     status: completed

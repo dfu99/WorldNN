@@ -314,7 +314,17 @@ multiplicative, not additive.
 The slope of SA over the first 200 episodes correlates with final rock-target
 distance at $r = -0.705$, stronger than any single snapshot (e.g., SA at episode
 100: $r = -0.232$). The rate of alignment improvement is more predictive than the
-alignment level at any given time.
+alignment level at any given time (Figure~\ref{fig:dynamics}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig2_dynamics.pdf}
+\caption{SA dynamics during training. (A) SA trajectories for 27 configs over
+500 episodes; trajectories diverge by episode 200. (B) SA slope over the first
+200 episodes vs.\ final rock-target distance ($r = -0.705$, $n = 27$).
+(C) Time-to-threshold (episode at which SA exceeds 0.4) vs.\ final distance.}
+\label{fig:dynamics}
+\end{figure}
 
 \subsection{Second task: 2-rock push (6D state)}
 
@@ -356,11 +366,23 @@ Estimating the information available about state $S$ from the first sensory\_dim
 emission channels via a linear-probe Gaussian-MI lower bound, we obtain
 $I(S; \text{obs}) \approx \{0.33, 0.64, 3.44, 27.6\}$ nats for sensory\_dim
 $= \{2, 4, 8, 16\}$, with linear $R^2(S \mid \text{obs}) = \{0.15, 0.28, 0.82, 1.00\}$.
-The Gaussian-MI correlates with peak SA at $r = 0.975$. This matches the Data
-Processing Inequality prediction: capacity cannot recover information absent from
-the input. The floor effect at sensory $\leq 4$ corresponds to linear $R^2 < 0.3$.
-The information about state is below what the task requires, and no policy
+The Gaussian-MI correlates with peak SA at $r = 0.975$
+(Figure~\ref{fig:infobound}). This matches the Data Processing Inequality
+prediction: capacity cannot recover information absent from the input. The
+floor effect at sensory $\leq 4$ corresponds to linear $R^2 < 0.3$. The
+information about state is below what the task requires, and no policy
 dimension closes the gap.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig5_infobound.pdf}
+\caption{Information-theoretic bound on the SA ceiling. (A) Linear-probe
+$R^2(S \mid \text{obs})$ (left axis) and Gaussian-MI lower bound on $I(S;
+\text{obs})$ (right axis) as a function of sensory\_dim. (B) Peak SA
+achievable at each sensory\_dim plotted against Gaussian-MI; Pearson
+$r = 0.975$.}
+\label{fig:infobound}
+\end{figure}
 
 The 2--16 channel range sits at the low end of biological sensing, comparable to
 paramecium chemotaxis (2), vestibular ($\sim 6$), haptic vibrotactile ($\sim 10$),
