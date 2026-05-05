@@ -806,3 +806,57 @@ queue:
   success_criteria: sweep_memo committed, Slack posted, planning.md updated.
   notes: sweep_memo_2026-04-23.md committed with all 5 sections. Slack posted
     to #worldnn. planning.md updated with Next priority pointing to E1/E5/E2.
+
+- objective: 'T25 Submission Mechanics: download official neurips_2026.sty,
+    recompile, verify ≤9 main pages + refs, promote one obj-025 figure to §5.7
+    (recommend obj025_mi_vs_sensory as fig5_infobound), decide on fig2_dynamics
+    orphan, send PDF to PI for approval. The ship-list from audit-2026-05-05.md.'
+  priority: 1
+  status: pending
+  added: 2026-05-05 12:30
+  source: audit-2026-05-05
+  context: NeurIPS 2026 deadline May 6. Single biggest blocker is the placeholder
+    style file. Pre-submission checklist has 3 unchecked items.
+  success_criteria: paper/neurips2026/main.pdf compiled with official .sty, ≤9
+    main pages, fig5_infobound.pdf promoted and cited in §5.7, PR sent to PI.
+
+- objective: 'T26 Backfill objectives.yaml: add entries for obj-019 (SA physics
+    transfer 93-106%), obj-020 (appearance transfer 89-102%), obj-021 (2-rock
+    6D r=-0.728). Each should have statement, methodology, metrics from existing
+    JSONs in results/, figures path, conclusions. Information lives in commit
+    messages 39f08db, 9aef22e and result JSONs.'
+  priority: 2
+  status: pending
+  added: 2026-05-05 12:30
+  source: audit-2026-05-05
+  context: Audit found obj-019/020/021 are claimed in commits and the paper but
+    missing from objectives.yaml.
+  success_criteria: Three new entries appended; obj-022.connects_to and
+    obj-026.connects_to chained correctly through obj-021.
+
+- objective: 'T27 Test suite expansion: add tests for Organism.forward shape
+    contracts, compute_sa_sensory on a synthetic (state, obs) pair, estimate_mi_ksg
+    against a known-MI distribution, MultiRockMatter shape contracts, and the
+    sensory-dim slicing path (obs = emission[:, :sensory_dim]). 10-15 new tests.'
+  priority: 3
+  status: pending
+  added: 2026-05-05 12:30
+  source: audit-2026-05-05
+  context: Audit identified that 29 existing tests cover only RockPushMatter +
+    World. Numerical drift in Organism, SA computation, or MI estimator would
+    silently invalidate paper claims.
+  success_criteria: tests/test_components.py grows by 10-15 tests, all pass.
+
+- objective: 'T28 Dreamer recon-loss head-to-head: on the obj-016 grid (245
+    configs, wide perception range), fit per-config linear probe organism-embedding
+    → obs, compute mean recon-error, correlate with task error. Compare ΔR² of
+    SA over recon. Currently we have this only on obj-024 narrow grid (ΔR²=0.004);
+    the headline obj-016 number is what would settle Reviewer A.'
+  priority: 3
+  status: pending
+  added: 2026-05-05 12:30
+  source: audit-2026-05-05
+  context: Audit follow-up. Reviewer A's signature question 2 is unanswered for
+    the wide-dynamic-range grid.
+  success_criteria: results/obj028_recon_vs_sa_obj016.json with per-config
+    recon-error and ΔR² number. Update §7.5 with the new ΔR² if non-trivial.

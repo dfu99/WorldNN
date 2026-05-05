@@ -66,6 +66,13 @@ at tasks/research/ (10 memos). Synthesis memo is sweep_memo_2026-04-23.md.
   `/media/dan/WD_BLACK/claude/backups/WorldNN/<sub>/`. No dated snapshots.
   Scope: experimental outputs only, never code/caches. See memory.
 
+## Audit 2026-05-05 — single blocker, ship list
+
+`tasks/audit-2026-05-05.md` (figure: `figures/audit-2026-05-05.png`).
+Headline: NeurIPS deadline May 6, *one* blocker (official neurips_2026.sty
+not downloaded), three optional strengtheners (fig2 orphan, §5.7 figure,
+obj-019/020/021 backfill). Ship list = T25; T26-T28 are followup queue.
+
 ### Pod state (2026-05-01 checkpoint): UNREACHABLE
 - `runpod-active.json` last_confirmed 2 d ago; SSH to 213.173.108.214:10031
   refuses connection. `mc runpod check` returns empty gpus/processes.
