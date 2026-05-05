@@ -543,8 +543,10 @@ distance at partial $r = -0.679$; recon's residual partial correlation
 flips sign to $+0.285$, indicating shared variance with SA rather than
 independent predictive power. Multiple regression on distance gives
 $R^2 = 0.190$ for recon alone and $R^2 = 0.563$ when SA is added: SA
-contributes $\Delta R^2 = +0.374$ on top of reconstruction. SA captures
-a structural property of the policy that reconstruction loss does not.
+contributes $\Delta R^2 = +0.374$ (95\% bootstrap CI $[+0.253, +0.489]$
+over 10k resamples; $P(\Delta R^2 > 0) = 1.000$) on top of reconstruction.
+SA captures a structural property of the policy that reconstruction loss
+does not.
 
 This finding is regime-dependent. On a compressed grid where every
 perception condition saturates the same recon ceiling, as in the
