@@ -545,8 +545,11 @@ independent predictive power. Multiple regression on distance gives
 $R^2 = 0.190$ for recon alone and $R^2 = 0.563$ when SA is added: SA
 contributes $\Delta R^2 = +0.374$ (95\% bootstrap CI $[+0.253, +0.489]$
 over 10k resamples; $P(\Delta R^2 > 0) = 1.000$) on top of reconstruction.
-SA captures a structural property of the policy that reconstruction loss
-does not.
+A label-permutation test gives a stronger guarantee: across 10k random
+permutations of SA labels, the maximum $\Delta R^2$ was $+0.044$
+(observed: $+0.374$) and maximum $|r(\text{SA}, \text{dist})|$ was $0.244$
+(observed: $-0.724$); permutation $p < 10^{-4}$ for both. SA captures a
+structural property of the policy that reconstruction loss does not.
 
 This finding is regime-dependent. On a compressed grid where every
 perception condition saturates the same recon ceiling, as in the

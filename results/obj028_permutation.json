@@ -1,0 +1,10 @@
+{
+  "n_configs": 245,
+  "n_permutations": 10000,
+  "observed_r": -0.7242440914631287,
+  "observed_deltaR2": 0.37354530414729015,
+  "permutation_p_r": 0.0,
+  "permutation_p_deltaR2": 0.0,
+  "max_abs_perm_r": 0.24438897417450575,
+  "max_perm_deltaR2": 0.04440159334081295
+}
