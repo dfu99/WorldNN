@@ -21,7 +21,7 @@ action), and the only access an organism has to that state is through
 explicit lossy channels. A POMDP's observation function $O(o \mid s, a)$
 hides this same asymmetry but treats it as a black box; our framing
 keeps the chain decomposable so each link can be perturbed in isolation
-(perception ladder, §5.1). All our SA results would translate cleanly
+(per-perception-condition table, §5.1). All our SA results would translate cleanly
 into the POMDP language; the reverse mapping is more cumbersome.
 
 **Reconstruction-loss versus SA (§7.5).** This is the most direct
@@ -64,14 +64,16 @@ deterministic in the limit. Action variance (oracle-free SA proxy,
 "closed-loop dynamics with prediction-action coupling" you want is
 exactly the closed obj-022 result.
 
-**Markov blanket formalization.** We map the four blanket components
-explicitly in §3.1 (external $s$ → sensory $o$ → internal $\mu$ →
-active $a$ → environment closure). The diagram in supplementary
-Figure 6 makes the mapping graphical. The width of the sensory
-component is `sensory_dim`; the internal-state dim is `embedding_dim`;
-the rate-distortion result in §5.7 shows that capacity in $\mu$
-cannot recover information absent from $o$, which is exactly the
-information-theoretic content of the Markov-blanket constraint.
+**Markov blanket formalization.** §3.1 defines the four asymmetric-loop
+components (Matter / Perception chain / Action / closure); the
+supplementary materials note maps them onto the active-inference
+blanket as external $s \to$ sensory $o \to$ internal $\mu \to$ active
+$a \to$ environment closure, and supplementary Figure 6 makes the
+mapping graphical. The width of the sensory component is `sensory_dim`;
+the internal-state dim is `embedding_dim`; the rate-distortion result
+in §5.7 shows that capacity in $\mu$ cannot recover information absent
+from $o$, which is exactly the information-theoretic content of the
+Markov-blanket constraint.
 
 **Free energy connection.** Cited in §2 Related Work and operationalized
 across §5.7 (rate-distortion bound) and §7 (SA as bounded
