@@ -39,8 +39,12 @@ quality and organism capacity interact multiplicatively. Increasing capacity
 reduces distance to target only when perception is sufficient
 ($\beta_{\text{interaction}} = -0.004$, $p = 5 \times 10^{-9}$). When perception
 is too degraded, additional representational power does not improve performance.
-An oracle-free proxy, action variance across observations, predicts performance
-comparably ($r = -0.82$) without access to optimal actions. These results
+On the same wide grid, SA contributes $\Delta R^2 = +0.374$ in predicting task
+distance over a per-condition linear-probe reconstruction baseline (95\%
+bootstrap CI $[+0.25, +0.49]$, permutation $p < 10^{-4}$), so the metric
+captures structure beyond what reconstruction loss recovers. An oracle-free
+proxy, action variance across observations, predicts performance comparably
+($r = -0.82$) without access to optimal actions. These results
 reproduce the critical-period phenomenon observed by
 \citet{blakemore1970development}, where sensory pathways that fail to align with
 motor experience are pruned.
@@ -105,9 +109,12 @@ using privileged information as a training signal, we use it as a post-hoc
 diagnostic that measures the residual alignment gap between actions under degraded
 perception and actions under full state access.
 
-\textbf{DreamerV3} \citep{hafner2023mastering} and \textbf{IRIS}
-\citep{micheli2023transformers} learn world models and implicitly measure
-prediction quality in latent space. SA is computed in true state space, not latent
+\textbf{DreamerV3} \citep{hafner2023mastering}, \textbf{DreamerV4}
+\citep{hafner2025dreamer4}, and \textbf{IRIS} \citep{micheli2023transformers}
+learn world models and implicitly measure prediction quality in latent space;
+\textbf{V-JEPA 2-AC} \citep{vjepa2_2025} and \textbf{ACT-JEPA}
+\citep{actjepa2025} extend joint-embedding predictive architectures with
+action conditioning. SA is computed in true state space, not latent
 space; this distinction matters because the action operates on true state, not on
 the model's latent representation.
 
@@ -641,6 +648,23 @@ K.~Friston.
 D.~Hafner, J.~Pasukonis, J.~Ba, and T.~Lillicrap.
 \newblock Mastering diverse domains through world models.
 \newblock \emph{arXiv:2301.04104}, 2023.
+
+\bibitem[Hafner et~al.(2025)]{hafner2025dreamer4}
+D.~Hafner, W.~Yan, et~al.
+\newblock Training agents inside of scalable world models.
+\newblock \emph{arXiv:2509.24527}, 2025.
+
+\bibitem[Assran et~al.(2025a)]{vjepa2_2025}
+M.~Assran et~al.
+\newblock {V-JEPA 2}: Self-supervised video models enable understanding,
+prediction and planning.
+\newblock \emph{arXiv:2506.09985}, 2025.
+
+\bibitem[Sobal et~al.(2025)]{actjepa2025}
+V.~Sobal et~al.
+\newblock {ACT-JEPA}: Joint-embedding predictive architecture for action
+sequence and latent observation prediction.
+\newblock \emph{arXiv:2501.14622}, 2025.
 
 \bibitem[Huang et~al.(1999)]{huang1999bdnf}
 Z.~J. Huang, A.~Kirkwood, T.~Bhatt, V.~Porciatti, et~al.
