@@ -22,7 +22,7 @@ FIG.parent.mkdir(parents=True, exist_ok=True)
 
 fig, axes = plt.subplots(4, 2, figsize=(15, 20))
 fig.suptitle(
-    "WorldNN Audit — 2026-05-05 (v17, 32 D-findings, 16 passes; NeurIPS deadline May 6 = today)",
+    "WorldNN Audit — 2026-05-05 (v18, 33 D-findings, 17 passes; NeurIPS deadline May 6 = today)",
     fontsize=15, fontweight="bold",
 )
 
