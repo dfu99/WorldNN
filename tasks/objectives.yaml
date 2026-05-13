@@ -1043,5 +1043,42 @@ objectives:
       sensory richness up to a contact-mechanics ceiling. OA may be
       useful as a contact-event diagnostic alongside SA but does not
       replace SA as the global policy-alignment metric.
+    connects_to: obj-035
+    completed_date: "2026-05-13"
+
+  - id: obj-035
+    status: completed
+    statement: "Sparse oracle-supervision ablation: SA rises 0.51 → 0.97 with weight 0 → 1; PPO alone reaches threshold"
+    methodology: >
+      Added auxiliary loss term w * ||action_mean(obs) - oracle_action(state)||²
+      to the obj-024 PPO training loop. 12 configs (sensory=16,
+      embed=16, 3 seeds × supervision weight w ∈ {0, 0.01, 0.1, 1.0},
+      200 ep batch=128 CPU; 3.6 min total).
+    metrics:
+      total_configs: 12
+      mean_SA_w_0_0:   0.509
+      mean_SA_w_0_01:  0.563
+      mean_SA_w_0_1:   0.726
+      mean_SA_w_1_0:   0.970
+      std_SA_w_0_0:    0.107
+      std_SA_w_1_0:    0.013
+      mean_dist_w_0_0: 0.536
+      mean_dist_w_1_0: 0.523
+      r_SA_dist_acrossall: "weak — task-distance saturates due to 200ep budget"
+    figures:
+      - figures/obj035_sparse_supervision.png
+    conclusions: >
+      SA scales monotonically with oracle-supervision weight: pure PPO
+      (w=0) reaches 0.509 (just above the §5.2 learnability threshold);
+      strong imitation (w=1.0) hits 0.970 near-perfectly aligned. The
+      pure-PPO result is the cleanest contribution: SA captures
+      policy-level alignment that PPO discovers from reward alone, with
+      no oracle-action supervision in the loss. Supervision sharpens
+      alignment but is not required to cross the threshold. Variance
+      drops sharply with w (std 0.107 → 0.013); supervision makes
+      training more reproducible. Caveat: at 200-ep budget, high SA
+      does not translate to lower task-distance (saturation), so high-
+      SA / low-success configs do exist in this regime; the full
+      obj-024 800-ep grid shows SA tracking distance more cleanly.
     connects_to: null
     completed_date: "2026-05-13"

@@ -1,0 +1,101 @@
+{
+  "results": [
+    {
+      "supervision_weight": 0.0,
+      "seed": 42,
+      "sensory_dim": 16,
+      "embedding_dim": 16,
+      "SA": 0.6021193265914917,
+      "final_dist": 0.524550199508667
+    },
+    {
+      "supervision_weight": 0.0,
+      "seed": 123,
+      "sensory_dim": 16,
+      "embedding_dim": 16,
+      "SA": 0.5647532343864441,
+      "final_dist": 0.5329951643943787
+    },
+    {
+      "supervision_weight": 0.0,
+      "seed": 456,
+      "sensory_dim": 16,
+      "embedding_dim": 16,
+      "SA": 0.3598310649394989,
+      "final_dist": 0.5508847832679749
+    },
+    {
+      "supervision_weight": 0.01,
+      "seed": 42,
+      "sensory_dim": 16,
+      "embedding_dim": 16,
+      "SA": 0.7332285642623901,
+      "final_dist": 0.5322519540786743
+    },
+    {
+      "supervision_weight": 0.01,
+      "seed": 123,
+      "sensory_dim": 16,
+      "embedding_dim": 16,
+      "SA": 0.5844720602035522,
+      "final_dist": 0.5319591164588928
+    },
+    {
+      "supervision_weight": 0.01,
+      "seed": 456,
+      "sensory_dim": 16,
+      "embedding_dim": 16,
+      "SA": 0.3722217381000519,
+      "final_dist": 0.5439249873161316
+    },
+    {
+      "supervision_weight": 0.1,
+      "seed": 42,
+      "sensory_dim": 16,
+      "embedding_dim": 16,
+      "SA": 0.7819241881370544,
+      "final_dist": 0.5275426506996155
+    },
+    {
+      "supervision_weight": 0.1,
+      "seed": 123,
+      "sensory_dim": 16,
+      "embedding_dim": 16,
+      "SA": 0.6983470916748047,
+      "final_dist": 0.539467990398407
+    },
+    {
+      "supervision_weight": 0.1,
+      "seed": 456,
+      "sensory_dim": 16,
+      "embedding_dim": 16,
+      "SA": 0.6979324817657471,
+      "final_dist": 0.5642642378807068
+    },
+    {
+      "supervision_weight": 1.0,
+      "seed": 42,
+      "sensory_dim": 16,
+      "embedding_dim": 16,
+      "SA": 0.9539359211921692,
+      "final_dist": 0.5080190300941467
+    },
+    {
+      "supervision_weight": 1.0,
+      "seed": 123,
+      "sensory_dim": 16,
+      "embedding_dim": 16,
+      "SA": 0.9852199554443359,
+      "final_dist": 0.5773009061813354
+    },
+    {
+      "supervision_weight": 1.0,
+      "seed": 456,
+      "sensory_dim": 16,
+      "embedding_dim": 16,
+      "SA": 0.9699263572692871,
+      "final_dist": 0.4831176996231079
+    }
+  ],
+  "elapsed_s": 215.31548595428467
+}
