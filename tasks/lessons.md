@@ -202,6 +202,25 @@
   was bibitem-defined but never cited in body — caught by `grep \\\\cite`
   vs `grep \\\\bibitem`. Run before every submission.
 
+## Process
+
+- **Autonomy is the contract.** PI codifies evals and constraints; the
+  agent explores solutions and executes. No approval-seeking on reversible
+  in-tree actions (edits, experiments, figures, commits). No multiple-choice
+  menus offered to the PI when one option is clearly better. Hard rule
+  lives in `~/.claude/CLAUDE.md` under "Autonomy (no approval-seeking)".
+  Confirmation is required only for: destructive ops outside the working
+  tree (force-push, drop DB, send Slack/email externally, deploy), real
+  money, shared infra. Everything inside the repo: act.
+
+- **Corrections belong in code, not memory.** When the PI pushes back,
+  the fix goes in a script/skill/hook/lessons.md — not just an internal
+  resolution. Memory is the weakest enforcement; codify hard constraints
+  in code or hooks so future sessions inherit them automatically. Example:
+  the writing-style pre-commit hook at `.githooks/pre-commit` was added
+  for D20 emdash-regression after one PI compliance sweep; it now
+  prevents the *next* regression silently.
+
 ## Infrastructure (continued)
 
 - **RunPod A4500 has no scheduler — gate every GPU launch on VRAM.**

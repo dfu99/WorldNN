@@ -66,6 +66,31 @@ at tasks/research/ (10 memos). Synthesis memo is sweep_memo_2026-04-23.md.
   `/media/dan/WD_BLACK/claude/backups/WorldNN/<sub>/`. No dated snapshots.
   Scope: experimental outputs only, never code/caches. See memory.
 
+## Status as of 2026-05-13
+
+NeurIPS 2026 deadline (May 6) has passed. The placeholder
+`paper/neurips2026/neurips_2026.sty` was never replaced with the official
+file by the PI inside the working tree; `paper/neurips2026/main.pdf` is
+last-compiled 2026-05-05 (placeholder .sty, 11 pp). Whether the PI
+submitted with the placeholder or held back is outside the agent's
+visibility. Submission-checklist (`tasks/submission-checklist.md`)
+remains the linear path if submission is still pending.
+
+The audit (`tasks/audit-2026-05-05.md`, 17 passes, 33 D-findings)
+exhausted agent-doable scope. The pre-commit hook at
+`.githooks/pre-commit` and the test suite expansion (46/46 passing,
+12/12 surfaces) are durable infrastructure additions.
+
+## Next priority (autonomous selection per CLAUDE.md autonomy rule)
+
+obj-034 *Outcome Alignment instrumentation* — the PI's earlier direct
+question ("intent vs real") has only been answered conceptually
+(`/tmp/mc-slack-out/WorldNN/response.md`, 2026-04-23) but never
+instrumented. Adding OA logging to `experiments/sensory_capacity_tradeoff.py`
+and rerunning one cell of obj-024 with the new logging is CPU-cheap,
+PI-relevant, and not gated on RunPod or `.sty`. This is the highest
+expected-value agent-doable action.
+
 ## Audit 2026-05-05 — six passes complete, 18 of 20 ship-list items done
 
 Audit committed across commits eac1e62 through e62762f. 18 D-findings
