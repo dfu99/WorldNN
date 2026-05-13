@@ -1,0 +1,113 @@
+{
+  "results": [
+    {
+      "sensory_dim": 2,
+      "embedding_dim": 16,
+      "seed": 42,
+      "SA": 0.0909692645072937,
+      "OA": 0.03302003815770149,
+      "n_contact_samples": 3087,
+      "final_dist": 0.4922240078449249
+    },
+    {
+      "sensory_dim": 2,
+      "embedding_dim": 16,
+      "seed": 123,
+      "SA": 0.0717405378818512,
+      "OA": 0.08538057655096054,
+      "n_contact_samples": 3466,
+      "final_dist": 0.4765019118785858
+    },
+    {
+      "sensory_dim": 2,
+      "embedding_dim": 16,
+      "seed": 456,
+      "SA": 0.06666462123394012,
+      "OA": 0.10246305912733078,
+      "n_contact_samples": 3589,
+      "final_dist": 0.5267126560211182
+    },
+    {
+      "sensory_dim": 4,
+      "embedding_dim": 16,
+      "seed": 42,
+      "SA": 0.18973220884799957,
+      "OA": 0.1288137286901474,
+      "n_contact_samples": 4570,
+      "final_dist": 0.5736389756202698
+    },
+    {
+      "sensory_dim": 4,
+      "embedding_dim": 16,
+      "seed": 123,
+      "SA": 0.17326807975769043,
+      "OA": 0.16765165328979492,
+      "n_contact_samples": 5460,
+      "final_dist": 0.5370338559150696
+    },
+    {
+      "sensory_dim": 4,
+      "embedding_dim": 16,
+      "seed": 456,
+      "SA": 0.11614714562892914,
+      "OA": 0.1554243415594101,
+      "n_contact_samples": 4912,
+      "final_dist": 0.5104172229766846
+    },
+    {
+      "sensory_dim": 8,
+      "embedding_dim": 16,
+      "seed": 42,
+      "SA": 0.3484421670436859,
+      "OA": 0.2277212291955948,
+      "n_contact_samples": 7284,
+      "final_dist": 0.5601027011871338
+    },
+    {
+      "sensory_dim": 8,
+      "embedding_dim": 16,
+      "seed": 123,
+      "SA": 0.46532291173934937,
+      "OA": 0.243374764919281,
+      "n_contact_samples": 9054,
+      "final_dist": 0.5338499546051025
+    },
+    {
+      "sensory_dim": 8,
+      "embedding_dim": 16,
+      "seed": 456,
+      "SA": 0.47726815938949585,
+      "OA": 0.2438730001449585,
+      "n_contact_samples": 10126,
+      "final_dist": 0.5239031910896301
+    },
+    {
+      "sensory_dim": 16,
+      "embedding_dim": 16,
+      "seed": 42,
+      "SA": 0.6021193265914917,
+      "OA": 0.16604040563106537,
+      "n_contact_samples": 4732,
+      "final_dist": 0.524550199508667
+    },
+    {
+      "sensory_dim": 16,
+      "embedding_dim": 16,
+      "seed": 123,
+      "SA": 0.5647532343864441,
+      "OA": 0.2482014149427414,
+      "n_contact_samples": 9501,
+      "final_dist": 0.5329951643943787
+    },
+    {
+      "sensory_dim": 16,
+      "embedding_dim": 16,
+      "seed": 456,
+      "SA": 0.3598310649394989,
+      "OA": 0.2766801714897156,
+      "n_contact_samples": 7175,
+      "final_dist": 0.5508847832679749
+    }
+  ],
+  "elapsed_s": 207.42128324508667
+}

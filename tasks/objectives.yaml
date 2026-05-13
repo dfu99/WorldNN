@@ -1000,5 +1000,48 @@ objectives:
       bound is at least as strong under a biologically realistic noise
       model. Reviewer D signature question 2 closed; signature-question
       coverage now 15/15 full.
-    connects_to: null
+    connects_to: obj-034
     completed_date: "2026-05-05"
+
+  - id: obj-034
+    status: completed
+    statement: "Outcome Alignment metric (PI 'intent vs real'): OA tracks SA at r=0.75 but saturates earlier"
+    methodology: >
+      Instrumented experiments/sensory_capacity_tradeoff.py to log
+      (action_xy, Δrock_xy) on every contact step during the final 50
+      training episodes. Trained 12 configs (sensory ∈ {2,4,8,16} ×
+      embed=16 × 3 seeds, 200 episodes batch=128 on CPU) and computed
+      both SA (cos action-vs-oracle-action) and OA = E[cos(action, Δrock)]
+      per config.
+    metrics:
+      total_configs: 12
+      n_episodes_per_config: 200
+      mean_SA_sensory_2:  0.076
+      mean_OA_sensory_2:  0.074
+      mean_SA_sensory_4:  0.160
+      mean_OA_sensory_4:  0.151
+      mean_SA_sensory_8:  0.430
+      mean_OA_sensory_8:  0.238
+      mean_SA_sensory_16: 0.509
+      mean_OA_sensory_16: 0.230
+      r_SA_OA: 0.749
+      runtime_minutes: 3.5
+    figures:
+      - figures/obj034_outcome_alignment.png
+    conclusions: >
+      OA (cos between commanded action and realized rock motion on
+      contact steps) is positively correlated with SA at r = +0.75 across
+      the 12-config slim grid. The two metrics agree at the floor
+      (sensory ∈ {2,4}) and diverge at the ceiling: SA continues climbing
+      to 0.51 at sensory=16 while OA saturates near 0.24 at sensory=8.
+      Interpretation: OA is the contact-step instantaneous correlate of
+      SA but is noisier (rare events, single-step delta) and information-
+      limited (cos in 2-D vs SA's policy-direction alignment). For the
+      PI's intent-vs-real question this is a *measured* answer: yes,
+      intent (action direction) and outcome (rock motion direction)
+      align positively under contact, and the alignment grows with
+      sensory richness up to a contact-mechanics ceiling. OA may be
+      useful as a contact-event diagnostic alongside SA but does not
+      replace SA as the global policy-alignment metric.
+    connects_to: null
+    completed_date: "2026-05-13"
