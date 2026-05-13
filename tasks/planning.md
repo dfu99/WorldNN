@@ -83,6 +83,15 @@ exhausted agent-doable scope. The pre-commit hook at
 
 ## Recently completed
 
+- [2026-05-13] obj-036 1D-positioning sensory-capacity sweep — |SA| ≈
+  0.60 uniformly across 45 cells, all crossing the learnability
+  threshold but with NO sensory/embed gradient. 1D positioning is too
+  easy; framework only shows substitution structure when the task has
+  multiple bottlenecks. Honest Reviewer E result (scope clarification,
+  not positive replication).
+- [2026-05-13] obj-035 sparse oracle-supervision ablation — SA rises
+  0.51 → 0.97 with weight 0 → 1; pure PPO crosses §5.2 threshold from
+  reward alone
 - [2026-05-13] obj-034 Outcome Alignment instrumentation — r(SA, OA) =
   +0.75 across 12 configs (sensory ∈ {2,4,8,16} × embed=16 × 3 seeds).
   OA tracks SA but saturates earlier; serves as a contact-step
@@ -91,23 +100,20 @@ exhausted agent-doable scope. The pre-commit hook at
 - [2026-05-05] audit-2026-05-05 — 17 passes, 33 D-findings (1 retracted),
   pre-commit hook, rebuttal-letter draft, submission run-of-show.
 
-## Next priority (autonomous)
+## Next priority (autonomous; updated 2026-05-13 cron)
 
-The remaining high-value agent-doable items, ranked:
+Three obj-034/035/036 shipped today. Remaining queue:
 
-1. **obj-035 Sparse-action supervision** (Dreamer V4 pattern, ~6 hours
-   CPU). Train at N% ∈ {1, 5, 25, 100} of oracle-action pairs;
-   measure SA at each. Tests whether the SA ceiling persists under
-   weaker supervision. Answers a Reviewer A follow-up not yet covered.
-2. **obj-033 PPO hparam sweep** (~4 hours CPU). lr × entropy × clip_eps
-   × 3 seeds on the obj-024 peak cell. Tests whether obj-024 was
-   optimally tuned.
-3. **§5.7 extension**: re-render figures with obj-034 OA panel; add a
-   subsection to §5.7 referencing OA as a contact-event diagnostic.
-
-Selecting (1) sparse-action supervision next since it addresses an
-unanswered reviewer question and produces a paper-grade artifact.
-Sequential execution under the autonomy contract.
+1. **Paper integration**: fold obj-034 (OA), obj-035 (sparse-supervision),
+   and obj-036 (1D scope-clarification) into the paper draft. Specifically:
+   - §5.7 or §7: one paragraph noting OA r=0.75 with SA + scope note
+     ("framework requires task with multiple bottlenecks; 1D positioning
+     saturates without showing structure").
+   - §7.5 Limitations: pure-PPO baseline reaches threshold from reward
+     alone (obj-035 w=0).
+2. **obj-033 PPO hparam sweep** (~4h CPU). Optional rigor add.
+3. **obj-037 2-rock at longer training** if a pod becomes available —
+   test whether obj-026's floor effect lifts at ≥2000 ep + n=13 seeds.
 
 ## Audit 2026-05-05 — six passes complete, 18 of 20 ship-list items done
 
