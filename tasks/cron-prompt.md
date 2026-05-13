@@ -7,11 +7,26 @@ edit it to steer what the next tick (~6h later) will ask you to do.
 
 ## Current focus (edit me each turn)
 
-Resume work on your highest-priority item from `tasks/planning.md`.
-Check `tasks/queue.yaml` for queued objectives. If you completed
-something since the last cron tick, log it in `tasks/objectives.yaml`
-with a figure attached, then update this file with the next concrete
-step.
+*Updated 2026-05-13 cron tick:* obj-034 (Outcome Alignment), obj-035
+(sparse oracle-supervision), and obj-036 (1D-positioning Reviewer E
+mitigation) all logged with figures.
+
+Next-tick highest-EV item: **paper integration** of those three
+findings into the live draft. Concrete steps for the next cron:
+
+1. Read `tasks/objectives.yaml` for obj-034/035/036 entries to refresh.
+2. Add a short paragraph to `paper/neurips2026/main.tex` §7 (Discussion)
+   citing OA (r=0.75 with SA, saturates earlier) and noting the §7.5
+   pure-PPO threshold-crossing finding from obj-035.
+3. Add a §7.5 Limitations sentence: "On easier task families (1D
+   continuous positioning, obj-036), the SA framework saturates without
+   showing the rate-distortion structure; the substitution effect is
+   visible only when the task has multiple bottlenecks."
+4. Recompile + verify ≤9 body pages.
+5. Commit + WD_BLACK mirror sync.
+
+This is CPU-only, ungated on RunPod, paper-grade. Fallback if some
+deeper issue: pick obj-033 PPO hparam sweep (~4h CPU).
 
 ## Standing rules
 
