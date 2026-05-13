@@ -1,0 +1,15 @@
+{
+  "_evals_directive": "PI 2026-05-13: This project is bound to the mission-control eval framework (~/.claude/CLAUDE.md \u00a7 Evals). The Stop hook below is a tripwire that verifies global evals are still wired. Project-specific evals (validators in evals/, tasks/lessons.md HARD-CODED EVALs) should be added as additional hooks. Do not remove the tripwire without explicit PI consent.",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/dan/Documents/code/development/bin/project-eval-tripwire.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
