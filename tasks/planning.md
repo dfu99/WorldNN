@@ -81,15 +81,33 @@ exhausted agent-doable scope. The pre-commit hook at
 `.githooks/pre-commit` and the test suite expansion (46/46 passing,
 12/12 surfaces) are durable infrastructure additions.
 
-## Next priority (autonomous selection per CLAUDE.md autonomy rule)
+## Recently completed
 
-obj-034 *Outcome Alignment instrumentation* — the PI's earlier direct
-question ("intent vs real") has only been answered conceptually
-(`/tmp/mc-slack-out/WorldNN/response.md`, 2026-04-23) but never
-instrumented. Adding OA logging to `experiments/sensory_capacity_tradeoff.py`
-and rerunning one cell of obj-024 with the new logging is CPU-cheap,
-PI-relevant, and not gated on RunPod or `.sty`. This is the highest
-expected-value agent-doable action.
+- [2026-05-13] obj-034 Outcome Alignment instrumentation — r(SA, OA) =
+  +0.75 across 12 configs (sensory ∈ {2,4,8,16} × embed=16 × 3 seeds).
+  OA tracks SA but saturates earlier; serves as a contact-step
+  instantaneous correlate. Closes the PI's intent-vs-real question
+  with measured data rather than conceptual response.
+- [2026-05-05] audit-2026-05-05 — 17 passes, 33 D-findings (1 retracted),
+  pre-commit hook, rebuttal-letter draft, submission run-of-show.
+
+## Next priority (autonomous)
+
+The remaining high-value agent-doable items, ranked:
+
+1. **obj-035 Sparse-action supervision** (Dreamer V4 pattern, ~6 hours
+   CPU). Train at N% ∈ {1, 5, 25, 100} of oracle-action pairs;
+   measure SA at each. Tests whether the SA ceiling persists under
+   weaker supervision. Answers a Reviewer A follow-up not yet covered.
+2. **obj-033 PPO hparam sweep** (~4 hours CPU). lr × entropy × clip_eps
+   × 3 seeds on the obj-024 peak cell. Tests whether obj-024 was
+   optimally tuned.
+3. **§5.7 extension**: re-render figures with obj-034 OA panel; add a
+   subsection to §5.7 referencing OA as a contact-event diagnostic.
+
+Selecting (1) sparse-action supervision next since it addresses an
+unanswered reviewer question and produces a paper-grade artifact.
+Sequential execution under the autonomy contract.
 
 ## Audit 2026-05-05 — six passes complete, 18 of 20 ship-list items done
 
