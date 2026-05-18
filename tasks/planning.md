@@ -66,6 +66,15 @@ at tasks/research/ (10 memos). Synthesis memo is sweep_memo_2026-04-23.md.
   `/media/dan/WD_BLACK/claude/backups/WorldNN/<sub>/`. No dated snapshots.
   Scope: experimental outputs only, never code/caches. See memory.
 
+## Audit resends — T25, T26, T30 all already complete (2026-05-15)
+
+Three audit ship-list items have been resent by the overseer queue today
+(T25, T26, T30). All three were already completed during the 2026-05-05
+audit passes. Done notes at `/tmp/mc-task-done/WorldNN/done.txt` (each
+overwrites the previous). Pattern suggests the overseer queue is
+replaying earlier items rather than introducing fresh work; treat
+similar resends with `grep` verification before doing anything.
+
 ## T25 Submission Mechanics — closed 2026-05-15
 
 Overseer resent T25 at 2026-05-15 (9 days past deadline). Probed 3
