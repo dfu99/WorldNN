@@ -66,6 +66,16 @@ at tasks/research/ (10 memos). Synthesis memo is sweep_memo_2026-04-23.md.
   `/media/dan/WD_BLACK/claude/backups/WorldNN/<sub>/`. No dated snapshots.
   Scope: experimental outputs only, never code/caches. See memory.
 
+## T25 Submission Mechanics — closed 2026-05-15
+
+Overseer resent T25 at 2026-05-15 (9 days past deadline). Probed 3
+candidate `.sty` mirrors again; all 404 (no change since audit D16).
+Done note at `/tmp/mc-task-done/WorldNN/done.txt` documents what's in
+the working tree (full audit-strengthened paper, 11pp, body ≤9, refs
+9-11) and what remains PI-side (official `.sty`, submission target).
+The deadline-bound version of T25 is closed; any further action is the
+PI's call on venue/cycle.
+
 ## Status as of 2026-05-13
 
 NeurIPS 2026 deadline (May 6) has passed. The placeholder
