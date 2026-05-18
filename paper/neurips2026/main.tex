@@ -104,19 +104,30 @@ limitations.
 
 \textbf{Asymmetric Actor-Critic} \citep{pinto2018asymmetric} trains RL agents
 with privileged state information during training but deploys with observations
-only. SA (defined in \S\ref{sec:sa}) serves a complementary role: rather than
-using privileged information as a training signal, we use it as a post-hoc
-diagnostic that measures the residual alignment gap between actions under degraded
-perception and actions under full state access.
+only. The broader paradigm of \textbf{learning using privileged information}
+\citep{vapnik2009lupi} uses oracle state at training time without exposing it
+to the deployed policy. SA (defined in \S\ref{sec:sa}) serves a complementary
+role: rather than using privileged information as a training signal, we use it
+as a post-hoc diagnostic that measures the residual alignment gap between
+actions under degraded perception and actions under full state access.
 
-\textbf{DreamerV3} \citep{hafner2023mastering}, \textbf{DreamerV4}
-\citep{hafner2025dreamer4}, and \textbf{IRIS} \citep{micheli2023transformers}
-learn world models and implicitly measure prediction quality in latent space;
-\textbf{V-JEPA 2-AC} \citep{vjepa2_2025} and \textbf{ACT-JEPA}
-\citep{actjepa2025} extend joint-embedding predictive architectures with
-action conditioning. SA is computed in true state space, not latent
-space; this distinction matters because the action operates on true state, not on
-the model's latent representation.
+\textbf{World models.} World Models \citep{ha2018world} and PlaNet
+\citep{hafner2019planet} established the latent-dynamics paradigm; MuZero
+\citep{schrittwieser2020muzero} extended it to value-equivalent planning;
+\textbf{DreamerV3/4} \citep{hafner2023mastering, hafner2025dreamer4} and
+\textbf{IRIS} \citep{micheli2023transformers} scale it with reconstructive or
+transformer dynamics; \textbf{V-JEPA 2-AC} \citep{vjepa2_2025} and
+\textbf{ACT-JEPA} \citep{actjepa2025} add action conditioning to joint-embedding
+architectures. All measure prediction quality in latent space. SA is computed
+in true state space, which matters because the action operates on true state.
+
+\textbf{Representation learning for RL.} Unsupervised representations recover
+ground-truth factors \citep{anand2019unsupervised}; CURL \citep{laskin2020curl},
+SPR \citep{schwarzer2021data}, ATC \citep{stooke2021decoupling}, and DrQ
+\citep{yarats2021image} show that better representations accelerate RL. These
+optimize representation quality directly; SA measures its downstream
+consequence (the action gap), treating representation as separable from the
+algorithm \citep{bengio2013representation}.
 
 \textbf{Quasimetric RL} \citep{wang2023quasimetric} measures directional
 asymmetries in value function space. SA measures asymmetry in action space.
@@ -136,10 +147,18 @@ minimization. SA operationalizes both frameworks; low SA corresponds to high
 free energy and to lossy compression that destroys action-relevant information. SA differs from these
 frameworks in that it provides a computable scalar rather than a theoretical bound.
 
+\textbf{Sensorimotor contingencies and abstraction.} Embodied accounts of
+perception \citep{oregan2001sensorimotor, smith2005development, pfeifer2006body}
+hold that perception is constituted by sensorimotor regularities; SA scores
+how well a policy's actions track those regularities. State abstraction
+\citep{li2006towards} formalizes when distinct observations can be collapsed
+without changing optimal behavior; SA flags when collapse has gone too far.
+
 \textbf{Critical period neuroscience} \citep{blakemore1970development,
 rossi1999monocular, huang1999bdnf}: BDNF-dependent critical periods set a
 biological timeout on sensory-motor alignment. If alignment is not achieved within
-the viability window, the pathway is pruned. In our simulation, the
+the viability window, the pathway is pruned. \citet{achille2019critical}
+report analogous critical periods in deep networks. In our simulation, the
 oracle+noise(0.5) condition produces SA $\approx 0.14$, permanently below the
 learnability threshold (\S\ref{sec:threshold}).
 
@@ -165,13 +184,18 @@ contact radius) that determine its response to force. These properties are never
 directly observable.
 
 \textbf{Perception chain.} Matter emits 8D signals (a fixed projection of true
-state, analogous to light patterns). A channel adds Gaussian noise (atmospheric
-distortion). A VAE environment compresses the signal (sensory apparatus
-limitations). The organism receives the final compressed representation.
+state, analogous to light patterns). A channel adds Gaussian noise. A VAE
+\citep{kingma2014autoencoding, higgins2017beta} environment compresses the
+signal. The organism receives the final compressed representation. The
+resulting decision problem is a partially observable MDP
+\citep{kaelbling1998planning, hausknecht2015deep, igl2018deep}, but with an
+explicitly controllable observation function rather than one implicit in
+pixels.
 
 \textbf{Action.} The organism outputs a 2D motor command that acts directly on
 the matter's true state, not on the perceived state and not through the VAE in
-reverse. The action channel is clean.
+reverse. The action channel is clean. Policies are trained with PPO
+\citep{schulman2017ppo} and GAE \citep{schulman2016gae}.
 
 \subsection{Independently controlled variables}
 
@@ -361,8 +385,9 @@ effect on SA retention.
 \label{sec:infobound}
 
 The SA ceiling achievable by any organism is bounded by the mutual information
-between the environment state and the organism's sensory channels. We tested
-this directly by independently sweeping sensory richness and model capacity.
+between the environment state and the organism's sensory channels
+\citep{cover2006elements}. We tested this directly by independently sweeping
+sensory richness and model capacity.
 
 In a sensory-capacity grid with emission\_dim$=16$, sensory\_dim $\in \{2,4,8,16\}$,
 and embedding\_dim $\in \{2,4,8,16,32\}$ (100 configs, 5 seeds each, 800 episodes
@@ -374,7 +399,10 @@ poor input with maximal capacity (sensory$=2$, embed$=32$, SA$=-0.007$); Cohen's
 $d = 1.10$, 95\% bootstrap CI for mean difference $[+0.004, +0.083]$.
 
 Estimating the information available about state $S$ from the first sensory\_dim
-emission channels via a linear-probe Gaussian-MI lower bound, we obtain
+emission channels via a linear-probe Gaussian-MI lower bound (chosen over KSG
+\citep{kraskov2004estimating} or MINE \citep{belghazi2018mine,
+poole2019variational} for stability in our linear emissions; see
+supplementary), we obtain
 $I(S; \text{obs}) \approx \{0.33, 0.64, 3.44, 27.6\}$ nats for sensory\_dim
 $= \{2, 4, 8, 16\}$, with linear $R^2(S \mid \text{obs}) = \{0.15, 0.28, 0.82, 1.00\}$.
 The Gaussian-MI correlates with peak SA at $r = 0.975$
@@ -442,9 +470,10 @@ variance (std $= 0.015$).
 The asymmetry between lossy perception and direct action is a structural property
 of any embodied system. SA quantifies a specific consequence: whether the
 information surviving the perception chain is sufficient to determine correct
-actions on a physical state the agent cannot directly observe. The combination of
-a defined metric and a controllable testbed where every stage of the loop is
-independently manipulable is the methodological contribution.
+actions on a physical state the agent cannot directly observe, in the spirit
+of active perception \citep{bajcsy1988active, aloimonos1988active}. The
+combination of a defined metric and a controllable testbed where every stage
+of the loop is independently manipulable is the methodological contribution.
 
 \subsection{Relationship to biological critical periods}
 
@@ -456,6 +485,8 @@ motor experience; pathways that do not are eliminated
 produces SA permanently below the learnability threshold. The computational analog
 of pruning is the flat SA landscape: no learning signal exists to improve alignment.
 The analogy is structural, not mechanistic: we do not model BDNF or synaptic pruning.
+\citet{achille2019critical} report a parallel phenomenon in deep networks;
+SA offers a candidate alignment-axis instrument for locating such windows.
 
 A testable biological prediction follows: in a behavioral animal model, monocular
 deprivation during the BDNF-dependent critical period should drive SA in
@@ -471,14 +502,16 @@ is the right dose-response variable.
 SA slope during the first 200 episodes predicts final performance ($r = -0.705$).
 All configurations with SA slope $< 0.1$ per 100 episodes at episode 200 failed
 to learn. This suggests SA slope as an early stopping criterion, though
-cross-task validation is needed.
+cross-task validation is needed; SA is complementary to prediction-error
+curiosity \citep{pathak2017curiosity}, scoring alignment rather than novelty.
 
 \subsection{Transfer and structural alignment}
 
 SA transfers across physics variants (94--106\% retention) and appearance variants
 ($r(\epsilon, \text{retention}) = 0.033$). The organism retains alignment when
 evaluated on rocks that both look and respond differently, indicating that SA
-captures the structure of the push interaction rather than a memorized mapping.
+captures the structure of the push interaction rather than a memorized mapping,
+in line with what domain randomization \citep{tobin2017domain} aims to induce.
 
 \subsection{Oracle-free proxy estimation}
 
@@ -571,18 +604,13 @@ conditions in the at-scale grid ($\S\ref{sec:results}$, $n = 245$): oracle
 1.00, oracle+noise(0.1) 0.85, oracle+noise(0.5) 0.19, raw emission 0.96,
 VAE $\mu$ lat$\,8$ 0.45, lat$\,16$ 0.82, lat$\,32$ 0.86. Per-config recon
 ceilings correlate with task distance at $r = -0.436$, weaker than SA's
-$r = -0.724$. After controlling for recon ceiling, SA still correlates with
-distance at partial $r = -0.679$; recon's residual partial correlation
-flips sign to $+0.285$, indicating shared variance with SA rather than
-independent predictive power. Multiple regression on distance gives
-$R^2 = 0.190$ for recon alone and $R^2 = 0.563$ when SA is added: SA
-contributes $\Delta R^2 = +0.374$ (95\% bootstrap CI $[+0.253, +0.489]$
-over 10k resamples; $P(\Delta R^2 > 0) = 1.000$) on top of reconstruction.
-A label-permutation test gives a stronger guarantee: across 10k random
-permutations of SA labels, the maximum $\Delta R^2$ was $+0.044$
-(observed: $+0.374$) and maximum $|r(\text{SA}, \text{dist})|$ was $0.244$
-(observed: $-0.724$); permutation $p < 10^{-4}$ for both. SA captures a
-structural property of the policy that reconstruction loss does not.
+$r = -0.724$. Multiple regression on distance gives $R^2 = 0.190$ for recon
+alone and $R^2 = 0.563$ when SA is added: SA contributes $\Delta R^2 = +0.374$
+(95\% bootstrap CI $[+0.253, +0.489]$ over 10k resamples) on top of
+reconstruction. A 10k-permutation null on the SA labels gives max
+$\Delta R^2 = +0.044$ (observed $+0.374$); permutation $p < 10^{-4}$. SA
+captures a structural property of the policy that reconstruction loss does
+not.
 
 This finding is regime-dependent. On a compressed grid where every
 perception condition saturates the same recon ceiling, as in the
@@ -619,23 +647,268 @@ the 4D finding.}
 \section{Conclusion}
 %-----------------------------------------------------------------------
 
-We defined sensorimotor alignment (SA), a scalar metric that quantifies how well
-an agent's learned policy under degraded perception aligns with the optimal action
-on true physical state. Across 245 conditions on a 4D task and 45 on a 6D task,
-SA predicts performance ($r = -0.72$ and $r = -0.73$), exhibits a learnability
-threshold (SA $\geq 0.5$ yields 98\% success), and reveals a multiplicative
-perception $\times$ capacity interaction ($p = 5 \times 10^{-9}$). SA transfers
-across physics and appearance variants (89--106\% retention), its training
-slope predicts final success ($r = -0.71$), and action variance provides a
-comparable oracle-free proxy ($r = -0.82$). These results formalize the principle
-that sensory pathways failing to achieve motor alignment are functionally useless,
-reproducing the computational structure of critical-period pruning in a controlled
-simulation.
+We defined sensorimotor alignment (SA), a scalar quantifying how well a
+degraded-perception policy aligns with the optimal action on true state.
+Across 245 conditions on a 4D task and 45 on a 6D task, SA predicts
+performance ($r = -0.72$, $r = -0.73$), exhibits a learnability threshold
+($\geq 0.5 \Rightarrow 98\%$ success), shows a multiplicative perception
+$\times$ capacity interaction ($p = 5 \times 10^{-9}$), transfers across
+physics and appearance variants (89--106\%), predicts final success from its
+training slope ($r = -0.71$), and admits an oracle-free proxy via action
+variance ($r = -0.82$). The results formalize the principle that sensory
+pathways failing to achieve motor alignment are functionally useless,
+reproducing the computational structure of critical-period pruning.
 
 %-----------------------------------------------------------------------
-% Supplementary (after main text, before references)
+% References
 %-----------------------------------------------------------------------
 
+\bibliographystyle{plainnat}
+
+\begin{thebibliography}{99}
+
+\bibitem[Achille et~al.(2019)]{achille2019critical}
+A.~Achille, M.~Rovere, and S.~Soatto.
+\newblock Critical learning periods in deep networks.
+\newblock In \emph{ICLR}, 2019.
+
+\bibitem[Aloimonos et~al.(1988)]{aloimonos1988active}
+J.~Aloimonos, I.~Weiss, and A.~Bandyopadhyay.
+\newblock Active vision.
+\newblock \emph{International Journal of Computer Vision}, 1(4):333--356, 1988.
+
+\bibitem[Anand et~al.(2019)]{anand2019unsupervised}
+A.~Anand, E.~Racah, S.~Ozair, Y.~Bengio, M.-A. C\^ot\'e, and R.~D. Hjelm.
+\newblock Unsupervised state representation learning in {Atari}.
+\newblock In \emph{NeurIPS}, 2019.
+
+\bibitem[Assran et~al.(2025)]{vjepa2_2025}
+M.~Assran et~al.
+\newblock {V-JEPA 2}: Self-supervised video models enable understanding,
+prediction and planning.
+\newblock \emph{arXiv:2506.09985}, 2025.
+
+\bibitem[Bajcsy(1988)]{bajcsy1988active}
+R.~Bajcsy.
+\newblock Active perception.
+\newblock \emph{Proceedings of the IEEE}, 76(8):966--1005, 1988.
+
+\bibitem[Belghazi et~al.(2018)]{belghazi2018mine}
+M.~I. Belghazi, A.~Baratin, S.~Rajeswar, S.~Ozair, Y.~Bengio, A.~Courville, and
+  R.~D. Hjelm.
+\newblock Mutual information neural estimation.
+\newblock In \emph{ICML}, 2018.
+
+\bibitem[Bengio et~al.(2013)]{bengio2013representation}
+Y.~Bengio, A.~Courville, and P.~Vincent.
+\newblock Representation learning: A review and new perspectives.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  35(8):1798--1828, 2013.
+
+\bibitem[Blakemore and Cooper(1970)]{blakemore1970development}
+C.~Blakemore and G.~F. Cooper.
+\newblock Development of the brain depends on the visual environment.
+\newblock \emph{Nature}, 228(5270):477--478, 1970.
+
+\bibitem[Cover and Thomas(2006)]{cover2006elements}
+T.~M. Cover and J.~A. Thomas.
+\newblock \emph{Elements of Information Theory}.
+\newblock Wiley-Interscience, 2nd edition, 2006.
+
+\bibitem[Friston(2010)]{friston2010free}
+K.~Friston.
+\newblock The free-energy principle: a unified brain theory?
+\newblock \emph{Nature Reviews Neuroscience}, 11(2):127--138, 2010.
+
+\bibitem[Ha and Schmidhuber(2018)]{ha2018world}
+D.~Ha and J.~Schmidhuber.
+\newblock World models.
+\newblock In \emph{NeurIPS}, 2018.
+
+\bibitem[Hafner et~al.(2019)]{hafner2019planet}
+D.~Hafner, T.~Lillicrap, I.~Fischer, R.~Villegas, D.~Ha, H.~Lee, and
+  J.~Davidson.
+\newblock Learning latent dynamics for planning from pixels.
+\newblock In \emph{ICML}, 2019.
+
+\bibitem[Hafner et~al.(2023)]{hafner2023mastering}
+D.~Hafner, J.~Pasukonis, J.~Ba, and T.~Lillicrap.
+\newblock Mastering diverse domains through world models.
+\newblock \emph{arXiv:2301.04104}, 2023.
+
+\bibitem[Hafner et~al.(2025)]{hafner2025dreamer4}
+D.~Hafner, W.~Yan, et~al.
+\newblock Training agents inside of scalable world models.
+\newblock \emph{arXiv:2509.24527}, 2025.
+
+\bibitem[Hausknecht and Stone(2015)]{hausknecht2015deep}
+M.~Hausknecht and P.~Stone.
+\newblock Deep recurrent {Q}-learning for partially observable {MDPs}.
+\newblock In \emph{AAAI Fall Symposium on Sequential Decision Making for
+  Intelligent Agents}, 2015.
+
+\bibitem[Higgins et~al.(2017)]{higgins2017beta}
+I.~Higgins, L.~Matthey, A.~Pal, C.~Burgess, X.~Glorot, M.~Botvinick,
+  S.~Mohamed, and A.~Lerchner.
+\newblock {$\beta$-VAE}: Learning basic visual concepts with a constrained
+  variational framework.
+\newblock In \emph{ICLR}, 2017.
+
+\bibitem[Huang et~al.(1999)]{huang1999bdnf}
+Z.~J. Huang, A.~Kirkwood, T.~Bhatt, V.~Porciatti, et~al.
+\newblock {BDNF} regulates the maturation of inhibition and the critical period
+  of plasticity in mouse visual cortex.
+\newblock \emph{Cell}, 98(6):739--755, 1999.
+
+\bibitem[Hubel and Wiesel(1970)]{hubel1970period}
+D.~H. Hubel and T.~N. Wiesel.
+\newblock The period of susceptibility to the physiological effects of
+  unilateral eye closure in kittens.
+\newblock \emph{The Journal of Physiology}, 206(2):419--436, 1970.
+
+\bibitem[Igl et~al.(2018)]{igl2018deep}
+M.~Igl, L.~Zintgraf, T.~A. Le, F.~Wood, and S.~Whiteson.
+\newblock Deep variational reinforcement learning for {POMDPs}.
+\newblock In \emph{ICML}, 2018.
+
+\bibitem[Kaelbling et~al.(1998)]{kaelbling1998planning}
+L.~P. Kaelbling, M.~L. Littman, and A.~R. Cassandra.
+\newblock Planning and acting in partially observable stochastic domains.
+\newblock \emph{Artificial Intelligence}, 101(1-2):99--134, 1998.
+
+\bibitem[Kingma and Welling(2014)]{kingma2014autoencoding}
+D.~P. Kingma and M.~Welling.
+\newblock Auto-encoding variational {Bayes}.
+\newblock In \emph{ICLR}, 2014.
+
+\bibitem[Kraskov et~al.(2004)]{kraskov2004estimating}
+A.~Kraskov, H.~St\"ogbauer, and P.~Grassberger.
+\newblock Estimating mutual information.
+\newblock \emph{Physical Review E}, 69(6):066138, 2004.
+
+\bibitem[Laskin et~al.(2020)]{laskin2020curl}
+M.~Laskin, A.~Srinivas, and P.~Abbeel.
+\newblock {CURL}: Contrastive unsupervised representations for reinforcement
+  learning.
+\newblock In \emph{ICML}, 2020.
+
+\bibitem[Li et~al.(2006)]{li2006towards}
+L.~Li, T.~J. Walsh, and M.~L. Littman.
+\newblock Towards a unified theory of state abstraction for {MDPs}.
+\newblock In \emph{International Symposium on Artificial Intelligence and
+  Mathematics}, 2006.
+
+\bibitem[Micheli et~al.(2023)]{micheli2023transformers}
+V.~Micheli, E.~Alonso, and F.~Fleuret.
+\newblock Transformers are sample-efficient world models.
+\newblock In \emph{ICLR}, 2023.
+
+\bibitem[O'Regan and No\"e(2001)]{oregan2001sensorimotor}
+J.~K. O'Regan and A.~No\"e.
+\newblock A sensorimotor account of vision and visual consciousness.
+\newblock \emph{Behavioral and Brain Sciences}, 24(5):939--1031, 2001.
+
+\bibitem[Pathak et~al.(2017)]{pathak2017curiosity}
+D.~Pathak, P.~Agrawal, A.~A. Efros, and T.~Darrell.
+\newblock Curiosity-driven exploration by self-supervised prediction.
+\newblock In \emph{ICML}, 2017.
+
+\bibitem[Pfeifer and Bongard(2006)]{pfeifer2006body}
+R.~Pfeifer and J.~Bongard.
+\newblock \emph{How the Body Shapes the Way We Think: A New View of
+  Intelligence}.
+\newblock MIT Press, 2006.
+
+\bibitem[Pinto et~al.(2018)]{pinto2018asymmetric}
+L.~Pinto, M.~Andrychowicz, P.~Welinder, W.~Zaremba, and P.~Abbeel.
+\newblock Asymmetric actor critic for image-based robot learning.
+\newblock In \emph{RSS}, 2018.
+
+\bibitem[Poole et~al.(2019)]{poole2019variational}
+B.~Poole, S.~Ozair, A.~van~den Oord, A.~Alemi, and G.~Tucker.
+\newblock On variational bounds of mutual information.
+\newblock In \emph{ICML}, 2019.
+
+\bibitem[Rossi et~al.(1999)]{rossi1999monocular}
+F.~M. Rossi, M.~Bozzi, A.~Bhatt, and T.~Bhatt.
+\newblock Monocular deprivation decreases brain-derived neurotrophic factor
+  immunoreactivity in the rat visual cortex.
+\newblock \emph{Neuroscience}, 90(2):363--368, 1999.
+
+\bibitem[Schrittwieser et~al.(2020)]{schrittwieser2020muzero}
+J.~Schrittwieser, I.~Antonoglou, T.~Hubert, K.~Simonyan, L.~Sifre,
+  S.~Schmitt, A.~Guez, et~al.
+\newblock Mastering {Atari}, {Go}, chess and shogi by planning with a learned
+  model.
+\newblock \emph{Nature}, 588(7839):604--609, 2020.
+
+\bibitem[Schulman et~al.(2016)]{schulman2016gae}
+J.~Schulman, P.~Moritz, S.~Levine, M.~Jordan, and P.~Abbeel.
+\newblock High-dimensional continuous control using generalized advantage
+  estimation.
+\newblock In \emph{ICLR}, 2016.
+
+\bibitem[Schulman et~al.(2017)]{schulman2017ppo}
+J.~Schulman, F.~Wolski, P.~Dhariwal, A.~Radford, and O.~Klimov.
+\newblock Proximal policy optimization algorithms.
+\newblock \emph{arXiv:1707.06347}, 2017.
+
+\bibitem[Schwarzer et~al.(2021)]{schwarzer2021data}
+M.~Schwarzer, A.~Anand, R.~Goel, R.~D. Hjelm, A.~Courville, and P.~Bachman.
+\newblock Data-efficient reinforcement learning with self-predictive
+  representations.
+\newblock In \emph{ICLR}, 2021.
+
+\bibitem[Smith and Gasser(2005)]{smith2005development}
+L.~Smith and M.~Gasser.
+\newblock The development of embodied cognition: Six lessons from babies.
+\newblock \emph{Artificial Life}, 11(1-2):13--29, 2005.
+
+\bibitem[Sobal et~al.(2025)]{actjepa2025}
+V.~Sobal et~al.
+\newblock {ACT-JEPA}: Joint-embedding predictive architecture for action
+sequence and latent observation prediction.
+\newblock \emph{arXiv:2501.14622}, 2025.
+
+\bibitem[Stooke et~al.(2021)]{stooke2021decoupling}
+A.~Stooke, K.~Lee, P.~Abbeel, and M.~Laskin.
+\newblock Decoupling representation learning from reinforcement learning.
+\newblock In \emph{ICML}, 2021.
+
+\bibitem[Tishby et~al.(2000)]{tishby2000information}
+N.~Tishby, F.~C. Pereira, and W.~Bialek.
+\newblock The information bottleneck method.
+\newblock \emph{arXiv:physics/0004057}, 2000.
+
+\bibitem[Tobin et~al.(2017)]{tobin2017domain}
+J.~Tobin, R.~Fong, A.~Ray, J.~Schneider, W.~Zaremba, and P.~Abbeel.
+\newblock Domain randomization for transferring deep neural networks from
+  simulation to the real world.
+\newblock In \emph{IROS}, 2017.
+
+\bibitem[Vapnik and Vashist(2009)]{vapnik2009lupi}
+V.~Vapnik and A.~Vashist.
+\newblock A new learning paradigm: Learning using privileged information.
+\newblock \emph{Neural Networks}, 22(5-6):544--557, 2009.
+
+\bibitem[Wang et~al.(2023)]{wang2023quasimetric}
+T.~Wang, A.~Torralba, P.~Isola, and A.~Zhang.
+\newblock On the optimal value of the quasimetric entropy.
+\newblock In \emph{NeurIPS}, 2023.
+
+\bibitem[Yarats et~al.(2021)]{yarats2021image}
+D.~Yarats, I.~Kostrikov, and R.~Fergus.
+\newblock Image augmentation is all you need: Regularizing deep reinforcement
+  learning from pixels.
+\newblock In \emph{ICLR}, 2021.
+
+\end{thebibliography}
+
+%-----------------------------------------------------------------------
+% Supplementary (appendix, after references)
+%-----------------------------------------------------------------------
+
+\appendix
 \section*{Supplementary Materials}
 
 Code, data, and all experimental scripts are available at
@@ -651,86 +924,5 @@ in $\S\ref{sec:related}$) are provided in the \texttt{results/} and
 mapping ($s$ external $\to$ $o$ sensory $\to$ $\mu$ internal $\to$
 $a$ active $\to$ $s$ closure) is illustrated in
 \texttt{fig6\_markov\_blanket.pdf}.
-
-%-----------------------------------------------------------------------
-% References
-%-----------------------------------------------------------------------
-
-\bibliographystyle{plainnat}
-
-\begin{thebibliography}{10}
-
-\bibitem[Blakemore and Cooper(1970)]{blakemore1970development}
-C.~Blakemore and G.~F. Cooper.
-\newblock Development of the brain depends on the visual environment.
-\newblock \emph{Nature}, 228(5270):477--478, 1970.
-
-\bibitem[Friston(2010)]{friston2010free}
-K.~Friston.
-\newblock The free-energy principle: a unified brain theory?
-\newblock \emph{Nature Reviews Neuroscience}, 11(2):127--138, 2010.
-
-\bibitem[Hafner et~al.(2023)]{hafner2023mastering}
-D.~Hafner, J.~Pasukonis, J.~Ba, and T.~Lillicrap.
-\newblock Mastering diverse domains through world models.
-\newblock \emph{arXiv:2301.04104}, 2023.
-
-\bibitem[Hafner et~al.(2025)]{hafner2025dreamer4}
-D.~Hafner, W.~Yan, et~al.
-\newblock Training agents inside of scalable world models.
-\newblock \emph{arXiv:2509.24527}, 2025.
-
-\bibitem[Assran et~al.(2025a)]{vjepa2_2025}
-M.~Assran et~al.
-\newblock {V-JEPA 2}: Self-supervised video models enable understanding,
-prediction and planning.
-\newblock \emph{arXiv:2506.09985}, 2025.
-
-\bibitem[Sobal et~al.(2025)]{actjepa2025}
-V.~Sobal et~al.
-\newblock {ACT-JEPA}: Joint-embedding predictive architecture for action
-sequence and latent observation prediction.
-\newblock \emph{arXiv:2501.14622}, 2025.
-
-\bibitem[Huang et~al.(1999)]{huang1999bdnf}
-Z.~J. Huang, A.~Kirkwood, T.~Bhatt, V.~Porciatti, et~al.
-\newblock {BDNF} regulates the maturation of inhibition and the critical period
-  of plasticity in mouse visual cortex.
-\newblock \emph{Cell}, 98(6):739--755, 1999.
-
-\bibitem[Hubel and Wiesel(1970)]{hubel1970period}
-D.~H. Hubel and T.~N. Wiesel.
-\newblock The period of susceptibility to the physiological effects of
-  unilateral eye closure in kittens.
-\newblock \emph{The Journal of Physiology}, 206(2):419--436, 1970.
-
-\bibitem[Micheli et~al.(2023)]{micheli2023transformers}
-V.~Micheli, E.~Alonso, and F.~Fleuret.
-\newblock Transformers are sample-efficient world models.
-\newblock In \emph{ICLR}, 2023.
-
-\bibitem[Pinto et~al.(2018)]{pinto2018asymmetric}
-L.~Pinto, M.~Andrychowicz, P.~Welinder, W.~Zaremba, and P.~Abbeel.
-\newblock Asymmetric actor critic for image-based robot learning.
-\newblock In \emph{RSS}, 2018.
-
-
-\bibitem[Rossi et~al.(1999)]{rossi1999monocular}
-F.~M. Rossi, M.~Bozzi, A.~Bhatt, and T.~Bhatt.
-\newblock Monocular deprivation decreases brain-derived neurotrophic factor
-  immunoreactivity in the rat visual cortex.
-\newblock \emph{Neuroscience}, 90(2):363--368, 1999.
-
-\bibitem[Tishby et~al.(2000)]{tishby2000information}
-N.~Tishby, F.~C. Pereira, and W.~Bialek.
-\newblock The information bottleneck method.
-\newblock \emph{arXiv:physics/0004057}, 2000.
-
-\bibitem[Wang et~al.(2023)]{wang2023quasimetric}
-T.~Wang, A.~Torralba, P.~Isola, and A.~Zhang.
-\newblock On the optimal value of the quasimetric entropy.
-\newblock In \emph{NeurIPS}, 2023.
-
-\end{thebibliography}
 
 \end{document}
