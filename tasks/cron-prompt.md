@@ -7,26 +7,27 @@ edit it to steer what the next tick (~6h later) will ask you to do.
 
 ## Current focus (edit me each turn)
 
-*Updated 2026-05-13 cron tick:* obj-034 (Outcome Alignment), obj-035
-(sparse oracle-supervision), and obj-036 (1D-positioning Reviewer E
-mitigation) all logged with figures.
+*Updated 2026-05-15 cron tick:* Paper integration of obj-034/035/036
+landed (commit 66d9d1c, §7.5 +3 paragraphs). T25 closed post-deadline
+(commit at 2026-05-15, see /tmp/mc-task-done/WorldNN/done.txt).
 
-Next-tick highest-EV item: **paper integration** of those three
-findings into the live draft. Concrete steps for the next cron:
+Next-tick options (autonomy contract — pick highest EV):
 
-1. Read `tasks/objectives.yaml` for obj-034/035/036 entries to refresh.
-2. Add a short paragraph to `paper/neurips2026/main.tex` §7 (Discussion)
-   citing OA (r=0.75 with SA, saturates earlier) and noting the §7.5
-   pure-PPO threshold-crossing finding from obj-035.
-3. Add a §7.5 Limitations sentence: "On easier task families (1D
-   continuous positioning, obj-036), the SA framework saturates without
-   showing the rate-distortion structure; the substitution effect is
-   visible only when the task has multiple bottlenecks."
-4. Recompile + verify ≤9 body pages.
-5. Commit + WD_BLACK mirror sync.
+1. **obj-033 PPO hparam sweep** (~4h CPU, ungated). lr × entropy × clip
+   × 3 seeds on obj-024's peak cell. Tests whether obj-024 was
+   optimally tuned. Closes a backlog item. Pick this if no fresher
+   target appears.
 
-This is CPU-only, ungated on RunPod, paper-grade. Fallback if some
-deeper issue: pick obj-033 PPO hparam sweep (~4h CPU).
+2. **WD_BLACK mirror sync** (last sync 2026-05-13; new artifacts:
+   obj-036 + paper integration commit). ~30 sec.
+
+3. **Reviewer-rebuttal cross-check pass 2**: now that §7.5 has 3 new
+   paragraphs, re-verify tasks/rebuttal_letter_draft.md still aligns
+   with the paper text. ~10 min.
+
+Pick (2) first as housekeeping, then start (1) in foreground.
+
+Standing rules unchanged.
 
 ## Standing rules
 
