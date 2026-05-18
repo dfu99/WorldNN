@@ -517,7 +517,33 @@ The learnability threshold (SA $\approx 0.4$--$0.5$) may be
 task-specific. The oracle+noise(0.5) reversal ($r = +0.46$) indicates SA is
 unreliable when perception carries zero task-relevant information.
 While action variance provides a strong oracle-free proxy on these tasks,
-cross-task validation is needed to confirm generalization.
+cross-task validation is needed to confirm generalization. A
+post-camera-ready slim sweep on 1D continuous positioning (45 configs,
+sensory $\in \{1,2,4\}$, embed $\in \{2,4,8,16,32\}$, 3 seeds, CPU)
+shows $|\text{SA}| \approx 0.60$ uniformly: all cells cross the
+learnability threshold but with no sensory- or capacity-richness
+gradient. The substitution structure visible on rock-push appears only
+when the task has multiple bottlenecks (contact mechanics, perception
+chain, capacity); on easier task families the rate-distortion ceiling
+saturates at the smallest grid corner.
+
+\paragraph{Pure-PPO baseline.}
+A supervision-weight ablation (auxiliary $\|a(o) - a^*(s)\|^2$
+loss with weight $w$, sensory$=$embed$=16$, 12 configs) shows pure PPO
+($w{=}0$) reaches $\text{SA}=0.51$ — just above the learnability
+threshold — without any oracle-action term in the loss. Strong
+imitation ($w{=}1$) reaches $0.97$. SA captures policy-level alignment
+that PPO discovers from reward alone; supervision sharpens it but is
+not required.
+
+\paragraph{Outcome alignment.}
+A contact-step diagnostic, $\text{OA} = \mathbb{E}[\cos(a,
+\Delta_{\text{rock}}) \mid \text{contact}]$, correlates with SA at
+$r = +0.75$ across 12 configs (sensory $\in \{2,4,8,16\}$). OA tracks
+SA at the floor but saturates near $0.24$ at sensory$=8$ while SA
+climbs to $0.51$ at sensory$=16$: OA is the contact-step instantaneous
+correlate of SA but is information-limited (2-D cosine vs.\ SA's
+policy-direction alignment) and noisier.
 
 \paragraph{Noise model sensitivity.}
 Recomputing the recon ceiling under signal-dependent noise
