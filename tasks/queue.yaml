@@ -673,10 +673,10 @@ queue:
     full abstracts, 1-sentence relevance-to-WorldNN each.
   started: 2026-04-23 03:10
   completed: 2026-04-23 04:05
-  notes: 8 papers catalogued. Key finds: Dreamer V4 (2509.24527) action-supervision
+  notes: '8 papers catalogued. Key finds: Dreamer V4 (2509.24527) action-supervision
     sparsity, V-JEPA 2-AC (2506.22355) frozen-encoder ablation unexplored, ACT-JEPA
-    (2501.14622) joint policy+prediction loss. Two surveys for Related Work
-    (2510.16732, Shang et al.). 6 methodological moves unexplored by WorldNN flagged.
+    (2501.14622) joint policy+prediction loss. Two surveys for Related Work (2510.16732,
+    Shang et al.). 6 methodological moves unexplored by WorldNN flagged.'
 - objective: 'T18 (Part A, 2/4): Literature scan — predictive processing + active
     inference + free energy 2024-2026. WebSearch queries: "active inference agent
     embodied 2025", "predictive coding circuits 2025", "free energy principle RL 2025".
@@ -691,10 +691,10 @@ queue:
   completed: 2026-04-23 04:12
   context: Part A 2/4. Directly relevant to SA-as-free-energy note (obj-025 T7).
   success_criteria: 6-8 papers with abstracts + methodological-moves notes.
-  notes: 8 papers catalogued. Key finds — EFE-minimization (2508.05619) as PPO
-    alternative; PrediRep and 2506.06332 show predictive-coding scaling limits;
-    Active Predictive Coding (2024) unifies active perception + planning;
-    precision-weighted prediction errors (PyHGF) unexplored in WorldNN.
+  notes: 8 papers catalogued. Key finds — EFE-minimization (2508.05619) as PPO alternative;
+    PrediRep and 2506.06332 show predictive-coding scaling limits; Active Predictive
+    Coding (2024) unifies active perception + planning; precision-weighted prediction
+    errors (PyHGF) unexplored in WorldNN.
 - objective: 'T19 (Part A, 3/4): Literature scan — structural asymmetry in learning
     + sensorimotor contingency + task-performance predictors from structural properties
     2024-2026. WebSearch: "sensorimotor contingency neural network 2025", "structural
@@ -710,9 +710,9 @@ queue:
   success_criteria: 6-8 papers with abstracts; explicit list of SA-analogue metrics
     in recent work.
   notes: '8 papers catalogued. SA-analogues: neural-similarity scores (2509.14360,
-    Science Adv 2023), task-success rates (Habitat/ManiSkill), info-bottleneck
-    bounds (Sensorimotor Rep Learning 2021). Unexplored moves: neural-similarity
-    validation, morphological variation, imitation-from-motion-prediction.'
+    Science Adv 2023), task-success rates (Habitat/ManiSkill), info-bottleneck bounds
+    (Sensorimotor Rep Learning 2021). Unexplored moves: neural-similarity validation,
+    morphological variation, imitation-from-motion-prediction.'
 - objective: 'T20 (Part A, 4/4): Deep-read top 3-5 most relevant papers from T17-19.
     Use WebFetch to retrieve full intro+discussion+conclusion sections. For each,
     write a half-page summary in tasks/research/deep_read_<slug>.md covering: (1)
@@ -726,11 +726,10 @@ queue:
   completed: 2026-04-23 04:26
   context: Part A 4/4. Converts breadth scan into deep methodological contact points.
   success_criteria: 3-5 deep_read files written with all 4 analysis sections.
-  notes: 3 deep-reads written — Dreamer V4 (canonical scale instance, cite as
-    support), Missing Reward / AIF (theoretical substrate, cite in §7), ACT-JEPA
-    (candidate ablation via joint action+observation prediction loss). Adoption
-    targets: EFE policy objective, joint prediction-loss variant, sparse
-    action supervision.
+  notes: '3 deep-reads written — Dreamer V4 (canonical scale instance, cite as support),
+    Missing Reward / AIF (theoretical substrate, cite in §7), ACT-JEPA (candidate
+    ablation via joint action+observation prediction loss). Adoption targets: EFE
+    policy objective, joint prediction-loss variant, sparse action supervision.'
 - objective: 'T21 (Part B): Current-results review. Re-read paper/draft.md, paper/neurips2026/main.tex,
     and skim experiments/{rock_push.py, predictive_processing.py, sensory_capacity_tradeoff.py,
     mi_chain.py, ci_at_scale.py}. Write tasks/research/current_state_review.md with
@@ -744,11 +743,10 @@ queue:
   completed: 2026-04-23 04:30
   context: Part B. Grounds experiment plan in current artifact state.
   success_criteria: Memo written with all three sections, each with 3+ concrete items.
-  notes: '6 unclaimed hypotheses (incl. Outcome Alignment from PI chat), 6 weak
-    spots (single morphology, no Dreamer baseline, obj-024-only recon comparison,
-    missing chain-MI figure, no sensory-dim transfer, SA-norm ablation), 6
-    scaling gaps (embed_dim ceiling, episode count, task diversity, batch size,
-    seed power, compute transparency).'
+  notes: 6 unclaimed hypotheses (incl. Outcome Alignment from PI chat), 6 weak spots
+    (single morphology, no Dreamer baseline, obj-024-only recon comparison, missing
+    chain-MI figure, no sensory-dim transfer, SA-norm ablation), 6 scaling gaps (embed_dim
+    ceiling, episode count, task diversity, batch size, seed power, compute transparency).
 - objective: 'T22 (Part C): Experiment plan — propose 3-5 new experiments covering
     the suggested directions (asymmetry-scaling curves at larger capacity, cross-physics
     transfer, multi-task generalization, causal intervention on action-space dimensions,
@@ -764,11 +762,11 @@ queue:
   context: Part C. Uses T21 gaps + T20 adopted methods to design follow-on work.
   success_criteria: 3-5 fully-specified experiments; compute estimates verified against
     `mc runpod check` snapshot.
-  notes: 5 experiments proposed and ranked. VRAM snapshot at plan time 44.4/45 GB
-    free (upgraded RunPod node). Top: E1 asymmetry-scaling at larger embed_dim
-    (addresses Reviewer A, ~3-4h on RunPod). Cheap: E2 Outcome Alignment (CPU,
-    responds to PI), E3 action-space rotation intervention (CPU), E5 1D-positioning
-    multi-task sensory sweep (RunPod ~2h, Reviewer E mitigation).
+  notes: '5 experiments proposed and ranked. VRAM snapshot at plan time 44.4/45 GB
+    free (upgraded RunPod node). Top: E1 asymmetry-scaling at larger embed_dim (addresses
+    Reviewer A, ~3-4h on RunPod). Cheap: E2 Outcome Alignment (CPU, responds to PI),
+    E3 action-space rotation intervention (CPU), E5 1D-positioning multi-task sensory
+    sweep (RunPod ~2h, Reviewer E mitigation).'
 - objective: 'T23 (Part D): Cross-discipline hook memo. Choose one unrelated field
     whose dynamics map onto action-space asymmetry driving learning. Candidates to
     work through: fungal hyphal signal propagation; neural critical periods (BDNF);
@@ -786,11 +784,10 @@ queue:
     grants.
   success_criteria: 500-800 words, 3+ structural analogies mapped with testable predictions.
   notes: 'Fungal hyphal signaling ↔ WorldNN analogies: (1) serial-chain information
-    loss matching DPI floor; (2) single-point-of-failure at embedding hub ≈
-    hyphal junctions; (3) directional/irreversible action ≈ hyphal apical
-    extension. Testable bridge: compare signal-decay exponents between CMN
-    literature (Simard, Gorzelak, Babikova) and a serial-chain extension of
-    WorldNN.'
+    loss matching DPI floor; (2) single-point-of-failure at embedding hub ≈ hyphal
+    junctions; (3) directional/irreversible action ≈ hyphal apical extension. Testable
+    bridge: compare signal-decay exponents between CMN literature (Simard, Gorzelak,
+    Babikova) and a serial-chain extension of WorldNN.'
 - objective: 'T24 (synthesis): Compile final research-sweep memo at tasks/research/sweep_memo_2026-04-23.md
     combining T17-T23. Sections: (1) Literature headline findings (3 bullets), (2)
     Current-state gaps (3 bullets), (3) Recommended experiments (3 ranked), (4) Cross-discipline
@@ -804,159 +801,144 @@ queue:
   completed: 2026-04-23 04:45
   context: Final synthesis. Produces single PI-facing deliverable.
   success_criteria: sweep_memo committed, Slack posted, planning.md updated.
-  notes: sweep_memo_2026-04-23.md committed with all 5 sections. Slack posted
-    to #worldnn. planning.md updated with Next priority pointing to E1/E5/E2.
-
-- objective: 'T25 Submission Mechanics: download official neurips_2026.sty,
-    recompile, verify ≤9 main pages + refs, promote one obj-025 figure to §5.7
-    (recommend obj025_mi_vs_sensory as fig5_infobound), decide on fig2_dynamics
-    orphan, send PDF to PI for approval. The ship-list from audit-2026-05-05.md.'
+  notes: sweep_memo_2026-04-23.md committed with all 5 sections. Slack posted to
+- objective: 'T25 Submission Mechanics: download official neurips_2026.sty, recompile,
+    verify ≤9 main pages + refs, promote one obj-025 figure to §5.7 (recommend obj025_mi_vs_sensory
+    as fig5_infobound), decide on fig2_dynamics orphan, send PDF to PI for approval.
+    The ship-list from audit-2026-05-05.md.'
   priority: 1
-  status: pending
+  status: in_progress
   added: 2026-05-05 12:30
   source: audit-2026-05-05
   context: NeurIPS 2026 deadline May 6. Single biggest blocker is the placeholder
     style file. Pre-submission checklist has 3 unchecked items.
-  success_criteria: paper/neurips2026/main.pdf compiled with official .sty, ≤9
-    main pages, fig5_infobound.pdf promoted and cited in §5.7, PR sent to PI.
-
-- objective: 'T26 Backfill objectives.yaml: add entries for obj-019 (SA physics
-    transfer 93-106%), obj-020 (appearance transfer 89-102%), obj-021 (2-rock
-    6D r=-0.728). Each should have statement, methodology, metrics from existing
-    JSONs in results/, figures path, conclusions. Information lives in commit
-    messages 39f08db, 9aef22e and result JSONs.'
+  success_criteria: paper/neurips2026/main.pdf compiled with official .sty, ≤9 main
+    pages, fig5_infobound.pdf promoted and cited in §5.7, PR sent to PI.
+  started: 2026-05-17 21:33
+- objective: 'T26 Backfill objectives.yaml: add entries for obj-019 (SA physics transfer
+    93-106%), obj-020 (appearance transfer 89-102%), obj-021 (2-rock 6D r=-0.728).
+    Each should have statement, methodology, metrics from existing JSONs in results/,
+    figures path, conclusions. Information lives in commit messages 39f08db, 9aef22e
+    and result JSONs.'
   priority: 2
   status: pending
   added: 2026-05-05 12:30
   source: audit-2026-05-05
-  context: Audit found obj-019/020/021 are claimed in commits and the paper but
-    missing from objectives.yaml.
-  success_criteria: Three new entries appended; obj-022.connects_to and
-    obj-026.connects_to chained correctly through obj-021.
-
-- objective: 'T27 Test suite expansion: add tests for Organism.forward shape
-    contracts, compute_sa_sensory on a synthetic (state, obs) pair, estimate_mi_ksg
-    against a known-MI distribution, MultiRockMatter shape contracts, and the
-    sensory-dim slicing path (obs = emission[:, :sensory_dim]). 10-15 new tests.'
+  context: Audit found obj-019/020/021 are claimed in commits and the paper but missing
+    from objectives.yaml.
+  success_criteria: Three new entries appended; obj-022.connects_to and obj-026.connects_to
+    chained correctly through obj-021.
+- objective: 'T27 Test suite expansion: add tests for Organism.forward shape contracts,
+    compute_sa_sensory on a synthetic (state, obs) pair, estimate_mi_ksg against a
+    known-MI distribution, MultiRockMatter shape contracts, and the sensory-dim slicing
+    path (obs = emission[:, :sensory_dim]). 10-15 new tests.'
   priority: 3
   status: completed
   added: 2026-05-05 12:30
   source: audit-2026-05-05
   started: 2026-05-05 19:20
   completed: 2026-05-05 20:10
-  context: Audit identified that 29 existing tests cover only RockPushMatter +
-    World. Numerical drift in Organism, SA computation, or MI estimator would
-    silently invalidate paper claims.
+  context: Audit identified that 29 existing tests cover only RockPushMatter + World.
+    Numerical drift in Organism, SA computation, or MI estimator would silently invalidate
+    paper claims.
   success_criteria: tests/test_components.py grows by 10-15 tests, all pass.
-  notes: Total now 46/46 tests passing (was 29/29 pre-audit, 39/39 after
-    second pass). Coverage 12/12 component surfaces. New classes added in
-    this pass; TestMultiRockMatter (3 tests), TestContinuousMatter (1),
-    TestEnvironmentVAE (4), TestLinearProbeR2 (3), TestComputeChainMI (1).
-    Earlier passes added TestOrganismShape (5), TestKSGEstimator (3),
-    TestSAOnConstantPolicy (1).
-
-- objective: 'T28 Dreamer recon-loss head-to-head: on the obj-016 grid (245
-    configs, wide perception range), fit per-config linear probe organism-embedding
-    → obs, compute mean recon-error, correlate with task error. Compare ΔR² of
-    SA over recon. Currently we have this only on obj-024 narrow grid (ΔR²=0.004);
-    the headline obj-016 number is what would settle Reviewer A.'
+  notes: Total now 46/46 tests passing (was 29/29 pre-audit, 39/39 after second pass).
+    Coverage 12/12 component surfaces. New classes added in this pass; TestMultiRockMatter
+    (3 tests), TestContinuousMatter (1), TestEnvironmentVAE (4), TestLinearProbeR2
+    (3), TestComputeChainMI (1). Earlier passes added TestOrganismShape (5), TestKSGEstimator
+    (3), TestSAOnConstantPolicy (1).
+- objective: 'T28 Dreamer recon-loss head-to-head: on the obj-016 grid (245 configs,
+    wide perception range), fit per-config linear probe organism-embedding → obs,
+    compute mean recon-error, correlate with task error. Compare ΔR² of SA over recon.
+    Currently we have this only on obj-024 narrow grid (ΔR²=0.004); the headline obj-016
+    number is what would settle Reviewer A.'
   priority: 3
   status: completed
   added: 2026-05-05 12:30
   source: audit-2026-05-05
   started: 2026-05-05 21:00
   completed: 2026-05-05 21:45
-  context: Audit follow-up. Reviewer A's signature question 2 is unanswered for
-    the wide-dynamic-range grid.
-  success_criteria: results/obj028_recon_vs_sa_obj016.json with per-config
-    recon-error and ΔR² number. Update §7.5 with the new ΔR² if non-trivial.
-  notes: 'HEADLINE FINDING. ΔR²(SA over recon) = +0.374 on the obj-016 wide
-    grid (vs 0.004 on obj-024 narrow). r(SA, dist) = -0.724, r(recon, dist) =
-    -0.436, partial r(SA | recon) = -0.679, partial r(recon | SA) = +0.285
-    (sign flips). SA explains 37% additional variance beyond recon-loss.
-    Paper §7.5 rewritten as "SA versus reconstruction-loss" leading with
-    +0.374; obj-024 ΔR²=0.004 reframed as the regime where SA collapses.
-    Reviewer A risk drops Medium → Low. Generator at scripts/obj028_recon_vs_sa_obj016.py.'
-
-- objective: 'T35 Signal-dep noise sensitivity (Reviewer D q2). Without
-    retraining, recompute the linear-probe recon ceiling under signal-dep
-    noise (sigma_i ∝ |y_i|, Weber style) vs Gaussian on the same RockPushMatter.
-    Show the conclusion is invariant or strengthens. Add a 1-paragraph
-    sensitivity note to §7.5 Limitations.'
+  context: Audit follow-up. Reviewer A's signature question 2 is unanswered for the
+    wide-dynamic-range grid.
+  success_criteria: results/obj028_recon_vs_sa_obj016.json with per-config recon-error
+    and ΔR² number. Update §7.5 with the new ΔR² if non-trivial.
+  notes: HEADLINE FINDING. ΔR²(SA over recon) = +0.374 on the obj-016 wide grid (vs
+    0.004 on obj-024 narrow). r(SA, dist) = -0.724, r(recon, dist) = -0.436, partial
+    r(SA | recon) = -0.679, partial r(recon | SA) = +0.285 (sign flips). SA explains
+    37% additional variance beyond recon-loss. Paper §7.5 rewritten as "SA versus
+    reconstruction-loss" leading with +0.374; obj-024 ΔR²=0.004 reframed as the regime
+    where SA collapses. Reviewer A risk drops Medium → Low. Generator at scripts/obj028_recon_vs_sa_obj016.py.
+- objective: T35 Signal-dep noise sensitivity (Reviewer D q2). Without retraining,
+    recompute the linear-probe recon ceiling under signal-dep noise (sigma_i ∝ |y_i|,
+    Weber style) vs Gaussian on the same RockPushMatter. Show the conclusion is invariant
+    or strengthens. Add a 1-paragraph sensitivity note to §7.5 Limitations.
   priority: 3
   status: completed
   added: 2026-05-05 22:00
   source: audit-2026-05-05-sixth-pass
   started: 2026-05-05 22:00
   completed: 2026-05-05 22:30
-  context: Audit D8/D17 last open question for Reviewer D. Answer expected
-    to be "Gaussian is conservative" since signal-dep zeroes noise on
-    low-amplitude channels.
-  success_criteria: results/obj029_signal_dep_noise.{png,json} produced;
-    1-paragraph note in §7.5; D q2 moves to full.
-  notes: 'Confirmed: signal-dep R² is strictly above Gaussian R² at every c
-    (low-amp channels emit less corruption). At matched effective σ the two
-    curves coincide ±0.05. Gaussian is the conservative noise model. §7.5
-    paragraph added (4 lines). Reviewer D q2 moves from open → full. Sig-
-    question coverage now 15/15 full.'
-
-- objective: 'T29 Pin KSG estimator behavior + add docstring warning. Audit D2
-    found estimate_mi_ksg under-reports MI by 30-100% on bivariate Gaussian
-    (clamps zero at rho≤0.6, recovers 66% at rho=0.9). Pin in tests/test_components.py
-    so a future refactor cannot silently change paper numbers. Add a Warning
-    section to the docstring noting the under-estimation and pointing to
-    linear-probe Gaussian-MI as the preferred estimator for high-dimensional
-    obs.'
+  context: Audit D8/D17 last open question for Reviewer D. Answer expected to be "Gaussian
+    is conservative" since signal-dep zeroes noise on low-amplitude channels.
+  success_criteria: results/obj029_signal_dep_noise.{png,json} produced; 1-paragraph
+    note in §7.5; D q2 moves to full.
+  notes: 'Confirmed: signal-dep R² is strictly above Gaussian R² at every c (low-amp
+    channels emit less corruption). At matched effective σ the two curves coincide
+    ±0.05. Gaussian is the conservative noise model. §7.5 paragraph added (4 lines).
+    Reviewer D q2 moves from open → full. Sig- question coverage now 15/15 full.'
+- objective: T29 Pin KSG estimator behavior + add docstring warning. Audit D2 found
+    estimate_mi_ksg under-reports MI by 30-100% on bivariate Gaussian (clamps zero
+    at rho≤0.6, recovers 66% at rho=0.9). Pin in tests/test_components.py so a future
+    refactor cannot silently change paper numbers. Add a Warning section to the docstring
+    noting the under-estimation and pointing to linear-probe Gaussian-MI as the preferred
+    estimator for high-dimensional obs.
   priority: 2
   status: completed
   added: 2026-05-05 15:00
   source: audit-2026-05-05-deep
   started: 2026-05-05 15:30
   completed: 2026-05-05 15:45
-  context: Done in same session as audit. Tests added; docstring warning
-    queued for the same commit.
-  success_criteria: 3 KSG tests in test_components.py (independent, rho=0.6,
-    rho=0.9 partial recovery) all pass; docstring includes Warning block.
-  notes: 3 tests added (TestKSGEstimator), all pass. 4 Organism shape tests
-    + 1 random-policy SA test also added in the same pass (TestOrganismShape,
-    TestSAOnConstantPolicy). 39/39 pytest passing.
-
-- objective: 'T30 Decide on draft.md vs main.tex source-of-truth. Audit D3
-    documented drift: main.tex has §Oracle-free proxy estimation (only there);
-    draft.md has §Future work (only there). Plus today''s §5.7 figure landed
-    only in main.tex. Recommendation: deprecate draft.md after May 6 submission;
-    treat main.tex as sole authoritative manuscript. Action: add a one-line
-    DEPRECATED notice to draft.md preamble OR re-sync from main.tex.'
+  context: Done in same session as audit. Tests added; docstring warning queued for
+    the same commit.
+  success_criteria: 3 KSG tests in test_components.py (independent, rho=0.6, rho=0.9
+    partial recovery) all pass; docstring includes Warning block.
+  notes: 3 tests added (TestKSGEstimator), all pass. 4 Organism shape tests + 1 random-policy
+    SA test also added in the same pass (TestOrganismShape, TestSAOnConstantPolicy).
+    39/39 pytest passing.
+- objective: 'T30 Decide on draft.md vs main.tex source-of-truth. Audit D3 documented
+    drift: main.tex has §Oracle-free proxy estimation (only there); draft.md has §Future
+    work (only there). Plus today''s §5.7 figure landed only in main.tex. Recommendation:
+    deprecate draft.md after May 6 submission; treat main.tex as sole authoritative
+    manuscript. Action: add a one-line DEPRECATED notice to draft.md preamble OR re-sync
+    from main.tex.'
   priority: 3
   status: pending
   added: 2026-05-05 15:00
   source: audit-2026-05-05-deep
-  context: D3 finding. Maintaining two diverging manuscripts is overhead with
-    no benefit at this stage.
-  success_criteria: draft.md either tagged DEPRECATED at the top or fully
-    re-synced. Decision committed with rationale.
-
-- objective: 'T31 Refresh claim_to_evidence.md after fig5 landing. Reviewer C
-    (Info Theorist) signature question (rate-distortion curve) is now answered
-    by paper §5.7 + fig5_infobound. Update the per-reviewer status table to
-    reflect the concrete artifact reference. Reviewer A also benefits from
-    obj-019/020/021 backfill now visible in objectives.yaml.'
+  context: D3 finding. Maintaining two diverging manuscripts is overhead with no benefit
+    at this stage.
+  success_criteria: draft.md either tagged DEPRECATED at the top or fully re-synced.
+    Decision committed with rationale.
+- objective: T31 Refresh claim_to_evidence.md after fig5 landing. Reviewer C (Info
+    Theorist) signature question (rate-distortion curve) is now answered by paper
+    §5.7 + fig5_infobound. Update the per-reviewer status table to reflect the concrete
+    artifact reference. Reviewer A also benefits from obj-019/020/021 backfill now
+    visible in objectives.yaml.
   priority: 3
   status: completed
   added: 2026-05-05 15:00
   source: audit-2026-05-05-deep
   started: 2026-05-05 17:30
   completed: 2026-05-05 17:50
-  context: claim_to_evidence.md was last refreshed 2026-04-19 (16 days stale).
-    Several reviewer-mitigation items have landed since.
-  success_criteria: claim_to_evidence.md reflects current state with concrete
-    artifact citations (paper section + figure label) per reviewer.
+  context: claim_to_evidence.md was last refreshed 2026-04-19 (16 days stale). Several
+    reviewer-mitigation items have landed since.
+  success_criteria: claim_to_evidence.md reflects current state with concrete artifact
+    citations (paper section + figure label) per reviewer.
   notes: Refreshed with refresh-notes preamble, signature-question→paper-location
     map (15 questions × 5 reviewers), and stale TODOs marked DONE for B and C.
-
-- objective: 'T32 Drop orphan bibliography entry (radford2021learning) and
-    re-verify all bib entries are cited. Audit D7 found the CLIP citation
-    defined but never used. Remove the \bibitem and reverify with grep.'
+- objective: T32 Drop orphan bibliography entry (radford2021learning) and re-verify
+    all bib entries are cited. Audit D7 found the CLIP citation defined but never
+    used. Remove the \bibitem and reverify with grep.
   priority: 3
   status: completed
   added: 2026-05-05 18:00
@@ -964,64 +946,58 @@ queue:
   started: 2026-05-05 18:00
   completed: 2026-05-05 18:05
   context: Bibliography sanity caught one orphan in the third audit pass.
-  success_criteria: All \bibitem entries are cited at least once; pdflatex
-    compiles clean; page count unchanged.
-  notes: radford2021learning bibitem removed. PDF stays at 10 pages. 39/39 tests
-    still pass.
-
-- objective: 'T33 Reviewer D anchor: add a one-sentence "embedding_dim ≈
-    working-memory slots, not cortical neurons" anchor to §3 or §5.7.
-    Reviewer D signature question 1 ("cortical neurons, WM slots, or what?")
-    is currently answered only by §5.7 biological-channel calibration; an
-    explicit framing sentence would close the gap.'
+  success_criteria: All \bibitem entries are cited at least once; pdflatex compiles
+    clean; page count unchanged.
+  notes: radford2021learning bibitem removed. PDF stays at 10 pages. 39/39 tests still
+    pass.
+- objective: 'T33 Reviewer D anchor: add a one-sentence "embedding_dim ≈ working-memory
+    slots, not cortical neurons" anchor to §3 or §5.7. Reviewer D signature question
+    1 ("cortical neurons, WM slots, or what?") is currently answered only by §5.7
+    biological-channel calibration; an explicit framing sentence would close the gap.'
   priority: 3
   status: completed
   added: 2026-05-05 18:00
   source: audit-2026-05-05-third-pass
   started: 2026-05-05 18:10
   completed: 2026-05-05 18:12
-  context: Audit D8 signature-question map shows Reviewer D q1 as "partial".
-    A 1-sentence addition could move it to "full".
-  success_criteria: One sentence added near the embedding_dim definition or
-    §5.7 calibration paragraph framing it as a working-memory analogue.
-  notes: Added 3-line paragraph after Table 1 (perception variables) in §3.2
-    framing embedding_dim as WM-slot analogue. Page count stays at 10. PDF
-    recompiles clean.
-
-- objective: 'T34 Reviewer D animal-experiment prediction: add 1-2 sentences
-    proposing a concrete behavioral prediction (e.g., monocular deprivation
-    in mice should drop SA in V1-driven visuomotor tasks below the
-    learnability threshold within the BDNF critical period). Currently §7.4
-    cites Blakemore-Cooper but does not state a fresh testable prediction.'
+  context: Audit D8 signature-question map shows Reviewer D q1 as "partial". A 1-sentence
+    addition could move it to "full".
+  success_criteria: One sentence added near the embedding_dim definition or §5.7 calibration
+    paragraph framing it as a working-memory analogue.
+  notes: Added 3-line paragraph after Table 1 (perception variables) in §3.2 framing
+    embedding_dim as WM-slot analogue. Page count stays at 10. PDF recompiles clean.
+- objective: 'T34 Reviewer D animal-experiment prediction: add 1-2 sentences proposing
+    a concrete behavioral prediction (e.g., monocular deprivation in mice should drop
+    SA in V1-driven visuomotor tasks below the learnability threshold within the BDNF
+    critical period). Currently §7.4 cites Blakemore-Cooper but does not state a fresh
+    testable prediction.'
   priority: 3
   status: completed
   added: 2026-05-05 18:00
   source: audit-2026-05-05-third-pass
   started: 2026-05-05 19:00
   completed: 2026-05-05 19:05
-  context: Audit D8 q3 for Reviewer D marked "partial" — citation present, no
-    fresh prediction.
-  success_criteria: 1-2 sentences in §7.4 or §7.6 stating a testable
-    biological prediction.
-  notes: 4-sentence prediction added in §7.4 (after pruning analogy). States
-    that monocular deprivation during BDNF critical period should drop SA
-    in visuomotor reaching below threshold; the integrated time-below-threshold
-    is the predicted dose-response variable. PDF stays at 10 pages.
-
-- objective: 'T30 Decide on draft.md vs main.tex source-of-truth: add a
-    DEPRECATED preamble to paper/draft.md pointing to main.tex; record drift
-    inventory pointer to audit-2026-05-05.md D3.'
+  context: Audit D8 q3 for Reviewer D marked "partial" — citation present, no fresh
+    prediction.
+  success_criteria: 1-2 sentences in §7.4 or §7.6 stating a testable biological prediction.
+  notes: 4-sentence prediction added in §7.4 (after pruning analogy). States that
+    monocular deprivation during BDNF critical period should drop SA in visuomotor
+    reaching below threshold; the integrated time-below-threshold is the predicted
+    dose-response variable. PDF stays at 10 pages.
+- objective: 'T30 Decide on draft.md vs main.tex source-of-truth: add a DEPRECATED
+    preamble to paper/draft.md pointing to main.tex; record drift inventory pointer
+    to audit-2026-05-05.md D3.'
   priority: 3
   status: completed
   added: 2026-05-05 15:00
   source: audit-2026-05-05-deep
   started: 2026-05-05 19:05
   completed: 2026-05-05 19:08
-  context: D3 found drift between draft.md and main.tex. main.tex is the
-    submission target.
-  success_criteria: paper/draft.md has DEPRECATED preamble; commits frozen
-    at the 2026-03-27 last-updated date.
-  notes: Block-quoted DEPRECATED preamble added to draft.md pointing to
-    main.tex. Lists the 5 specific drift items (Oracle-free proxy section,
-    §5.7 figure, §3.2 WM-slot anchor, §7.4 biological prediction, orphan
-    citation removal). After-submission action documented but not gated.
+  context: D3 found drift between draft.md and main.tex. main.tex is the submission
+    target.
+  success_criteria: paper/draft.md has DEPRECATED preamble; commits frozen at the
+    2026-03-27 last-updated date.
+  notes: Block-quoted DEPRECATED preamble added to draft.md pointing to main.tex.
+    Lists the 5 specific drift items (Oracle-free proxy section, §5.7 figure, §3.2
+    WM-slot anchor, §7.4 biological prediction, orphan citation removal). After-submission
+    action documented but not gated.
