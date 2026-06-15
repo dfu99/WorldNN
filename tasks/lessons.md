@@ -202,6 +202,18 @@
   was bibitem-defined but never cited in body — caught by `grep \\\\cite`
   vs `grep \\\\bibitem`. Run before every submission.
 
+## Writing
+
+- **Woven citations cost body budget.** Adding 30 NeurIPS-style citations
+  with inline prose weave (one or two sentences each into §3.1, §5.7,
+  Related Work, §7) cost ~1-2pp of body length — pushed an 8.5-9pp draft
+  to 10-11pp, breaching the NeurIPS 9-page limit. The bibliography itself
+  is free (refs/appendix are unlimited at NeurIPS); the cost lives in the
+  prose hooks needed to motivate each cite. If a paper is budget-bound,
+  expand the bibliography but defer weaving to the appendix's Extended
+  Related Work, then trim back the body integrations to one-clause
+  parentheticals. Lesson surfaced during obj-037 (commit 050dd18).
+
 ## Process
 
 - **Autonomy is the contract.** PI codifies evals and constraints; the

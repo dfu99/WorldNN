@@ -1121,3 +1121,32 @@ objectives:
       tasks won't expose these.
     connects_to: null
     completed_date: "2026-05-13"
+
+  - id: obj-037
+    status: completed
+    statement: "Bibliography expansion 13 → 43 entries; key citations woven into body across 8 thematic categories"
+    methodology: >
+      Audited the 13-entry NeurIPS bibliography for thinness; added 30
+      entries across POMDP/RL theory, world-models lineage, representation
+      learning for RL, MI estimators, sensorimotor contingencies,
+      asymmetric AC, and active perception. Wove key citations into §3.1
+      (POMDP+VAE), §5.7 (KSG/MINE), Related Work, and §7 (active
+      perception, curiosity, critical periods, domain randomization).
+      Moved Supplementary to \appendix.
+    metrics:
+      pre_existing_entries: 13
+      entries_added: 30
+      total_entries: 43
+      categories: 8
+      body_pages_after: "10-11 (over 9-page NeurIPS limit; PI-flagged)"
+    figures:
+      - figures/obj037_bibliography_expansion.png
+    conclusions: >
+      Bibliography is now NeurIPS-conventional in breadth. Body pages
+      overran the 9-page limit by 1-2 pages; PI must decide whether to
+      trim §7.5 SA-vs-recon paragraph further or accept the overrun.
+      Lesson: 30 woven citations cost ~1-2pp of body budget; future
+      expansions should consider bibliography-only additions if
+      budget-bound.
+    connects_to: null
+    completed_date: "2026-06-13"

@@ -102,6 +102,13 @@ exhausted agent-doable scope. The pre-commit hook at
 
 ## Recently completed
 
+- [2026-06-13] obj-037 NeurIPS bibliography expansion 13 → 43 entries
+  across 8 thematic categories (POMDP/RL, world models, rep. learning,
+  VAE/info-theory, sensorimotor, neuroscience, asymmetric/curiosity,
+  free energy). Key citations woven into §3.1, §5.7, Related Work, §7.
+  Body grew to 10-11pp (over 9-page NeurIPS limit) — PI must decide
+  whether to trim §7.5 or accept overrun. Visualization at
+  `figures/obj037_bibliography_expansion.png`.
 - [2026-05-13] obj-036 1D-positioning sensory-capacity sweep — |SA| ≈
   0.60 uniformly across 45 cells, all crossing the learnability
   threshold but with NO sensory/embed gradient. 1D positioning is too
