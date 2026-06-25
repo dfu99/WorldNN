@@ -807,7 +807,7 @@ queue:
     as fig5_infobound), decide on fig2_dynamics orphan, send PDF to PI for approval.
     The ship-list from audit-2026-05-05.md.'
   priority: 1
-  status: in_progress
+  status: completed
   added: 2026-05-05 12:30
   source: audit-2026-05-05
   context: NeurIPS 2026 deadline May 6. Single biggest blocker is the placeholder
@@ -815,19 +815,32 @@ queue:
   success_criteria: paper/neurips2026/main.pdf compiled with official .sty, ≤9 main
     pages, fig5_infobound.pdf promoted and cited in §5.7, PR sent to PI.
   started: 2026-05-17 21:33
+  completed: 2026-05-17 21:36
+  commits: 45
+  notes: Recovered completion from done marker after stale session.
 - objective: 'T26 Backfill objectives.yaml: add entries for obj-019 (SA physics transfer
     93-106%), obj-020 (appearance transfer 89-102%), obj-021 (2-rock 6D r=-0.728).
     Each should have statement, methodology, metrics from existing JSONs in results/,
     figures path, conclusions. Information lives in commit messages 39f08db, 9aef22e
     and result JSONs.'
   priority: 2
-  status: pending
+  status: completed
   added: 2026-05-05 12:30
   source: audit-2026-05-05
   context: Audit found obj-019/020/021 are claimed in commits and the paper but missing
     from objectives.yaml.
   success_criteria: Three new entries appended; obj-022.connects_to and obj-026.connects_to
     chained correctly through obj-021.
+  started: 2026-05-17 21:36
+  completed: 2026-05-17 21:37
+  commits: 2
+  notes: "T26 BACKFILL OBJECTIVES.YAML — ALREADY COMPLETE (resend received 2026-05-15)\n\
+    \nobj-019/020/021 entries were backfilled during the 2026-05-05 audit:\n- Initial\
+    \ backfill: pass 2 ship-list commit ~6078e039\n- Number-correction pass: D6 commit\
+    \ d350afe (obj-020 retention range\n  89-102 → 89-110, obj-021 oracle SA 0.55\
+    \ → 0.588)\n\nVerification (tasks/objectives.yaml):\n  638:  - id: obj-019\n \
+    \ 667:  - id: obj-020\n  693:  - id: obj-021\n\nEach has statement, methodology,\
+    \ metrics, figures path, conclusions.\nconn"
 - objective: 'T27 Test suite expansion: add tests for Organism.forward shape contracts,
     compute_sa_sensory on a synthetic (state, obs) pair, estimate_mi_ksg against a
     known-MI distribution, MultiRockMatter shape contracts, and the sensory-dim slicing
@@ -912,13 +925,23 @@ queue:
     manuscript. Action: add a one-line DEPRECATED notice to draft.md preamble OR re-sync
     from main.tex.'
   priority: 3
-  status: pending
+  status: completed
   added: 2026-05-05 15:00
   source: audit-2026-05-05-deep
   context: D3 finding. Maintaining two diverging manuscripts is overhead with no benefit
     at this stage.
   success_criteria: draft.md either tagged DEPRECATED at the top or fully re-synced.
     Decision committed with rationale.
+  started: 2026-05-17 21:37
+  completed: 2026-05-17 22:59
+  commits: 1
+  notes: "T30 DRAFT.MD DEPRECATION — ALREADY COMPLETE (resend received 2026-05-15)\n\
+    \npaper/draft.md already carries the DEPRECATED block-quote preamble\nlanded in\
+    \ audit pass 4 (commit 5c38464 / D11).\n\nVerification (head -15 of paper/draft.md):\n\
+    \n  # Sensorimotor Alignment Predicts Learning in Asymmetric ...\n\n  > **DEPRECATED\
+    \ 2026-05-05.** Authoritative manuscript is\n  > `paper/neurips2026/main.tex`.\
+    \ This markdown draft has drifted\n  > (missing §Oracle-free proxy estimation,\
+    \ the §5.7 figure citation,\n  > the "
 - objective: T31 Refresh claim_to_evidence.md after fig5 landing. Reviewer C (Info
     Theorist) signature question (rate-distortion curve) is now answered by paper
     §5.7 + fig5_infobound. Update the per-reviewer status table to reflect the concrete

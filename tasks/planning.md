@@ -12,6 +12,26 @@ All experimental, analytical, and writing tasks are complete. The paper
 is structurally finished with LaTeX conversion, camera-ready figures,
 expanded discussion, conclusion, and oracle-free proxy estimation section.
 
+### Checkpoint 2026-06-25 — idle, awaiting PI direction
+
+No new research activity since obj-037 (2026-06-13). Agent-doable scope
+is exhausted; the project is blocked on PI-side decisions:
+
+1. **Page overrun** — obj-037 bibliography expansion pushed the body to
+   10-11pp, over the NeurIPS 9-page limit. PI must decide: trim §7.5
+   SA-vs-recon paragraph, or accept overrun for a non-NeurIPS venue.
+2. **Venue/submission** — NeurIPS 2026 deadline (May 6) passed. Official
+   `neurips_2026.sty` was never dropped in by the PI; resubmission target
+   is the PI's call.
+
+Bookkeeping this checkpoint: T25/T26/T30 audit-resends recorded as
+completed in `queue.yaml` (all were already done in the 2026-05-05 audit;
+no new objectives). AFK deep-research goal complete — `afk-policy.yaml`
+removed. Daily changelog snapshots committed.
+
+Next agent-doable item if PI wants more rigor: **obj-033 PPO hparam
+sweep** (81 configs, ~4h, needs RunPod). Optional; not blocking.
+
 ### Pre-submission checklist
 
 - [x] 4 PDF figures at 300 DPI in paper/neurips2026/figures/
@@ -102,6 +122,10 @@ exhausted agent-doable scope. The pre-commit hook at
 
 ## Recently completed
 
+- [2026-06-25] Checkpoint bookkeeping: recorded T25/T26/T30 audit-resends
+  as completed in queue.yaml (already done in 2026-05-05 audit — verified
+  by grep, no new objectives owed); removed expired AFK policy; committed
+  daily changelog snapshots. Project idle since obj-037; blocked on PI.
 - [2026-06-13] obj-037 NeurIPS bibliography expansion 13 → 43 entries
   across 8 thematic categories (POMDP/RL, world models, rep. learning,
   VAE/info-theory, sensorimotor, neuroscience, asymmetric/curiosity,
