@@ -1189,3 +1189,37 @@ objectives:
       test.
     connects_to: obj-039
     completed_date: "2026-06-25"
+
+  - id: obj-039
+    status: completed
+    statement: "Formal controllability bound ε ≥ Hb⁻¹(1−C_min) via Fano + data-processing; predicts the observed control floor"
+    methodology: >
+      Derived an information-theoretic lower bound on control error for the
+      flip-the-bit task. The Mealy machine makes the correct action
+      state-dependent, so the agent must estimate S; Fano gives I(S;E) ≥
+      1−Hb(ε), and the data-processing inequality along the perception
+      cascade (S→channels→VAE→sensors→embedding) caps I(S;E) at the
+      min-cut C_min. Combined: ε ≥ Hb⁻¹(1−C_min). Plugged in the measured
+      KSG perception MI from obj-025 to predict the toy's error floor.
+    metrics:
+      bound: "epsilon >= Hb_inv(1 - C_min)"
+      C_min_measured_bits: 0.331        # KSG MI at sensory=16, nats→bits
+      predicted_error_floor: 0.175      # Hb_inv(1-0.331)
+      observed_peak_abs_SA: 0.233       # consistent with a hard floor
+      tools: "Fano inequality + data-processing inequality (both standard)"
+      new_compute: none
+    figures:
+      - figures/controllability_bound.png
+    conclusions: >
+      The bound is architecture-independent (depends on channel capacities,
+      not the policy), making it an impossibility result rather than a
+      correlation. It quantitatively explains the long-observed floor: the
+      perception chain delivers only 0.33 bits about the state, forcing
+      error ≥ 17.5% for any agent — the floor effect is the bound biting,
+      not a training artifact. Series structure ⇒ hard min() with no
+      substitution; genuine sensory↔memory substitution needs a
+      temporally-extended partial-observability task (obj-040), where the
+      trade becomes (sensory bits/step × integration steps). Derivation:
+      tasks/research/controllability_bound_derivation_2026-06-27.md.
+    connects_to: obj-040
+    completed_date: "2026-06-27"
