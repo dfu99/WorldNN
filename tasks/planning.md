@@ -130,24 +130,38 @@ exhausted agent-doable scope. The pre-commit hook at
 
 ## Next priority (2026-06-25 pivot)
 
-1. **obj-039 — formal derivation of the min-cut controllability bound** for
-   the flip-the-bit task (theory, no GPU). Define H_task(ε), the per-edge
-   capacities, and prove performance ≤ f(min-cut). Check the existing
-   substitution data against the predicted exchange rate. This is the
-   artifact that decides whether the reframe is real.
-2. **obj-040 — task redesign so memory actually binds.** Current toy is
-   too easy (sensing always dominates). Design a partial-observability /
-   delayed-state-estimation variant where internal memory is forced to
-   carry task bits, so the min-cut has a real choice of cuts. Then re-run
-   the capacity grid. Likely needs GPU.
-3. **obj-041 — architecture-independence test:** sweep architectures
-   (MLP width, RNN, attention) at fixed channel capacities; show none
-   beats the min-cut floor (the impossibility result).
+- [x] **obj-039 — formal derivation of the min-cut controllability bound.**
+  DONE 2026-06-27. ε ≥ Hb⁻¹(1−C_min) via Fano + data-processing;
+  architecture-independent ⇒ impossibility result. Quantitatively predicts
+  the observed floor (0.33 measured bits → 17.5% error floor). Derivation +
+  figure committed (`tasks/research/controllability_bound_derivation_2026-06-27.md`).
 
-Hold on the formal derivation if the PI redirects what "impactful" means.
+1. **obj-040 — task redesign so memory actually binds** (next, needs GPU).
+   Current toy is static/single-step ⇒ series chain ⇒ hard min() with NO
+   substitution. To get a real sensory↔memory exchange rate, build a
+   *temporally extended, partially observed* variant where memory must
+   integrate state across steps. Then the trade becomes (sensory bits/step
+   × integration steps) ≥ 1. Re-run the capacity grid and test whether the
+   predicted exchange rate appears.
+2. **obj-041 — architecture-independence test:** sweep architectures
+   (MLP width, RNN, attention) at fixed channel capacities; show none
+   beats the min-cut floor (confirms the impossibility result empirically).
+
+**Decision gate:** obj-040/041 are the empirical backbone of the reframe.
+Holding the GPU spend until the PI confirms the min-cut bound is the
+direction he wants — I've sent the bound + floor-prediction as the concrete
+"impactful" artifact and offered to drop it. obj-039 (theory) was cheap and
+de-risks that ask; obj-040 (task redesign + grid sweep) is the first real
+compute commitment and should wait for a green light or a clear autonomy
+window.
 
 ## Recently completed
 
+- [2026-06-27] obj-039 formal controllability bound — ε ≥ Hb⁻¹(1−C_min)
+  (Fano + data-processing). Architecture-independent impossibility result.
+  Predicts the observed control floor quantitatively (0.33 bits → 17.5%
+  error floor), explaining the long-standing floor effect as the bound
+  biting. Theory + figure, no compute.
 - [2026-06-25] obj-038 min-cut reframe first test — |SA| tracks
   min(sensory, memory) at r=0.67 vs 0.47/0.39 single-axis; qualitative
   min-cut fingerprint on existing data, no compute. Reframe memo +
