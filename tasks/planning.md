@@ -12,25 +12,33 @@ All experimental, analytical, and writing tasks are complete. The paper
 is structurally finished with LaTeX conversion, camera-ready figures,
 expanded discussion, conclusion, and oracle-free proxy estimation section.
 
-### Checkpoint 2026-06-25 — idle, awaiting PI direction
+### DIRECTION PIVOT 2026-06-25 — PI: "dressed up trivialities"
 
-No new research activity since obj-037 (2026-06-13). Agent-doable scope
-is exhausted; the project is blocked on PI-side decisions:
+PI rejected the paper's framing as not impactful: the headline is a
+correlation between an alignment score and learning speed — trivial on a
+single toy. **Active pivot: from correlation to an information-theoretic
+controllability bound (min-cut over the perception-action loop).**
 
-1. **Page overrun** — obj-037 bibliography expansion pushed the body to
-   10-11pp, over the NeurIPS 9-page limit. PI must decide: trim §7.5
-   SA-vs-recon paragraph, or accept overrun for a non-NeurIPS venue.
-2. **Venue/submission** — NeurIPS 2026 deadline (May 6) passed. Official
-   `neurips_2026.sty` was never dropped in by the PI; resubmission target
-   is the PI's call.
+The reframe (memo: `tasks/research/reframe_controllability_bound_2026-06-25.md`):
+model the loop as a graph of lossy channels; controllability is set by its
+min-cut. Two non-trivial, testable consequences — sensory bandwidth and
+embedding capacity substitute at a *derived* exchange rate; *no
+architecture* beats the floor (impossibility result). Novelty vs. prior
+control-info bounds: the bottleneck here is the agent's *internal memory*,
+through a *learned* lossy channel measured end-to-end.
 
-Bookkeeping this checkpoint: T25/T26/T30 audit-resends recorded as
-completed in `queue.yaml` (all were already done in the 2026-05-05 audit;
-no new objectives). AFK deep-research goal complete — `afk-policy.yaml`
-removed. Daily changelog snapshots committed.
+**First test passed (obj-038, no compute):** |SA| tracks
+min(sensory, memory) at r=0.67 vs 0.47/0.39 single-axis — the qualitative
+min-cut fingerprint. Weak effects because the toy is near its
+controllability floor (memory rarely binds). Figure:
+`figures/mincut_first_test.png`. Awaiting PI confirmation that this is the
+right notion of "impactful"; offered to drop if his thinking diverges.
 
-Next agent-doable item if PI wants more rigor: **obj-033 PPO hparam
-sweep** (81 configs, ~4h, needs RunPod). Optional; not blocking.
+#### Old blockers (still open, lower priority now)
+- **Page overrun** — bibliography expansion pushed the NeurIPS body to
+  10-11pp (limit 9). PI decision: trim or accept for another venue.
+- **Venue/submission** — NeurIPS 2026 deadline (May 6) passed; official
+  `.sty` never dropped in. Resubmission target is the PI's call.
 
 ### Pre-submission checklist
 
@@ -120,8 +128,30 @@ exhausted agent-doable scope. The pre-commit hook at
 `.githooks/pre-commit` and the test suite expansion (46/46 passing,
 12/12 surfaces) are durable infrastructure additions.
 
+## Next priority (2026-06-25 pivot)
+
+1. **obj-039 — formal derivation of the min-cut controllability bound** for
+   the flip-the-bit task (theory, no GPU). Define H_task(ε), the per-edge
+   capacities, and prove performance ≤ f(min-cut). Check the existing
+   substitution data against the predicted exchange rate. This is the
+   artifact that decides whether the reframe is real.
+2. **obj-040 — task redesign so memory actually binds.** Current toy is
+   too easy (sensing always dominates). Design a partial-observability /
+   delayed-state-estimation variant where internal memory is forced to
+   carry task bits, so the min-cut has a real choice of cuts. Then re-run
+   the capacity grid. Likely needs GPU.
+3. **obj-041 — architecture-independence test:** sweep architectures
+   (MLP width, RNN, attention) at fixed channel capacities; show none
+   beats the min-cut floor (the impossibility result).
+
+Hold on the formal derivation if the PI redirects what "impactful" means.
+
 ## Recently completed
 
+- [2026-06-25] obj-038 min-cut reframe first test — |SA| tracks
+  min(sensory, memory) at r=0.67 vs 0.47/0.39 single-axis; qualitative
+  min-cut fingerprint on existing data, no compute. Reframe memo +
+  figure committed. Direct response to PI "dressed up trivialities".
 - [2026-06-25] Checkpoint bookkeeping: recorded T25/T26/T30 audit-resends
   as completed in queue.yaml (already done in 2026-05-05 audit — verified
   by grep, no new objectives owed); removed expired AFK policy; committed

@@ -1148,5 +1148,44 @@ objectives:
       Lesson: 30 woven citations cost ~1-2pp of body budget; future
       expansions should consider bibliography-only additions if
       budget-bound.
-    connects_to: null
+    connects_to: obj-038
     completed_date: "2026-06-13"
+
+  - id: obj-038
+    status: completed
+    statement: "Min-cut reframe first test: control alignment tracks min(sensory, memory) capacity at r=0.67 vs 0.47/0.39 single-axis"
+    methodology: >
+      Responding to PI feedback that the correlation-based result is
+      trivial, reframed the central claim as an information-theoretic
+      controllability bound: model the perception-action loop as a graph
+      of lossy channels; controllability is governed by its min-cut, so
+      performance should track the TIGHTER of sensory bandwidth and
+      embedding (memory) capacity rather than a smooth blend. Tested this
+      on the existing 100-cell sensory×embed grid (no new compute) by
+      correlating |SA| against sensory rank, embedding rank, and
+      min(sensory, embedding) rank.
+    metrics:
+      grid_cells: 100
+      sensory_levels: [2, 4, 8, 16]
+      embedding_levels: [2, 4, 8, 16, 32]
+      corr_SA_vs_min_capacity: 0.673
+      corr_SA_vs_sensory_only: 0.465
+      corr_SA_vs_memory_only: 0.391
+      peak_abs_SA: 0.233   # at balanced sensory=16, embed=16
+      over_provision_drop: "embed 16→32 at sensory=16 lowers |SA| 0.233→0.145"
+      new_compute: none
+    figures:
+      - figures/mincut_first_test.png
+    conclusions: >
+      Control alignment correlates with the MINIMUM of the two capacities
+      better than with either axis alone — the qualitative fingerprint of
+      a series min-cut. Over-provisioning memory past the sensory limit
+      lowers performance, consistent with a binding bottleneck. Effects
+      are small because the rock-push toy sits near its controllability
+      floor, so the perception edge almost always binds and memory rarely
+      does; this diagnoses the needed redesign (a task where memory
+      actually binds). Encouraging-but-not-proof; motivates a formal
+      derivation of the bound (obj-039) and an architecture-independence
+      test.
+    connects_to: obj-039
+    completed_date: "2026-06-25"

@@ -243,3 +243,25 @@
   (exit 0 if safe). Use `mc runpod await <gb> --timeout N` to block
   until free. Small PPO jobs (~2K params, batch=256) use ~0.3 GB; VAE
   pretraining (batch=512) can hit 2-4 GB.
+
+## Research framing (added 2026-06-25)
+
+- **Correlation-on-a-toy reads as trivial; reframe to a *limit*.** The PI
+  rejected the SA result as "dressed up trivialities" — a hand-designed
+  alignment score correlating with learning speed, on one toy, with small
+  effects, confirming an obvious intuition. The fix is not more polish: it
+  is to convert the central claim from a measured correlation into a
+  *provable bound* (here, a min-cut over the perception-action loop, with
+  an architecture-independence impossibility result). Reviewers forgive a
+  toy that *demonstrates* a proven limit; they do not forgive a toy whose
+  only output is a correlation. When a result feels incremental, ask:
+  "what is the theorem this is empirical evidence *for*?"
+
+- **Test a reframe on existing data before spending compute.** Before
+  committing to the min-cut reframe I correlated |SA| against
+  min(sensory, embedding) on the already-collected 100-cell grid — zero
+  new compute, ~20 min. It returned r=0.67 vs 0.47/0.39 single-axis (the
+  min-cut fingerprint), which justified the pivot *and* revealed the toy
+  sits near its controllability floor (memory rarely binds). A cheap
+  re-analysis of existing results can both validate a new framing and
+  diagnose the next experiment's design.
