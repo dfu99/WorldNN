@@ -265,3 +265,20 @@
   sits near its controllability floor (memory rarely binds). A cheap
   re-analysis of existing results can both validate a new framing and
   diagnose the next experiment's design.
+
+- **Do not claim novelty without an adversarial literature check.** Twice
+  now the PI has called the central result trivial ("dressed up
+  trivialities", then "sleight of hand"). The obj-039 bound was sold as
+  "nobody has that"; in fact it is a Fano + data-processing special case of
+  the Information Bottleneck, information-theoretic control (Tatikonda–
+  Mitter), empowerment (Klyubin), and bounded-rationality rate-distortion
+  (Genewein–Braun). Before writing "novel" or "nobody has", name the three
+  closest prior works and state explicitly what is left after subtracting
+  them. If nothing is left, say so.
+- **A fancier formalism is not a contribution; relabeling is not novelty.**
+  Calling a constraint I(·;·) ≤ C "internal memory capacity" instead of
+  "channel capacity" adds nothing — data-processing treats every edge
+  identically. Reframing a trivial correlation into a trivial bound is the
+  same defect with more LaTeX. The test for a real contribution: is there a
+  *measurement or claim that would be false under the prior framework*? If
+  the new framing makes no different prediction, it is cosmetic.

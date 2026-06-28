@@ -12,7 +12,27 @@ All experimental, analytical, and writing tasks are complete. The paper
 is structurally finished with LaTeX conversion, camera-ready figures,
 expanded discussion, conclusion, and oracle-free proxy estimation section.
 
-### DIRECTION PIVOT 2026-06-25 — PI: "dressed up trivialities"
+### REASSESSMENT 2026-06-27 — bound framing conceded as NOT novel
+
+PI pushed back on obj-039: the min-cut bound is a Fano + data-processing
+special case of Information Bottleneck / info-theoretic control (Tatikonda–
+Mitter) / empowerment / bounded-rationality rate-distortion. "Internal
+memory vs channel" is a relabeling (same constraint I≤C). **The theoretical
+bound is dead as a contribution** — obj-038/039 corrected "trivial
+correlation" into "trivial-but-fancier bound." Full concession:
+`tasks/research/reassessment_2026-06-27.md`.
+
+**One live candidate (empirical, unverified-as-novel):** the *achievability
+gap* — how far below the information limit a *learned* PPO agent sits, and
+whether that gap is structured by which edge binds (passive channel vs.
+learned register). Must do an adversarial lit check BEFORE claiming novelty.
+
+**Decision posture:** theory angle closed; awaiting PI direction. Either
+(a) test the achievability gap, or (b) accept WorldNN may lack a novel core
+and wind down / repurpose. Sync with PI before any further compute — he is
+"still circling" impact and likely sees something the agent is missing.
+
+#### (superseded) DIRECTION PIVOT 2026-06-25 — PI: "dressed up trivialities"
 
 PI rejected the paper's framing as not impactful: the headline is a
 correlation between an alignment score and learning speed — trivial on a
@@ -136,24 +156,17 @@ exhausted agent-doable scope. The pre-commit hook at
   the observed floor (0.33 measured bits → 17.5% error floor). Derivation +
   figure committed (`tasks/research/controllability_bound_derivation_2026-06-27.md`).
 
-1. **obj-040 — task redesign so memory actually binds** (next, needs GPU).
-   Current toy is static/single-step ⇒ series chain ⇒ hard min() with NO
-   substitution. To get a real sensory↔memory exchange rate, build a
-   *temporally extended, partially observed* variant where memory must
-   integrate state across steps. Then the trade becomes (sensory bits/step
-   × integration steps) ≥ 1. Re-run the capacity grid and test whether the
-   predicted exchange rate appears.
-2. **obj-041 — architecture-independence test:** sweep architectures
-   (MLP width, RNN, attention) at fixed channel capacities; show none
-   beats the min-cut floor (confirms the impossibility result empirically).
+**HELD — direction in question.** obj-040 (memory-binding task redesign)
+and obj-041 (architecture-independence sweep) were the empirical backbone
+of the *bound* reframe, which is now conceded as not-a-contribution. Do NOT
+spend compute on them until the direction is resolved with the PI.
 
-**Decision gate:** obj-040/041 are the empirical backbone of the reframe.
-Holding the GPU spend until the PI confirms the min-cut bound is the
-direction he wants — I've sent the bound + floor-prediction as the concrete
-"impactful" artifact and offered to drop it. obj-039 (theory) was cheap and
-de-risks that ask; obj-040 (task redesign + grid sweep) is the first real
-compute commitment and should wait for a green light or a clear autonomy
-window.
+Candidate next step IF the achievability angle survives a literature check:
+- **achievability-gap study** — measure achieved control performance vs the
+  information limit across the existing grid; test whether the gap is
+  structured by which edge binds. Mostly re-analysis + one instrumented
+  sweep. Gate: adversarial lit check first (RL achievability vs info limits;
+  capacity utilization in learned representations).
 
 ## Recently completed
 
