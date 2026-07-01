@@ -1,5 +1,10 @@
 # Head Scientist Critique — Progress Tracker
 
+> **Note (2026-06): PACE access was permanently removed.** PACE jobs referenced
+> below are dead. Any remaining 8D/second-task compute goes to RunPod via
+> `mc runpod`. Current live roadmap is in `tasks/planning.md` (theory angle,
+> awaiting PI direction before further compute).
+
 ## Experiments (priority order from critique)
 
 ### 1. Formal interaction test ✅ DONE
@@ -16,7 +21,7 @@
 - First attempt (obj-017 v1, 500ep, hidden=32): FAILED — all at baseline
 - Diagnosed: insufficient episodes, hidden bottleneck, diluted reward
 - Fixed: 1000ep, hidden=64, worst-rock focused reward
-- Re-submitted to PACE RTX 6000 (job 5453852). Awaiting results.
+- Re-submitted to PACE RTX 6000 (job 5453852) — **PACE access removed 2026-06; this job is dead.** Re-run on RunPod (`mc runpod`) if the 8D second task is still needed, or drop per current planning.md.
 
 ### 4. SA dynamics during training ✅ DONE (obj-015)
 - SA slope (first 200ep) predicts final success: r = -0.705
@@ -40,7 +45,7 @@
 - [x] SA dynamics: slope r=-0.705, time-to-threshold analysis
 
 ### Not Yet Fixed
-- [ ] Only one task validated (8D re-run pending on PACE)
+- [ ] Only one task validated (8D re-run was pending on PACE; PACE removed 2026-06 — re-scope to RunPod via `mc runpod` or drop)
 - [ ] SA is post-hoc (no self-supervised proxy estimator)
 
 ## Framing Fixes — ALL DONE

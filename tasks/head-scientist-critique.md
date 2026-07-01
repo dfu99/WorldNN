@@ -1,6 +1,10 @@
 # Head Scientist Critique — WorldNN
 ## Target: ICLR 2027 (October 2026 deadline)
 
+> **Note (2026-06): PACE access was permanently removed.** Every "PACE cost",
+> "PACE job", or "PACE submission" mentioned below should be read as RunPod
+> (`mc runpod`) — that is the GPU compute path now. Do NOT submit to PACE.
+
 **VERDICT: Do not submit now. Revise first. Strong workshop paper; main-track with second task.**
 
 ## Novelty Assessment
